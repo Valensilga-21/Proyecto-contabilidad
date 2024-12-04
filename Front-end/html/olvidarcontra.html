@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Restablecer contraseña</title>
+    <title>Olvidar Contraseña</title>
     <link href="/Front-end/css/bootstrap.css" rel="stylesheet">
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css" rel="stylesheet"/>
@@ -21,9 +21,8 @@
         }
 
         h2{
-            font-size: 37px;
+            font-size: 40px;
             font-weight: 700;
-            padding-bottom: 2%;
         }
         .login-container {
             background: #ffffff;
@@ -61,7 +60,7 @@
             color: #000000;
             text-decoration: none;
             font-weight: 500;
-            padding-top: 40px;
+            padding-top: 30px;
         }
 
         a:hover{
@@ -89,37 +88,23 @@
         }
 
         p{
-            padding-top: 0%;
+            text-align: justify;
+            color: #000000;
             padding-bottom: 10%;
-            font-size: 17px;
         }
     </style>
 </head>
 <body>
-    <a href="#" class="back-btn"><box-icon name='left-arrow-circle' color="#39A900" size="40px"></box-icon></a>
+    <a href="/Front-end/html/iniciosesion.html" class="back-btn"><box-icon name='left-arrow-circle' color="#39A900" size="40px"></box-icon></a>
     <div class="login-container text-center">
-        <h2>Cambiar contraseña</h2>
-        <p>Es importante que escojas una contraseña fuerte y única para la seguridad de tu cuenta.</p>
+        <h2 class="mb-4">¿Olvidaste tu contraseña?</h2>
+        <p>Por favor, ingrese su dirección de correo electrónico. Le enviaremos los pasos correspondientes para que pueda restablecer su contraseña.</p>
         <form>
-            <div class="mb-4">
-                <label for="contraseña" class="form-label visually-hidden">Contraseña actual</label>
+            <div class="mb-3">
+                <label for="usuario" class="form-label visually-hidden">Usuario</label>
                 <div class="input-group">
-                    <span class="input-group-text"><box-icon name='lock-alt' color="#00BB00"></box-icon></span>
-                    <input type="password" class="form-control" id="contraseña" placeholder="Contraseña actual" required>
-                </div>
-            </div>
-            <div class="mb-4">
-                <label for="contraseña" class="form-label visually-hidden">Nueva contraseña</label>
-                <div class="input-group">
-                    <span class="input-group-text"><box-icon name='lock-alt' color="#00BB00"></box-icon></span>
-                    <input type="password" class="form-control" id="contraseña" placeholder="Nueva contraseña" required>
-                </div>
-            </div>
-            <div class="mb-4">
-                <label for="contraseña" class="form-label visually-hidden">Confirmar nueva contraseña</label>
-                <div class="input-group">
-                    <span class="input-group-text"><box-icon name='lock-alt' color="#00BB00"></box-icon></span>
-                    <input type="password" class="form-control" id="contraseña" placeholder="Confirmar nueva contraseña" required>
+                    <span class="input-group-text"><box-icon name='envelope' color="#00BB00"></box-icon></span>
+                    <input type="email" class="form-control" id="contraseña" placeholder="Correo electrónico" required>
                 </div>
             </div>
             <button type="submit" class="btn btn-green w-100">Siguiente</button>
