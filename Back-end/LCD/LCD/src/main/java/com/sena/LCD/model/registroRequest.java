@@ -1,4 +1,4 @@
-package com.sena.LCD.controller;
+package com.sena.LCD.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

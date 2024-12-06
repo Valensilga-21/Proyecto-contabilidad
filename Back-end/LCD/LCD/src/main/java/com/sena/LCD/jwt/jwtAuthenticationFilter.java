@@ -21,7 +21,8 @@ import lombok.AllArgsConstructor;
 
 @Component
 @AllArgsConstructor
-public class jwtAuthenticationFilter {
+public class jwtAuthenticationFilter extends OncePerRequestFilter {
+
     private final jwtService jwtService;
     private final UserDetailsService userDetailsService;
 

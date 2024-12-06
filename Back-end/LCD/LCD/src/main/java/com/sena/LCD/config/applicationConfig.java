@@ -11,12 +11,15 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.sena.LCD.interfaces.IUsuario;
+
 import lombok.RequiredArgsConstructor;
 
 @Configuration
 @RequiredArgsConstructor
 public class applicationConfig {
-    private final Iusuario usuario;
+
+    private final IUsuario usuario;
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
@@ -40,6 +43,6 @@ public class applicationConfig {
     @Bean
     public UserDetailsService userDetailsService() {
         return correo_usuario -> usuario.findByCorreoElectronico(correo_usuario)
-                .orElseThrow(() -> new UsernameNotFoundException("Usuario NO ENCONTRADO"));
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
     }
 }
