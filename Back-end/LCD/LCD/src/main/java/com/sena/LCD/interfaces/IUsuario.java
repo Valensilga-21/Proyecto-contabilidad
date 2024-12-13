@@ -11,5 +11,4 @@ import com.sena.LCD.model.usuario;
 public interface IUsuario extends JpaRepository<usuario, String> {
 
     Optional<usuario> findByCorreoElectronico(String correo_usuario);
-
 }

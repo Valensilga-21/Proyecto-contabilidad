@@ -21,8 +21,9 @@ import lombok.NoArgsConstructor;
 public class legalizacion {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_legalizacion;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id_legalizacion", nullable = false, length = 36)
+    private String id_legalizacion;
 
     @Column(name = "motivo_devo", nullable = false, length = 3000)
     private String motivo_devo;

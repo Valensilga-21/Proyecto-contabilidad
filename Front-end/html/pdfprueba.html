@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Crear PDF</h1>
+    <script type="text/javascript" src="/Front-end/jspdf.min.js"></script>
+    <a href="javascript:genPDF()">Generar PDF</a>
+    <input type="text" placeholder="Ingrese un texto" id="mitexto">
+    <script type="text/javascript">
+        function genPDF(){
+            var doc = new jsPDF();
+            let texto = document.getElementById("mitexto").value;
+            doc.text(20, 20, texto); // Usar el texto ingresado por el usuario
+            doc.save("Reporte_vencimiento_legalizaciones_CIES_Noviembre.pdf");
+        }
+    </script>
+</body>
+</html>

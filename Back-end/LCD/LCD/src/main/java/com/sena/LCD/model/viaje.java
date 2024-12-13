@@ -23,9 +23,9 @@ import lombok.NoArgsConstructor;
 public class viaje {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_viaje")
-    private Long id_viaje;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id_viaje", nullable = false, length = 36)
+    private String id_viaje;
 
     @Column(name = "num_comision", nullable = false, unique = true, length = 50)
     private String num_comision;
