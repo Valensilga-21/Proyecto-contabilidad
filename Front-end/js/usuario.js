@@ -1,106 +1,96 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const form = document.querySelector(".needs-validation");
+document.getElementById('miFormulario').addEventListener('submit', function(event) {
+  event.preventDefault();
 
-  form.addEventListener("submit", function (event) {
-    event.preventDefault();
-    event.stopPropagation();
-
-    let isValid = true;
-
-    // Validar nombre de usuario
-    const nombreUsuario = document.getElementById("nombre_usuario");
-    if (nombreUsuario.value.trim() === "" || nombreUsuario.value.length > 100) {
-      isValid = false;
-      showError(nombreUsuario, "El nombre completo es obligatorio y debe tener hasta 100 caracteres.");
-    } else {
-      clearError(nombreUsuario);
-    }
-
-    // Validar cargo
-    const cargo = document.getElementById("cargo");
-    if (cargo.value === "") {
-      isValid = false;
-      showError(cargo, "Debe seleccionar un cargo.");
-    } else {
-      clearError(cargo);
-    }
-
-    // Validar documento
-    const numDocumento = document.getElementById("num_documento");
-    if (
-      numDocumento.value.trim() === "" ||
-      isNaN(numDocumento.value) ||
-      numDocumento.value.length < 8 ||
-      numDocumento.value.length > 11
-    ) {
-      isValid = false;
-      showError(numDocumento, "El documento debe tener entre 8 y 11 caracteres numéricos.");
-    } else {
-      clearError(numDocumento);
-    }
-
-    // Validar contraseña
-    const contra = document.getElementById("contra");
-    const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
-    if (!passwordRegex.test(contra.value)) {
-      isValid = false;
-      showError(contra, "La contraseña debe tener al menos 8 caracteres, una letra mayúscula, un número y un carácter especial.");
-    } else {
-      clearError(contra);
-    }
-
-    // Validar confirmación de contraseña
-    const confirmContra = document.getElementById("confirm_contra");
-    if (confirmContra.value.trim() === "" || confirmContra.value !== contra.value) {
-      isValid = false;
-      showError(confirmContra, "Las contraseñas no coinciden.");
-    } else {
-      clearError(confirmContra);
-    }
-
-    // Validar correo electrónico
-    const correoUsuario = document.getElementById("correo_usuario");
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (correoUsuario.value.trim() === "" || !emailRegex.test(correoUsuario.value)) {
-      isValid = false;
-      showError(correoUsuario, "Debe ingresar un correo electrónico válido.");
-    } else {
-      clearError(correoUsuario);
-    }
-
-    // Validar centro
-    const centro = document.getElementById("centro");
-    if (centro.value === "") {
-      isValid = false;
-      showError(centro, "Debe seleccionar un centro.");
-    } else {
-      clearError(centro);
-    }
-
-    if (isValid) {
-      form.submit(); // Enviar el formulario si todo es válido
-    }
+  // Limpia los mensajes de error anteriores
+  const errorMessages = document.querySelectorAll('.error-message');
+  errorMessages.forEach(function(error) {
+      error.style.display = 'none';
   });
 
-  function showError(input, message) {
-    const parent = input.closest(".form-group");
-    input.classList.add("is-invalid");
-    let error = parent.querySelector(".invalid-feedback");
-    if (!error) {
-      error = document.createElement("div");
-      error.className = "invalid-feedback";
-      parent.appendChild(error);
-    }
-    error.textContent = message;
+  let isValid = true;
+
+  // Validación del campo Usuario
+  const usuario = document.getElementById('usuario').value;
+  if (usuario.trim() === '') {
+      document.getElementById('usuarioError').innerText = 'Este es un campo obligatorio.';
+      document.getElementById('usuarioError').style.display = 'block';
+      isValid = false;
   }
 
-  function clearError(input) {
-    const parent = input.closest(".form-group");
-    input.classList.remove("is-invalid");
-    const error = parent.querySelector(".invalid-feedback");
-    if (error) {
-      parent.removeChild(error);
-    }
+  // Validación del campo Cargo
+  const cargo = document.getElementById('cargo').value;
+  if (!cargo) {
+      document.getElementById('cargoError').innerText = 'Debe seleccionar un cargo.';
+      document.getElementById('cargoError').style.display = 'block';
+      isValid = false;
+  }
+
+  // Validación del campo Documento
+  const documento = document.getElementById('documento').value;
+  if (documento.trim() === '' || isNaN(documento)) {
+      document.getElementById('documentoError').innerText = 'Este es un campo obligatorio.';
+      document.getElementById('documentoError').style.display = 'block';
+      isValid = false;
+  }else if (documento.trim().length < 10) {
+    document.getElementById('documentoError').innerText = 'El número de documento debe tener al menos 10 dígitos.';
+    document.getElementById('documentoError').style.display = 'block';
+    isValid = false;
+  }
+
+  //Valida que solo se puedan digitar numeros
+  document.getElementById('documento').addEventListener('input', function (e) {
+    this.value = this.value.replace(/[^0-9]/g, '');
+  });
+
+  // Validación del campo Contraseña
+  // Debe tener una letra mayuscula, una minuscula, un caracter especial, un numero y al menos 8 digitos
+  const contraseña = document.getElementById('contrasena').value;
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+
+  if (contraseña.trim() === '') {
+    document.getElementById('contraseñaError').innerText = 'Este es un campo obligatorio.';
+    document.getElementById('contraseñaError').style.display = 'block';
+    isValid = false;
+  } else if (!passwordRegex.test(contraseña)) {
+      document.getElementById('contraseñaError').innerText = 'La contraseña debe tener al menos 8 caracteres, una letra mayúscula, una minúscula, un número y un carácter especial.';
+      document.getElementById('contraseñaError').style.display = 'block';
+      isValid = false;
+  } else {
+      document.getElementById('contraseñaError').style.display = 'none';
+  }
+
+  // Validación del campo Correo
+  const correo = document.getElementById('correo').value;
+  const correoRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!correoRegex.test(correo)) {
+      document.getElementById('correoError').innerText = 'Debe ingresar un correo válido.';
+      document.getElementById('correoError').style.display = 'block';
+      isValid = false;
+  }
+
+  const confirmarContrasena = document.getElementById('confirmarContrasena').value;
+  if (confirmarContrasena.trim() === '') {
+      document.getElementById('confirmContraError').innerText = 'Este campo es obligatorio.';
+      document.getElementById('confirmContraError').style.display = 'block';
+      isValid = false;
+  } else if (confirmarContrasena !== contraseña) {
+      document.getElementById('confirmContraError').innerText = 'Las contraseñas no coinciden.';
+      document.getElementById('confirmContraError').style.display = 'block';
+      isValid = false;
+  } else {
+      document.getElementById('confirmContraError').style.display = 'none';
+  }
+
+  // Validación del campo Centro
+  const centro = document.getElementById('centro').value;
+  if (!centro) {
+      document.getElementById('centroError').innerText = 'Debe seleccionar un cargo.';
+      document.getElementById('centroError').style.display = 'block';
+      isValid = false;
+  }
+
+  if (isValid) {
+      alert('Formulario enviado correctamente.');
+      // Aquí puedes enviar el formulario con fetch o similar
   }
 });
- 
