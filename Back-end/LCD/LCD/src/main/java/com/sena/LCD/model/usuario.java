@@ -48,7 +48,7 @@ public class usuario {
     @Column(name = "cargo", nullable = false, length = 12)
     private cargo cargo;
 
-    @Column(name = "contra", nullable = false, length = 60)
+    @Column(name = "contrasena", nullable = false, length = 60)
     private String contra;
 
     @Column(name = "confirm_contra", nullable = false, length = 60)

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Restablecer contraseña</title>
+    <title>Olvidar Contraseña</title>
     <link href="/Front-end/css/bootstrap.css" rel="stylesheet">
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css" rel="stylesheet"/>
@@ -23,7 +23,6 @@
         h2{
             font-size: 40px;
             font-weight: 700;
-            padding-bottom: 7%;
         }
         .login-container {
             background: #ffffff;
@@ -38,15 +37,16 @@
         }
         .btn-green {
             background-color: #00BB00;
-            color: white;
             font-weight: 500;
             border-radius: 12px;
-            margin-top: 7%;
+            margin-top: 5%;
+            color: #ffffff;
         }
         .btn-green:hover {
             background-color: #ffffff;
             border: 2px solid #00BB00;
             font-weight: 700;
+            color: #000000;
         }
         .back-btn {
             position: absolute;
@@ -58,16 +58,11 @@
         }
 
         a{
-            color: #000000;
+            color: #ffffff;
             text-decoration: none;
             font-weight: 500;
-            padding-top: 40px;
+            padding-top: 30px;
         }
-
-        a:hover{
-            color: #28a745;
-        }
-
 
         .login-container input {
             background-color: #EFF3F6;
@@ -87,28 +82,28 @@
             border-radius: 0 12px 12px 0;
             border-left: none;
         }
+
+        p{
+            text-align: justify;
+            color: #000000;
+            padding-bottom: 10%;
+        }
     </style>
 </head>
 <body>
-    <a href="/Front-end/html/olvidarcontra.html" class="back-btn"><box-icon name='left-arrow-circle' color="#39A900" size="40px"></box-icon></a>
+    <a href="/Front-end/html/perfil.html" class="back-btn"><box-icon name='left-arrow-circle' color="#39A900" size="40px"></box-icon></a>
     <div class="login-container text-center">
-        <h2 class="mb-4">Restablecer contraseña</h2>
+        <h2 class="mb-4">¿Deseas cambiar tu contraseña?</h2>
+        <p>Por favor, ingrese su dirección de correo electrónico. Es necesario para que pueda cambiar su contraseña de forma segura.</p>
         <form>
-            <div class="mb-4">
-                <label for="contraseña" class="form-label visually-hidden">Nueva contraseña</label>
+            <div class="mb-3">
+                <label for="usuario" class="form-label visually-hidden">Usuario</label>
                 <div class="input-group">
-                    <span class="input-group-text"><box-icon name='lock-alt' color="#00BB00"></box-icon></span>
-                    <input type="password" class="form-control" id="contraseña" placeholder="Nueva contraseña" required>
+                    <span class="input-group-text"><box-icon name='envelope' color="#00BB00"></box-icon></span>
+                    <input type="email" class="form-control" id="contraseña" placeholder="Correo electrónico">
                 </div>
             </div>
-            <div class="mb-4">
-                <label for="contraseña" class="form-label visually-hidden">Confirmar nueva contraseña</label>
-                <div class="input-group">
-                    <span class="input-group-text"><box-icon name='lock-alt' color="#00BB00"></box-icon></span>
-                    <input type="password" class="form-control" id="contraseña" placeholder="Confirmar nueva contraseña" required>
-                </div>
-            </div>
-            <button type="submit" class="btn btn-green w-100">Siguiente</button>
+            <button class="btn btn-green w-100"><a href="/Front-end/html/cambiarcontra.html">Siguiente</a></button>
         </form>
     </div>
 

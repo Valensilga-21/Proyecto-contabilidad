@@ -9,6 +9,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css" rel="stylesheet"/>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+
+    <script type="module" src="firebaseauth.js"></script>
     <style>
         body {
             background-image: url(/Front-end/img/img3589.jpg);
@@ -91,7 +93,7 @@
 </head>
 <body>
     <a href="#" class="back-btn"><box-icon name='left-arrow-circle' color="#39A900" size="40px"></box-icon></a>
-    <div class="login-container text-center">
+    <div class="login-container text-center" id="SingInMessage" class="messageDiv" style="display: none;">
         <h2 class="mb-4">Iniciar sesión</h2>
         <form>
             <div class="mb-3">
@@ -108,7 +110,7 @@
                     <input type="password" class="form-control" id="contraseña" placeholder="Contraseña" required>
                 </div>
             </div>
-            <button type="submit" class="btn btn-green w-100">Ingresar</button>
+            <button type="submit" id="submitSignUp" class="btn btn-green w-100">Ingresar</button>
         </form>
         <a href="/Front-end/html/olvidarcontra.html" class="d-block mt-4">¿Olvidaste tu contraseña?</a>
     </div>

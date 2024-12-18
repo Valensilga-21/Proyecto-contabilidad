@@ -10,7 +10,7 @@ document.getElementById('miFormulario').addEventListener('submit', function(even
   let isValid = true;
 
   // Validación del campo Usuario
-  const usuario = document.getElementById('usuario').value;
+  const usuario = document.getElementById('nombre_usuario').value;
   if (usuario.trim() === '') {
       document.getElementById('usuarioError').innerText = 'Este es un campo obligatorio.';
       document.getElementById('usuarioError').style.display = 'block';
@@ -26,7 +26,7 @@ document.getElementById('miFormulario').addEventListener('submit', function(even
   }
 
   // Validación del campo Documento
-  const documento = document.getElementById('documento').value;
+  const documento = document.getElementById('num_documento').value;
   if (documento.trim() === '' || isNaN(documento)) {
       document.getElementById('documentoError').innerText = 'Este es un campo obligatorio.';
       document.getElementById('documentoError').style.display = 'block';
@@ -38,7 +38,7 @@ document.getElementById('miFormulario').addEventListener('submit', function(even
   }
 
   //Valida que solo se puedan digitar numeros
-  document.getElementById('documento').addEventListener('input', function (e) {
+  document.getElementById('num_documento').addEventListener('input', function (e) {
     this.value = this.value.replace(/[^0-9]/g, '');
   });
 
@@ -60,7 +60,7 @@ document.getElementById('miFormulario').addEventListener('submit', function(even
   }
 
   // Validación del campo Correo
-  const correo = document.getElementById('correo').value;
+  const correo = document.getElementById('correo_usuario').value;
   const correoRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!correoRegex.test(correo)) {
       document.getElementById('correoError').innerText = 'Debe ingresar un correo válido.';
@@ -68,7 +68,7 @@ document.getElementById('miFormulario').addEventListener('submit', function(even
       isValid = false;
   }
 
-  const confirmarContrasena = document.getElementById('confirmarContrasena').value;
+  const confirmarContrasena = document.getElementById('confirm_contra').value;
   if (confirmarContrasena.trim() === '') {
       document.getElementById('confirmContraError').innerText = 'Este campo es obligatorio.';
       document.getElementById('confirmContraError').style.display = 'block';
@@ -88,9 +88,19 @@ document.getElementById('miFormulario').addEventListener('submit', function(even
       document.getElementById('centroError').style.display = 'block';
       isValid = false;
   }
-
-  if (isValid) {
-      alert('Formulario enviado correctamente.');
-      // Aquí puedes enviar el formulario con fetch o similar
-  }
 });
+
+
+const signUpButton=document.getElementById('signUpButton');
+const signInButton=document.getElementById('signInButton');
+const signInForm=document.getElementById('signIn');
+const signUpForm=document.getElementById('signup');
+
+signUpButton.addEventListener('click',function(){
+    signInForm.style.display="none";
+    signUpForm.style.display="block";
+})
+signInButton.addEventListener('click', function(){
+    signInForm.style.display="block";
+    signUpForm.style.display="none";
+})
