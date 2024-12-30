@@ -28,9 +28,11 @@ const firebaseConfig = {
         .then((docSnap)=>{
             if(docSnap.exists()){
                 const userData=docSnap.data();
-                document.getElementById('loggedUserFName').innerText=userData.firstName;
-                document.getElementById('loggedUserEmail').innerText=userData.email;
-                document.getElementById('loggedUserLName').innerText=userData.lastName;
+                document.getElementById('nombre_usuario').innerText=userData.email;
+                document.getElementById('num_documento').innerText=userData.num_documento;
+                document.getElementById('cargo').innerText=userData.cargo;
+                document.getElementById('correo_usuario').innerText=userData.email;
+                document.getElementById('centro').innerText=userData.centro;
 
             }
             else{
@@ -52,7 +54,7 @@ const firebaseConfig = {
     localStorage.removeItem('loggedInUserId');
     signOut(auth)
     .then(()=>{
-        window.location.href='index.html';
+        window.location.href='iniciosesion.html';
     })
     .catch((error)=>{
         console.error('Error Signing out:', error);

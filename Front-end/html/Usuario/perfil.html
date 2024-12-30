@@ -69,27 +69,23 @@
 
         <div class="menu-items">
             <ul class="nav-links">
-                <li><a href="/Front-end/html/inicio.html">
+                <li><a href="/Front-end/html/Usuario/inicio.html">
                     <i class="uil uil-estate"></i>
                     <span class="link-name"><b>Inicio</b></span>
                 </a></li>
-                <li><a href="/Front-end/html/usuarios.html">
-                    <i class='bx bx-group' ></i>
-                    <span class="link-name"><b>Usuarios</b></span>
-                </a></li>
-                <li><a href="/Front-end/html/legalizaciones.html">
+                <li><a href="/Front-end/html/Usuario/legalizaciones.html">
                     <i class="uil uil-chart"></i>
                     <span class="link-name"><b>Legalizaciones</b></span>
                 </a></li>
-                <li><a href="/Front-end/html/viajes.html">
+                <li><a href="/Front-end/html/Usuario/viajes.html">
                     <i class='bx bx-car'></i>
                     <span class="link-name"><b>Viajes</b></span>
                 </a></li>
-                <li><a href="/Front-end/html/perfil.html">
+                <li><a href="/Front-end/html/Usuario/perfil.html">
                     <i class='bx bx-cog' ></i>
                     <span class="link-name"><b>Perfil</b></span>
                 </a></li>
-                <li><a href="/Front-end/html/ayuda.html">
+                <li><a href="/Front-end/html/Usuario/ayuda.html">
                     <i class='bx bx-help-circle' ></i>
                     <span class="link-name"><b>Ayuda</b></span>
                 </a></li>
@@ -109,7 +105,7 @@
         <div class="box" style="margin: 2%; border-radius: 15px; box-shadow: 0px 0px 10px #c7c7c7; margin: 5% 18%;">
             <div class="row" style="padding: 5%;">
                 <div class="col-6">
-                    <h3><b>Perfil Admin</b></h3>
+                    <h3><b>Perfil</b></h3>
                 </div>
                 <div class="col-6" style="text-align: right;">
                     <button class="btn"><box-icon name='save' color='#00bb00' size="30px"></box-icon></button>
@@ -131,7 +127,7 @@
                     <label for="contraseña" class="form-label visually-hidden">Documento</label>
                     <div class="input-group">
                         <span class="input-group-text"><box-icon name='id-card' color="#00BB00"></box-icon></span>
-                        <input type="number" class="form-control" id="num_documento" placeholder="Documento" >
+                        <input type="number" class="form-control" id="num_documento" placeholder="Documento" disabled>
                     </div>
                 <div class="error-message" id="documentoError" style="color: red; display:none;"></div>
                 </div>
@@ -140,7 +136,7 @@
                     <label for="contraseña" class="form-label visually-hidden">Cargo</label>
                     <div class="input-group">
                         <span class="input-group-text"><box-icon name='briefcase' color="#00BB00"></box-icon></box-icon></box-icon></span>
-                        <select name="centro" id="cargo" class="form-select" style="background-color: #EFF3F6; border-radius: 0px 0px 10px 0px; border-left:none;">
+                        <select name="centro" id="cargo" class="form-select" style="background-color: #EFF3F6; border-radius: 0px 0px 10px 0px; border-left:none;" disabled>
                             <option value="" disabled selected>Cargo</option>
                             <option value="funcionario">Funcionario</option>
                             <option value="contratista">Contratista</option>
@@ -162,7 +158,7 @@
                     <label for="centro" class="form-label visually-hidden">Centro</label>
                     <div class="input-group" style="border-radius: 10px 10px 10px 10px; border-left:none;">
                     <span class="input-group-text"><box-icon name='buildings' color="#39A900"></box-icon></span>
-                    <select name="centro" id="centro" class="form-select" style="background-color: #EFF3F6; border-radius: 0px 0px 10px 0px; border-left:none;">
+                    <select name="centro" id="centro" class="form-select" style="background-color: #EFF3F6; border-radius: 0px 0px 10px 0px; border-left:none;" disabled>
                         <option value="" disabled selected>Centro</option>
                         <option value="cies">CIES</option>
                         <option value="direccion">Dirección</option>
