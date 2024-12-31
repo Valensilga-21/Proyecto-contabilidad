@@ -24,18 +24,18 @@ signIn.addEventListener('click', (event)=>{
 
    signInWithEmailAndPassword(auth, email, password)
 
-   Swal.fire({
-    position: "top-end",
-    icon: "success",
-    title: "Your work has been saved",
-    showConfirmButton: false,
-    timer: 2500
-  })
-   .then((userCredential)=>{
-       const user=userCredential.user;
-       localStorage.setItem('loggedInUserId', user.uid);
-       window.location.href='inicio.html';
-   })
+   .then((userCredential) => {
+    const user = userCredential.user;
+    Swal.fire({
+        icon: "success",
+        title: "Has iniciado sesión correctamente.",
+        showConfirmButton: false,
+        timer: 2000
+    }).then(() => {
+        localStorage.setItem('loggedInUserId', user.uid);
+        window.location.href = 'inicio.html';
+    });
+})
    .catch((error)=>{
        const errorCode=error.code;
        if(errorCode==='auth/invalid-credential'){
@@ -55,4 +55,12 @@ signIn.addEventListener('click', (event)=>{
         })
        }
    })
+});
+
+auth.signOut()
+  .then(() => {
+    window.location.href = '/iniciosesion';
+  })
+  .catch((error) => {
+    console.error('Error al cerrar sesión', error.message);
 });
