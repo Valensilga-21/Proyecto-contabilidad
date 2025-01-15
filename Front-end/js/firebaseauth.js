@@ -1,7 +1,8 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
-import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+import {getAuth, createUserWithEmailAndPassword,} from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
 import{getFirestore, setDoc, doc} from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js"
+import { collection, query, where, onSnapshot } from "firebase/firestore";
 
 const firebaseConfig = {
     apiKey: "AIzaSyCKTJxwwP2roq8DioEyhrBWMNN34f2JB6Y",
@@ -82,4 +83,10 @@ const signUp=document.getElementById('submitSignUp');
             })
         }
     })
+ });
+
+ db.collection("users").get().then((QuerySnapshot) => {
+     QuerySnapshot.forEach((doc) =>{
+         console.log(`${doc.id} => ${doc.data()}`);
+     });
  });

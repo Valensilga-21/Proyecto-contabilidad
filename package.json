@@ -1,5 +1,9 @@
 {
   "dependencies": {
+    "@lottiefiles/dotlottie-web": "^0.39.0",
+    "bootstrap": "^5.3.3",
+    "bootstrap-icons": "^1.11.3",
+    "firebase": "^10.9.0",
     "sweetalert2": "^11.15.3"
   }
 }

@@ -5,15 +5,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
+    <!--Icons boostrab-->
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
+    <!--Boostrab-->
     <link rel="stylesheet" href="/Front-end/css/bootstrap.css">
     <script src="/Front-end/js/bootstrap.js"></script>
 
+    <!--Css usuarios-->
     <link rel="stylesheet" href="/Front-end/css/index.css">
-    <script src="/js/index.js"></script>
 
+    <!--Firebase-->
+    <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-database.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!--Js usuario-->
+    <script type="module" src="/Front-end/js/crudusuario.js"></script>
+
+    <!--Boxicons-->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 
@@ -44,11 +55,11 @@
 <body>
     <nav>
         <div class="logo-name">
-            <div class="logo-image">
-               <img src="images/logo.png" alt="">
+            <div class="row">
+                <div id="imglogo" class="container">
+                    <img src="/Front-end/img/LCD-removebg 1.png" alt="" style="width: 180px;">
+                </div>
             </div>
-
-            <span class="logo_name">LCDSENA</span>
         </div>
 
         <div class="menu-items">
@@ -82,7 +93,7 @@
             <ul class="logout-mode">
                 <li><a href="#">
                     <i class="uil uil-signout" color="#00BB00"></i>
-                    <span class="link-name"><b>Cerrar sesion</b></span>
+                    <span class="link-name"><b>Cerrar sesión</b></span>
                 </a></li>
             </li>
             </ul>
@@ -140,7 +151,7 @@
             </div>
 
             <div class="activity-data" style="padding-top: 3%;">
-                <table class="table"  id="tablaUsuarios">
+                <table class="table">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -153,8 +164,8 @@
                             <th>Acciones</th>
                         </tr>
                     </thead>
-                    <tbody>
-
+                    <tbody id="tablaUsuarios">
+                        
                     </tbody>
                 </table>
             </div>
@@ -256,7 +267,5 @@
         </div>
     </div>
 </div>
-    <script src="script.js"></script>
-    <script src="/Front-end/js/usuario.js"></script>
 </body>
 </html>

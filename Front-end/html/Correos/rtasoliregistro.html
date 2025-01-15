@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Respuesta correo</title>
+    <link rel="stylesheet" href="/Front-end/css/bootstrap.css">
+    <script src="/Front-end/js/bootstrap.js"></script>
+
+    <!--Fuente-->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<style>
+    body{
+        background-image: url(/Front-end/img/img3589.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 70vh;
+        margin: 7%;
+    }
+
+    .content{
+        margin: 0%;
+    }
+
+    .container{
+        background-color: white;
+        border-radius: 15px;
+        box-shadow: 0px 0px 10px #b9b9b9;
+        padding: 4%;
+        max-width: 500px;
+        min-width: 150px;
+    }
+
+    .p{
+        font-size: 18px;
+        text-align: justify;
+    }
+
+    h3{
+        font-weight: 700;
+    }
+
+    img{
+        width: 35%;
+        height: 35%;
+        justify-content: left;
+        text-align: left;
+    }
+
+    a{
+        color: #39A800;
+        font-weight: 500;
+    }
+
+    @media (max-width: 560px) {
+    .container{
+        width: calc(100% / 2 - 15px);
+        margin-top: 15px;
+    }
+    }
+    @media (max-width: 560px) {
+        .container{
+            width: 100% ;
+        }
+    }
+</style>
+<body>
+    <div class="container">
+        <div class="content" style="margin: 0%;">
+            <h3 class="py-2">Hola [nombre_usuario]</h3>
+            <p>Queremos informarle que su solicitud de registro en nuestra plataforma ha sido aprovada. 
+                Si deseas ingresar, aquí te proporcionamos el enlace correspondiente para que inicies sesión en la plataforma.</p>
+            <a href="http://">http://127.0.0.1:5501/LCDSena.com</a>
+            <p class="py-3">Recuerda no compartir tus credenciales, mantén tu cuenta segura para evitar posibles ataques y obtener una mayor seguridad de tus datos.</p>
+            <p><b>¡Que tengas un excelente día! 😊</b></p>
+            <img src="/Front-end/img/LCD-removebg 1.png" alt="">
+        </div>
+    </div>
+</body>
+</html>

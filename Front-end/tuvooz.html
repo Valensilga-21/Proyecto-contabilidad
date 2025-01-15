@@ -1,0 +1,1902 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/Front-end/css/bootstrap.css">
+  <script src="/Front-end/js/bootstrap.js"></script>
+<style>
+.navbar a,
+.navbar a:focus,
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+font-family: Poppins, sans-serif;
+}
+
+.navbar .dropdown ul,
+.navbar-mobile .dropdown ul {
+z-index: 99;
+box-shadow: 0 0 30px rgba(127, 137, 161, 0.25);
+}
+
+#footer,
+#hero {
+background: linear-gradient(45deg,
+    rgba(86, 58, 250, 0.9) 0,
+    rgba(116, 15, 214, 0.9) 100%) 0 0 / cover,
+  url("../img/Onda3.jpg") center center/cover no-repeat;
+}
+
+a,
+a:hover {
+text-decoration: none;
+}
+
+body {
+color: #444;
+}
+
+a {
+color: #3b26fa;
+}
+
+a:hover {
+color: #5d4ee7;
+}
+
+.back-to-top {
+position: fixed;
+visibility: hidden;
+opacity: 0;
+right: 15px;
+bottom: 15px;
+z-index: 996;
+background: #a300ff;
+width: 40px;
+height: 40px;
+border-radius: 4px;
+transition: 0.4s;
+}
+
+#preloader,
+.navbar-mobile {
+position: fixed;
+right: 0;
+overflow: hidden;
+}
+
+.back-to-top i {
+font-size: 28px;
+color: #fff;
+line-height: 0;
+}
+
+.back-to-top:hover {
+background: #000;
+color: #fff;
+}
+
+.back-to-top.active {
+visibility: visible;
+opacity: 1;
+}
+
+#preloader {
+top: 0;
+left: 0;
+bottom: 0;
+z-index: 9999;
+background: #fff;
+}
+
+#preloader:before {
+content: "";
+position: fixed;
+top: calc(50% - 30px);
+left: calc(50% - 30px);
+border: 6px solid #5846f9;
+border-top-color: #e7e4fe;
+border-radius: 50%;
+width: 60px;
+height: 60px;
+animation: 1s linear infinite animate-preloader;
+}
+
+@keyframes animate-preloader {
+0% {
+  transform: rotate(0);
+}
+
+100% {
+  transform: rotate(360deg);
+}
+}
+
+@media screen and (max-width: 768px) {
+[data-aos-delay] {
+  transition-delay: 0 !important;
+}
+}
+
+#header {
+transition: 0.5s;
+z-index: 997;
+}
+
+#header.header-inner-pages,
+#header.header-scrolled {
+background: #000;
+}
+
+#header .logo {
+font-family: cursive;
+font-size: 32px;
+margin: 0;
+padding: 0;
+line-height: 1;
+font-weight: 400;
+letter-spacing: 2px;
+text-transform: uppercase;
+}
+
+#footer .credits a,
+#header .logo a,
+.faq .section-title h2,
+.faq .section-title p,
+.navbar .active,
+.navbar .active:focus,
+.navbar a:hover,
+.navbar li:hover>a,
+.portfolio .portfolio-wrap .portfolio-links a:hover,
+.services .iconbox-blue:hover .icon i,
+.services .iconbox-orange:hover .icon i,
+.services .iconbox-pink:hover .icon i,
+.services .iconbox-red:hover .icon i,
+.services .iconbox-teal:hover .icon i,
+.services .iconbox-yellow:hover .icon i {
+color: #fff;
+}
+
+#header .logo img {
+max-height: 65px;
+}
+
+.navbar,
+.navbar-mobile>ul>li,
+.portfolio-details .portfolio-description p {
+padding: 0;
+}
+
+.navbar ul {
+margin: 0;
+padding: 0;
+display: flex;
+list-style: none;
+align-items: center;
+}
+
+.navbar li {
+position: relative;
+}
+
+.navbar>ul>li {
+padding: 10px 0 10px 24px;
+}
+
+.navbar a,
+.navbar a:focus {
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 0 3px;
+font-size: 15px;
+font-weight: 600;
+color: rgba(255, 255, 255, 0.7);
+white-space: nowrap;
+transition: 0.3s;
+position: relative;
+}
+
+.navbar a i,
+.navbar a:focus i {
+font-size: 12px;
+line-height: 0;
+margin-left: 5px;
+}
+
+.navbar>ul>li>a:before {
+content: "";
+position: absolute;
+height: 2px;
+bottom: -5px;
+left: 0;
+background-color: #fff;
+visibility: hidden;
+width: 0;
+transition: 0.3s ease-in-out;
+}
+
+.navbar .active:before,
+.navbar a:hover:before,
+.navbar li:hover>a:before {
+visibility: visible;
+width: 100%;
+}
+
+.navbar .getstarted,
+.navbar .getstarted:focus {
+padding: 8px 25px;
+margin-left: 30px;
+border-radius: 5px;
+color: #fff;
+transition: 0.3s;
+font-size: 14px;
+font-weight: 600;
+border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.navbar .getstarted:focus:hover,
+.navbar .getstarted:hover {
+color: #fff;
+border-color: #fff;
+background-color: #c0f;
+}
+
+.navbar .getstarted:before,
+.navbar li:hover>.getstarted:before,
+.navbar-mobile .active:before,
+.navbar-mobile a:hover:before,
+.navbar-mobile li:hover>a:before {
+visibility: hidden;
+}
+
+.navbar .dropdown ul {
+display: block;
+position: absolute;
+left: 24px;
+top: calc(100% + 30px);
+margin: 0;
+padding: 10px 0;
+opacity: 0;
+visibility: hidden;
+background: #fff;
+transition: 0.3s;
+}
+
+.navbar .dropdown ul li,
+.navbar-mobile .dropdown ul li {
+min-width: 200px;
+}
+
+.navbar .dropdown ul a {
+padding: 10px 20px;
+font-size: 14px;
+color: #2c4964;
+}
+
+.navbar .dropdown ul a i,
+.navbar-mobile .dropdown ul a i {
+font-size: 12px;
+}
+
+.faq .faq-list a.collapsed:hover,
+.navbar .dropdown ul .active:hover,
+.navbar .dropdown ul a:hover,
+.navbar .dropdown ul li:hover>a,
+.navbar-mobile .active,
+.navbar-mobile .dropdown ul .active:hover,
+.navbar-mobile .dropdown ul a:hover,
+.navbar-mobile .dropdown ul li:hover>a,
+.navbar-mobile a:hover,
+.navbar-mobile li:hover>a {
+color: #5846f9;
+}
+
+.navbar .dropdown:hover>ul {
+opacity: 1;
+top: 100%;
+visibility: visible;
+}
+
+.navbar .dropdown .dropdown ul {
+top: 0;
+left: calc(100% - 30px);
+visibility: hidden;
+}
+
+.navbar .dropdown .dropdown:hover>ul {
+opacity: 1;
+top: 0;
+left: 100%;
+visibility: visible;
+}
+
+@media (max-width: 1366px) {
+.navbar .dropdown .dropdown ul {
+  left: -90%;
+}
+
+.navbar .dropdown .dropdown:hover>ul {
+  left: -100%;
+}
+}
+
+.mobile-nav-toggle {
+color: #fff;
+font-size: 28px;
+cursor: pointer;
+display: none;
+line-height: 0;
+transition: 0.5s;
+}
+
+.navbar-mobile {
+top: 0;
+left: 0;
+bottom: 0;
+background: rgba(28, 47, 65, 0.9);
+transition: 0.3s;
+z-index: 999;
+}
+
+.navbar-mobile .mobile-nav-toggle {
+position: absolute;
+top: 15px;
+right: 15px;
+}
+
+.navbar-mobile ul {
+display: block;
+position: absolute;
+top: 55px;
+right: 15px;
+bottom: 15px;
+left: 15px;
+padding: 10px 0;
+background-color: #fff;
+overflow-y: auto;
+transition: 0.3s;
+}
+
+.navbar-mobile a,
+.navbar-mobile a:focus {
+padding: 10px 20px;
+font-size: 15px;
+color: #2c4964;
+}
+
+.navbar-mobile .getstarted,
+.navbar-mobile .getstarted:focus {
+margin: 15px;
+}
+
+.navbar-mobile .dropdown ul {
+position: static;
+display: none;
+margin: 10px 20px;
+padding: 10px 0;
+opacity: 1;
+visibility: visible;
+background: #fff;
+}
+
+.navbar-mobile .dropdown ul a {
+padding: 10px 20px;
+}
+
+.navbar-mobile .dropdown>.dropdown-active {
+display: block;
+}
+
+#hero .btn-get-started,
+.about .content .read-more {
+font-weight: 500;
+letter-spacing: 1px;
+display: inline-block;
+transition: 0.5s;
+font-family: Poppins, sans-serif;
+}
+
+#hero {
+width: 100%;
+height: 100vh;
+}
+
+#hero .container,
+#hero .container-fluid {
+padding-top: 84px;
+}
+
+#hero h1 {
+margin: 0;
+font-size: 52px;
+font-weight: 700;
+line-height: 64px;
+color: #fff;
+}
+
+#hero h2 {
+color: rgba(255, 255, 255, 0.8);
+margin: 10px 0 0;
+font-size: 20px;
+}
+
+#hero .btn-get-started {
+font-size: 16px;
+padding: 10px 28px;
+border-radius: 5px;
+margin-top: 30px;
+color: #fff;
+border: 2px solid #fff;
+}
+
+#hero .btn-get-started:hover {
+background: #fff;
+color: #5846f9;
+}
+
+#hero .animated {
+animation: 2s ease-in-out infinite alternate-reverse both up-down;
+}
+
+@media (min-width: 1200px) {
+#hero {
+  background-attachment: fixed;
+}
+}
+
+@media (max-width: 991px) {
+.mobile-nav-toggle {
+  display: block;
+}
+
+.navbar ul {
+  display: none;
+}
+
+#hero,
+#hero {
+  text-align: center;
+}
+
+#hero .img-fluid2 {
+  width: 40%;
+}
+}
+
+.img-fluid2 {
+max-width: 100%;
+height: auto;
+}
+
+@media (max-width: 768px) {
+#hero h1 {
+  font-size: 26px;
+  line-height: 36px;
+}
+
+#hero h2 {
+  font-size: 18px;
+  line-height: 24px;
+}
+
+#hero .img-fluid2 {
+  width: 75%;
+}
+}
+
+@media (max-width: 575px),
+(max-height: 600px) {
+#hero {
+  height: auto;
+}
+}
+
+@keyframes up-down {
+0% {
+  transform: translateY(10px);
+}
+
+100% {
+  transform: translateY(-10px);
+}
+}
+
+section {
+padding: 36px 0;
+overflow: hidden;
+}
+
+.section-bg {
+background-color: #f9f8ff;
+}
+
+.section-title {
+text-align: center;
+padding-bottom: 30px;
+}
+
+.section-title h2 {
+font-size: 32px;
+font-weight: 700;
+text-transform: uppercase;
+margin-bottom: 20px;
+padding-bottom: 20px;
+position: relative;
+}
+
+.section-title h2::after {
+content: "";
+position: absolute;
+display: block;
+width: 50px;
+height: 3px;
+background: #5846f9;
+bottom: 0;
+left: calc(50% - 25px);
+}
+
+.about .content p:last-child,
+.section-title p {
+margin-bottom: 0;
+}
+
+.about {
+padding: 120px 0;
+}
+
+.about .content h3 {
+font-weight: 600;
+font-size: 32px;
+color: #2c4964;
+}
+
+.about .content ul {
+list-style: none;
+padding: 0;
+}
+
+.about .content ul li {
+padding-bottom: 10px;
+}
+
+.about .content ul i {
+font-size: 20px;
+padding-right: 4px;
+color: #5846f9;
+}
+
+.about .content .read-more {
+font-size: 16px;
+padding: 10px 50px 10px 28px;
+border-radius: 5px;
+color: #fff;
+background: linear-gradient(45deg, #5846f9 0, #7b27d8 100%);
+position: relative;
+}
+
+.about .content .read-more:hover,
+.pricing .btn-buy:hover {
+background: linear-gradient(180deg, #5846f9 0, #7b27d8 100%);
+}
+
+.about .content .read-more i {
+font-size: 22px;
+position: absolute;
+right: 20px;
+top: 12px;
+}
+
+.counts {
+background: linear-gradient(90deg,
+    rgba(88, 70, 249, 0.5) 0,
+    rgba(123, 39, 216, 0.5) 100%),
+  url("../img/counts-bg.png") center center no-repeat;
+padding: 80px 0 60px;
+}
+
+.counts .counters span {
+font-size: 48px;
+display: block;
+color: #fff;
+font-weight: 600;
+font-family: Poppins, sans-serif;
+}
+
+.faq .faq-list a,
+.pricing .btn-buy,
+.pricing h4 {
+font-family: Roboto, sans-serif;
+}
+
+.counts .counters p {
+padding: 0;
+margin: 0 0 20px;
+font-size: 15px;
+color: rgba(255, 255, 255, 0.8);
+}
+
+.services .icon-box {
+text-align: center;
+padding: 70px 20px 80px;
+transition: 0.3s ease-in-out;
+background: #fff;
+}
+
+.services .icon-box .icon {
+margin: 0 auto;
+width: 100px;
+height: 100px;
+display: flex;
+align-items: center;
+justify-content: center;
+transition: 0.3s ease-in-out;
+position: relative;
+}
+
+.services .icon-box .icon i {
+font-size: 36px;
+transition: 0.5s;
+position: relative;
+}
+
+.services .icon-box .icon svg {
+position: absolute;
+top: 0;
+left: 0;
+}
+
+.services .icon-box .icon svg path {
+transition: 0.5s;
+fill: #fffdfd;
+}
+
+.services .icon-box h4 {
+font-weight: 600;
+margin: 10px 0 15px;
+font-size: 22px;
+}
+
+.services .icon-box h4 a {
+color: #2c4964;
+transition: 0.3s ease-in-out;
+}
+
+.services .icon-box p {
+line-height: 24px;
+font-size: 14px;
+margin-bottom: 0;
+}
+
+.services .icon-box:hover {
+border-color: #fff;
+box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.1);
+}
+
+.services .iconbox-blue i {
+color: #47aeff;
+}
+
+.services .iconbox-blue:hover .icon path {
+fill: #47aeff;
+}
+
+.services .iconbox-orange i,
+.services .iconbox-red i {
+color: #f70808;
+}
+
+.services .iconbox-orange:hover .icon path,
+.services .iconbox-red:hover .icon path {
+fill: #f70808;
+}
+
+.services .iconbox-pink i {
+color: #ffae00;
+}
+
+.services .iconbox-pink:hover .icon path {
+fill: #ffae00;
+}
+
+.services .iconbox-yellow i {
+color: #006eff;
+}
+
+.services .iconbox-yellow:hover .icon path {
+fill: #006eff;
+}
+
+.services .iconbox-teal i {
+color: #0d772d;
+}
+
+.services .iconbox-teal:hover .icon path {
+fill: #0d772d;
+}
+
+.features .icon-box h4 {
+font-size: 20px;
+font-weight: 700;
+margin: 5px 0 10px 60px;
+}
+
+.features .icon-box i {
+font-size: 48px;
+float: left;
+color: #5846f9;
+}
+
+.features .icon-box p {
+font-size: 15px;
+color: #848484;
+margin-left: 60px;
+}
+
+.features .image {
+background-position: center center;
+background-repeat: no-repeat;
+background-size: cover;
+min-height: 400px;
+}
+
+.testimonials .testimonials-carousel,
+.testimonials .testimonials-slider {
+overflow: hidden;
+}
+
+.testimonials .testimonial-item {
+box-sizing: content-box;
+min-height: 320px;
+}
+
+.testimonials .testimonial-item .testimonial-img {
+width: 90px;
+border-radius: 50%;
+margin: -40px 0 0 40px;
+position: relative;
+z-index: 2;
+border: 6px solid #fff;
+box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+.testimonials .testimonial-item h3 {
+font-size: 18px;
+font-weight: 700;
+margin: 10px 0 5px 45px;
+color: #2c4964;
+}
+
+.testimonials .testimonial-item h4 {
+font-size: 14px;
+color: #999;
+margin: 0 0 0 45px;
+}
+
+.testimonials .testimonial-item .quote-icon-left,
+.testimonials .testimonial-item .quote-icon-right {
+color: #b1a9fc;
+font-size: 26px;
+}
+
+.testimonials .testimonial-item .quote-icon-left {
+display: inline-block;
+left: -5px;
+position: relative;
+}
+
+.testimonials .testimonial-item .quote-icon-right {
+display: inline-block;
+right: -5px;
+position: relative;
+top: 10px;
+}
+
+.testimonials .testimonial-item p {
+font-style: italic;
+margin: 0 15px;
+padding: 20px 20px 60px;
+background: #fff;
+border-radius: 6px;
+position: relative;
+z-index: 1;
+box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
+}
+
+.portfolio-details .portfolio-details-slider .swiper-pagination,
+.testimonials .swiper-pagination {
+margin-top: 20px;
+position: relative;
+}
+
+.portfolio-details .portfolio-details-slider .swiper-pagination .swiper-pagination-bullet,
+.testimonials .swiper-pagination .swiper-pagination-bullet {
+width: 12px;
+height: 12px;
+background-color: #fff;
+opacity: 1;
+border: 1px solid #5846f9;
+}
+
+.portfolio-details .portfolio-details-slider .swiper-pagination .swiper-pagination-bullet-active,
+.testimonials .swiper-pagination .swiper-pagination-bullet-active {
+background-color: #5846f9;
+}
+
+@media (max-width: 767px) {
+.testimonials {
+  margin: 30px 10px;
+}
+}
+
+#footer .footer-top .footer-contact,
+#footer .footer-top .footer-links,
+.portfolio .portfolio-item {
+margin-bottom: 30px;
+}
+
+.portfolio #portfolio-flters {
+padding: 2px 15px;
+margin: 0 auto 25px;
+list-style: none;
+text-align: center;
+border-radius: 50px;
+}
+
+.portfolio #portfolio-flters li {
+cursor: pointer;
+display: inline-block;
+padding: 10px 15px;
+font-size: 14px;
+font-weight: 600;
+line-height: 1;
+text-transform: uppercase;
+color: #444;
+margin-bottom: 5px;
+transition: 0.3s ease-in-out;
+border-radius: 5px;
+font-family: Poppins, sans-serif;
+}
+
+.portfolio #portfolio-flters li.filter-active,
+.portfolio #portfolio-flters li:hover,
+.pricing .featured h3 {
+color: #fff;
+background: #5846f9;
+}
+
+.portfolio #portfolio-flters li:last-child {
+margin-right: 0;
+}
+
+.portfolio .portfolio-wrap {
+transition: 0.3s;
+position: relative;
+overflow: hidden;
+z-index: 1;
+}
+
+.portfolio .portfolio-wrap::before {
+content: "";
+background: rgba(88, 70, 249, 0.8);
+position: absolute;
+left: 30px;
+right: 30px;
+top: 30px;
+bottom: 30px;
+transition: 0.3s ease-in-out;
+z-index: 2;
+opacity: 0;
+}
+
+.portfolio .portfolio-wrap .portfolio-info,
+.portfolio .portfolio-wrap .portfolio-links {
+opacity: 0;
+z-index: 3;
+position: absolute;
+transition: 0.3s ease-in-out;
+left: 0;
+right: 0;
+text-align: center;
+}
+
+.portfolio .portfolio-wrap .portfolio-info {
+top: 10%;
+}
+
+.portfolio .portfolio-wrap .portfolio-info h4 {
+font-size: 20px;
+color: #fff;
+font-weight: 600;
+}
+
+.portfolio .portfolio-wrap .portfolio-info p {
+color: #fff;
+font-size: 14px;
+text-transform: uppercase;
+}
+
+.portfolio .portfolio-wrap .portfolio-links {
+bottom: 10%;
+}
+
+.portfolio .portfolio-wrap .portfolio-links a {
+color: rgba(255, 255, 255, 0.6);
+margin: 0 2px;
+font-size: 28px;
+display: inline-block;
+transition: 0.3s;
+}
+
+.faq .faq-list a.collapsed,
+.pricing h3 {
+color: #2c4964;
+}
+
+.portfolio .portfolio-wrap:hover::before {
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+opacity: 1;
+}
+
+.portfolio .portfolio-wrap:hover .portfolio-info {
+opacity: 1;
+top: calc(50% - 48px);
+}
+
+.portfolio .portfolio-wrap:hover .portfolio-links {
+opacity: 1;
+bottom: calc(50% - 50px);
+}
+
+.portfolio-details {
+padding-top: 40px;
+}
+
+.portfolio-details .portfolio-details-slider img {
+width: 10%;
+}
+
+.portfolio-details .portfolio-info {
+padding: 30px;
+box-shadow: 0 0 30px rgba(44, 73, 100, 0.08);
+}
+
+.portfolio-details .portfolio-info h3 {
+font-size: 22px;
+font-weight: 700;
+margin-bottom: 20px;
+padding-bottom: 20px;
+border-bottom: 1px solid #eee;
+}
+
+.portfolio-details .portfolio-info ul {
+list-style: none;
+padding: 0;
+font-size: 15px;
+}
+
+.portfolio-details .portfolio-info ul li+li {
+margin-top: 10px;
+}
+
+.portfolio-details .portfolio-description {
+padding-top: 30px;
+}
+
+.portfolio-details .portfolio-description h2 {
+font-size: 26px;
+font-weight: 700;
+margin-bottom: 20px;
+}
+
+.pricing .box {
+padding: 20px;
+background: #fff;
+text-align: center;
+border-radius: 5px;
+position: relative;
+overflow: hidden;
+box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+.pricing .btn-wrap,
+.pricing h3 {
+padding: 20px 15px;
+background: #f8f8f8;
+}
+
+.contact .info-box,
+.contact .php-email-form {
+box-shadow: 0 0 30px rgba(214, 215, 216, 0.6);
+background: #fff;
+}
+
+.pricing h3 {
+margin: -20px -20px 20px;
+font-size: 16px;
+font-weight: 600;
+}
+
+.faq .faq-list ul,
+.pricing ul {
+padding: 0;
+list-style: none;
+}
+
+.pricing h4 {
+font-size: 36px;
+color: #5846f9;
+font-weight: 600;
+margin-bottom: 20px;
+}
+
+.pricing h4 sup {
+font-size: 20px;
+top: -15px;
+left: -3px;
+}
+
+.pricing h4 span {
+color: #bababa;
+font-size: 16px;
+font-weight: 300;
+}
+
+.pricing ul {
+color: #444;
+text-align: center;
+line-height: 20px;
+font-size: 14px;
+}
+
+.pricing ul li {
+padding-bottom: 16px;
+}
+
+.pricing ul i {
+color: #5846f9;
+font-size: 18px;
+padding-right: 4px;
+}
+
+.pricing ul .na {
+color: #ccc;
+text-decoration: line-through;
+}
+
+.pricing .btn-wrap {
+margin: 20px -20px -20px;
+text-align: center;
+}
+
+.faq,
+.pricing .btn-buy {
+background: linear-gradient(42deg, #5846f9 0, #7b27d8 100%);
+}
+
+.pricing .btn-buy {
+display: inline-block;
+padding: 10px 35px;
+border-radius: 4px;
+color: #fff;
+transition: 0.3s;
+font-size: 15px;
+font-weight: 600;
+}
+
+.pricing .advanced {
+width: 200px;
+position: absolute;
+top: 18px;
+right: -68px;
+transform: rotate(45deg);
+z-index: 1;
+font-size: 14px;
+padding: 1px 0 3px;
+background: #5846f9;
+color: #fff;
+}
+
+.faq .section-title h2::after {
+background: rgba(255, 255, 255, 0.6);
+}
+
+.faq .faq-list {
+padding: 0 100px;
+}
+
+.faq .faq-list li+li {
+margin-top: 15px;
+}
+
+.faq .faq-list li {
+padding: 30px;
+background: #fff;
+border-radius: 5px;
+position: relative;
+}
+
+.faq .faq-list a {
+display: block;
+position: relative;
+font-size: 16px;
+line-height: 24px;
+font-weight: 500;
+padding: 0 30px;
+outline: 0;
+cursor: pointer;
+}
+
+.faq .faq-list .icon-help {
+font-size: 24px;
+position: absolute;
+right: 0;
+left: 20px;
+color: #8577fb;
+}
+
+.faq .faq-list .icon-close,
+.faq .faq-list .icon-show {
+font-size: 24px;
+position: absolute;
+right: 0;
+top: 0;
+}
+
+.faq .faq-list p {
+margin-bottom: 0;
+padding: 10px 0 0;
+}
+
+.faq .faq-list .icon-show,
+.faq .faq-list a.collapsed .icon-close {
+display: none;
+}
+
+.faq .faq-list a.collapsed .icon-show {
+display: inline-block;
+}
+
+@media (max-width: 1200px) {
+.faq .faq-list {
+  padding: 0;
+}
+}
+
+.contact .info-box {
+color: #444;
+text-align: center;
+padding: 20px 0 30px;
+}
+
+.contact .info-box i {
+font-size: 32px;
+color: #000;
+border-radius: 50%;
+padding: 8px;
+}
+
+.contact .info-box h3 {
+font-size: 20px;
+color: #2c4964;
+font-weight: 700;
+margin: 10px 0;
+}
+
+.contact .info-box p {
+padding: 0;
+line-height: 24px;
+font-size: 14px;
+margin-bottom: 0;
+}
+
+.contact .php-email-form {
+padding: 30px;
+}
+
+.contact .php-email-form .error-message {
+display: none;
+color: #fff;
+background: #ed3c0d;
+text-align: left;
+padding: 15px;
+font-weight: 600;
+}
+
+.contact .php-email-form .error-message br+br {
+margin-top: 25px;
+}
+
+.contact .php-email-form .sent-message {
+display: none;
+color: #fff;
+background: #18d26e;
+text-align: center;
+padding: 15px;
+font-weight: 600;
+}
+
+.contact .php-email-form .loading {
+display: none;
+background: #fff;
+text-align: center;
+padding: 15px;
+}
+
+.contact .php-email-form .loading:before {
+content: "";
+display: inline-block;
+border-radius: 50%;
+width: 24px;
+height: 24px;
+margin: 0 10px -6px 0;
+border: 3px solid #18d26e;
+border-top-color: #eee;
+animation: 1s linear infinite animate-loading;
+}
+
+.contact .php-email-form input,
+.contact .php-email-form textarea {
+border-radius: 5px;
+box-shadow: none;
+font-size: 14px;
+}
+
+.contact .php-email-form input:focus,
+.contact .php-email-form textarea:focus {
+border-color: #5846f9;
+}
+
+.contact .php-email-form input {
+padding: 10px 15px;
+}
+
+.contact .php-email-form textarea {
+padding: 12px 15px;
+}
+
+.contact .php-email-form button[type="submit"] {
+background: #5846f9;
+border: 0;
+padding: 10px 24px;
+color: #fff;
+transition: 0.4s;
+border-radius: 5px;
+}
+
+.contact .php-email-form button[type="submit"]:hover {
+background: #7b27d8;
+}
+
+@keyframes animate-loading {
+0% {
+  transform: rotate(0);
+}
+
+100% {
+  transform: rotate(360deg);
+}
+}
+
+.breadcrumbs {
+padding: 15px 0;
+background: #f2f6f9;
+min-height: 40px;
+margin-top: 85px;
+}
+
+@media (max-width: 992px) {
+.breadcrumbs {
+  margin-top: 56px;
+}
+}
+
+.breadcrumbs h2 {
+font-size: 28px;
+font-weight: 300;
+}
+
+.breadcrumbs ol {
+display: flex;
+flex-wrap: wrap;
+list-style: none;
+padding: 0;
+font-size: 14px;
+margin: 0;
+}
+
+.breadcrumbs ol li+li {
+padding-left: 10px;
+}
+
+.breadcrumbs ol li+li::before {
+display: inline-block;
+padding-right: 10px;
+color: #3c6387;
+content: "/";
+}
+
+@media (max-width: 768px) {
+.breadcrumbs .d-flex {
+  display: block !important;
+}
+
+.breadcrumbs ol {
+  display: block;
+}
+
+.breadcrumbs ol li {
+  display: inline-block;
+}
+}
+
+#footer {
+color: #fff;
+font-size: 14px;
+}
+
+#footer .footer-top {
+padding: 60px 0 30px;
+position: relative;
+}
+
+#footer .footer-top .footer-contact h3 {
+font-size: 28px;
+margin: 0 0 30px;
+padding: 2px 0;
+line-height: 1;
+font-weight: 500;
+text-transform: uppercase;
+}
+
+#footer .footer-top .footer-contact p {
+font-size: 14px;
+line-height: 24px;
+margin-bottom: 0;
+font-family: Poppins, sans-serif;
+}
+
+#footer .footer-newsletter h4,
+#footer .footer-top h4 {
+font-size: 16px;
+font-weight: 700;
+position: relative;
+padding-bottom: 12px;
+}
+
+#footer .footer-top .footer-links ul {
+list-style: none;
+padding: 0;
+margin: 0;
+}
+
+#footer .footer-top .footer-links ul i {
+padding-right: 2px;
+color: #fff;
+font-size: 18px;
+line-height: 1;
+}
+
+#footer .footer-top .footer-links ul li {
+padding: 10px 0;
+display: flex;
+align-items: center;
+}
+
+#footer .footer-top .footer-links ul li:first-child {
+padding-top: 0;
+}
+
+#footer .footer-top .footer-links ul a {
+color: rgba(255, 255, 255, 0.8);
+transition: 0.3s;
+display: inline-block;
+line-height: 1;
+}
+
+#footer .footer-top .footer-links ul a:hover {
+text-decoration: underline;
+color: #fff;
+}
+
+#footer .footer-newsletter {
+font-size: 15px;
+}
+
+#footer .footer-newsletter form {
+margin-top: 30px;
+background: #fff;
+padding: 6px 10px;
+position: relative;
+border-radius: 5px;
+text-align: left;
+border: 1px solid #fff;
+}
+
+#footer .footer-newsletter form input[type="email"] {
+border: 0;
+padding: 4px 8px;
+width: calc(100% - 100px);
+}
+
+#footer .footer-newsletter form input[type="submit"] {
+position: absolute;
+top: -1px;
+right: -2px;
+bottom: -1px;
+border: 0;
+background: rgba(123, 39, 216, 0.8);
+font-size: 16px;
+padding: 0 20px;
+color: #fff;
+transition: 0.3s;
+border-radius: 0 5px 5px 0;
+box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+#footer .footer-newsletter form input[type="submit"]:hover {
+background: #5846f9;
+}
+
+#footer .copyright-wrap {
+border-top: 1px solid #8577fb;
+}
+
+#footer .credits {
+padding-top: 5px;
+font-size: 13px;
+color: #fff;
+}
+
+#footer .social-links a {
+font-size: 18px;
+display: inline-block;
+background: rgba(255, 255, 255, 0.1);
+color: #fff;
+line-height: 1;
+padding: 8px 0;
+margin-right: 4px;
+border-radius: 50%;
+text-align: center;
+width: 36px;
+height: 36px;
+transition: 0.3s;
+}
+
+#footer .social-links a:hover {
+background: rgba(255, 255, 255, 0.2);
+color: #fff;
+text-decoration: none;
+}
+</style></head>
+
+<body data-aos-easing="ease-in-out" data-aos-duration="1000" data-aos-delay="0">
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top">
+    <div class="container d-flex align-items-center justify-content-between">
+      <a href="index.html" class="logo"><img src="./tuVoozPrincipal/img/solidolado.png" alt="imagen del logo de tuvooz" class="img-fluid" loading="lazy"></a>
+
+      <nav id="navbar" class="navbar" style="display: flex; justify-content:center;">
+        <ul style="padding: 0px 40px 0px 0px;">
+          <li><a class="nav-link scrollto active" href="#hero">Inicio</a></li>
+          <li><a class="nav-link scrollto" href="#team">Sobre nosotros</a></li>
+          <li><a class="nav-link scrollto" href="#services">Servicios</a></li>
+          <li><a class="nav-link scrollto" href="#contact">Contactos</a></li>
+        </ul>
+        <li style="display: flex;"><a class="getstarted scrollto" style="margin-left: 0px;" href="./tuVoozPrincipal/cuenta/iniciarSesion.html">Iniciar Sesión</a></li>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex align-items-center">
+
+    <div class="container-fluid aos-init aos-animate" data-aos="fade-up">
+      <div class="row " style="justify-content: center;">
+        <div class="col-xl-5 col-lg-6 pt-3 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center text-center">
+          <h1>La mejor experiencia la encuentras en TuVooz</h1>
+          <h2>  </h2>
+          <div><a href="apk/tuvoozapp.apk" download="tuvoozapk" class="btn-get-started scrollto">Descargar App</a>
+            <a href="tuVoozPrincipal/documentos/Manual_del_Usuario_Descargar_App__TuVooz_web_movil[1].pdf" target="_blank" class="btn-get-started scrollto">Manual de descarga</a>
+          <h5 style="color: #ffffff; padding-top: 1px; font-size: 15px;">-No disponible para IOS</h5>
+          </div>
+        </div>
+        <div class="col-xl-4 col-lg-6 order-1 order-lg-2 hero-img aos-init aos-animate" data-aos="zoom-in" data-aos-delay="150">
+          <img src="./Ajustes/img/CeluAndroid.png" class="img-fluid2 animated" alt="imagen android" loading="lazy">
+        </div>
+      </div>
+    </div>
+
+  </section><!-- End Hero -->
+
+  <main id="main">
+
+    <!-- ======= About Section ======= -->
+    <section id="team" class="team section">
+      <h1 class="tituloTexto">Creadores de TuVooz</h1>
+        <div class="packages-carousel owl-carousel owl-loaded owl-drag">
+              
+              
+              
+              
+              
+              
+        <div class="owl-stage-outer"><div class="owl-stage" style="transform: translate3d(-1888px, 0px, 0px); transition: all 0.25s ease 0s; width: 4533px;"><div class="owl-item cloned" style="width: 367.667px; margin-right: 10px;"><div class="item">
+                  <div class="card">
+                      <div class="team-member">
+                          <img src="./tuVoozPrincipal/img/nosotros/maira.jpg" alt="Foto de Mayra Tamayo" loading="lazy">
+                      </div>
+                      <div class="card__title">Mayra Tamayo</div>
+                      <div class="card__subtitle">Desarrolladora de software</div>
+                      <div class="row">
+                          <a class="btn btn-sm-square btn ms-2" href="http://www.linkedin.com/in/mayra-alejandra-tamayo-perdomo-622156291" target="_blank"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
+                          <a class="btn btn-sm-square btn ms-2" href="mailto:mayra18tuvooz@gmail.com" target="_blank"><i class="bi bi-envelope-at-fill"></i></a>
+                          <a class="btn btn-sm-square btn ms-2" href="https://github.com/MayraTamayo18" target="_blank"><i class="bi bi-github"></i></a>
+                      </div>
+                  </div>
+              </div></div><div class="owl-item cloned" style="width: 367.667px; margin-right: 10px;"><div class="item">
+                  <div class="card">
+                      <div class="team-member">
+                          <img src="./tuVoozPrincipal/img/nosotros/carolina.jpg" alt="Foto de Carolina Martinez" loading="lazy">
+                      </div>
+                      <div class="card__title">Carolina Martinez</div>
+                      <div class="card__subtitle">Desarrolladora de software</div>
+                      <div class="row">
+                          <a class="btn btn-sm-square btn ms-2" href="https://www.linkedin.com/in/carolina-martinez-cortes-564505323" target="_blank"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
+                          <a class="btn btn-sm-square btn ms-2" href="mailto:carolina22tuvooz@gmail.com" target="_blank"><i class="bi bi-envelope-at-fill"></i></a>
+                          <a class="btn btn-sm-square btn ms-2" href="https://github.com/CMC-22" target="_blank"><i class="bi bi-github"></i></a>
+                      </div>
+                  </div>
+              </div></div><div class="owl-item cloned" style="width: 367.667px; margin-right: 10px;"><div class="item">
+                  <div class="card">
+                      <div class="team-member">
+                          <img src="./tuVoozPrincipal/img/nosotros/maria.JPG" alt="Foto de Maria José Murcia" loading="lazy">
+                      </div>
+                      <div class="card__title">Maria Jose Murcia</div>
+                      <div class="card__subtitle">Desarrolladora de software</div>
+                      <div class="row">
+                          <a class="btn btn-sm-square btn ms-2" href="https://www.linkedin.com/in/maria-jose-murcia-martinez-859313311" target="_blank"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
+                          <a class="btn btn-sm-square btn ms-2" href="mailto:mariajose24tuvooz@gmail.com" target="_blank"><i class="bi bi-envelope-at-fill"></i></a>
+                          <a class="btn btn-sm-square btn ms-2" href="https://github.com/Maria-jose24" target="_blank"><i class="bi bi-github"></i></a>
+                      </div>
+                  </div>
+              </div></div><div class="owl-item" style="width: 367.667px; margin-right: 10px;"><div class="item">
+                  <div class="card">
+                      <div class="team-member">
+                          <img src="./tuVoozPrincipal/img/nosotros/cristian.jpg" alt="foto de Cristian Narvaez" loading="lazy">
+                      </div>
+                      <div class="card__title">Cristian Narvaéz</div>
+                      <div class="card__subtitle">Desarrollador de software</div>
+                      <div class="row">
+                          <a class="btn btn-sm-square btn ms-2" href="https://www.linkedin.com/in/cristian-narv%C3%A1ez-582097316/" target="_blank"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
+                          <a class="btn btn-sm-square btn ms-2" href="mailto:cristian11tuvooz@gmail.com" target="_blank"><i class="bi bi-envelope-at-fill"></i></a>
+                          <a class="btn btn-sm-square btn ms-2" href="https://github.com/Crisaww" target="_blank"><i class="bi bi-github"></i></a>
+                      </div>
+                  </div>
+              </div></div><div class="owl-item" style="width: 367.667px; margin-right: 10px;"><div class="item">
+                  <div class="card">
+                      <div class="team-member">
+                          <img src="./tuVoozPrincipal/img/nosotros/mar.jpg" alt="foto de Maria Del Mar Artunduaga" loading="lazy">
+                      </div>
+                      <div class="card__title">Maria del Mar Artunduaga</div>
+                      <div class="card__subtitle">Desarrolladora de software</div>
+                      <div class="row">
+                          <a class="btn btn-sm-square btn ms-2" href="http://www.linkedin.com/in/mariadelmarartunduaga" target="_blank"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
+                          <a class="btn btn-sm-square btn ms-2" href="mailto:mar09tuvooz@gmail.com" target="_blank"><i class="bi bi-envelope-at-fill"></i></a>
+                          <a class="btn btn-sm-square btn ms-2" href="https://github.com/delmar911" target="_blank"><i class="bi bi-github"></i></a>
+                      </div>
+                  </div>
+              </div></div><div class="owl-item active" style="width: 367.667px; margin-right: 10px;"><div class="item">
+                  <div class="card">
+                      <div class="team-member">
+                          <img src="./tuVoozPrincipal/img/nosotros/angie.jpg" alt="Foto de Angie Trujillo" loading="lazy">
+                      </div>
+                      <div class="card__title">Angie Trujillo</div>
+                      <div class="card__subtitle">Desarrolladora de software</div>
+                      <div class="row">
+                          <a class="btn btn-sm-square btn ms-2" href="https://www.linkedin.com/in/angie-trujillo-tu-vooz-638304324/" target="_blank"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
+                          <a class="btn btn-sm-square btn ms-2" href="mailto:angietrujillotuvooz@gmail.com" target="_blank"><i class="bi bi-envelope-at-fill"></i></a>
+                          <a class="btn btn-sm-square btn ms-2" href="https://github.com/Angie1107liz" target="_blank"><i class="bi bi-github"></i></a>
+                      </div>
+                  </div>
+              </div></div><div class="owl-item active" style="width: 367.667px; margin-right: 10px;"><div class="item">
+                  <div class="card">
+                      <div class="team-member">
+                          <img src="./tuVoozPrincipal/img/nosotros/maira.jpg" alt="Foto de Mayra Tamayo" loading="lazy">
+                      </div>
+                      <div class="card__title">Mayra Tamayo</div>
+                      <div class="card__subtitle">Desarrolladora de software</div>
+                      <div class="row">
+                          <a class="btn btn-sm-square btn ms-2" href="http://www.linkedin.com/in/mayra-alejandra-tamayo-perdomo-622156291" target="_blank"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
+                          <a class="btn btn-sm-square btn ms-2" href="mailto:mayra18tuvooz@gmail.com" target="_blank"><i class="bi bi-envelope-at-fill"></i></a>
+                          <a class="btn btn-sm-square btn ms-2" href="https://github.com/MayraTamayo18" target="_blank"><i class="bi bi-github"></i></a>
+                      </div>
+                  </div>
+              </div></div><div class="owl-item active" style="width: 367.667px; margin-right: 10px;"><div class="item">
+                  <div class="card">
+                      <div class="team-member">
+                          <img src="./tuVoozPrincipal/img/nosotros/carolina.jpg" alt="Foto de Carolina Martinez" loading="lazy">
+                      </div>
+                      <div class="card__title">Carolina Martinez</div>
+                      <div class="card__subtitle">Desarrolladora de software</div>
+                      <div class="row">
+                          <a class="btn btn-sm-square btn ms-2" href="https://www.linkedin.com/in/carolina-martinez-cortes-564505323" target="_blank"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
+                          <a class="btn btn-sm-square btn ms-2" href="mailto:carolina22tuvooz@gmail.com" target="_blank"><i class="bi bi-envelope-at-fill"></i></a>
+                          <a class="btn btn-sm-square btn ms-2" href="https://github.com/CMC-22" target="_blank"><i class="bi bi-github"></i></a>
+                      </div>
+                  </div>
+              </div></div><div class="owl-item" style="width: 367.667px; margin-right: 10px;"><div class="item">
+                  <div class="card">
+                      <div class="team-member">
+                          <img src="./tuVoozPrincipal/img/nosotros/maria.JPG" alt="Foto de Maria José Murcia" loading="lazy">
+                      </div>
+                      <div class="card__title">Maria Jose Murcia</div>
+                      <div class="card__subtitle">Desarrolladora de software</div>
+                      <div class="row">
+                          <a class="btn btn-sm-square btn ms-2" href="https://www.linkedin.com/in/maria-jose-murcia-martinez-859313311" target="_blank"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
+                          <a class="btn btn-sm-square btn ms-2" href="mailto:mariajose24tuvooz@gmail.com" target="_blank"><i class="bi bi-envelope-at-fill"></i></a>
+                          <a class="btn btn-sm-square btn ms-2" href="https://github.com/Maria-jose24" target="_blank"><i class="bi bi-github"></i></a>
+                      </div>
+                  </div>
+              </div></div><div class="owl-item cloned" style="width: 367.667px; margin-right: 10px;"><div class="item">
+                  <div class="card">
+                      <div class="team-member">
+                          <img src="./tuVoozPrincipal/img/nosotros/cristian.jpg" alt="foto de Cristian Narvaez" loading="lazy">
+                      </div>
+                      <div class="card__title">Cristian Narvaéz</div>
+                      <div class="card__subtitle">Desarrollador de software</div>
+                      <div class="row">
+                          <a class="btn btn-sm-square btn ms-2" href="https://www.linkedin.com/in/cristian-narv%C3%A1ez-582097316/" target="_blank"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
+                          <a class="btn btn-sm-square btn ms-2" href="mailto:cristian11tuvooz@gmail.com" target="_blank"><i class="bi bi-envelope-at-fill"></i></a>
+                          <a class="btn btn-sm-square btn ms-2" href="https://github.com/Crisaww" target="_blank"><i class="bi bi-github"></i></a>
+                      </div>
+                  </div>
+              </div></div><div class="owl-item cloned" style="width: 367.667px; margin-right: 10px;"><div class="item">
+                  <div class="card">
+                      <div class="team-member">
+                          <img src="./tuVoozPrincipal/img/nosotros/mar.jpg" alt="foto de Maria Del Mar Artunduaga" loading="lazy">
+                      </div>
+                      <div class="card__title">Maria del Mar Artunduaga</div>
+                      <div class="card__subtitle">Desarrolladora de software</div>
+                      <div class="row">
+                          <a class="btn btn-sm-square btn ms-2" href="http://www.linkedin.com/in/mariadelmarartunduaga" target="_blank"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
+                          <a class="btn btn-sm-square btn ms-2" href="mailto:mar09tuvooz@gmail.com" target="_blank"><i class="bi bi-envelope-at-fill"></i></a>
+                          <a class="btn btn-sm-square btn ms-2" href="https://github.com/delmar911" target="_blank"><i class="bi bi-github"></i></a>
+                      </div>
+                  </div>
+              </div></div><div class="owl-item cloned" style="width: 367.667px; margin-right: 10px;"><div class="item">
+                  <div class="card">
+                      <div class="team-member">
+                          <img src="./tuVoozPrincipal/img/nosotros/angie.jpg" alt="Foto de Angie Trujillo" loading="lazy">
+                      </div>
+                      <div class="card__title">Angie Trujillo</div>
+                      <div class="card__subtitle">Desarrolladora de software</div>
+                      <div class="row">
+                          <a class="btn btn-sm-square btn ms-2" href="https://www.linkedin.com/in/angie-trujillo-tu-vooz-638304324/" target="_blank"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
+                          <a class="btn btn-sm-square btn ms-2" href="mailto:angietrujillotuvooz@gmail.com" target="_blank"><i class="bi bi-envelope-at-fill"></i></a>
+                          <a class="btn btn-sm-square btn ms-2" href="https://github.com/Angie1107liz" target="_blank"><i class="bi bi-github"></i></a>
+                      </div>
+                  </div>
+              </div></div></div></div><div class="owl-nav disabled"><button type="button" role="presentation" class="owl-prev"><span aria-label="Previous">‹</span></button><button type="button" role="presentation" class="owl-next"><span aria-label="Next">›</span></button></div><div class="owl-dots"><button role="button" class="owl-dot active"><span></span></button><button role="button" class="owl-dot"><span></span></button></div></div>
+  </section>
+  
+    <!-- End About Section -->
+
+    
+
+    <!-- ======= Services Section ======= -->
+    <section id="services" class="services section-bg">
+      <div class="container aos-init" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Servicios</h2>
+          <p>Contamos con una gran variedad de servicios que son parte clave al momento de usar nuestro aplicativo. Entre los cuales se encuentran:</p>
+        </div>
+
+        <div class="row gy-4">
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch aos-init" data-aos="zoom-in" data-aos-delay="100">
+            <div class="icon-box iconbox-teal">
+              <div class="icon">
+                <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,521.0016835830174C376.1290562159157,517.8887921683347,466.0731472004068,529.7835943286574,510.70327084640275,468.03025145048787C554.3714126377745,407.6079735673963,508.03601936045806,328.9844924480964,491.2728898941984,256.3432110539036C474.5976632858925,184.082847569629,479.9380746630129,96.60480741107993,416.23090153303,58.64404602377083C348.86323505073057,18.502131276798302,261.93793281208167,40.57373210992963,193.5410806939664,78.93577620505333C130.42746243093433,114.334589627462,98.30271207620316,179.96522072025542,76.75703585869454,249.04625023123273C51.97151888228291,328.5150500222984,13.704378332031375,421.85034740162234,66.52175969318436,486.19268352777647C119.04800174914682,550.1803526380478,217.28368757567262,524.383925680826,300,521.0016835830174"></path>
+                </svg>
+
+                <i class="fa-solid fa-microphone" aria-hidden="true"></i>
+              </div>
+              <h4><a href="">Texto a Voz</a></h4>
+              <p>"Texto a voz" es una herramienta que convierte texto en audio, permitiendo a los usuarios ingresar un texto para que la plataforma lo transforme en un archivo de audio.</p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch aos-init" data-aos="zoom-in" data-aos-delay="200">
+            <div class="icon-box iconbox-pink ">
+              <div class="icon">
+                <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,521.0016835830174C376.1290562159157,517.8887921683347,466.0731472004068,529.7835943286574,510.70327084640275,468.03025145048787C554.3714126377745,407.6079735673963,508.03601936045806,328.9844924480964,491.2728898941984,256.3432110539036C474.5976632858925,184.082847569629,479.9380746630129,96.60480741107993,416.23090153303,58.64404602377083C348.86323505073057,18.502131276798302,261.93793281208167,40.57373210992963,193.5410806939664,78.93577620505333C130.42746243093433,114.334589627462,98.30271207620316,179.96522072025542,76.75703585869454,249.04625023123273C51.97151888228291,328.5150500222984,13.704378332031375,421.85034740162234,66.52175969318436,486.19268352777647C119.04800174914682,550.1803526380478,217.28368757567262,524.383925680826,300,521.0016835830174"></path>
+                </svg>
+                <i class="fa-solid fa-book-open-reader" aria-hidden="true"></i>
+              </div>
+              <h4><a href="">Palabras comunes </a></h4>
+              <p> Dentro de este servicio, hay diferentes categorías que incluyen saludos, despedidas y demás palabras útiles.</p>
+            </div>
+          </div>
+
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch aos-init" data-aos="zoom-in" data-aos-delay="100">
+            <div class="icon-box iconbox-yellow">
+              <div class="icon">
+                <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,521.0016835830174C376.1290562159157,517.8887921683347,466.0731472004068,529.7835943286574,510.70327084640275,468.03025145048787C554.3714126377745,407.6079735673963,508.03601936045806,328.9844924480964,491.2728898941984,256.3432110539036C474.5976632858925,184.082847569629,479.9380746630129,96.60480741107993,416.23090153303,58.64404602377083C348.86323505073057,18.502131276798302,261.93793281208167,40.57373210992963,193.5410806939664,78.93577620505333C130.42746243093433,114.334589627462,98.30271207620316,179.96522072025542,76.75703585869454,249.04625023123273C51.97151888228291,328.5150500222984,13.704378332031375,421.85034740162234,66.52175969318436,486.19268352777647C119.04800174914682,550.1803526380478,217.28368757567262,524.383925680826,300,521.0016835830174"></path>
+                </svg>
+                <i class="fa-solid fa-person-circle-question" aria-hidden="true"></i>
+              </div>
+              <h4><a href="">¿Cómo usar TuVooz?</a></h4>
+              <p>Únete a nuestra plataforma de ayuda a la comunicación y descubre un mundo de posibilidades para expresarte y conectarte con otros mundos.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section><!-- End Services Section -->
+
+
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact section-bg" style="background-color: white;">
+      <div class="container aos-init" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Contactos</h2>
+          <p>Estamos aquí para ayudarte. Si tienes alguna pregunta, comentario o necesitas asistencia, no dudes en ponerte en contacto con nosotros. </p>
+        </div>
+
+        <div class="row" style="justify-content: center;">
+          <div class="col-lg-3">
+            <div class="info-box mb-4">
+              <a href="https://www.google.com/maps/place/Servicio+Nacional+de+Aprendizaje+SENA+Sede+Industria/@2.9600663,-75.2990411,14.5z/data=!4m6!3m5!1s0x8e3b746668a5f7f7:0x3fcec03b9c2c0e85!8m2!3d2.9623442!4d-75.2857935!16s%2Fg%2F11by_l6c61?authuser=0&amp;entry=ttu"><i class="fa-solid fa-location-dot" aria-hidden="true"></i></a>
+              <h3><a href="https://www.google.com/maps/place/Servicio+Nacional+de+Aprendizaje+SENA+Sede+Industria/@2.9600663,-75.2990411,14.5z/data=!4m6!3m5!1s0x8e3b746668a5f7f7:0x3fcec03b9c2c0e85!8m2!3d2.9623442!4d-75.2857935!16s%2Fg%2F11by_l6c61?authuser=0&amp;entry=ttu">Nuestra ubicación</a></h3>
+              <p> Cra. 9 #68- 50, Neiva - Huila</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="info-box  mb-4">
+              <a href="mailto:ServicioAsistenciaTuVooz@gmail.com"><i class="fa-solid fa-paper-plane" aria-hidden="true"></i></a>
+              <h3><a href="mailto:ServicioAsistenciaTuVooz@gmail.com">Nuestro Correo</a></h3>
+              <p>servicioasistenciatuvooz@gmail.com</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="info-box  mb-4">
+              <a href="" onclick="marcarNumero('3133781936')"><i class="fa-solid fa-phone-volume" aria-hidden="true"></i></a>
+              <h3><a href="" onclick="marcarNumero('3133781936')">Llámanos</a></h3>
+              <p>+57 3133781936</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section><!-- End Contact Section -->
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h3>TuVooz</h3>
+            <p>
+              Cra. 9 #68- 50 <br>
+              Neiva - Huila<br>
+              Colombia <br><br>
+              <strong>Celular:</strong> +57 3133781936<br>
+              <strong>Correo electrónico:</strong> ServicioAsistenciaTuVooz@gmail.com<br>
+            </p>
+          </div>
+
+          <div class="col-lg-2 col-md-6 footer-links">
+            <h4>Nuestros servicios</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#hero">Inicio</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#team">Sobre nosotros</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#services">Servicios</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#contact">Contactos</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container" style="display:flex; justify-content:center;">
+
+      <div class="copyright-wrap d-md-flex py-4" style="flex-direction: column;">
+        <div class="me-md-auto text-center text-md-start">
+          <div class="copyright">
+            © Copyright <strong><span>TuVooz</span></strong>. Todos los derechos reservados
+          </div>
+        </div>
+        <div class="social-links text-center text-md-right pt-3 pt-md-0">
+          <a href="https://twitter.com/TuvoozOficial" class="twitter" target="_blank"><i class="fa-brands fa-x-twitter fa-sm" style="color: #ffffff;" aria-hidden="true"></i></a>
+          <a href="https://www.facebook.com/profile.php?id=61558683457700" class="facebook" target="_blank"><i class="fa-brands fa-facebook fa-sm" style="color: #ffffff;" aria-hidden="true"></i></a>
+          <a href="https://www.instagram.com/tuvoozoficial/" class="instagram" target="_blank"><i class="fa-brands fa-instagram fa-sm" style="color: #ffffff;" aria-hidden="true"></i></a>
+          <a href="https://wa.me/573133781936" class="whatsapp" target="_blank"><i class="fa-brands fa-whatsapp fa-sm" style="color: #ffffff;" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#hero" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <!-- <div id="preloader"> -->
+  
+
+  <!-- Vendor JS Files -->
+  <script src="Ajustes/vendor/aos/aos.js"></script>
+  <script src="Ajustes/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="Ajustes/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="Ajustes/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script> 
+  <script src="./tuVoozPrincipal/js/nosotros.js"></script>
+  <script src="./js/tamañoLetras.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="Ajustes/js/main.js"></script>
+
+
+
+
+
+<!-- Code injected by live-server -->
+<script>
+// <![CDATA[  <-- For SVG support
+if ('WebSocket' in window) {
+  (function () {
+    function refreshCSS() {
+      var sheets = [].slice.call(document.getElementsByTagName("link"));
+      var head = document.getElementsByTagName("head")[0];
+      for (var i = 0; i < sheets.length; ++i) {
+        var elem = sheets[i];
+        var parent = elem.parentElement || head;
+        parent.removeChild(elem);
+        var rel = elem.rel;
+        if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+          var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+          elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+        }
+        parent.appendChild(elem);
+      }
+    }
+    var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+    var address = protocol + window.location.host + window.location.pathname + '/ws';
+    var socket = new WebSocket(address);
+    socket.onmessage = function (msg) {
+      if (msg.data == 'reload') window.location.reload();
+      else if (msg.data == 'refreshcss') refreshCSS();
+    };
+    if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+      console.log('Live reload enabled.');
+      sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+    }
+  })();
+}
+else {
+  console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+}
+// ]]>
+</script>
+
+</body></html>
