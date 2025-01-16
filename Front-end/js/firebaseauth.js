@@ -1,8 +1,7 @@
-// Import the functions you need from the SDKs you need
+// Importar las funciones necesarias de Firebase
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
-import {getAuth, createUserWithEmailAndPassword,} from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
-import{getFirestore, setDoc, doc} from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js"
-import { collection, query, where, onSnapshot } from "firebase/firestore";
+import { getAuth,  createUserWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+import { getFirestore, setDoc, doc, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyCKTJxwwP2roq8DioEyhrBWMNN34f2JB6Y",
@@ -12,11 +11,15 @@ const firebaseConfig = {
     messagingSenderId: "289220346007",
     appId: "1:289220346007:web:b9034c2734e3602830a9d2",
     measurementId: "G-2LDHTHRHNY"
-  };
+};
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const auth=getAuth();
+const db=getFirestore();
 
+
+//Registro de usuarios
 const signUp=document.getElementById('submitSignUp');
  signUp.addEventListener('click', (event)=>{
     event.preventDefault();
@@ -28,9 +31,7 @@ const signUp=document.getElementById('submitSignUp');
     const cargo=document.getElementById('cargo').value;
     const confirm_contra=document.getElementById('confirm_contra').value;
 
-    const auth=getAuth();
-    const db=getFirestore();
-
+    
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential)=>{
         const user=userCredential.user;
@@ -85,8 +86,5 @@ const signUp=document.getElementById('submitSignUp');
     })
  });
 
- db.collection("users").get().then((QuerySnapshot) => {
-     QuerySnapshot.forEach((doc) =>{
-         console.log(`${doc.id} => ${doc.data()}`);
-     });
- });
+
+ 
