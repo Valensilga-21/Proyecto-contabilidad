@@ -12,7 +12,7 @@
     <script src="/Front-end/js/bootstrap.js"></script>
 
     <link rel="stylesheet" href="/Front-end/css/index.css">
-    <script src="/js/index.js"></script>
+    <script src="/Front-end/js/sesionfirebaseauth.js"></script>
 
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
@@ -56,7 +56,7 @@
     }
 
 </style>
-<script type="module" src="/Front-end/js/perfil.js"></script>
+<script type="module" src="/Front-end/js/sesionfirebaseauth.js"></script>
 <body>
     <nav>
         <div class="logo-name">
@@ -106,7 +106,7 @@
     </nav>
 
     <section class="dashboard">
-        <div class="box" style="margin: 2%; border-radius: 15px; box-shadow: 0px 0px 10px #c7c7c7; margin: 5% 18%;">
+        <div class="box" style="margin: 2%; border-radius: 15px; box-shadow: 0px 0px 10px #c7c7c7; margin: 5% 18%;" id="userinfo">
             <div class="row" style="padding: 5%;">
                 <div class="col-6">
                     <h3><b>Perfil Admin</b></h3>
@@ -153,7 +153,7 @@
                     <label for="contraseña" class="form-label visually-hidden">Correo</label>
                     <div class="input-group">
                         <span class="input-group-text"><box-icon name='envelope' color="#00BB00"></box-icon></span>
-                        <input type="email" class="form-control" id="correo_usuario" placeholder="Correo" >
+                        <input type="email" class="form-control" id="email" placeholder="Correo" >
                     </div>
                     <div class="error-message" id="correoError" style="color: red; display: none;"></div>
                 </div>
@@ -195,9 +195,5 @@
             </div>
         </div>
     </section>
-    <script src="script.js"></script>
-    <script>
-        document.getElementById("datepicker").datepicker();
-    </script>
 </body>
 </html>

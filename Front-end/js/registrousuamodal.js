@@ -53,9 +53,6 @@ const signUp=document.getElementById('submitSignUp');
         })
         const docRef=doc(db, "users", user.uid);
         setDoc(docRef,userData)
-        .then(()=>{
-            window.location.href='inicio.html';
-        })
 
         .catch((error)=>{
             Swal.fire({
@@ -87,8 +84,6 @@ const signUp=document.getElementById('submitSignUp');
     })
  });
 
-
-//Limpia los campos e el modal
 const limpiar = document.getElementById("limpiar");
 limpiar.addEventListener("click", (event) => {
     event.preventDefault();

@@ -21,6 +21,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
     <title>Viajes</title>
 </head>
 <style>
@@ -43,6 +45,10 @@
     .button span {
         margin-right: 5px;
         margin-top: 3px;
+    }
+
+    label{
+        font-weight: 600;
     }
 </style>
 <body>
@@ -145,6 +151,60 @@
         </div>
     </section>
 
+        <!-- Modal Registro Viaje-->
+<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="padding: 10%;">
+            <div class="modal-header">
+                <button type="submit" class="btn" style="background-color: #00bb0021; border: 1px solid #00BB00; color: #00BB00; font-weight: 600;" id="viaje">Guardar</button>
+                <button type="submit" id="cancelar" class="btn btn-secondary" style="background-color: #ff000015; border: 1px solid #ff0000; color: #ff0101; font-weight: 600;"><span><i class="bi bi-check-lg"></i></span>Cancelar</button> 
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="text-align: left;"></button>
+            </div>  
+            <h3 style="font-weight: 600;">Registrar Viaje</h3>
+            <div class="modal-body">
+                <div class="row" id="signup">
+                    <div class="mb-3 col col-xl-6 col-12 justify-content-between">
+                        <label for="usuario" class="form-label">Nombre Completo</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="nombre_usuario" placeholder="">
+                        </div>
+                        <div class="error-message" id="usuarioError" style="color: red; display: none;"></div>
+                        <div class="comision" style="padding-top: 7%;">
+                            <label for="usuario" class="">No. Comisión</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="noComision" placeholder="">
+                        </div>
+                        <div class="error-message" id="usuarioError" style="color: red; display: none;"></div>
+                        </div>
+                    </div>
+                    <div class="mb-3 mb-3 col col-xl-6 col-12">
+                        <label for="usuario" class="form-label">Ruta</label>
+                        <div class="input-group">
+                            <textarea name="" id="ruta" cols="40" rows="5"></textarea>
+                        </div>
+                        <div class="error-message" id="usuarioError" style="color: red; display: none;"></div>
+                    </div>
+                    
+                    <div class="mb-3 col col-xl-6 col-12">
+                        <label for="usuario" class="form-label">Fecha Inicio</label>
+                        <div class="input-group">
+                            <input type="date" class="form-control" id="fecha_inicio" placeholder="">
+                        </div>
+                        <div class="error-message" id="usuarioError" style="color: red; display: none;"></div>
+                    </div>
+                    <div class="mb-3 col col-xl-6 col-12">
+                        <label for="usuario" class="form-label">Fecha Fin</label>
+                        <div class="input-group">
+                            <input type="date" class="form-control" id="fecha_fin" placeholder="">
+                        </div>
+                        <div class="error-message" id="usuarioError" style="color: red; display: none;"></div>
+                    </div>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>
     <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl" id="registroViaje">
@@ -176,14 +236,14 @@
                         </div>
                     </div>
                     <div class="col-6">
-                        <div class="mb-3 col col-xl-6 col-12 justify-content-between">
+                        <div class="mb-3 col col-xl-6 col-12">
                             <label for="usuario" class="form-label">Fecha Fin</label>
                             <div class="input-group">
                                 <input type="date" class="form-control" id="fecha_fin" placeholder="">
                             </div>
                             <div class="error-message" id="usuarioError" style="color: red; display: none;"></div>
                         </div>
-                        <div class="mb-3 col col-xl-6 col-12 justify-content-between">
+                        <div class="mb-3 col col-xl-6 col-12">
                             <label for="usuario" class="form-label">Ruta</label>
                             <div class="input-group">
                                 <textarea name="" id="ruta" cols="40" rows="4"></textarea>

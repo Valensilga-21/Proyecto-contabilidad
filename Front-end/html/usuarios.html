@@ -8,6 +8,10 @@
     <!--Icons boostrab-->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
+    <!-- Agregar jQuery antes de Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
     <!--Boostrab-->
     <link rel="stylesheet" href="/Front-end/css/bootstrap.css">
     <script src="/Front-end/js/bootstrap.js"></script>
@@ -22,6 +26,7 @@
 
     <!--Js usuario-->
     <script type="module" src="/Front-end/js/crudusuario.js"></script>
+    <script type="module" src="/Front-end/js/registrousuamodal.js"></script>
 
     <!--Boxicons-->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -59,10 +64,10 @@
 </style>
 <body>
     <nav>
-        <div class="logo-name">
+        <div class="logo-name" >
             <div class="row">
                 <div id="imglogo" class="container">
-                    <img src="/Front-end/img/LCD-removebg 1.png" alt="" style="width: 180px;">
+                    <img src="/Front-end/img/LCD-removebg 1.png" onclick="logout();" alt="" style="width: 100px;">
                 </div>
             </div>
         </div>
@@ -95,7 +100,7 @@
                 </a></li>
             </ul>
             
-            <ul class="logout-mode">
+            <ul class="logout-mode" onclick="logout();">
                 <li><a href="#">
                     <i class="uil uil-signout" color="#00BB00"></i>
                     <span class="link-name"><b>Cerrar sesión</b></span>
@@ -126,16 +131,16 @@
             </div>
             <div class="col-4">
                 <div class="input-group mb-3">
-                    <button class="btn btn-outline-secondary" type="button" id="button-addon1"><span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16" style="color: black;">
+                    <button class="btn btn-outline-secondary" type="button" id="filtrar"><span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16" style="color: black;">
                         <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
                       </svg></span></button>
-                    <input type="text" class="form-control" placeholder="Buscar..." aria-label="Example text with button addon" aria-describedby="button-addon1">
+                    <input type="text" class="form-control" placeholder="Buscar..." aria-label="Example text with button addon" aria-describedby="button-addon1" id="searchInput">
                   </div>
             </div>
             <div class="col-2">
                 <div class="input-group" style="border-radius: 10px 10px 10px 10px; border-left:none;">
                     <span class="input-group-text"><box-icon name='filter' ></box-icon></span>
-                    <select name="centro" id="centro" class="form-select" style="background-color: #ffffff; border-radius: 0px 0px 10px 0px; border-left:none;">
+                    <select name="filtrocentro" id="filtrocentro" class="form-select" style="background-color: #ffffff; border-radius: 0px 0px 10px 0px; border-left:none;">
                         <option value="" disabled selected>Centro</option>
                         <option value="cies">CIES</option>
                         <option value="direccion">Dirección</option>
@@ -145,7 +150,7 @@
             <div class="col-2">
                 <div class="input-group" style="border-radius: 10px 10px 10px 10px; border-left:none;">
                     <span class="input-group-text"><box-icon name='filter' ></box-icon></span>
-                    <select name="centro" id="centro" class="form-select" style="background-color: #ffffff; border-radius: 0px 0px 10px 0px; border-left:none;">
+                    <select name="estado" id="estado" class="form-select" style="background-color: #ffffff; border-radius: 0px 0px 10px 0px; border-left:none;">
                         <option value="" disabled selected>Estado</option>
                         <option value="todas">Todas</option>
                         <option value="completadas">Completadas</option>
@@ -167,7 +172,7 @@
                             <th>Centro</th>
                             <th>Cargo</th>
                             <th>Rol</th>
-                            <th>Estado</th>
+                            <th style="visibility: hidden;">Estado</th>
                             <th style="text-align: center; justify-content: center;">Acciones</th>
                         </tr>
                     </thead>
@@ -179,26 +184,26 @@
         </div>
     </section>
 
-    <!-- Modal -->
+    <!-- Modal Registro-->
 <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content" style="padding: 10%;">
             <h3 style="font-weight: 600;">Registrar Usuario</h3>
             <div class="modal-body">
-                <div class="row">
+                <div class="row" id="signup">
                     <div class="mb-3 col col-xl-6 col-12 justify-content-between">
                         <label for="usuario" class="form-label visually-hidden">Usuario</label>
                         <div class="input-group">
-                            <span class="input-group-text"><box-icon name='user' color="#00BB00"></box-icon></span>
-                            <input type="text" class="form-control" id="usuario" placeholder="Nombre Completo">
+                            <span class="input-group-text"><box-icon name='user' color="#000000"></box-icon></span>
+                            <input type="text" class="form-control" id="nombre_usuario" placeholder="Nombre Completo">
                         </div>
                         <div class="error-message" id="usuarioError" style="color: red; display: none;"></div>
                     </div>
                     <div class="mb-4 col col-xl-6 col-12">
-                        <label for="contraseña" class="form-label visually-hidden">Cargo</label>
+                        <label for="" class="form-label visually-hidden">Cargo</label>
                         <div class="input-group">
-                            <span class="input-group-text"><box-icon name='briefcase' color="#00BB00"></box-icon></box-icon></box-icon></span>
-                            <select name="centro" id="cargo" class="form-select" style="background-color: #EFF3F6; border-radius: 0px 0px 10px 0px; border-left:none;">
+                            <span class="input-group-text"><box-icon name='briefcase' color="#000000"></box-icon></box-icon></box-icon></span>
+                            <select name="cargo" id="cargo" class="form-select" style="background-color: #EFF3F6; border-radius: 0px 0px 10px 0px; border-left:none;">
                                 <option value="" disabled selected>Cargo</option>
                                 <option value="funcionario">Funcionario</option>
                                 <option value="contratista">Contratista</option>
@@ -209,15 +214,15 @@
                     <div class="mb-4 col col-xl-6 col-12">
                         <label for="contraseña" class="form-label visually-hidden">Documento</label>
                         <div class="input-group">
-                            <span class="input-group-text"><box-icon name='id-card' color="#00BB00"></box-icon></span>
-                            <input type="number" class="form-control" id="documento" placeholder="Documento" >
+                            <span class="input-group-text"><box-icon name='id-card' color="#000000"></box-icon></span>
+                            <input type="number" class="form-control" id="num_documento" placeholder="Documento" >
                         </div>
                         <div class="error-message" id="documentoError" style="color: red; display:none;"></div>
                     </div>
                     <div class="mb-4 col col-xl-6 col-12">
                         <label for="contraseña" class="form-label visually-hidden">Contraseña</label>
                         <div class="input-group">
-                            <span class="input-group-text"><box-icon name='lock-alt' color="#00BB00"></box-icon></span>
+                            <span class="input-group-text"><box-icon name='lock-alt' color="#000000"></box-icon></span>
                             <input type="password" class="form-control" id="contrasena" placeholder="Contraseña" onpaste="return false" 
                             oncopy="return false" oncut="return false">
                         </div>
@@ -226,16 +231,16 @@
                     <div class="mb-4 col col-xl-6 col-12">
                         <label for="contraseña" class="form-label visually-hidden">Correo</label>
                         <div class="input-group">
-                            <span class="input-group-text"><box-icon name='envelope' color="#00BB00"></box-icon></span>
-                            <input type="email" class="form-control" id="correo" placeholder="Correo" >
+                            <span class="input-group-text"><box-icon name='envelope' color="#000000"></box-icon></span>
+                            <input type="email" class="form-control" id="correo_usuario" placeholder="Correo" >
                         </div>
                         <div class="error-message" id="correoError" style="color: red; display: none;"></div>
                     </div>
                     <div class="mb-4 col col-xl-6 col-12">
                         <label for="contraseña" class="form-label visually-hidden">Confirmación contraseña</label>
                         <div class="input-group">
-                            <span class="input-group-text"><box-icon name='lock-alt' color="#00BB00"></box-icon></span>
-                            <input type="password" class="form-control" id="confirmarContrasena" placeholder="Confirmación contraseña" onpaste="return false" 
+                            <span class="input-group-text"><box-icon name='lock-alt' color="#000000"></box-icon></span>
+                            <input type="password" class="form-control" id="confirm_contra" placeholder="Confirmación contraseña" onpaste="return false" 
                             oncopy="return false" oncut="return false">
                         </div>
                         <div class="error-message" id="confirmContraError" style="color: red; display: none;"></div>
@@ -243,23 +248,23 @@
                     <div class="mb-4 col col-xl-6 col-12">
                         <label for="centro" class="form-label visually-hidden">Centro</label>
                         <div class="input-group" style="border-radius: 10px 10px 10px 10px; border-left:none;">
-                            <span class="input-group-text"><box-icon name='buildings' color="#39A900"></box-icon></span>
+                            <span class="input-group-text"><box-icon name='buildings' color="#000000"></box-icon></span>
                             <select name="centro" id="centro" class="form-select" style="background-color: #EFF3F6; border-radius: 0px 0px 10px 0px; border-left:none;">
                                 <option value="" disabled selected>Centro</option>
-                                <option value="CIES">CIES</option>
-                                <option value="Dirección">Dirección</option>
+                                <option value="cies">CIES</option>
+                                <option value="direccion">Dirección</option>
                             </select>
                         </div>
                         <div class="error-message" id="centroError" style="color: red; display: none;"></div>
                     </div>
                     <div class="mb-4 col col-xl-6 col-12">
-                        <label for="centro" class="form-label visually-hidden">Rol</label>
+                        <label for="rol" class="form-label visually-hidden">Rol</label>
                         <div class="input-group" style="border-radius: 10px 10px 10px 10px; border-left:none;">
-                            <span class="input-group-text"><box-icon name='user-circle' color="#00BB00"></box-icon></span>
+                            <span class="input-group-text"><box-icon name='user-circle' color="#000000"></box-icon></span>
                             <select name="centro" id="rol" class="form-select" style="background-color: #EFF3F6; border-radius: 0px 0px 10px 0px; border-left:none;">
-                                <option value="" disabled selected>Rol</option>
-                                <option value="usuario">Usuario</option>
-                                <option value="administrador">Administrador</option>
+                                <option value="">Rol</option>
+                                <option value="usuario" selected>Usuario</option>
+                                <option value="admin">Administrador</option>
                             </select>
                         </div>
                         <div class="error-message" id="centroError" style="color: red; display: none;"></div>
@@ -268,11 +273,109 @@
             </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" style="font-weight: 600;">Limpiar</button>
-                <button type="submit" class="btn" style="background-color: #00BB00; color: white; font-weight: 600;">Registrar</button>
+                <button type="submit" id="limpiar" class="btn btn-secondary">Limpiar</button> 
+                <button type="submit" class="btn" style="background-color: #00BB00; color: white; font-weight: 600;" id="submitSignUp">Registrar</button>
             </div>
         </div>
     </div>
 </div>
+
+    <!-- Modal Editar usuario-->
+    <div class="modal fade" id="myModalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="padding: 10%; border-radius: 15px;">
+                <h3 style="font-weight: 600;">Editar Usuario</h3>
+                <div class="modal-body">
+                    <div class="row" id="signup">
+                        <div class="mb-3 col col-xl-6 col-12 justify-content-between">
+                            <label for="usuario" class="form-label visually-hidden">Usuario</label>
+                            <input type="hidden" id="modalEditId">
+                            <div class="input-group">
+                                <span class="input-group-text"><box-icon name='user' color="#00BB00"></box-icon></span>
+                                <input type="text" class="form-control" id="nombreCompletoU" placeholder="Nombre Completo">
+                            </div>
+                            <div class="error-message" id="usuarioError" style="color: red; display: none;"></div>
+                        </div>
+                        <div class="mb-4 col col-xl-6 col-12">
+                            <label for="" class="form-label visually-hidden">Cargo</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><box-icon name='briefcase' color="#00BB00"></box-icon></box-icon></box-icon></span>
+                                <select name="cargoU" id="cargoU" class="form-select" style="background-color: #EFF3F6; border-radius: 0px 0px 10px 0px; border-left:none;">
+                                    <option value="" disabled selected>Cargo</option>
+                                    <option value="funcionario">Funcionario</option>
+                                    <option value="contratista">Contratista</option>
+                                </select>
+                            </div>
+                            <div class="error-message" id="cargoError" style="color: red; display: none;"></div>
+                        </div>
+                        <div class="mb-4 col col-xl-6 col-12">
+                            <label for="contraseña" class="form-label visually-hidden">Documento</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><box-icon name='id-card' color="#00BB00"></box-icon></span>
+                                <input type="number" class="form-control" id="num_documentoU" placeholder="Documento" >
+                            </div>
+                            <div class="error-message" id="documentoError" style="color: red; display:none;"></div>
+                        </div>
+                        <div class="mb-4 col col-xl-6 col-12 visually-hidden">
+                            <label for="contraseña" class="form-label visually-hidden">Contraseña</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><box-icon name='lock-alt' color="#00BB00"></box-icon></span>
+                                <input type="password" class="form-control" id="contrasenaU" placeholder="Contraseña" onpaste="return false" 
+                                oncopy="return false" oncut="return false" disabled selected>
+                            </div>
+                            <div class="error-message" id="contraseñaError" style="color: red; display: none;"></div>
+                        </div>
+                        <div class="mb-4 col col-xl-6 col-12">
+                            <label for="contraseña" class="form-label visually-hidden">Correo</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><box-icon name='envelope' color="#00BB00"></box-icon></span>
+                                <input type="email" class="form-control" id="correo_usuarioU" placeholder="Correo" >
+                            </div>
+                            <div class="error-message" id="correoError" style="color: red; display: none;"></div>
+                        </div>
+                        <div class="mb-4 col col-xl-6 col-12 visually-hidden">
+                            <label for="contraseña" class="form-label visually-hidden">Confirmación contraseña</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><box-icon name='lock-alt' color="#00BB00"></box-icon></span>
+                                <input type="password" class="form-control" id="confirm_contraU" placeholder="Confirmación contraseña" onpaste="return false" 
+                                oncopy="return false" oncut="return false" disabled selected>
+                            </div>
+                            <div class="error-message" id="confirmContraError" style="color: red; display: none;"></div>
+                        </div>
+                        <div class="mb-4 col col-xl-6 col-12">
+                            <label for="centro" class="form-label visually-hidden">Centro</label>
+                            <div class="input-group" style="border-radius: 10px 10px 10px 10px; border-left:none;">
+                                <span class="input-group-text"><box-icon name='buildings' color="#39A800"></box-icon></span>
+                                <select name="centro" id="centroU" class="form-select" style="background-color: #EFF3F6; border-radius: 0px 0px 10px 0px; border-left:none;">
+                                    <option value="" disabled selected>Centro</option>
+                                    <option value="cies">CIES</option>
+                                    <option value="direccion">Dirección</option>
+                                </select>
+                            </div>
+                            <div class="error-message" id="centroError" style="color: red; display: none;"></div>
+                        </div>
+                        <div class="mb-4 col col-xl-6 col-12">
+                            <label for="rol" class="form-label visually-hidden">Rol</label>
+                            <div class="input-group" style="border-radius: 10px 10px 10px 10px; border-left:none;">
+                                <span class="input-group-text"><box-icon name='user-circle' color="#00BB00"></box-icon></span>
+                                <select name="centro" id="rolU" class="form-select" style="background-color: #EFF3F6; border-radius: 0px 0px 10px 0px; border-left:none;">
+                                    <option value="">Rol</option>
+                                    <option value="usuario" selected>Usuario</option>
+                                    <option value="admin">Administrador</option>
+                                </select>
+                            </div>
+                            <div class="error-message" id="centroError" style="color: red; display: none;"></div>
+                        </div>
+                    </div>
+                </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" id="limpiarEditar" class="btn btn-secondary">Limpiar</button> 
+                    <button type="submit" id="editarUsuario" class="btn" style="background-color: #00BB00; color: white; font-weight: 600;" id="submitSignUp">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
 </body>
 </html>

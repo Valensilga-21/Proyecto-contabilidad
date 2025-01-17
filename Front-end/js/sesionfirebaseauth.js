@@ -28,6 +28,7 @@ signIn.addEventListener('click', (event)=>{
     const user = userCredential.user;
     Swal.fire({
         icon: "success",
+        position: "top-end",
         title: "Has iniciado sesión correctamente.",
         showConfirmButton: false,
         timer: 2000
