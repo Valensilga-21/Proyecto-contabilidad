@@ -19,6 +19,8 @@
 
     <link rel="stylesheet" href="https://fkhadra.github.io/datepicker/datepicker.css">
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
     <title>Legalizaciones</title>
 </head>
 <style>
@@ -41,6 +43,30 @@
     .button span {
         margin-right: 0px;
         margin-top: 0px;
+    }
+
+    .modal-header{
+        border-bottom: var(--bs-modal-header-border-width) solid #dee2e600;
+    }
+
+    label{
+        padding-top: 4%;
+    }
+
+    .login-container input {
+        background-color: #EFF3F6;
+        border-radius: 5px;
+        box-shadow: none;
+    }
+    .input-group-text {
+        background-color: #EFF3F6;
+        border-right: none;
+        border-radius: 5px 0 0 5px; 
+        padding: 5px 15px;
+        color: black;
+    }
+    .input-group .form-control {
+        border-radius: 5px 5px 5px 5px;
     }
 </style>
 <body>
@@ -145,74 +171,73 @@
 
     <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content" style="padding: 10%;">
-            <h3 style="margin: 5%; font-weight: 600;">Registrar Legalización</h3>
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header" style="padding-top: 4%;">
+                <div class="container">
+                    <div class="row" style="justify-content: center;">
+                        <div class="mb-3 col col-xl-6 col-12 justify-content-between">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="mb-3 col col-xl-6 col-12 justify-content-between" style="text-align: right;">
+                            <button type="submit" class="btn" style="background-color: #00bb0021; border: 1px solid #00BB00; color: #00BB00; font-weight: 600;" id="viaje">
+                                <span><i class="bi bi-check-lg"></i></span>Guardar</button>
+                            <button type="submit" id="cancelar" class="btn btn-secondary" style="background-color: #ff000015; border: 1px solid #ff0000; color: #ff0101; font-weight: 600;">
+                                <span><i class="bi bi-x-lg"></i></span>Cancelar</button>
+                        </div>
+                    </div>
+                </div>  
+            </div>
+            <div class="div" style="padding: 0% 8% 5%;">
+                <h3 style="font-weight: 600;">Registrar Legalización</h3>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-6">
-                        <div class="mb-3 col col-xl-6 col-12 justify-content-between">
-                            <label for="usuario" class="form-label">Nombre Completo</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="usuario" placeholder="">
-                            </div>
-                            <div class="error-message" id="usuarioError" style="color: red; display: none;"></div>
+                    <div class="mb-3 col col-xl-4 col-12 justify-content-between">
+                        <label for="usuario" class="form-label">Nombre Completo</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="nombre_usuario" placeholder="">
                         </div>
-                        <div class="" style="border-radius: 10px 10px 10px 10px; border-left:none;">
-                            <label for="usuario" class="form-label">No. comisión</label>
-                            <select name="centro" id="estado" class="form-select" style="background-color: #ffffff; border-radius: 0px 0px 10px 0px; border-left:none;">
+                        <div class="error-message" id="usuarioError" style="color: red; display: none;"></div>
+                        <label for="usuario" class="form-label">No. comisión</label>
+                            <select name="centro" id="estado" class="form-select" style="background-color: #ffffff; border-radius: 5px 5px 5px 5px;">
                                 <option value="" disabled selected></option>
                                 <option value=""></option>
                                 <option value=""></option>
                             </select>
+                        <label for="usuario" class="form-label">Fecha Inicio</label>
+                        <div class="input-group">
+                            <input type="date" class="form-control" id="usuario" placeholder="">
                         </div>
-                        <div class="mb-3 col col-xl-6 col-12 justify-content-between">
-                            <label for="usuario" class="form-label">Fecha Inicio</label>
-                            <div class="input-group">
-                                <input type="date" class="form-control" id="usuario" placeholder="">
-                            </div>
-                            <div class="error-message" id="usuarioError" style="color: red; display: none;"></div>
+                        <div class="error-message" id="usuarioError" style="color: red; display: none;"></div>
+                        <label for="usuario" class="form-label">Fecha Fin</label>
+                        <div class="input-group">
+                            <input type="date" class="form-control" id="usuario" placeholder="">
                         </div>
-                        <div class="mb-3 col col-xl-6 col-12 justify-content-between">
-                            <label for="usuario" class="form-label">Fecha Fin</label>
-                            <div class="input-group">
-                                <input type="date" class="form-control" id="usuario" placeholder="">
-                            </div>
-                            <div class="error-message" id="usuarioError" style="color: red; display: none;"></div>
+                        <div class="error-message" id="usuarioError" style="color: red; display: none;"></div>
+                        <label for="usuario" class="form-label">Ruta</label>
+                        <div class="input-group">
+                            <textarea name="" id="" cols="60" rows="4"></textarea>
                         </div>
-                        <div class="mb-3 col col-xl-6 col-12 justify-content-between">
-                            <label for="usuario" class="form-label">Ruta</label>
-                            <div class="input-group">
-                                <textarea name="" id="" cols="40" rows="4"></textarea>
-                            </div>
-                            <div class="error-message" id="usuarioError" style="color: red; display: none;"></div>
-                        </div>
+                        <div class="error-message" id="usuarioError" style="color: red; display: none;"></div>
                     </div>
-                    <div class="col-6">
-                        <div class="mb-3 col col-xl-6 col-12 justify-content-between">
-                            <label for="usuario" class="form-label">Archivos</label>
-                            <div class="input-group mb-3">
-                                <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-text" viewBox="0 0 16 16">
-                                    <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5"/>
-                                    <path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"/>
-                                  </svg></span>
-                                <input type="file" class="form-control" id="inputGroupFile03" aria-describedby="inputGroupFileAddon03" aria-label="Upload">
-                              </div>
-                            <div class="error-message" id="usuarioError" style="color: red; display: none;"></div>
+                    <div class="mb-3 col col-xl-1 col-12 justify-content-between">
+
+                    </div>
+                    <div class="mb-3 col col-xl-7 col-12 justify-content-between" style="padding-left: 0%;">
+                        <label for="usuario" class="form-label">Archivos</label>
+                        <div class="input-group">
+                            <span class="input-group-text" style="justify-content: center; text-align: center;"><i class="bi bi-file-earmark-text"></i></span>
+                            <input type="file" class="form-control" id="inputGroupFile01">
                         </div>
-                        <div class="mb-3 col col-xl-6 col-12 justify-content-between">
-                            <label for="usuario" class="form-label">Motivo Devolución</label>
+                        <div class="error-message" id="usuarioError" style="color: red; display: none;"></div>
+                        <label for="usuario" class="form-label">Motivo Devolución</label>
                             <div class="input-group">
-                                <textarea name="" id="" cols="40" rows="4"></textarea>
+                                <textarea name="" id="" cols="65" rows="10" disabled placeholder="En caso de que la legalización no sea aprovada, le llegará un mensaje de correo electrónico que informativo y justo aquí podrá visualizar los detalles de la devolución para que corrija la legalización." style="padding: 2%;"></textarea>
                             </div>
-                            <div class="error-message" id="usuarioError" style="color: red; display: none;"></div>
-                        </div>
+                        <div class="error-message" id="usuarioError" style="color: red; display: none;"></div>
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" style="font-weight: 600;">Limpiar</button>
-                <button type="button" class="btn" style="background-color: #00BB00; color: white; font-weight: 600;">Registrar</button>
             </div>
         </div>
     </div>

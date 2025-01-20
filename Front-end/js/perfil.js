@@ -29,7 +29,7 @@ function listaUsuarios(){
 
             document.getElementById("num_documento").value = userData.num_documento;
             document.getElementById("nombre_usuario").value = userData.nombre_usuario;
-            document.getElementById("email").value = userData.email;
+            document.getElementById("correo_usuario").value = userData.email;
             document.getElementById("centro").value = userData.centro;
             document.getElementById("cargo").value = userData.cargo;
         })
