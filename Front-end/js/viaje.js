@@ -1,6 +1,6 @@
 // Importar las funciones necesarias de Firebase
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
-import { getFirestore, collection, addDoc, doc, onSnapshot, updateDoc } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+import { getFirestore, collection, addDoc, doc, onSnapshot, updateDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyCKTJxwwP2roq8DioEyhrBWMNN34f2JB6Y",
@@ -28,6 +28,7 @@ const registrarViaje = async (viaje) => {
             showConfirmButton: false,
             timer: 2000
         })
+        listaViajes();
     } catch (error) {
         Swal.fire({
             title: "!Oops!",
@@ -54,9 +55,8 @@ document.getElementById("registrar").addEventListener("click", () => {
     };
 
     registrarViaje(viaje);
+    
 });
-
-
 
 //Lista de viajes
 function listaViajes(){
@@ -76,7 +76,7 @@ function listaViajes(){
             row.insertCell(4).textContent = viajesData.ruta;
             row.insertCell(5).textContent = viajesData.estado;
             
-            // Crear celda para botones
+            // Crear celda editar
             let celdaOpcion = document.createElement("td");
            
             let botonEditar = document.createElement("btn");
@@ -91,6 +91,17 @@ function listaViajes(){
                 document.getElementById("fecha_finU").value = viajesData.fecha_fin;
                 document.getElementById("rutaU").value = viajesData.ruta;
                 document.getElementById("estadoU").value = viajesData.estado;
+
+                //Validación de campo Estado
+                const estadoSelect = document.getElementById("estadoU");
+                //Si el estado es "cancelado" no deja editar de los contrario no
+                if (viajesData.estado === "cancelar") {
+                    estadoSelect.disabled = true;
+                    estadoSelect.style.backgroundColor = "lightgrey";
+                }else {
+                    estadoSelect.disabled = false;
+                    estadoSelect.style.backgroundColor = "white";
+                }
 
                 document.getElementById("modalEditId").value = doc.id;
 
@@ -107,6 +118,7 @@ function listaViajes(){
 
 listaViajes();
 
+//Editar Viaje
 //Asignar el id al botón "Guardar"
 document.getElementById("editarViaje").addEventListener("click", async (event) => {
     event.preventDefault();
@@ -116,9 +128,9 @@ document.getElementById("editarViaje").addEventListener("click", async (event) =
     const fecha_inicio = document.getElementById("fecha_inicioU").value;
     const fecha_fin = document.getElementById("fecha_finU").value;
     const ruta = document.getElementById("rutaU").value;
-    const estado = document.getElementById("estadoU").value;
+    const estado = document.getElementById("estadoU").value; 
 
-    //Actualizar los datos de los usuarios en la tabla users
+    //Actualizar los datos de los viajes en la tabla viajes
     const viajesRef = doc(db, "viajes", id);
     await updateDoc(viajesRef, {
         num_comision,
@@ -128,7 +140,8 @@ document.getElementById("editarViaje").addEventListener("click", async (event) =
         estado
     });
 
-    //Cierra el modal una vez se actualizar el usuario
+    listaViajes();
+    //Cierra el modal una vez se actualizar el viaje
     const modal = bootstrap.Modal.getInstance(document.getElementById('myModalEdit'));
     modal.hide();
 
@@ -139,3 +152,82 @@ document.getElementById("editarViaje").addEventListener("click", async (event) =
         confirmButtonColor: "#00BB00",
     });
 });
+
+//Filtrar viajes
+const filtrarViaje = document.getElementById("filtrar"); 
+filtrarViaje.addEventListener("click", (event) => {
+    event.preventDefault();
+    const searchValue = document.getElementById("searchInput").value;
+    filtrarViajes(searchValue);
+});
+
+// Filtros input search
+async function filtrarViajes(searchValue) {
+    const viajeCollection = collection(db, "viajes");
+    const querySnapshot = await getDocs(viajeCollection);
+    const viajesFiltrados = [];
+
+    querySnapshot.forEach((doc) => {    
+        const viajesData = doc.data();
+        if (
+            viajesData.num_comision.toString().includes(searchValue) ||
+            viajesData.fecha_inicio.includes(searchValue) ||
+            viajesData.fecha_fin.includes(searchValue) // Asegúrate de convertir a string
+        ) {
+            viajesFiltrados.push({ id: doc.id, ...viajesData });
+        }
+    });
+
+    actualizarTabla(viajesFiltrados);
+}
+
+//Actualiza la tabla cuando se ha filtrado un viaje   
+function actualizarTabla(viajes) {
+    const tablaViajes = document.getElementById("tablaViajes").getElementsByTagName("tbody")[0];
+    tablaViajes.innerHTML = ""; // Limpiar la tabla
+
+    viajes.forEach((viaje) => {
+        const row = tablaViajes.insertRow();
+        row.insertCell(0).textContent = viaje.id;
+        row.insertCell(1).textContent = viaje.num_comision;
+        row.insertCell(2).textContent = viaje.fecha_inicio;
+        row.insertCell(3).textContent = viaje.fecha_fin;
+        row.insertCell(4).textContent = viaje.ruta;
+        row.insertCell(5).textContent = viaje.estado;
+
+        // Crear celda editar
+        let celdaOpcion = document.createElement("td");
+           
+        let botonEditar = document.createElement("btn");
+        botonEditar.className = 'bx bx-edit-alt bx-sm';
+        botonEditar.style.cursor = "pointer";
+        botonEditar.style.color = "orange";
+        botonEditar.style.justifyContent = "center";
+
+        botonEditar.onclick = () => {
+            document.getElementById("num_comisionU").value = viaje.num_comision;
+            document.getElementById("fecha_inicioU").value = viaje.fecha_inicio;
+            document.getElementById("fecha_finU").value = viaje.fecha_fin;
+            document.getElementById("rutaU").value = viaje.ruta;
+            document.getElementById("estadoU").value = viaje.estado;
+
+            //Validación de campo Estado
+            const estadoSelect = document.getElementById("estadoU");
+            //Si el estado es "cancelado" no deja editar de los contrario no
+            if (viaje.estado === "cancelar") {
+                estadoSelect.disabled = true;
+            }else {
+                estadoSelect.disabled = false;
+            }
+
+            document.getElementById("modalEditId").value = viaje.id;
+
+            const modal = new bootstrap.Modal(document.getElementById('myModalEdit'));
+            modal.show();   
+        };
+
+        celdaOpcion.appendChild(botonEditar);
+        celdaOpcion.appendChild(document.createTextNode(""));
+        row.appendChild(celdaOpcion);
+    });
+}

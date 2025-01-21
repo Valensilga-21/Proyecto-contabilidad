@@ -54,7 +54,7 @@ const signUp=document.getElementById('submitSignUp');
         const docRef=doc(db, "users", user.uid);
         setDoc(docRef,userData)
         .then(()=>{
-            window.location.href='inicio.html';
+            window.location.href='Usuario/inicioUsuario.html';
         })
 
         .catch((error)=>{

@@ -68,7 +68,8 @@ function listaUsuarios(){
 
                 //Abrir modal con boostrab y JQuery
                 const modal = new bootstrap.Modal(document.getElementById('myModalEdit'));
-                modal.show();   
+                modal.show();  
+                listaUsuarios();
             };
 
             // Botón Habilitar/Deshabilitar
@@ -85,12 +86,15 @@ function listaUsuarios(){
                     botonHabilitarDeshabilitar.className = 'bx bxs-toggle-left bx-sm';
                     botonHabilitarDeshabilitar.style.color = "#39A800";
                     botonHabilitarDeshabilitar.title = "Deshabilitar usuario";
+                    
                 } else {
                     botonHabilitarDeshabilitar.className = 'bx bxs-toggle-right bx-sm';
                     botonHabilitarDeshabilitar.style.color = "grey";
                     botonHabilitarDeshabilitar.title = "Habilitar usuario";
                 }
 
+                listaUsuarios();
+                
                 Swal.fire({
                     title: "!Éxito!",
                     text: nuevoEstado ? "El usuario ha sido habilitado" : "El usuario ha sido deshabilitado",
@@ -108,12 +112,15 @@ function listaUsuarios(){
             celdaOpcion.appendChild(document.createTextNode(""));
             celdaOpcion.appendChild(botonHabilitarDeshabilitar);
             row.appendChild(celdaOpcion);
+
         });
+        
     });
 }
 
 listaUsuarios();
 
+//Editar Usuarios
 //Asignar el id al botón "Guardar"
 document.getElementById("editarUsuario").addEventListener("click", async (event) => {
     event.preventDefault();
@@ -141,9 +148,12 @@ document.getElementById("editarUsuario").addEventListener("click", async (event)
         confirm_contra
     });
 
+    listaUsuarios();
+
     //Cierra el modal una vez se actualizar el usuario
     const modal = bootstrap.Modal.getInstance(document.getElementById('myModalEdit'));
     modal.hide();
+
 
     Swal.fire({
         title: "!Éxito!",
@@ -174,6 +184,8 @@ async function filtrarUsuarios(searchValue) {
             userData.num_documento.toString().includes(searchValue) // Asegúrate de convertir a string
         ) {
             usuariosFiltrados.push({ id: doc.id, ...userData });
+        }else{
+            listaUsuarios();
         }
     });
 
@@ -223,7 +235,7 @@ function actualizarTabla(usuarios) {
         };
 
         // Botón Habilitar/Deshabilitar
-        let botonHabilitarDeshabilitar = document.createElement("button"); // Cambiar 'btn' a 'button'
+        let botonHabilitarDeshabilitar = document.createElement("btn"); // Cambiar 'btn' a 'button'
         botonHabilitarDeshabilitar.style.cursor = "pointer";
         botonHabilitarDeshabilitar.onclick = async () => {
             // Alternar el estado del usuario
@@ -241,6 +253,8 @@ function actualizarTabla(usuarios) {
                 botonHabilitarDeshabilitar.style.color = "grey";
                 botonHabilitarDeshabilitar.title = "Habilitar usuario";
             }
+
+            listaUsuarios();
 
             Swal.fire({
                 title: "!Éxito!",
@@ -273,57 +287,99 @@ limpiar.addEventListener("click", (event) => {
     document.getElementById("correo_usuarioU").value = "";
 });
 
-// Agregar el evento de cambio para el filtro por centro
-const filtrarCentro = document.getElementById("filtrarCentro");
-filtrarCentro.addEventListener("change", (event) => {
-    const centroSeleccionado = event.target.value;
-    filtrarUsuariosPorCentro(centroSeleccionado);
-});
+// // Agregar el evento de cambio para el filtro por centro
+// const filtrarCentro = document.getElementById("filtrarCentro");
+// filtrarCentro.addEventListener("change", (event) => {
+//     const centroSeleccionado = event.target.value;
+//     filtrarUsuariosPorCentro(centroSeleccionado);
+// });
 
-// Función para filtrar usuarios por centro
-function filtrarUsuariosPorCentro(centro) {
-    const tablaUsuario = document.getElementById("userTable").getElementsByTagName("tbody")[0];
-    tablaUsuario.innerHTML = ""; // Limpiar la tabla
+// // Función para filtrar usuarios por centro
+// function filtrarUsuariosPorCentro(centro) {
+//     const tablaUsuario = document.getElementById("userTable").getElementsByTagName("tbody")[0];
+//     tablaUsuario.innerHTML = ""; // Limpiar la tabla
 
-    // Filtrar usuarios según el centro seleccionado
-    const usuariosFiltrados = allUsers.filter(usuario => {
-        return centro === "" || usuario.centro === centro;
-    });
+//     // Filtrar usuarios según el centro seleccionado
+//     const usuariosFiltrados = allUsers.filter(usuario => {
+//         return centro === "" || usuario.centro === centro;
+//     });
 
-    // Actualizar la tabla con los usuarios filtrados
-    usuariosFiltrados.forEach(usuario => {
-        const row = tablaUsuario.insertRow();
-        row.insertCell(0).textContent = usuario.id;
-        row.insertCell(1).textContent = usuario.num_documento;
-        row.insertCell(2).textContent = usuario.nombre_usuario;
-        row.insertCell(3).textContent = usuario.email;
-        row.insertCell(4).textContent = usuario.centro;
-        row.insertCell(5).textContent = usuario.cargo;
-        row.insertCell(6).textContent = usuario.rol;
-        row.insertCell(7).textContent = usuario.estado ? "Activo" : "Deshabilitado";
+//     // Actualizar la tabla con los usuarios filtrados
+//     usuariosFiltrados.forEach(usuario => {
+//         const row = tablaUsuario.insertRow();
+//         row.insertCell(0).textContent = usuario.id;
+//         row.insertCell(1).textContent = usuario.num_documento;
+//         row.insertCell(2).textContent = usuario.nombre_usuario;
+//         row.insertCell(3).textContent = usuario.email;
+//         row.insertCell(4).textContent = usuario.centro;
+//         row.insertCell(5).textContent = usuario.cargo;
+//         row.insertCell(6).textContent = usuario.rol;
+//         row.insertCell(7).textContent = usuario.estado ? "Activo" : "Deshabilitado";
 
-        // Crear celda para botones
-        let celdaOpcion = document.createElement("td");
+//         // Crear celda para botones
+//         let celdaOpcion = document.createElement("td");
 
-        // Botón Editar
-        let botonEditar = document.createElement("button"); // Cambiar 'btn' a 'button'
-        botonEditar.className = 'bx bx-edit-alt bx-sm';
-        botonEditar.style.cursor = "pointer";
-        botonEditar.style.color = "orange";
-        botonEditar.onclick = () => {
-            // Código para abrir el modal de edición
-        };
+//         // Botón Editar
+//         let botonEditar = document.createElement("btn");
+//         botonEditar.className = 'bx bx-edit-alt bx-sm';
+//         botonEditar.style.cursor = "pointer";
+//         botonEditar.style.color = "orange";
+//         botonEditar.onclick = () => {
+//             document.getElementById("num_documentoU").value = usuario.num_documento; // Cambiar userData a usuario
+//             document.getElementById("nombreCompletoU").value = usuario.nombre_usuario;
+//             document.getElementById("correo_usuarioU").value = usuario.email;
+//             document.getElementById("centroU").value = usuario.centro;
+//             document.getElementById("cargoU").value = usuario.cargo;
+//             document.getElementById("rolU").value = usuario.rol;
+//             document.getElementById("contrasenaU").value = usuario.password; // Asegúrate de que 'password' esté disponible
+//             document.getElementById("confirm_contraU").value = usuario.confirm_contra; // Asegúrate de que 'confirm_contra' esté disponible
 
-        // Botón Habilitar/Deshabilitar
-        let botonHabilitarDeshabilitar = document.createElement("button"); // Cambiar 'btn' a 'button'
-        botonHabilitarDeshabilitar.style.cursor = "pointer";
-        botonHabilitarDeshabilitar.onclick = async () => {
-            // Código para habilitar/deshabilitar usuario
-        };
+//             document.getElementById("modalEditId").value = usuario.id; // Cambiar doc.id a usuario.id
 
-        celdaOpcion.appendChild(botonEditar);
-        celdaOpcion.appendChild(document.createTextNode(" ")); // Espacio entre botones
-        celdaOpcion.appendChild(botonHabilitarDeshabilitar);
-        row.appendChild(celdaOpcion);
-    });
-}
+//             const modal = new bootstrap.Modal(document.getElementById('myModalEdit'));
+//             modal.show();
+
+//             listaUsuarios();
+//         };
+
+//         // Botón Habilitar/Deshabilitar
+//         let botonHabilitarDeshabilitar = document.createElement("btn");
+//         botonHabilitarDeshabilitar.style.cursor = "pointer";
+//         botonHabilitarDeshabilitar.onclick = async () => {
+//             // Alternar el estado del usuario
+//             const nuevoEstado = !usuario.estado; // Cambiar userData a usuario
+//             await updateDoc(doc.ref, { estado: nuevoEstado }); // Asegúrate de que 'doc.ref' esté definido
+
+//             row.style.backgroundColor = nuevoEstado ? "" : "red"; // Cambiar a rojo si se deshabilita
+
+//             if (nuevoEstado) {
+//                 botonHabilitarDeshabilitar.className = 'bx bxs-toggle-left bx-sm';
+//                 botonHabilitarDeshabilitar.style.color = "#39A800";
+//                 botonHabilitarDeshabilitar.title = "Deshabilitar usuario";
+//             } else {
+//                 botonHabilitarDeshabilitar.className = 'bx bxs-toggle-right bx-sm';
+//                 botonHabilitarDeshabilitar.style.color = "grey";
+//                 botonHabilitarDeshabilitar.title = "Habilitar usuario";
+//             }
+
+//             listaUsuarios();
+
+//             Swal.fire({
+//                 title: "!Éxito!",
+//                 text: nuevoEstado ? "El usuario ha sido habilitado" : "El usuario ha sido deshabilitado",
+//                 icon: "success",
+//                 confirmButtonColor: "#00BB00",
+//             });
+//         };
+
+//         // Establecer el ícono inicial según el estado del usuario
+//         botonHabilitarDeshabilitar.className = usuario.estado ? 'bx bxs-toggle-left bx-sm' : 'bx bxs-toggle-right bx-sm'; // Cambiar ícono
+//         botonHabilitarDeshabilitar.style.color = usuario.estado ? "#39A800" : "grey"; // Cambiar color inicial
+//         botonHabilitarDeshabilitar.title = usuario.estado ? "Deshabilitar usuario" : "Habilitar usuario"; // Cambiar título
+
+//         celdaOpcion.appendChild(botonEditar);
+//         celdaOpcion.appendChild(document.createTextNode(" "));
+//         celdaOpcion.appendChild(botonHabilitarDeshabilitar);
+//         row.appendChild(celdaOpcion);
+//     });
+// }

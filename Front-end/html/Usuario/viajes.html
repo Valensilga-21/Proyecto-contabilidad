@@ -59,6 +59,10 @@
     .modal-header{
         border-bottom: var(--bs-modal-header-border-width) solid #dee2e600;
     }
+
+    .espacio{
+        padding-top: 5%;
+    }
 </style>
 <body>
     <nav>
@@ -72,7 +76,7 @@
 
         <div class="menu-items">
             <ul class="nav-links">
-                <li><a href="/Front-end/html/Usuario/inicio.html">
+                <li><a href="/Front-end/html/Usuario/inicioUsuario.html">
                     <i class="uil uil-estate"></i>
                     <span class="link-name"><b>Inicio</b></span>
                 </a></li>
@@ -111,21 +115,20 @@
             </div>
             <div class="col-5">
                 <div class="input-group mb-3">
-                    <button class="btn btn-outline-secondary" type="button" id="button-addon1"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16" style="color: black;">
+                    <button class="btn btn-outline-secondary" type="button" id="filtrar"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16" style="color: black;">
                         <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
                       </svg></button>
-                    <input type="text" class="form-control" placeholder="Buscar..." aria-label="Example text with button addon" aria-describedby="button-addon1">
+                    <input id="searchInput" type="text" class="form-control" placeholder="Buscar..." aria-label="Example text with button addon" aria-describedby="button-addon1">
                 </div>
             </div>
             <div class="col-2">
                 <div class="input-group" style="border-radius: 10px 10px 10px 10px; border-left:none;">
                     <span class="input-group-text"><box-icon name='filter' ></box-icon></span>
                     <select name="centro" id="estados" class="form-select" style="background-color: #ffffff; border-radius: 0px 0px 10px 0px; border-left:none;">
-                        <option value="" disabled selected>Estado</option>
-                        <option value="completadas">Completadas</option>
+                        <option value="" selected>Estados</option>
+                        <option value="completadas">Completados</option>
                         <option value="pendientes">Pendientes</option>
-                        <option value="vencidas">Vencidas</option>
-                        <option value="mas90dias">Mas de 90 dias</option>
+                        <option value="canceladas">Cancelados</option>
                     </select>
                 </div>
             </div>
@@ -152,7 +155,7 @@
                             <th>Acciones</th>
                         </tr>
                     </thead>
-                    <tbody id="tablaInicio">
+                    <tbody>
 
                     </tbody>
                 </table>
@@ -168,12 +171,12 @@
                 <div class="container">
                     <div class="row" style="justify-content: center;">
                         <div class="mb-3 col col-xl-6 col-12 justify-content-between">
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            
                         </div>
                         <div class="mb-3 col col-xl-6 col-12 justify-content-between" style="text-align: right;">
                             <button type="submit" class="btn" style="background-color: #00bb0021; border: 1px solid #00BB00; color: #00BB00; font-weight: 600;" id="registrar">
                                 <span><i class="bi bi-check-lg"></i></span>Guardar</button>
-                            <button type="submit" id="cancelar" class="btn btn-secondary" style="background-color: #ff000015; border: 1px solid #ff0000; color: #ff0101; font-weight: 600;">
+                            <button type="submit" id="cancelarr" class="btn" data-bs-dismiss="modal" style="background-color: #ff000015; border: 1px solid #ff0000; color: #ff0101; font-weight: 600;">
                                 <span><i class="bi bi-x-lg"></i></span>Cancelar</button>
                         </div>
                     </div>
@@ -183,6 +186,7 @@
                 <div class="div" style="padding: 0% 8% 5%;">
                     <h3 style="font-weight: 600;">Registrar Viaje</h3>
                 <div class="row py-4" id="signup">
+                    <!-- No. Comisión, fecha_inicio y fecha_fin -->
                     <div class="mb-3 col col-xl-6 col-12 justify-content-between visually-hidden">
                         <label for="usuario" class="form-label">Nombre Completo</label>
                         <div class="input-group">
@@ -190,6 +194,7 @@
                         </div>
                         <div class="error-message" id="usuarioError" style="color: red; display: none;"></div>
                     </div>
+                    <!-- Espacio -->
                     <div class="mb-3 mb-3 col col-xl-6 col-12">
                         <div class="comision" style="padding-top: 7%;">
                             <label for="usuario" class="">No. Comisión</label>
@@ -198,32 +203,35 @@
                             </div>
                             <div class="error-message" id="usuarioError" style="color: red; display: none;"></div>
                             </div>
-                            <label for="usuario" class="form-label">Fecha Inicio</label>
+                            <label for="usuario" class="form-label" style="padding-top: 3%;">Fecha Inicio</label>
                             <div class="input-group">
                                 <input type="date" class="form-control" id="fecha_inicio" placeholder="">
                             </div>
                             <div class="error-message" id="usuarioError" style="color: red; display: none;"></div>
-                            <label for="usuario" class="form-label">Fecha Fin</label>
+                            <label for="usuario" class="form-label" style="padding-top: 3%;">Fecha Fin</label>
                             <div class="input-group">
                                 <input type="date" class="form-control" id="fecha_fin" placeholder="">
                             </div>
                             <div class="error-message" id="usuarioError" style="color: red; display: none;"></div>
                     </div>
                     
+                    <!-- Ruta -->
                     <div class="mb-3 col col-xl-6 col-12 justify-content-between">
                         <label for="usuario" class="form-label">Ruta</label>
                         <div class="form-floating">
-                            <textarea class="form-control" placeholder="Leave a comment here"style="height: 190px" style="font-size: 0%" id="ruta"></textarea>
+                            <textarea class="form-control" placeholder="Leave a comment here"style="height: 210px" style="font-size: 0%" id="ruta"></textarea>
                           </div>
                         <div class="error-message" id="usuarioError" style="color: red; display: none;"></div>
                     </div>
+
+                    <!-- Estado -->
                     <div class="input-group visually-hidden" style="border-radius: 10px 10px 10px 10px; border-left:none;">
                         <span class="input-group-text"><box-icon name='filter' ></box-icon></span>
                         <select name="centro" id="estado" class="form-select" style="background-color: #ffffff; border-radius: 0px 0px 10px 0px; border-left:none;">
                             <option value="">Todos</option>
                             <option value="completado">Completado</option>
                             <option value="pendiente" selected>Pendiente</option>
-                            <option value="cancelar">Cancelar</option>
+                            <option value="cancelarR">Cancelar</option>
                         </select>
                     </div>
                 </div>
@@ -242,60 +250,53 @@
                         <input type="hidden" id="modalEditId">
                         <div class="row" style="justify-content: center;">
                             <div class="mb-3 col col-xl-6 col-12 justify-content-between">
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                
                             </div>
                             <div class="mb-3 col col-xl-6 col-12 justify-content-between" style="text-align: right;">
                                 <button type="submit" class="btn" style="background-color: #00bb0021; border: 1px solid #00BB00; color: #00BB00; font-weight: 600;" id="editarViaje">
                                     <span><i class="bi bi-check-lg"></i></span>Guardar</button>
-                                <button type="submit" id="cancelar" class="btn btn-secondary" style="background-color: #ff000015; border: 1px solid #ff0000; color: #ff0101; font-weight: 600;">
+                                <button type="submit" id="cancelare" class="btn btn-secondary" data-bs-dismiss="modal" style="background-color: #ff000015; border: 1px solid #ff0000; color: #ff0101; font-weight: 600;">
                                     <span><i class="bi bi-x-lg"></i></span>Cancelar</button>
                             </div>
                         </div>
                     </div>  
                 </div>  
                 <div class="modal-body">
-                    <div class="div" style="padding: 0% 8% 5%;">
+                    <div class="div" style="padding: 0% 8% 3%;">
                         <h3 style="font-weight: 600;">Editar Viaje</h3>
                     <div class="row py-4" id="signup">
                         <div class="mb-3 col col-xl-6 col-12 justify-content-between">
-                            <div class="comision" style="padding-top: 7%;">
-                                <label for="usuario" class="">No. Comisión</label>
+                            <div class="comision">
+                            <label for="usuario" class="">No. Comisión</label>
                             <div class="input-group">
                                 <input type="text" class="form-control" id="num_comisionU" placeholder="">
                             </div>
                             <div class="error-message" id="usuarioError" style="color: red; display: none;"></div>
-                            </div>
-                        </div>
-                        <div class="mb-3 mb-3 col col-xl-6 col-12">
-                            <label for="usuario" class="form-label">Ruta</label>
-                            <div class="form-floating">
-                                <textarea class="form-control" placeholder="Leave a comment here"style="height: 120px" style="font-size: 0%" id="rutaU"></textarea>
-                              </div>
-                            <div class="error-message" id="usuarioError" style="color: red; display: none;"></div>
-                        </div>
-                        
-                        <div class="mb-3 col col-xl-6 col-12">
-                            <label for="usuario" class="form-label">Fecha Inicio</label>
+                            <label for="usuario" class="form-label espacio">Fecha Inicio</label>
                             <div class="input-group">
                                 <input type="date" class="form-control" id="fecha_inicioU" placeholder="">
                             </div>
                             <div class="error-message" id="usuarioError" style="color: red; display: none;"></div>
-                        </div>
-                        <div class="mb-3 col col-xl-6 col-12">
-                            <label for="usuario" class="form-label">Fecha Fin</label>
+                            </div>
+                            <label for="usuario" class="form-label espacio">Fecha Fin</label>
                             <div class="input-group">
                                 <input type="date" class="form-control" id="fecha_finU" placeholder="">
                             </div>
                             <div class="error-message" id="usuarioError" style="color: red; display: none;"></div>
-                        </div>
-                        <div class="input-group visually-hidden" style="border-radius: 10px 10px 10px 10px; border-left:none;">
-                            <span class="input-group-text"><box-icon name='filter' ></box-icon></span>
-                            <select name="centro" id="estadoU" class="form-select" style="background-color: #ffffff; border-radius: 0px 0px 10px 0px; border-left:none;">
-                                <option value="" disabled selected>Todos</option>
+                            <label for="usuario" class="form-label espacio">Estado</label>
+                            <select name="estadoU" id="estadoU" class="form-select" style="background-color: #ffffff; border-radius: 5px 5px 5px 5px;">
+                                <option value="" disabled selected></option>
                                 <option value="completado">Completado</option>
                                 <option value="pendiente" selected>Pendiente</option>
                                 <option value="cancelar">Cancelar</option>
                             </select>
+                        </div>
+                        <div class="mb-3 col col-xl-6 col-12 justify-content-between">
+                            <label for="usuario" class="form-label">Ruta</label>
+                            <div class="form-floating">
+                                <textarea class="form-control" placeholder="Leave a comment here"style="height: 290px" style="font-size: 0%" id="rutaU"></textarea>
+                            </div>
+                            <div class="error-message" id="usuarioError" style="color: red; display: none;"></div>
                         </div>
                     </div>
                     </div>

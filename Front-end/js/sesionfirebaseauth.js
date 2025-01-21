@@ -1,6 +1,7 @@
-// Import the functions you need from the SDKs you need
+// Importar las funciones necesarias de Firebase
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
-import {getAuth, signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyCKTJxwwP2roq8DioEyhrBWMNN34f2JB6Y",
@@ -12,56 +13,61 @@ const firebaseConfig = {
     measurementId: "G-2LDHTHRHNY"
 };
 
-// Initialize Firebase
+// Inicializar Firebase
 const app = initializeApp(firebaseConfig);
+const db = getFirestore();
+const auth = getAuth();
 
-const signIn=document.getElementById('submitSignIn');
-signIn.addEventListener('click', (event)=>{
-   event.preventDefault();
-   const email=document.getElementById('correo_usuario').value;
-   const password=document.getElementById('contrasena').value;
-   const auth=getAuth();
+// Evento asincrónico para el inicio de sesión
+const signInButton = document.getElementById('submitSignIn');
+signInButton.addEventListener('click', async (event) => {
+    event.preventDefault();
+    const email = document.getElementById('correo_usuario').value;
+    const password = document.getElementById('contrasena').value;
 
-   signInWithEmailAndPassword(auth, email, password)
+    try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
 
-   .then((userCredential) => {
-    const user = userCredential.user;
-    Swal.fire({
-        icon: "success",
-        position: "top-end",
-        title: "Has iniciado sesión correctamente.",
-        showConfirmButton: false,
-        timer: 2000
-    }).then(() => {
-        localStorage.setItem('loggedInUserId', user.uid);
-        window.location.href = 'inicio.html';
-    });
-})
-   .catch((error)=>{
-       const errorCode=error.code;
-       if(errorCode==='auth/invalid-credential'){
+        // Obtener el rol del usuario desde Firestore
+        const userDoc = await getDoc(doc(db, "users", user.uid));
+        if (userDoc.exists()) {
+            const userData = userDoc.data();
+
+            // Redirigir según el rol
+            if (userData.rol === 'admin') {
+                window.location.href = 'inicio.html'; // Redirige a la página del administrador
+            } else if (userData.rol === 'usuario') {
+                window.location.href = 'Usuario/inicioUsuario.html'; // Redirige a la página del usuario
+            }
+        } else {
+            console.error("No se encontró el documento del usuario.");
+        }
+
         Swal.fire({
-            title: "!Oops!",
-            text: "Correo o contraseña incorrectos",
-            icon: "error",
-            confirmButtonColor: "#ff0000"
-        })
-       }
-       else{
-        Swal.fire({
-            title: "!Oops!",
-            text: "Usuario no encontrado",
-            icon: "error",
-            confirmButtonColor: "#ff0000"
-        })
-       }
-   })
-});
+            icon: "success",
+            position: "top-end",
+            title: "Has iniciado sesión correctamente.",
+            showConfirmButton: false,
+            timer: 2000
+        });
 
-auth.signOut()
-  .then(() => {
-    window.location.href = '/iniciosesion';
-  })
-  .catch((error) => {
-    console.error('Error al cerrar sesión', error.message);
+    } catch (error) {
+        const errorCode = error.code;
+        if (errorCode === 'auth/invalid-credential') {
+            Swal.fire({
+                title: "!Oops!",
+                text: "Correo o contraseña incorrectos",
+                icon: "error",
+                confirmButtonColor: "#ff0000"
+            });
+        } else {
+            Swal.fire({
+                title: "!Oops!",
+                text: "Usuario no encontrado",
+                icon: "error",
+                confirmButtonColor: "#ff0000"
+            });
+        }
+    }
 });
