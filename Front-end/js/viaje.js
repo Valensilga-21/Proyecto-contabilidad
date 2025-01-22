@@ -40,7 +40,7 @@ const registrarViaje = async (viaje) => {
 };
 
 document.getElementById("registrar").addEventListener("click", () => {
-    const num_comision = document.getElementById("noComision").value;
+    const num_comision = document.getElementById("num_comision").value;
     const fecha_inicio = document.getElementById("fecha_inicio").value;
     const fecha_fin = document.getElementById("fecha_fin").value;
     const ruta = document.getElementById("ruta").value;
