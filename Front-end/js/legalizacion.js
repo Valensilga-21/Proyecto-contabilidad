@@ -36,6 +36,7 @@ const registrarLegalizacion = async (num_comision) => {
         const viajeId = querySnapshot.docs[0].id;
 
         const legalizacion = {
+            IdViaje: viajeId.id,
             num_comision: viajeData.num_comision,
             fecha_inicio: viajeData.fecha_inicio,
             fecha_fin: viajeData.fecha_fin,
@@ -52,6 +53,8 @@ const registrarLegalizacion = async (num_comision) => {
             showConfirmButton: false,
             timer: 2000
         });
+
+        listaLegalizaciones();
     } catch (error) {
         Swal.fire({
             title: "!Oops!",

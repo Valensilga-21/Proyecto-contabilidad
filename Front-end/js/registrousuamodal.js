@@ -23,7 +23,7 @@ const db=getFirestore();
 const signUp=document.getElementById('submitSignUp');
  signUp.addEventListener('click', (event)=>{
     event.preventDefault();
-    const email=document.getElementById('correo_usuario').value;
+    const correo_usuario=document.getElementById('correo_usuario').value;
     const password=document.getElementById('contrasena').value;
     const nombre_usuario=document.getElementById('nombre_usuario').value;
     const num_documento=document.getElementById('num_documento').value;
@@ -33,11 +33,11 @@ const signUp=document.getElementById('submitSignUp');
     const rol=document.getElementById('rol').value;
 
     
-    createUserWithEmailAndPassword(auth, email, password)
+    createUserWithEmailAndPassword(auth, correo_usuario, password)
     .then((userCredential)=>{
         const user=userCredential.user;
         const userData={
-            email: email,
+            correo_usuario: correo_usuario,
             nombre_usuario: nombre_usuario,
             num_documento: num_documento,
             centro: centro,

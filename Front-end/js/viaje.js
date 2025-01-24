@@ -18,8 +18,9 @@ const db = getFirestore();
 
 const modal = document.getElementById("myModal");
 
-const registrarViaje = async (viaje) => {
+const registrarViaje = async (viaje, userId) => {
     try {
+        viaje.userId = userId;
         const docRef = await addDoc(collection(db, "viajes"), viaje);
         Swal.fire({
             icon: "success",
