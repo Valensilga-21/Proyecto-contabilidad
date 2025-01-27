@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 @RequestMapping("/api/v1/LCDSena/usuario")
 @RestController
-
 public class usuarioController {
 
     @Autowired

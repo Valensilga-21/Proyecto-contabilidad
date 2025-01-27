@@ -9,7 +9,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 
 @Entity(name = "viaje")
 public class viaje {
@@ -35,18 +34,14 @@ public class viaje {
     private String estado_viaje;
 
     @ManyToOne
-    @JoinColumn(name = "id_usuario", nullable = false)
+    @JoinColumn(name = "id_usuario")
     private usuario usuario;
-
-    @OneToOne(mappedBy = "viaje")
-    private legalizacion legalizacion;
 
     public viaje() {
     }
 
     public viaje(String id_viaje, String num_comision, Date fecha_inicio, Date fecha_fin, String ruta,
-            String estado_viaje, com.sena.LCDSena.model.usuario usuario,
-            com.sena.LCDSena.model.legalizacion legalizacion) {
+            String estado_viaje, com.sena.LCDSena.model.usuario usuario) {
         this.id_viaje = id_viaje;
         this.num_comision = num_comision;
         this.fecha_inicio = fecha_inicio;
@@ -54,7 +49,6 @@ public class viaje {
         this.ruta = ruta;
         this.estado_viaje = estado_viaje;
         this.usuario = usuario;
-        this.legalizacion = legalizacion;
     }
 
     public String getId_viaje() {
@@ -112,15 +106,5 @@ public class viaje {
     public void setUsuario(usuario usuario) {
         this.usuario = usuario;
     }
-
-    public legalizacion getLegalizacion() {
-        return legalizacion;
-    }
-
-    public void setLegalizacion(legalizacion legalizacion) {
-        this.legalizacion = legalizacion;
-    }
     
-    
- 
 }

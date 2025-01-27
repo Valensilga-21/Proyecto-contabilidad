@@ -1,14 +1,15 @@
-package com.sena.LCD.controller;
+package com.sena.LCDSena.model;
 
-public class Respuesta {
+public class respuestaPdf {
 
-    private String status;
-    private String message;
+    public String status;
+    public String message;
 
-    public Respuesta(String status, String message) {
+    public respuestaPdf(String status) {
         super();
+
         this.status = status;
-        this.message = message;
+        this.message =message;
     }
 
     public String getStatus() {
@@ -26,4 +27,5 @@ public class Respuesta {
     public void setMessage(String message) {
         this.message = message;
     }
+
 }

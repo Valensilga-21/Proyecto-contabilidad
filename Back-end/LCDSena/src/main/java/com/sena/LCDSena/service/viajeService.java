@@ -8,11 +8,11 @@ import org.springframework.stereotype.Service;
 
 import com.sena.LCDSena.interfaces.iviaje;
 import com.sena.LCDSena.iservice.iviajeService;
-import com.sena.LCDSena.model.usuario;
 import com.sena.LCDSena.model.viaje;
 
 @Service
 public class viajeService implements iviajeService{
+
     @Autowired
     private iviaje data;
 
@@ -24,19 +24,20 @@ public class viajeService implements iviajeService{
 
    @Override
    public List<viaje> findAll() {
-    List <viaje> listaViajes =
+    List<viaje> listaViajes =
     (List<viaje>) data.findAll();
     return listaViajes;
    }
 
-   @Override Optional<viaje> findOne(String id) {
+   @Override
+    public Optional<viaje> findOne(String id) {
     Optional<viaje> viaje=data.findById(id);
     return viaje;
    }
 
    @Override
-    public List<usuario> filtroViajes(String filtro) {
-        List<usuario> listaViajes=data.filtroViajes(filtro);
+    public List<viaje> filtroViaje(String filtro) {
+        List<viaje> listaViajes=data.filtroViaje(filtro);
         return listaViajes;
     }
 

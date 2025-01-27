@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PutMapping;
 
 @RequestMapping("/api/v1/LCDSena/viaje")
@@ -81,6 +80,11 @@ public class viajeController {
             viaje.setFecha_fin(viajeUpdate.getFecha_fin());
             viaje.setRuta(viajeUpdate.getRuta());
             viaje.setEstado_viaje(viajeUpdate.getEstado_viaje());
+
+            viajeService.save(viaje);
+            return new ResponseEntity<>(viaje, HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>("No se pudieron guardar los cambios, por favor intentelo de nuevo.", HttpStatus.BAD_REQUEST);
         }
     }
 }

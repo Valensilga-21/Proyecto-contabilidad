@@ -31,8 +31,8 @@ public class usuarioService implements iusuarioService{
 
     @Override
     public Optional<usuario> findOne(String id) {
-        Optional<usuario> usuario=data.findById(id);
-        return usuario;
+    Optional<usuario> usuario=data.findById(id);
+    return usuario;
     }
 
     @Override

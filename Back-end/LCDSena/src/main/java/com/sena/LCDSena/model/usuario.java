@@ -143,6 +143,4 @@ public class usuario {
     public void setRol(rol rol) {
         this.rol = rol;
     }
-
-    
 }
