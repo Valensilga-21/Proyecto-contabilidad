@@ -21,7 +21,6 @@ import com.sena.LCDSena.model.respuestaPdf;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @RequestMapping("/api/v1/LCDSena/legalizacion")
 @RestController
@@ -31,7 +30,8 @@ public class legalizacionController {
     private ilegalizacionService legalizacionService;
 
     @PostMapping("/")
-    public ResponseEntity<Object> save(@ModelAttribute legalizacion legalizacion, @RequestParam("file") MultipartFile file) throws IOException {
+    public ResponseEntity<Object> save(@ModelAttribute legalizacion legalizacion,
+            @RequestParam("file") MultipartFile file) throws IOException {
         if (file.isEmpty()) {
             return new ResponseEntity<>("El archivo es obligatorio", HttpStatus.BAD_REQUEST);
         }
@@ -45,22 +45,23 @@ public class legalizacionController {
     }
 
     @PostMapping("/pdf")
-    public ResponseEntity<Object> guardarpdfJson(legalizacion legalizacion, @RequestParam("file") MultipartFile file) throws IOException{
+    public ResponseEntity<Object> guardarpdfJson(legalizacion legalizacion, @RequestParam("file") MultipartFile file)
+            throws IOException {
 
-        try{
+        try {
             legalizacion.setPdf(Base64.getEncoder().encodeToString(file.getBytes()));
 
             int resultado = legalizacionService.guardarpdfJson(legalizacion);
 
             if (resultado == 0) {
                 return new ResponseEntity<>(new respuestaPdf("Ok, se guardó correctamente"), HttpStatus.OK);
-            }else {
+            } else {
                 return new ResponseEntity<>(new respuestaPdf("Error al guardar"), HttpStatus.INTERNAL_SERVER_ERROR);
             }
         } catch (IOException e) {
             return new ResponseEntity<>("Error al guardar el pdf: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        
+
     }
 
     @GetMapping("/listaLegalizaciones")
@@ -71,26 +72,25 @@ public class legalizacionController {
 
     @GetMapping("/{id_legalizacion}")
     public ResponseEntity<Object> findOne(@PathVariable String id_legalizacion) {
-        var legalizacion=legalizacionService.findOne(id_legalizacion);
+        var legalizacion = legalizacionService.findOne(id_legalizacion);
         return new ResponseEntity<>(legalizacion, HttpStatus.OK);
     }
-    
 
     @GetMapping("/busquedaFiltro")
     public ResponseEntity<Object> findFiltro(@PathVariable String filtro) {
-        var listaLegalizaciones=legalizacionService.filtroLegalizacion(filtro);
+        var listaLegalizaciones = legalizacionService.filtroLegalizacion(filtro);
         return new ResponseEntity<>(listaLegalizaciones, HttpStatus.OK);
     }
-    
+
     @DeleteMapping("/deshabilitar/{id_legalizacion}")
-    public ResponseEntity<Object> delete(@PathVariable String id_legalizacion){
+    public ResponseEntity<Object> delete(@PathVariable String id_legalizacion) {
         legalizacionService.delete(id_legalizacion);
         return new ResponseEntity<>("Legalizacion deshabilitada", HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Object> update(@PathVariable String id, @RequestParam legalizacion legalizacionUpdate) {
-        var legalizacion=legalizacionService.findOne(id).get();
+        var legalizacion = legalizacionService.findOne(id).get();
         if (legalizacion != null) {
             legalizacion.setMoti_devolucion(legalizacionUpdate.getMoti_devolucion());
             legalizacion.setEstado_lega(legalizacionUpdate.getEstado_lega());
@@ -98,8 +98,9 @@ public class legalizacionController {
 
             legalizacionService.save(legalizacion);
             return new ResponseEntity<>(legalizacion, HttpStatus.OK);
-        }else{
-            return new ResponseEntity<>("No se guardaron los cambios, por favor intentelo de nuevo.", HttpStatus.BAD_REQUEST);
+        } else {
+            return new ResponseEntity<>("No se guardaron los cambios, por favor intentelo de nuevo.",
+                    HttpStatus.BAD_REQUEST);
         }
     }
 

@@ -11,12 +11,12 @@ import jakarta.persistence.OneToOne;
 
 @Entity(name = "legalizacion")
 public class legalizacion {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id_legalizacion", nullable = false, length = 36)
     private String id_legalizacion;
-    
+
     @Column(name = "moti_devolucion", nullable = false, length = 5000)
     private String moti_devolucion;
 
@@ -107,5 +107,4 @@ public class legalizacion {
         this.viaje = viaje;
     }
 
-    
 }

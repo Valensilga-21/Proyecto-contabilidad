@@ -1,5 +1,16 @@
 package com.sena.LCDSena.controller;
 
+import java.io.FileNotFoundException;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -7,29 +18,18 @@ import com.sena.LCDSena.iservice.iusuarioService;
 import com.sena.LCDSena.model.usuario;
 import com.sena.LCDSena.service.usuarioService;
 
-import jakarta.mail.internet.ContentDisposition;
+import org.springframework.http.ContentDisposition;
 import net.sf.jasperreports.engine.JRException;
 
-import java.io.FileNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-@RequestMapping("/api/v1/LCDSena/usuario")
+@RequestMapping("/api/v1/LCDSena/pdfReporte")
 @RestController
-public class usuarioController {
+public class usuarioReporteController {
 
     @Autowired
-    private iusuarioService usuarioService;
+    private iusuarioService iusuarioService;
+
+    @Autowired
+    usuarioService usuarioService;
 
     @PostMapping("/registrar")
     public ResponseEntity<Object> save(@RequestBody usuario usuario) {
@@ -82,30 +82,24 @@ public class usuarioController {
         return new ResponseEntity<>(listaUsuarios, HttpStatus.OK);
     }
 
-    @DeleteMapping("/deshabilitar/{id_usuario}")
-    public ResponseEntity<Object> delete(@PathVariable String id_usuario) {
-        usuarioService.delete(id_usuario);
-        return new ResponseEntity<>("Usuario deshabilitado", HttpStatus.OK);
+    // pdf
+    @GetMapping("/export-pdf")
+    public ResponseEntity<byte[]> exportPdf() throws JRException, FileNotFoundException {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDispositionFormData("reporteUsuarios", "listado_usuarios.pdf");
+        return ResponseEntity.ok().headers(headers).body(iusuarioService.exportPdf());
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Object> update(@PathVariable String id, @RequestBody usuario usuarioUpdate) {
-        var usuario = usuarioService.findOne(id).get();
-        if (usuario != null) {
-            usuario.setDocumento_usuario(usuarioUpdate.getDocumento_usuario());
-            usuario.setNombre_usuario(usuarioUpdate.getNombre_usuario());
-            usuario.setCorreo_usuario(usuarioUpdate.getCorreo_usuario());
-            usuario.setCentro(usuarioUpdate.getCentro());
-            usuario.setCargo(usuarioUpdate.getCargo());
-            usuario.setContrasena(usuarioUpdate.getContrasena());
-            usuario.setConfirm_contrasena(usuarioUpdate.getConfirm_contrasena());
-            usuario.setEstado_usuario(usuarioUpdate.getEstado_usuario());
-
-            usuarioService.save(usuario);
-            return new ResponseEntity<>(usuario, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("No se pudieron guardar los cambios", HttpStatus.BAD_REQUEST);
-        }
+    @GetMapping("/export-xls")
+    public ResponseEntity<byte[]> exportXls() throws JRException, FileNotFoundException {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; charset=UTF-8");
+        var contentDisposition = ContentDisposition.builder("attachment")
+                .filename("reporteUsuarios" + ".xls").build();
+        headers.setContentDisposition(contentDisposition);
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(iusuarioService.exportXls());
     }
-
 }

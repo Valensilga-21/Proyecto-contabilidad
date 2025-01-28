@@ -9,7 +9,7 @@ public class respuestaPdf {
         super();
 
         this.status = status;
-        this.message =message;
+        this.message = message;
     }
 
     public String getStatus() {

@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-LcdSenaApplication<LCDSena>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.sena.LCDSena.LcdSenaApplication",
+            "projectName": "LCDSena",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
