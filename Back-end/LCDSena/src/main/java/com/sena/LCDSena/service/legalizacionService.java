@@ -1,5 +1,8 @@
 package com.sena.LCDSena.service;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,5 +30,35 @@ public class legalizacionService implements ilegalizacionService{
             res = 1;
         }
         return res;
+    }
+
+    @Override 
+    public List<legalizacion> findAll() {
+        List<legalizacion> listaLegalizaciones =
+        (List<legalizacion>) data. findAll();
+        return listaLegalizaciones;
+    }
+
+    @Override
+    public Optional<legalizacion> findOne(String id){
+        Optional<legalizacion> legalizacion=data.findById(id);
+        return legalizacion;
+    }
+
+    @Override
+    public List<legalizacion> filtroLegalizacion(String filtro){
+        List<legalizacion> listaLegalizaciones=data.filtroLegalizacion(filtro);
+        return listaLegalizaciones;
+    }
+
+    @Override
+    public int delete(String id){
+        try{
+            data.deleteById(id);
+            return 1;
+        }catch (Exception e){
+            e.printStackTrace();
+            return 0;
+        }
     }
 }

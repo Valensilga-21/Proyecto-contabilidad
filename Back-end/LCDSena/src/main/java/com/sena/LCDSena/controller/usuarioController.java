@@ -51,7 +51,6 @@ public class usuarioController {
 
         usuarioService.save(usuario);
         return new ResponseEntity<>(usuario, HttpStatus.OK);
-        
     }
 
     @GetMapping("/listaUsuarios")
@@ -72,7 +71,7 @@ public class usuarioController {
         return new ResponseEntity<>(listaUsuarios, HttpStatus.OK);
     }
     
-    @DeleteMapping("/eliminar/{id_usuario}")
+    @DeleteMapping("/deshabilitar/{id_usuario}")
     public ResponseEntity<Object> delete(@PathVariable String id_usuario){
         usuarioService.delete(id_usuario);
         return new ResponseEntity<>("Usuario deshabilitado", HttpStatus.OK);
