@@ -39,8 +39,9 @@ public class usuario {
     @Column(name = "confirm_contrasena", nullable = false, length = 60)
     private String confirm_contrasena;
 
-    @Column(name = "estado_usuario", nullable = false, length = 36)
-    private String estado_usuario;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "estado_usuario", nullable = false, length = 12)
+    private estadoUsuario estado_usuario;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "rol", nullable = false, length = 12)
@@ -51,7 +52,7 @@ public class usuario {
 
     public usuario(String id_usuario, String documento_usuario, String nombre_usuario, String correo_usuario,
             com.sena.LCDSena.model.centro centro, com.sena.LCDSena.model.cargo cargo, String contrasena,
-            String confirm_contrasena, String estado_usuario, com.sena.LCDSena.model.rol rol) {
+            String confirm_contrasena, estadoUsuario estado_usuario, com.sena.LCDSena.model.rol rol) {
         this.id_usuario = id_usuario;
         this.documento_usuario = documento_usuario;
         this.nombre_usuario = nombre_usuario;
@@ -128,11 +129,11 @@ public class usuario {
         this.confirm_contrasena = confirm_contrasena;
     }
 
-    public String getEstado_usuario() {
+    public estadoUsuario getEstado_usuario() {
         return estado_usuario;
     }
 
-    public void setEstado_usuario(String estado_usuario) {
+    public void setEstado_usuario(estadoUsuario estado_usuario) {
         this.estado_usuario = estado_usuario;
     }
 

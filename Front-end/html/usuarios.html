@@ -19,15 +19,9 @@
     <!--Css usuarios-->
     <link rel="stylesheet" href="/Front-end/css/index.css">
 
-    <!--Firebase-->
-    <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-database.js"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-    <!--Js usuario-->
-    <script type="module" src="/Front-end/js/crudusuario.js"></script>
-    <script type="module" src="/Front-end/js/registrousuamodal.js"></script>
-
+    <!-- usuario.js -->
+    <script src="/Front-end/js/usuario.js"></script>
+    
     <!--Boxicons-->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
@@ -37,6 +31,12 @@
 
     <!--SweetAlert-->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <title>Usuarios</title>
 </head>
@@ -62,7 +62,7 @@
         margin-top: 3px;
     }
 </style>
-<body>
+<body onload="listarUsuarios();">
     <nav>
         <div class="logo-name" >
             <div class="row">
@@ -159,7 +159,7 @@
             </div>
 
             <div class="activity-data table-responsive-sm" style="padding-top: 3%;">
-                <table class="table table-hover" id="userTable">
+                <table class="table table-hover">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -173,7 +173,7 @@
                             <th style="text-align: center; justify-content: center;">Acciones</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="userTable">
                         
                     </tbody>
                 </table>
@@ -373,5 +373,7 @@
             </div>
         </div>
     </div>
+
+    <script src="/Front-end/js/config.js"></script>
 </body>
 </html>

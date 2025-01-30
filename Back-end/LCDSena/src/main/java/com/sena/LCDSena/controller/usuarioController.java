@@ -4,6 +4,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sena.LCDSena.iservice.iusuarioService;
+import com.sena.LCDSena.model.cargo;
+import com.sena.LCDSena.model.centro;
+import com.sena.LCDSena.model.estadoUsuario;
 import com.sena.LCDSena.model.usuario;
 
 import java.util.regex.Matcher;
@@ -29,12 +32,29 @@ public class usuarioController {
     @PostMapping("/registrar")
     public ResponseEntity<Object> save(@RequestBody usuario usuario) {
 
+        //VALIDACION DOCUMENTO
         if (usuario.getDocumento_usuario().equals("")) {
             return new ResponseEntity<>("El numero de documento es un campo obligatorio", HttpStatus.BAD_REQUEST);
         }
+
+        String documento = usuario.getDocumento_usuario();
+        if (!documento.matches("\\d{10}")) {
+            return new ResponseEntity<>("El número de documento debe contener exactamente 10 dígitos numéricos", HttpStatus.BAD_REQUEST);
+        }
+
+        //NOMBRE VALIDACIONES
         if (usuario.getNombre_usuario().equals("")) {
             return new ResponseEntity<>("El nombre es un campo obligatorio", HttpStatus.BAD_REQUEST);
         }
+
+        String nombreRegex = "^[A-Za-zÁÉÍÓÚÜáéíóúüÑñ\\\\s]+$";
+        Pattern  nombrePattern = Pattern.compile(nombreRegex);
+        Matcher nombreMatcher = nombrePattern.matcher(usuario.getNombre_usuario());
+        if (!nombreMatcher.matches()) {
+            return new ResponseEntity<>("El nombre solo debe contener numero y letras", HttpStatus.OK);
+        }
+
+        //CORREO VALIDACIONES
         if (usuario.getCorreo_usuario().equals("")) {
             return new ResponseEntity<>("El correo es un campo obligatorio", HttpStatus.BAD_REQUEST);
         }
@@ -49,20 +69,51 @@ public class usuarioController {
             return new ResponseEntity<>("Correo no valido", HttpStatus.BAD_REQUEST);
         }
 
-        // if (usuario.getCentro().equals("")) {
+        String signosNoPermitidos = " \"<>{}[]?¿¡!|";
 
-        // return new ResponseEntity<>("Seleccione un centro, este es un campo
-        // obligatorio", HttpStatus.BAD_REQUEST);
-        // }
-        // if (usuario.getCargo().equals("")) {
+         // Construcción de la expresión regular para excluir los signos no permitidos
+         String CorreoElectroRegex = "^[^" + signosNoPermitidos + "]*$";
+         Pattern CorreoElectroPattern = Pattern.compile(CorreoElectroRegex);
+         Matcher CorreoElectroMatcher = CorreoElectroPattern.matcher(usuario.getCorreo_usuario());
 
-        // return new ResponseEntity<>("Seleccione un cargo, este es un campo
-        // obligatorio", HttpStatus.BAD_REQUEST);
-        // }
+         if (!CorreoElectroMatcher.matches()) {
+            return new ResponseEntity<>("El correo electronico contiene caracteres no permitidos", HttpStatus.BAD_REQUEST);
+        }
 
-        if (usuario.getEstado_usuario().equals("")) {
+        //VALIDACIONES CENTRO
+        if (usuario.getCentro() == null) {
+            return new ResponseEntity<>("Seleccione un centro, este es un campo obligatorio", HttpStatus.BAD_REQUEST);
+        }
 
-            return new ResponseEntity<>("El estado es un campo obligatorio", HttpStatus.BAD_REQUEST);
+        if (usuario.getCentro() != centro.cies && usuario.getCentro() != centro.direccion) {
+            return new ResponseEntity<>("El valor del centro es inválido. Debe ser 'CIES' o 'DIRECCION'", HttpStatus.BAD_REQUEST);
+        }
+
+        //VALIDACIONES CARGO
+        if (usuario.getCargo() == null) {
+            return new ResponseEntity<>("Seleccione un cargo, este es un campo obligatorio", HttpStatus.BAD_REQUEST);
+        }
+
+        if (usuario.getCargo() != cargo.contratista && usuario.getCargo() != cargo.funcionario) {
+            return new ResponseEntity<>("El valor del centro es inválido. Debe ser 'CIES' o 'DIRECCION'", HttpStatus.BAD_REQUEST);
+        }
+
+        //CONTRASEÑA VALIDACION
+        if (usuario.getContrasena().equals("")) {
+            return new ResponseEntity<>("La contraseña es un campo obligstorio", HttpStatus.BAD_REQUEST);
+        }
+
+        String contrasenaRegex = "^[A-Za-zÁÉÍÓÚÜáéíóúüÑñ0-9.,@_\\-$%&\\s]+$";
+        Pattern contraPattern = Pattern.compile(contrasenaRegex);
+        Matcher contraMatcher = contraPattern.matcher(usuario.getContrasena());
+
+        if (!contraMatcher.matches()) {
+            return new ResponseEntity<>("La contraseña debe contener al menos una letra mayuscula, un numero, un carcater especial y al menos 8 digitos.", HttpStatus.BAD_REQUEST);
+        }
+
+        //CONFIRMACION DE LA CONTRASEÑA VALIDACION
+        if (usuario.getConfirm_contrasena() != usuario.getContrasena()) {
+            return new ResponseEntity<>("Las contraseñas no coinciden", HttpStatus.BAD_REQUEST);
         }
 
         usuarioService.save(usuario);
