@@ -82,6 +82,22 @@ public class legalizacionController {
         return new ResponseEntity<>(listaLegalizaciones, HttpStatus.OK);
     }
 
+    //CONTADORES
+    @GetMapping("/vencidas")
+    public long contarVencidas() {
+        return legalizacionService.contarVencidas();
+    }
+
+    @GetMapping("/pendientes")
+    public long contarPendientes() {
+        return legalizacionService.contarPendientes();
+    }
+
+    @GetMapping("/completadas")
+    public long contarCompletadas() {
+        return legalizacionService.contarCompletadas();
+    }
+
     @DeleteMapping("/deshabilitar/{id_legalizacion}")
     public ResponseEntity<Object> delete(@PathVariable String id_legalizacion) {
         legalizacionService.delete(id_legalizacion);

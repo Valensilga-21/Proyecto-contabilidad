@@ -5,16 +5,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sena.LCDSena.iservice.iusuarioService;
 import com.sena.LCDSena.model.usuario;
-import com.sena.LCDSena.service.usuarioService;
 
-import jakarta.mail.internet.ContentDisposition;
-import net.sf.jasperreports.engine.JRException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import java.io.FileNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @RequestMapping("/api/v1/LCDSena/usuario")
 @RestController
@@ -44,6 +39,16 @@ public class usuarioController {
             return new ResponseEntity<>("El correo es un campo obligatorio", HttpStatus.BAD_REQUEST);
         }
 
+        String correo_usuario = usuario.getCorreo_usuario();
+        String emailRegex = "^[^\\\\s@]+@[^\\\\s@]+\\\\.(com|es|org|net)$";
+
+        Pattern pattern = Pattern.compile(emailRegex);
+        Matcher matcher = pattern.matcher(correo_usuario);
+
+        if (!matcher.matches()) {
+            return new ResponseEntity<>("Correo no valido", HttpStatus.BAD_REQUEST);
+        }
+
         // if (usuario.getCentro().equals("")) {
 
         // return new ResponseEntity<>("Seleccione un centro, este es un campo
@@ -62,6 +67,14 @@ public class usuarioController {
 
         usuarioService.save(usuario);
         return new ResponseEntity<>(usuario, HttpStatus.OK);
+    }
+
+
+    //VERFICAR SI YA EXISTE EL CORREO ELECTRONICO EN LA BASE DATOS
+    @GetMapping("existsByCorreoElec/{correo_usuario}")
+    public ResponseEntity<Boolean> existsByCorreoElec(@PathVariable String correo_usuario){
+        boolean exists = usuarioService.findByCorreoElec(correo_usuario).isPresent();
+        return new ResponseEntity<> (exists, HttpStatus.OK);
     }
 
     @GetMapping("/listaUsuarios")

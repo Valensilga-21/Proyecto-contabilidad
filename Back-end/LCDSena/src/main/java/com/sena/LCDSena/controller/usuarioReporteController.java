@@ -87,7 +87,7 @@ public class usuarioReporteController {
     public ResponseEntity<byte[]> exportPdf() throws JRException, FileNotFoundException {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_PDF);
-        headers.setContentDispositionFormData("reporteUsuarios", "listado_usuarios.pdf");
+        headers.setContentDispositionFormData("reporteUsuarios", "Listadousuarios.pdf");
         return ResponseEntity.ok().headers(headers).body(iusuarioService.exportPdf());
     }
 

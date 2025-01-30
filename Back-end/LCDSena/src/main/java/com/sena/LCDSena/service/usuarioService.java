@@ -72,4 +72,10 @@ public class usuarioService implements iusuarioService {
     public byte[] exportXls() throws JRException, FileNotFoundException {
         return usuarioReporte.exportToXls(iusuarioRepository.findAll());
     }
+
+    //VERIFICAR SI YA EXISTE EL CORREO EN LA BD
+    @Override
+    public Optional<usuario> findByCorreoElec(String correo_usuario) {
+        return data.findByCorreoElec(correo_usuario);
+    }
 }

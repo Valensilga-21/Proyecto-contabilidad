@@ -1,5 +1,8 @@
 package com.sena.LCDSena.service;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +18,9 @@ public class legalizacionService implements ilegalizacionService{
 
     @Autowired
     private ilegalizacion data;
+
+    @Autowired
+    private ilegalizacion ilegalizacion;
 
     @Override
     public String save(legalizacion legalizacion){
@@ -60,5 +66,21 @@ public class legalizacionService implements ilegalizacionService{
             e.printStackTrace();
             return 0;
         }
+    }
+
+    //CONTADORES
+    public long contarVencidas() {
+        Date fechaLimite = Date.valueOf(LocalDate.now().minusDays(5));
+        return ilegalizacion.findVencidas(fechaLimite).size();
+    }
+
+    public long contarPendientes() {
+        Date fechaLimite = Date.valueOf(LocalDate.now());
+        return ilegalizacion.findPendientes(fechaLimite).size();
+    }
+
+    public long contarCompletadas() {
+        Date fechaLimite = Date.valueOf(LocalDate.now());
+        return ilegalizacion.findCompletadas(fechaLimite).size();
     }
 }

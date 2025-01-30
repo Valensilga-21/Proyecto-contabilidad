@@ -40,10 +40,11 @@
 	<title height="92">
 		<element kind="frame" uuid="25fef76e-caa9-470c-8255-3aa2b60f3e81" mode="Opaque" x="-20" y="-20" width="595" height="80" backcolor="rgba(138, 28, 72, 0.0)">
 			<element kind="staticText" uuid="eceb496a-d5d0-4b4f-a3bb-1403ee25e2a6" x="20" y="120" width="555" height="30" forecolor="#000000" fontSize="18.0" bold="true" hTextAlign="Center">
-				<text><![CDATA[Lista Usuarios.]]></text>
+				<text><![CDATA[Listado de legalizaciones vencidas.]]></text>
 			</element>
-			<element kind="staticText" uuid="2454f3b3-4c29-4331-b448-1d3dd5f3c721" x="100" y="140" width="390" height="50" fontSize="12.0" hTextAlign="Center" vTextAlign="Middle">
-				<text><![CDATA[En el presente documento se encuentra el listado de todos los usuarios registrados en la plataforma LCDSena hasta el día de hoy.]]></text>
+			<element kind="staticText" uuid="2454f3b3-4c29-4331-b448-1d3dd5f3c721" x="118" y="145" width="358" height="50" fontSize="12.0" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[Este documento presenta el listado de personas que, al día de la fecha, no han realizado la legalización correspondiente dentro del plazo máximo de los 5 días hábiles establecidos del mes actual.]]></text>
+				<property name="com.jaspersoft.studio.unit.y" value="px"/>
 			</element>
 			<element kind="image" uuid="41d3af3b-5515-468a-9a87-2f9e2d69ef08" x="20" y="20" width="50" height="50">
 				<expression><![CDATA["C:/Users/lortizp/Documents/Proyecto-contabilidad/Front-end/img/logo-del-sena-01.png"]]></expression>
@@ -68,50 +69,63 @@
 		</element>
 	</title>
 	<detail>
-		<band height="230">
-			<element kind="component" uuid="382837ab-e830-4a98-8ce8-e5d01e399f13" x="27" y="0" width="500" height="200" forecolor="#FFFFFF">
+		<band height="300">
+			<element kind="component" uuid="382837ab-e830-4a98-8ce8-e5d01e399f13" x="0" y="100" width="555" height="200" forecolor="#FFFFFF">
 				<component kind="table">
 					<datasetRun uuid="eb6d77e7-0137-4151-b4ab-b4316afe36af" subDataset="usuariosDataSet">
 						<dataSourceExpression><![CDATA[$P{usuariosData}]]></dataSourceExpression>
 					</datasetRun>
-					<column kind="single" uuid="69f55cb2-9bee-4dde-a79e-46e636be1017" width="194">
+					<column kind="single" uuid="69f55cb2-9bee-4dde-a79e-46e636be1017" width="140">
 						<columnHeader height="30" rowSpan="1" style="Table_CH">
-							<element kind="staticText" uuid="44e19529-d39a-4330-92a0-24fb4c35e13d" x="0" y="0" width="194" height="30" forecolor="#000000" fontName="SansSerif" fontSize="12.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
-								<text><![CDATA[Documento]]></text>
+							<element kind="staticText" uuid="44e19529-d39a-4330-92a0-24fb4c35e13d" x="0" y="0" width="140" height="30" forecolor="#000000" fontName="Calibri" fontSize="13.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+								<text><![CDATA[Num. Comision]]></text>
 							</element>
 						</columnHeader>
 						<detailCell height="30" style="Table_TD">
-							<element kind="textField" uuid="050e6310-3782-4a48-a5fd-54574e45bd29" x="0" y="0" width="194" height="30" fontSize="12.0" hTextAlign="Center" vTextAlign="Middle">
-								<expression><![CDATA[$F{documento_usuario}]]></expression>
+							<element kind="textField" uuid="050e6310-3782-4a48-a5fd-54574e45bd29" x="0" y="0" width="140" height="30" fontSize="12.0" hTextAlign="Center" vTextAlign="Middle">
+								<expression><![CDATA[$F{num_comision}]]></expression>
 							</element>
 						</detailCell>
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
 					</column>
-					<column kind="single" uuid="6a35055c-20b2-471a-8d13-2a179f5d0162" width="153">
+					<column kind="single" uuid="6a35055c-20b2-471a-8d13-2a179f5d0162" width="146">
 						<columnHeader height="30" rowSpan="1" style="Table_CH">
-							<element kind="staticText" uuid="3001f191-cfd3-4219-8526-222c0c437ed1" x="0" y="0" width="153" height="30" forecolor="#000000" fontName="SansSerif" fontSize="12.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
-								<text><![CDATA[Nombre]]></text>
+							<element kind="staticText" uuid="3001f191-cfd3-4219-8526-222c0c437ed1" x="0" y="0" width="146" height="30" forecolor="#000000" fontName="Calibri" fontSize="13.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+								<text><![CDATA[Tercero comsionado]]></text>
 							</element>
 						</columnHeader>
 						<detailCell height="30" style="Table_TD">
-							<element kind="textField" uuid="b62f1f1d-caef-4f07-b3bd-b888f6b749d8" x="0" y="0" width="153" height="30" forecolor="#000000" fontSize="12.0" blankWhenNull="false" hTextAlign="Center" vTextAlign="Middle">
+							<element kind="textField" uuid="b62f1f1d-caef-4f07-b3bd-b888f6b749d8" x="0" y="0" width="146" height="30" forecolor="#000000" fontSize="12.0" blankWhenNull="false" hTextAlign="Center" vTextAlign="Middle">
 								<expression><![CDATA[$F{nombre_usuario}]]></expression>
 							</element>
 						</detailCell>
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
 					</column>
-					<column kind="single" uuid="9f01f2f4-f55a-46b4-be04-fd41c8de553b" width="153">
+					<column kind="single" uuid="9f01f2f4-f55a-46b4-be04-fd41c8de553b" width="135">
 						<columnHeader height="30" rowSpan="1" style="Table_CH">
-							<element kind="staticText" uuid="3001f191-cfd3-4219-8526-222c0c437ed1" x="0" y="0" width="153" height="30" forecolor="#000000" fontName="SansSerif" fontSize="12.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
-								<text><![CDATA[Correo]]></text>
+							<element kind="staticText" uuid="3001f191-cfd3-4219-8526-222c0c437ed1" x="0" y="0" width="135" height="30" forecolor="#000000" fontName="Calibri" fontSize="13.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+								<text><![CDATA[Fecha limite]]></text>
 							</element>
 						</columnHeader>
 						<detailCell height="30" style="Table_TD">
-							<element kind="textField" uuid="b62f1f1d-caef-4f07-b3bd-b888f6b749d8" x="0" y="0" width="153" height="30" forecolor="#000000" fontSize="12.0" blankWhenNull="false" hTextAlign="Center" vTextAlign="Middle">
-								<expression><![CDATA[$F{correo_usuario}]]></expression>
+							<element kind="textField" uuid="b62f1f1d-caef-4f07-b3bd-b888f6b749d8" x="0" y="0" width="135" height="30" forecolor="#000000" fontSize="12.0" blankWhenNull="false" hTextAlign="Center" vTextAlign="Middle">
+								<expression><![CDATA[$F{fechaLimite}]]></expression>
 							</element>
 						</detailCell>
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+					</column>
+					<column kind="single" uuid="9e985271-1d88-46e5-9c97-0e6b67fcd1e4" width="134">
+						<columnHeader height="30" rowSpan="1" style="Table_CH">
+							<element kind="staticText" uuid="f4880b40-a2af-493b-935b-6d66eb747106" x="0" y="0" width="134" height="30" fontName="Calibri" fontSize="13.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+								<text><![CDATA[Estado]]></text>
+							</element>
+						</columnHeader>
+						<detailCell height="30" style="Table_TD">
+							<element kind="staticText" uuid="a0946120-8e09-46ee-bae5-4159f1db840d" x="0" y="0" width="134" height="30" fontSize="12.0" hTextAlign="Center" vTextAlign="Middle">
+								<text><![CDATA[$F{estado_lega}]]></text>
+							</element>
+						</detailCell>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
 					</column>
 				</component>
 				<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>

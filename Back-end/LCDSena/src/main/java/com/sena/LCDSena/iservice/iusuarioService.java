@@ -24,4 +24,7 @@ public interface iusuarioService {
     byte[] exportPdf() throws JRException, FileNotFoundException;
 
     byte[] exportXls() throws JRException, FileNotFoundException;
+
+
+    public Optional <usuario> findByCorreoElec(String correo_usuario);
 }

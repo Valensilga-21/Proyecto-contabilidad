@@ -18,24 +18,38 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
+import net.sf.jasperreports.export.SimpleXlsReportConfiguration;
+import net.sf.jasperreports.export.XlsxReportConfiguration;
+import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
+
+
 
 @Service
 public class usuarioReporte {
     public byte[] exportToPdf(List<usuario> list) throws JRException, FileNotFoundException {
-        return JasperExportManager.exportReportToPdf(getReport(list));
+        JasperPrint jasperPrint = getReport(list);
+        return JasperExportManager.exportReportToPdf(jasperPrint);
     }
 
     public byte[] exportToXls(List<usuario> list) throws JRException, FileNotFoundException {
         ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
-        SimpleOutputStreamExporterOutput output = new SimpleOutputStreamExporterOutput(byteArray);
-        JRXlsExporter exporter = new JRXlsExporter();
-        exporter.setExporterInput(new SimpleExporterInput(getReport(list)));
-        exporter.setExporterOutput(output);
+        JRXlsxExporter exporter = new JRXlsxExporter();
+    
+        // Configuración del exportador
+        SimpleExporterInput exporterInput = new SimpleExporterInput(getReport(list));
+        SimpleOutputStreamExporterOutput exporterOutput = new SimpleOutputStreamExporterOutput(byteArray);
+        
+        exporter.setExporterInput(exporterInput);
+        exporter.setExporterOutput(exporterOutput);
+    
+        // Configuración adicional (opcional)
+        SimpleXlsReportConfiguration configuration = new SimpleXlsReportConfiguration();
+        configuration.setOnePagePerSheet(true); // Ejemplo de configuración
+        exporter.setConfiguration((XlsxReportConfiguration) configuration);
+    
         exporter.exportReport();
-        output.close();
         return byteArray.toByteArray();
     }
 
