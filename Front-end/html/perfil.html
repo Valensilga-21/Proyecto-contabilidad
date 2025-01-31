@@ -32,14 +32,44 @@
     <!-- <script type="module" src="/Front-end/js/sesionfirebaseauth.js"></script> -->
 </head>
 <style>
+
+    /* Boton Guardar */
     .btns:hover{
         background-color: #00BB00;
         color: white;
         
     }
-
     .btns {
         border: 2px solid #00BB00;
+        background-color: white;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 5px;
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-top: 5px;
+    }
+
+    /* Boton cambiar contra */
+    .btn {
+        border: 2px solid #00BB00;
+        background-color: #00BB00;
+        color: white;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 5px;
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-top: 5px;
+    }
+
+    .btn:hover {
+        border: 2px solid #00BB00;
+        background-color: #ffffff;
         border-radius: 10px;
         display: flex;
         align-items: center;
@@ -61,6 +91,14 @@
         padding-right: 20px;
         padding-top: 5px;
         background-color: #00BB00;
+    }
+
+    h2{
+        font-weight: 600;
+    }
+
+    .input-group{
+        margin-top: 5%;
     }
 
 </style>
@@ -113,60 +151,36 @@
         </div>
     </nav>
 
-    <section class="dashboard">
-        <div class="box" style="margin: 2%; border-radius: 15px; box-shadow: 0px 0px 10px #c7c7c7; margin: 5% 18%;" id="userinfo">
-            <div class="row" style="padding: 5%;">
-                <div class="col-6">
-                    <h3><b>Perfil Admin</b></h3>
-                </div>
-                <div class="col-6" style="text-align: right;">
-                    <button class="btn"><box-icon name='save' color='#00bb00' size="30px"></box-icon></button>
-                </div>
-            </div>
-            <div class="row">
+    <section class="dashboard" style="justify-content: center; align-items: center; display: flex;">
+        <div class="box" style="justify-content: center; align-items: center; display: flex;" id="userinfo">
+            <div class="row" style="display: flex;">
                 <!--Columna 1-->
-                <div class="col-6" style="margin: 5%;">
-                <div class="py-2">
-                    <label for="usuario" class="form-label visually-hidden">Usuario</label>
-                <div class="input-group">
-                    <span class="input-group-text"><box-icon name='user' color="#00BB00"></box-icon></span>
-                    <input type="text" class="form-control" id="nombre_usuario" placeholder="Nombre Completo">
-                </div>
-                <div class="error-message" id="usuarioError" style="color: red; display: none;"></div>    
-                </div>
+                <div class="mb-3 col col-xl-6 col-12 justify-content-between">
 
-                <div class="py-2">
+                    <h2 class="input-group">Perfil Admin</h2>
+
+                    <label for="usuario" class="form-label visually-hidden">Usuario</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><box-icon name='user' color="#00BB00"></box-icon></span>
+                        <input type="text" class="form-control" id="nombre_usuario" placeholder="Nombre Completo">
+                    </div>
+                    <div class="error-message" id="usuarioError" style="color: red; display: none;"></div>
+
                     <label for="contraseña" class="form-label visually-hidden">Documento</label>
                     <div class="input-group">
                         <span class="input-group-text"><box-icon name='id-card' color="#00BB00"></box-icon></span>
                         <input type="number" class="form-control" id="num_documento" placeholder="Documento" >
                     </div>
-                <div class="error-message" id="documentoError" style="color: red; display:none;"></div>
-                </div>
+                    <div class="error-message" id="documentoError" style="color: red; display:none;"></div>
 
-                <div class="py-2">
-                    <label for="contraseña" class="form-label visually-hidden">Cargo</label>
-                    <div class="input-group">
-                        <span class="input-group-text"><box-icon name='briefcase' color="#00BB00"></box-icon></box-icon></box-icon></span>
-                        <select name="centro" id="cargo" class="form-select" style="background-color: #EFF3F6; border-radius: 0px 0px 10px 0px; border-left:none;">
-                            <option value="" disabled selected>Cargo</option>
-                            <option value="funcionario">Funcionario</option>
-                            <option value="contratista">Contratista</option>
-                        </select>
-                    </div>
-                    <div class="error-message" id="cargoError" style="color: red; display: none;"></div>
-                </div>
-
-                <div class="py-2">
                     <label for="contraseña" class="form-label visually-hidden">Correo</label>
                     <div class="input-group">
                         <span class="input-group-text"><box-icon name='envelope' color="#00BB00"></box-icon></span>
                         <input type="email" class="form-control" id="email" placeholder="Correo" >
                     </div>
                     <div class="error-message" id="correoError" style="color: red; display: none;"></div>
-                </div>
-
-                <div class="py-2">
+                </div> 
+                <div class="mb-2 col col-xl-6 col-12 justify-content-between">
                     <label for="centro" class="form-label visually-hidden">Centro</label>
                     <div class="input-group" style="border-radius: 10px 10px 10px 10px; border-left:none;">
                     <span class="input-group-text"><box-icon name='buildings' color="#39A900"></box-icon></span>
@@ -177,13 +191,19 @@
                     </select>
                     </div>
                     <div class="error-message" id="centroError" style="color: red; display: none;"></div>
-                </div>
-                </div>
 
-                <!--Columna 1-->
-                <div class="col-4">
-                    <box-icon name='user-circle' size="230px" style="display: flex; text-align: center; justify-content: center;"></box-icon>
-                    <div class="d-grid gap-2">
+                    <label for="cargo" class="form-label visually-hidden">Cargo</label>
+                    <div class="input-group" style="border-radius: 10px 10px 10px 10px; border-left:none;">
+                    <span class="input-group-text"><box-icon name='buildings' color="#39A900"></box-icon></span>
+                    <select name="cargo" id="cargo" class="form-select" style="background-color: #EFF3F6; border-radius: 0px 0px 10px 0px; border-left:none;">
+                        <option value="" disabled selected>Cargo</option>
+                        <option value="cies">Contratista</option>
+                        <option value="direccion">Funcionario</option>
+                    </select>
+                    </div>
+                    <div class="error-message" id="centroError" style="color: red; display: none;"></div>
+
+                    <div class="input-group d-grid gap-2">
                         <button class="btns">
                             <div style="margin-right: 8px;">
                                 <i class="bi bi-floppy2-fill"></i>
@@ -191,14 +211,16 @@
                             <b>Guardar</b>
                         </button>
                     </div>
-                    <div class="d-grid gap-2 py-2">
-                        <button class="btncam" style="color: white;">
-                            <div style="margin-right: 5px;">
+
+                    <div class="input-group d-grid gap-2">
+                        <button class="btn">
+                            <div style="margin-right: 8px;">
                                 <i class="bi bi-key"></i>
-                            </div><a href="/Front-end/html/confirmarcorreo.html" style="text-decoration: none; color: white;"><b>Cambiar contraseña</b></a>
+                            </div>
+                            <b>Cambiar contraseña</b>
                         </button>
                     </div>
-                </div>
+                </div> 
             </div>
         </div>
     </section>
