@@ -1,102 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LCDSena</title>
-  <link rel="stylesheet" href="/Front-end/css/bootstrap.css">
-  <script src="/Front-end/js/bootstrap.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LCDSena</title>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
 </head>
 <style>
-  body{
-    font-family: Calibri;
-  }
-  .nav-link{
-    font-weight: 700;
-    color: black;
-    font-size: 25px;
-  }
-
-  .nav-link:hover{
-    color: #39A800;
-  }
-
-  .btn{
-    border: 3px solid #39A800;
-    border-radius: 13px;
-    font-size: 25px;
-    font-weight: 600;
-  }
-
-  .btn:hover{
-    border: 3px solid #39A800;
-    background-color: #39A800;
-    color: white;
-  }
-
-  .a{
-    color: black;
-    text-decoration: none;
-  }
-  
-  .a:hover{
-    color: rgb(255, 255, 255);
-    text-decoration: none;
-  }
+    @import "tailwindcss";
 </style>
 <body>
-  <div style="padding: 2%;">
-    <h1 class="visually-hidden">LCDSena</h1>
-    <div class="container-fluid">
-        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-            <a href="/Front_end/index.html"
-                class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-                <span><img src="/Front-end/img/logo-del-sena-01.png" alt="" width="50px" style="margin-right: 20px;"></span>
-                <span><img src="/Front-end/img/LCD-removebg 2.png" alt="" width="130px"></span>
-            </a>
+<nav class="bg-white border-gray-200 dark:bg-gray-900">
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+    <a href="https://flowbite.com/" class="flex items-center space-x-3 rtl:space-x-reverse">
+        <img src="/Front-end/img/logo-del-sena-01.png" class="h-8" alt="Flowbite Logo" />
+        <img src="/Front-end/img/LCD-removebg 2.png" class="h-8" alt="Flowbite Logo" />
+        <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"></span>
+    </a>
+    <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+        <button type="button" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Solicitar registro</button>
+        <button data-collapse-toggle="navbar-cta" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-cta" aria-expanded="false">
+          <span class="sr-only">Open main menu</span>
+          <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+          </svg>
+      </button>
+    </div>
+    <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-cta">
+      <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+        <li>
+          <a href="#" class="block py-2 px-3 md:p-0 text-white bg-green-700 rounded-sm md:bg-transparent md:text-green-700 md:dark:text-green-500" aria-current="page">Inicio</a>
+        </li>
+        <li>
+          <a href="#servicios" class="block py-2 px-3 md:p-0 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-green-700 md:dark:hover:text-green-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Servicios</a>
+        </li>
+        <li>
+          <a href="#nosotros" class="block py-2 px-3 md:p-0 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-green-700 md:dark:hover:text-green-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Nosotros</a>
+        </li>
+        <li>
+          <a href="#ayuda" class="block py-2 px-3 md:p-0 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-green-700 md:dark:hover:text-green-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Ayuda</a>
+        </li>
+      </ul>
+    </div>
+    </div>
+  </nav>
 
-            <ul class="nav nav-pills">
-                <li class="nav-item"><a href="/Front_end/index.html" class="nav-link">Inicio</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">Servicio</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">Nosotros</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">Ayuda</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">Registrarse</a></li>
-                <li class="nav-item"><button class="btn"><a href="/Front_end/html/Diseños.html" class="a">Iniciar sesión</a></button></li>
-            </ul>
-        </header>
-    </div>
-    <div class="p-5 mb-4 bg-body-tertiary rounded-3">
-      <div class="container-fluid py-5">
-        <h1 class="display-5 fw-bold">Custom jumbotron</h1>
-        <p class="col-md-8 fs-4">Using a series of utilities, you can create this jumbotron, just like the one in previous versions of Bootstrap. Check out the examples below for how you can remix and restyle it to your liking.</p>
-        <button class="btn btn-primary btn-lg" type="button">Example button</button>
+  <!-- Inicio -->
+  <section class="bg-gray-50 dark:bg-gray-900">
+      <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 grid lg:grid-cols-2 gap-8 lg:gap-16">
+          <div class="flex flex-col justify-center">
+              <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white"><img src="/Front-end/img/LCD-removebg 2.png" alt=""></h1>
+              <p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">LCD Sena es un aplicativo creado para agilizar y mejorar la eficiencia en los procesos de realizacion de legalizaciones en dos centros de la entidad Sena. </p>
+              <a href="#" class="text-green-600 dark:text-green-500 hover:underline font-medium text-lg inline-flex items-center">Solicitar registro 
+                  <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                  </svg>
+              </a>
+          </div>
+          <div>
+              <div class="w-full lg:max-w-xl p-6 space-y-8 sm:p-8 bg-white rounded-lg shadow-xl dark:bg-gray-800">
+                  <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                      Inicia sesión
+                  </h2>
+                  <form class="mt-8 space-y-6" action="#">
+                      <div>
+                          <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Correo Institucional</label>
+                          <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500" placeholder="correo@sena.edu.co" required />
+                      </div>
+                      <div>
+                          <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña</label>
+                          <input type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500" required />
+                      </div>
+                      <div class="flex items-start">
+                          <div class="flex items-center h-5">
+                              <input id="remember" aria-describedby="remember" name="remember" type="checkbox" class="w-4 h-4 border-gray-300 rounded-sm bg-gray-50 focus:ring-3 focus:ring-green-300 dark:focus:ring-green-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600" required />
+                          </div>
+                          <div class="ms-3 text-sm">
+                          <label for="remember" class="font-medium text-gray-500 dark:text-gray-400">Recordar mis credenciales</label>
+                          </div>
+                          <a href="#" class="ms-auto text-sm font-medium text-green-600 hover:underline dark:text-green-500">¿Olvidaste tu contraseña?</a>
+                      </div>
+                      <button type="submit" class="w-full px-5 py-3 text-base font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:ring-green-300 sm:w-auto dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Ingresar</button>
+                      <div class="text-sm font-medium text-gray-900 dark:text-white">
+                      </div>
+                  </form>
+              </div>
+          </div>
       </div>
-    </div>
-    <div class="container-fluid" style="justify-content: center;">
-      <div class="row" style="justify-content: center;">
-        <div class="mb-3 col col-xl-6 col-12 justify-content-between d-flex">
-            <div class="container" style="display: flex; justify-content: center; align-items: center; width: 70%;">
-              <p class="fs-1 fw-bold">LCD Sena es un aplicativo creado para agilizar y mejorar la eficiencia en los procesos de realizacion de legalizaciones a en dos centros de la entidad Sena. </p>
+  </section>
+
+  <!-- Servicios -->
+  <section class="bg-white dark:bg-gray-900">
+    <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
+        <div class="max-w-screen-md mb-8 lg:mb-16">
+            <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-[#39A800] dark:text-white" id="servicios">Servicios</h2>
+            <p class="text-gray-500 sm:text-xl dark:text-gray-400">Simplifica la gestión de tus viajes y optimiza el proceso de legalización.</p>
+        </div>
+        <div class="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-12 md:space-y-0">
+            <div>
+                <div class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
+                  <svg class="w-[37px] h-[37px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#39A800" viewBox="0 0 24 24">
+                    <path fill-rule="evenodd" d="M10 2a3 3 0 0 0-3 3v1H5a3 3 0 0 0-3 3v2.382l1.447.723.005.003.027.013.12.056c.108.05.272.123.486.212.429.177 1.056.416 1.834.655C7.481 13.524 9.63 14 12 14c2.372 0 4.52-.475 6.08-.956.78-.24 1.406-.478 1.835-.655a14.028 14.028 0 0 0 .606-.268l.027-.013.005-.002L22 11.381V9a3 3 0 0 0-3-3h-2V5a3 3 0 0 0-3-3h-4Zm5 4V5a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v1h6Zm6.447 7.894.553-.276V19a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3v-5.382l.553.276.002.002.004.002.013.006.041.02.151.07c.13.06.318.144.557.242.478.198 1.163.46 2.01.72C7.019 15.476 9.37 16 12 16c2.628 0 4.98-.525 6.67-1.044a22.95 22.95 0 0 0 2.01-.72 15.994 15.994 0 0 0 .707-.312l.041-.02.013-.006.004-.002.001-.001-.431-.866.432.865ZM12 10a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2H12Z" clip-rule="evenodd"/>
+                  </svg>                  
+                </div>
+                <h3 class="mb-2 text-xl font-bold dark:text-white">Registro de Viajes</h3>
+                <p class="text-gray-500 dark:text-gray-400">Captura todos los detalles de tus viajes de forma rápida y sencilla.</p>
+            </div>
+            <div>
+                <div class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
+                  <svg class="w-[37px] h-[37px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="#39A800" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                  </svg>                  
+                </div>
+                <h3 class="mb-2 text-xl font-bold dark:text-white">Seguimiento Automático</h3>
+                <p class="text-gray-500 dark:text-gray-400">Recibe recordatorios oportunos para que nunca olvides legalizar tus gastos.</p>
+            </div>
+            <div>
+                <div class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
+                  <svg class="w-[37px] h-[37px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="#39A800" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 17v-5h1.5a1.5 1.5 0 1 1 0 3H5m12 2v-5h2m-2 3h2M5 10V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1v6M5 19v1a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1M10 3v4a1 1 0 0 1-1 1H5m6 4v5h1.375A1.627 1.627 0 0 0 14 15.375v-1.75A1.627 1.627 0 0 0 12.375 12H11Z"/>
+                  </svg>
+                                      
+                </div>
+                <h3 class="mb-2 text-xl font-bold dark:text-white">Gestión Documental</h3>
+                <p class="text-gray-500 dark:text-gray-400">Carga y almacena de forma segura todos tus comprobantes.</p>
+            </div>
+            <div>
+                <div class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
+                  <svg class="w-[37px] h-[37px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="#39A800" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 3v4a1 1 0 0 1-1 1H5m4 8h6m-6-4h6m4-8v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1Z"/>
+                  </svg>
+                  
+                </div>
+                <h3 class="mb-2 text-xl font-bold dark:text-white">Informes Detallados</h3>
+                <p class="text-gray-500 dark:text-gray-400">Obtén una visión clara del estado de tus legalizaciones en todo momento.</p>
             </div>
         </div>
-        <div class="mb-3 col col-xl-6 col-12 d-flex">
-          <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
-          <dotlottie-player src="https://lottie.host/c8efc26b-64f2-4054-9103-eca0eadde373/edtek6BIsm.lottie" background="transparent" speed="1" style="width: 600px; height: 600px" loop autoplay>
-          </dotlottie-player>
-        </div>
+    </div>
+  </section>
+
+  <!-- Nosotros -->
+  <section class="bg-white px-4 py-8 antialiased dark:bg-gray-900 md:py-16">
+    <div class="mx-auto grid max-w-screen-xl rounded-lg bg-gray-50 p-4 dark:bg-gray-800 md:p-8 lg:grid-cols-12 lg:gap-8 lg:p-16 xl:gap-16">
+      <div class="lg:col-span-5 lg:mt-0">
+        <a href="#">
+          <img class="mb-4 h-56 w-56 dark:hidden sm:h-96 sm:w-96 md:h-full md:w-full" src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-components.svg" alt="peripherals" />
+          <img class="mb-4 hidden dark:block md:h-full" src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-components-dark.svg" alt="peripherals" />
+        </a>
+      </div>
+      <div class="me-auto place-self-center lg:col-span-7">
+        <h1 class="mb-3 text-2xl font-bold leading-tight tracking-tight text-[#39A800] dark:text-white md:text-4xl" id="nosotros">
+          Revolucionamos los procesos de legalización en el SENA.<br />
+        </h1>
+        <p class="mb-6 text-gray-500 dark:text-gray-400" style="font-size: 20px;">Nuestro aplicativo automatiza tareas, reduce tiempos de <br>espera y mejora la eficiencia.</p>
+        <a href="#" class="inline-flex items-center justify-center rounded-lg bg-primary-700 px-5 py-3 text-center text-base font-medium text-white hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900"> Pre-order now </a>
       </div>
     </div>
-</div>
+  </section>
 
-<script type="module">
-  import { DotLottie } from "<https://cdn.jsdelivr.net/npm/@lottiefiles/dotlottie-web/+esm>";
-
-  new DotLottie({
-    autoplay: true,
-    loop: true,
-    canvas: document.getElementById("canvas"),
-    src: "<https://lottie.host/YOUR_ANIMATION_ID.lottie>", // replace with your .lottie or .json file URL
-  });
-</script>
+  <!-- Ayuda -->
+  <section class="bg-white dark:bg-gray-900">
+    <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+        <div class="mx-auto max-w-screen-sm text-center">
+            <p class="mb-4 text-3xl tracking-tight font-bold text-gray-900 md:text-4xl dark:text-white">¿Necesitas ayuda?</p>
+            <p class="mb-4 text-lg font-light text-gray-500 dark:text-gray-400">Has clic en el boton de descarga nuestro manual de usuario para tener una guía completa sobre como utilizar nuestra plataforma.</p>
+            <a href="#" class="inline-flex text-white bg-[#39A800] hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-900 my-4">Manual de Descarga</a>
+        </div>   
+    </div>
+</section>
 </body>
 </html>
