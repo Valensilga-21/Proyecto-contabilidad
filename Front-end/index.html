@@ -18,7 +18,7 @@
         <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"></span>
     </a>
     <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-        <button type="button" class="text-white bg-[#39A800] hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Solicitar registro</button>
+        <button type="button" id="solicitar" class="text-white bg-[#39A800] hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Solicitar registro</button>
         <button data-collapse-toggle="navbar-cta" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-cta" aria-expanded="false">
           <span class="sr-only">Open main menu</span>
           <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
@@ -51,11 +51,16 @@
           <div class="flex flex-col justify-center">
               <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white"><img src="/Front-end/img/LCD-removebg 2.png" alt=""></h1>
               <p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">LCD Sena es un aplicativo creado para agilizar y mejorar la eficiencia en los procesos de realizacion de legalizaciones en dos centros de la entidad Sena. </p>
-              <a href="/Front-end/html/registro.html" class="text-[#39A800] dark:text-green-500 hover:underline font-medium text-lg inline-flex items-center">Solicitar registro 
+              <ul class="flex items-center space-x-1 sm:mt-0">
+                <li>
+                  <a href="/Front-end/html/registro.html" class="text-[#39A800] dark:text-green-500 hover:underline font-medium text-lg inline-flex items-center">Solicitar registro</a>
+                </li>
+                <li>
                   <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-                  </svg>
-              </a>
+                    <path stroke="#39A800" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                </svg>
+                </li>
+              </ul>
           </div>
           <div>
               <div class="w-full lg:max-w-xl p-6 space-y-8 sm:p-8 bg-white rounded-lg shadow-xl dark:bg-gray-800">
@@ -78,7 +83,7 @@
                           <div class="ms-3 text-sm">
                           <label for="remember" class="font-medium text-gray-500 dark:text-gray-400">Recordar mis credenciales</label>
                           </div>
-                          <a href="#" class="ms-auto text-sm font-medium text-[#39A800] hover:underline dark:text-green-500">¿Olvidaste tu contraseña?</a>
+                          <a href="/Front-end/html/olvidarcontra.html" class="ms-auto text-sm font-medium text-[#39A800] hover:underline dark:text-green-500">¿Olvidaste tu contraseña?</a>
                       </div>
                       <button type="submit" class="w-full px-5 py-3 text-base font-medium text-center text-white bg-[#39A800] rounded-lg hover:bg-green-800 focus:ring-4 focus:ring-green-300 sm:w-auto dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Ingresar</button>
                       <div class="text-sm font-medium text-gray-900 dark:text-white">
@@ -195,5 +200,10 @@
       </div>
   </div>
 </footer> -->
+<script>
+  document.getElementById("solicitar").addEventListener("click", () => {
+    window.location.href="/Front-end/html/registro.html"
+})
+</script>
 </body>
 </html>

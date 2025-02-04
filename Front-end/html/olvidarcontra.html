@@ -4,114 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Olvidar Contraseña</title>
-    <link href="/Front-end/css/bootstrap.css" rel="stylesheet">
-
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css" rel="stylesheet"/>
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
     <style>
-        body {
-            background-image: url(/Front-end/img/img3589.jpg);
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
-
-        h2{
-            font-size: 40px;
-            font-weight: 700;
-        }
-        .login-container {
-            background: #ffffff;
-            padding: 70px;
-            border-radius: 15px;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 500px;
-        }
-        .login-container input {
-            background-color: #ffffff;
-        }
-        .btn-green {
-            background-color: #00BB00;
-            color: white;
-            font-weight: 500;
-            border-radius: 12px;
-            margin-top: 5%;
-        }
-        .btn-green:hover {
-            background-color: #ffffff;
-            border: 2px solid #00BB00;
-            font-weight: 700;
-        }
-        .back-btn {
-            position: absolute;
-            top: 0px;
-            left: 25px;
-            font-size: 24px;
-            color: #28a745;
-            border-radius: 45%;
-        }
-
-        a{
-            color: #000000;
-            text-decoration: none;
-            font-weight: 500;
-            padding-top: 30px;
-        }
-
-        a:hover{
-            color: #28a745;
-        }
-
-
-        .login-container input {
-            background-color: #EFF3F6;
-            border-radius: 5px;
-            box-shadow: none;
-        }
-
-        .input-group-text {
-            background-color: #EFF3F6;
-            border-right: none;
-            border-radius: 12px 0 0 12px;
-            padding: 8px 15px;
-            color: black;
-        }
-
-        .input-group .form-control {
-            border-radius: 0 12px 12px 0;
-            border-left: none;
-        }
-
-        p{
-            text-align: justify;
-            color: #000000;
-            padding-bottom: 10%;
-        }
+        @import "tailwindcss";
     </style>
 </head>
 <body>
-    <a href="/Front-end/html/iniciosesion.html" class="back-btn"><box-icon name='left-arrow-circle' color="#39A900" size="40px"></box-icon></a>
-    <div class="login-container text-center">
-        <h2 class="mb-4">¿Olvidaste tu contraseña?</h2>
-        <p>Por favor, ingrese su dirección de correo electrónico. Le enviaremos los pasos correspondientes para que pueda restablecer su contraseña.</p>
-        <form>
-            <div class="mb-3">
-                <label for="usuario" class="form-label visually-hidden">Usuario</label>
-                <div class="input-group">
-                    <span class="input-group-text"><box-icon name='envelope' color="#00BB00"></box-icon></span>
-                    <input type="email" class="form-control" id="contraseña" placeholder="Correo electrónico" required>
-                </div>
+    <section class="bg-gray-50 dark:bg-gray-900">
+        <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+            <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+                <img class="w-35 mr-2" src="/Front-end/img/LCD-removebg 2.png" alt="logo">    
+            </a>
+            <div class="w-full p-6 bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md dark:bg-gray-800 dark:border-gray-700 sm:p-8">
+                <h1 class="mb-1 text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                    ¿Olvidaste tu contraseña?
+                </h1>
+                <p class="font-normal p-1 text-gray-500 dark:text-gray-400">Por favor, ingrese su dirección de correo electrónico. Le enviaremos los pasos correspondientes para que pueda restablecer su contraseña.</p>
+                <form class="mt-4 space-y-4 lg:mt-5 md:space-y-5" action="#">
+                    <label for="input-group-1" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Correo</label>
+                        <div class="relative mb-6">
+                        <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="gray" viewBox="0 0 20 16">
+                                <path d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z"/>
+                                <path d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z"/>
+                            </svg>
+                        </div>
+                        <input type="text" id="input-group-1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="johndoe@sena.edu.co">
+                        </div>
+                    <button type="submit" class="w-full text-white bg-[#39A800] hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Siguiente</button>
+                    <ul class="flex space-x-1 sm:mt-0 p-1">
+                        <li>
+                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <path stroke="#39A800" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/>
+                            </svg>
+                        </li>
+                        <li>
+                            <a href="/Front-end/index.html" class="text-[#39A800] dark:text-green-500 hover:underline font-medium text-sm inline-flex items-center">Volver</a>
+                        </li>
+                    </ul>
+                </form>
             </div>
-            <button type="" class="btn btn-green w-100"><a href="/Front-end/html/restablecercontraseña.html">Siguiente</a></button>
-        </form>
-    </div>
-
-    <script src="/Front-end/js/bootstrap.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.js"></script>
+        </div>
+    </section>
 </body>
 </html>
