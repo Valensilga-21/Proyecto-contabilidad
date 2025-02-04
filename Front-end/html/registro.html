@@ -11,40 +11,54 @@
 </head>
 <body>
     <section class="bg-gray-50 dark:bg-gray-900">
-        <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 grid lg:grid-cols-2 gap-8 lg:gap-16">
+        <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-20 grid lg:grid-cols-2 gap-8 lg:gap-16">
             <div class="flex flex-col justify-center">
+                <img src="/Front-end/img/LCD-removebg 2.png" class="w-35" alt="">
+                <hr class="h-px my-8 bg-gray-300 border-0 dark:bg-gray-700">
                 <h3 class="mb-4 text-4xl font-bold tracking-tight leading-none text-gray-900 md:text-2xl lg:text-5xl dark:text-white">Solicita tu registro.</h1>
                 <p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Llene cada uno de los campos correspondientes para poder enviar su solicitud de registro en nuestro aplicativo, una vez aceptada, se le informará a través de correo electrónico.</p>
                 </a>
             </div>
             <div>
                 <div class="w-full lg:max-w-xl p-6 space-y-8 sm:p-8 bg-white rounded-lg shadow-xl dark:bg-gray-800">
-                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
-                        <img src="/Front-end/img/LCD-removebg 2.png" alt="" class="w-25">
-                    </h2>
-                    <form class="mt-8 space-y-6" action="#">
-                        <div>
-                            <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre completo</label>
-                            <input type="text" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" required />
-                        </div>
-                        <div>
-                            <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Número de documento</label>
-                            <input type="tel" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="12345678" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required />
-                        </div>
-                        <div class="mb-6">
-                            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Correo</label>
-                            <input type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="john.doe@sena.edu.co" required />
-                        </div>
-                        <div class="flex items-start">
-                            <div class="flex items-center h-5">
-                                <input id="remember" aria-describedby="remember" name="remember" type="checkbox" class="w-4 h-4 border-gray-300 rounded-sm bg-gray-50 focus:ring-3 focus:ring-green-300 dark:focus:ring-green-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600" required />
+                    <form class="mt-3 space-y-5" action="#">
+                        <div class="grid gap-4 mb-4 sm:grid-cols-2">
+                            
+                            <div>
+                                <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Número de documento <span style="color: red;">*</span></label>
+                                <input type="tel" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="12345678" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required />
                             </div>
-                            <div class="ms-3 text-sm">
-                            <label for="remember" class="font-medium text-gray-500 dark:text-gray-400">Recordar mis credenciales</label>
+                            <div>
+                                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Correo <span style="color: red;">*</span></label>
+                                <input type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="john.doe@sena.edu.co" required />
                             </div>
-                            <a href="#" class="ms-auto text-sm font-medium text-[#39A800] hover:underline dark:text-green-500">¿Olvidaste tu contraseña?</a>
+                            <div>
+                                <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Centro <span style="color: red;">*</span></label>
+                                <select id="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                    <option selected="">Seleccione un centro</option>
+                                    <option value="cies">Centro de la Industria, la Empresa y los Servivios. </option>
+                                    <option value="direccion">Huila Dirección Regional</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cargo <span style="color: red;">*</span></label>
+                                <select id="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                    <option selected="">Seleccione un cargo</option>
+                                    <option value="contratista">Contratista</option>
+                                    <option value="funcionario">Funcionario/a</option>
+                                </select>
+                            </div>
                         </div>
-                        <button type="submit" class="w-full px-5 py-3 text-base font-medium text-center text-white bg-[#39A800] rounded-lg hover:bg-green-800 focus:ring-4 focus:ring-green-300 sm:w-auto dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Ingresar</button>
+                        <div>
+                            <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña <span style="color: red;">*</span></label>
+                            <input type="password" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required />
+                        </div>
+                        <div>
+                            <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirmación contraseña <span style="color: red;">*</span></label>
+                            <input type="password" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required />
+                        </div>
+                        <div>
+                        <button type="submit" class="w-full px-6 py-2 text-base font-medium text-center text-white bg-[#39A800] rounded-lg hover:bg-[#39a800] focus:ring-4 focus:ring-green-300 sm:w-auto dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Solicitar</button>
                         <div class="text-sm font-medium text-gray-900 dark:text-white">
                         </div>
                     </form>
