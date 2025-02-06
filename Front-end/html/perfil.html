@@ -101,6 +101,10 @@
         margin-top: 5%;
     }
 
+    a:hover{
+        color: black;
+    }
+
 </style>
 <script type="module" src="/Front-end/js/sesionfirebaseauth.js"></script>
 <body>
@@ -165,7 +169,6 @@
                         <input type="text" class="form-control" id="nombre_usuario" placeholder="Nombre Completo">
                     </div>
                     <div class="error-message" id="usuarioError" style="color: red; display: none;"></div>
-
                     <label for="contraseña" class="form-label visually-hidden">Documento</label>
                     <div class="input-group">
                         <span class="input-group-text"><box-icon name='id-card' color="#00BB00"></box-icon></span>
@@ -217,7 +220,7 @@
                             <div style="margin-right: 8px;">
                                 <i class="bi bi-key"></i>
                             </div>
-                            <b>Cambiar contraseña</b>
+                            <a href="/Front-end/html/confirmarcorreo.html" style="text-decoration: none; color: white;"><b>Cambiar contraseña</b></a>
                         </button>
                     </div>
                 </div> 
