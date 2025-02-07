@@ -40,7 +40,7 @@ public class usuarioReporteController {
         if (usuario.getNombre_usuario().equals("")) {
             return new ResponseEntity<>("El nombre es un campo obligatorio", HttpStatus.BAD_REQUEST);
         }
-        if (usuario.getCorreo_usuario().equals("")) {
+        if (usuario.getUsername().equals("")) {
             return new ResponseEntity<>("El correo es un campo obligatorio", HttpStatus.BAD_REQUEST);
         }
 

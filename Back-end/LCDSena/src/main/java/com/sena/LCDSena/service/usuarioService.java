@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import com.sena.LCDSena.interfaces.iusuario;
 import com.sena.LCDSena.interfaces.iusuarioRepository;
 import com.sena.LCDSena.iservice.iusuarioService;
+import com.sena.LCDSena.model.authResponse;
+import com.sena.LCDSena.model.registroRequest;
 import com.sena.LCDSena.model.usuario;
 import com.sena.LCDSena.util.usuarioReporte;
 
@@ -17,6 +19,7 @@ import net.sf.jasperreports.engine.JRException;
 
 @Service
 public class usuarioService implements iusuarioService {
+    
 
     @Autowired
     private iusuario data;
@@ -75,7 +78,13 @@ public class usuarioService implements iusuarioService {
 
     //VERIFICAR SI YA EXISTE EL CORREO EN LA BD
     @Override
-    public Optional<usuario> findByCorreoElec(String correo_usuario) {
-        return data.findByCorreoElec(correo_usuario);
+    public Optional<usuario> findByCorreoElec(String username) {
+        return data.findByCorreoElec(username);
+    }
+
+    @Override
+    public authResponse registro(registroRequest request) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'registro'");
     }
 }

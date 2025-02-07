@@ -27,4 +27,7 @@ public interface iusuarioService {
 
 
     public Optional <usuario> findByCorreoElec(String correo_usuario);
+
+    //jwt
+    public void savePasswordResetToken(usuario usuario, String token);
 }

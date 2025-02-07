@@ -59,11 +59,11 @@ public class usuarioController {
         }
 
         //CORREO VALIDACIONES
-        if (usuario.getCorreo_usuario().equals("")) {
+        if (usuario.getUsername().equals("")) {
             return new ResponseEntity<>("El correo es un campo obligatorio", HttpStatus.BAD_REQUEST);
         }
 
-        String correo_usuario = usuario.getCorreo_usuario();
+        String correo_usuario = usuario.getUsername();
         String emailRegex = "^[^\\\\s@]+@[^\\\\s@]+\\\\.(com|es|org|net)$";
 
         Pattern pattern = Pattern.compile(emailRegex);
@@ -78,7 +78,7 @@ public class usuarioController {
          // Construcción de la expresión regular para excluir los signos no permitidos
          String CorreoElectroRegex = "^[^" + signosNoPermitidos + "]*$";
          Pattern CorreoElectroPattern = Pattern.compile(CorreoElectroRegex);
-         Matcher CorreoElectroMatcher = CorreoElectroPattern.matcher(usuario.getCorreo_usuario());
+         Matcher CorreoElectroMatcher = CorreoElectroPattern.matcher(usuario.getUsername());
 
          if (!CorreoElectroMatcher.matches()) {
             return new ResponseEntity<>("El correo electronico contiene caracteres no permitidos", HttpStatus.BAD_REQUEST);
@@ -103,20 +103,20 @@ public class usuarioController {
         }
 
         //CONTRASEÑA VALIDACION
-        if (usuario.getContrasena().equals("")) {
+        if (usuario.getPassword().equals("")) {
             return new ResponseEntity<>("La contraseña es un campo obligstorio", HttpStatus.BAD_REQUEST);
         }
 
         String contrasenaRegex = "^[A-Za-zÁÉÍÓÚÜáéíóúüÑñ0-9.,@_\\-$%&\\s]+$";
         Pattern contraPattern = Pattern.compile(contrasenaRegex);
-        Matcher contraMatcher = contraPattern.matcher(usuario.getContrasena());
+        Matcher contraMatcher = contraPattern.matcher(usuario.getPassword());
 
         if (!contraMatcher.matches()) {
             return new ResponseEntity<>("La contraseña debe contener al menos una letra mayuscula, un numero, un carcater especial y al menos 8 digitos.", HttpStatus.BAD_REQUEST);
         }
 
         //CONFIRMACION DE LA CONTRASEÑA VALIDACION
-        if (usuario.getConfirm_contrasena() != usuario.getContrasena()) {
+        if (usuario.getConfirm_contrasena() != usuario.getPassword()) {
             return new ResponseEntity<>("Las contraseñas no coinciden", HttpStatus.BAD_REQUEST);
         }
 
@@ -162,10 +162,10 @@ public class usuarioController {
         if (usuario != null) {
             usuario.setDocumento_usuario(usuarioUpdate.getDocumento_usuario());
             usuario.setNombre_usuario(usuarioUpdate.getNombre_usuario());
-            usuario.setCorreo_usuario(usuarioUpdate.getCorreo_usuario());
+            usuario.setUsername(usuarioUpdate.getUsername());
             usuario.setCentro(usuarioUpdate.getCentro());
             usuario.setCargo(usuarioUpdate.getCargo());
-            usuario.setContrasena(usuarioUpdate.getContrasena());
+            usuario.setPassword(usuarioUpdate.getPassword());
             usuario.setConfirm_contrasena(usuarioUpdate.getConfirm_contrasena());
             usuario.setEstado_usuario(usuarioUpdate.getEstado_usuario());
 
