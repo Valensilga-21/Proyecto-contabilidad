@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sena.LCDSena.iservice.iusuarioService;
 import com.sena.LCDSena.model.cargo;
 import com.sena.LCDSena.model.centro;
-import com.sena.LCDSena.model.estadoUsuario;
 import com.sena.LCDSena.model.usuario;
 
 import java.util.regex.Matcher;
@@ -28,6 +27,11 @@ public class usuarioController {
 
     @Autowired
     private iusuarioService usuarioService;
+
+    @PostMapping("profile/")
+    public ResponseEntity<String> profile(@RequestBody String request) {
+        return new ResponseEntity<String> ("End point privado", HttpStatus.OK);
+    }
 
     @PostMapping("/registrar")
     public ResponseEntity<Object> save(@RequestBody usuario usuario) {
