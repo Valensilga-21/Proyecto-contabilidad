@@ -1,7 +1,9 @@
-var urlBase = "http://localhost:8080/api/v1/LCDSena";
+var urlBase = "http://localhost:8080/api/v1/LCDSena/";
 
-//Entity User
-var urlUsuario = urlBase + "/usuario";
+//User
+var urlUsuario = urlBase + "usuario/"
+var urlRegistro = urlBase + "publico/usuario/"
+var urlLogin = urlBase + "publico/usuario/"
 var urlReporteUsarios = urlBase + "/pdfReporte/export-pdf";
 
 //Legalizacion

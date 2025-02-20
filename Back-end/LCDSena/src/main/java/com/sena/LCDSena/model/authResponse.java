@@ -13,6 +13,6 @@ public class authResponse {
     private String mensaje;
     private String Token;
     private boolean emailExists;
-    private String nombreCompleto;
-    private rol rol;
+    private String nombre_usuario;
+    private role rol;
 }

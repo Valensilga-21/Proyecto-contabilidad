@@ -11,6 +11,9 @@
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
     <script type="module" src="/Front-end/js/sesionfirebaseauth.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="/Front-end/js/usuario.js"></script>
+    <script src="/Front-end/js/config.js"></script>
     <style>
         body {
             background-image: url(/Front-end/img/img3589.jpg);
@@ -105,17 +108,17 @@
                 <label for="" class="form-label visually-hidden">Usuario</label>
                 <div class="input-group">
                     <span class="input-group-text"><box-icon name='user' color="#00BB00"></box-icon></span>
-                    <input type="text" class="form-control" id="correo_usuario" placeholder="Usuario" style="color: #000000;">
+                    <input type="text" class="form-control" id="usernamelogin" placeholder="Usuario" style="color: #000000;">
                 </div>
             </div>
             <div class="mb-4">
                 <label for="contraseña" class="form-label visually-hidden">Contraseña</label>
                 <div class="input-group">
                     <span class="input-group-text"><box-icon name='lock-alt' color="#00BB00"></box-icon></span>
-                    <input type="password" class="form-control" id="contrasena" placeholder="Contraseña">
+                    <input type="password" class="form-control" id="contralogin" placeholder="Contraseña">
                 </div>
             </div>
-            <button class="btn btn-green w-100" id="submitSignIn">Ingresar</button>
+            <button class="btn btn-green w-100" id="loginBtn">Ingresar</button>
         </form>
         <a href="/Front-end/html/olvidarcontra.html" class="d-block mt-4"><b>¿Olvidaste tu contraseña?</b></a>
     </div>

@@ -1,6 +1,6 @@
 package com.sena.LCDSena.model;
 
-public enum rol {
+public enum role {
     usuario,
     administrador
 }

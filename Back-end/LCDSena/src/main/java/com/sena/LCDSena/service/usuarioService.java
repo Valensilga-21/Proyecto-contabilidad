@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import com.sena.LCDSena.interfaces.iusuario;
@@ -18,6 +19,7 @@ import com.sena.LCDSena.util.usuarioReporte;
 import net.sf.jasperreports.engine.JRException;
 
 @Service
+@Primary
 public class usuarioService implements iusuarioService {
     
 
@@ -78,13 +80,12 @@ public class usuarioService implements iusuarioService {
 
     //VERIFICAR SI YA EXISTE EL CORREO EN LA BD
     @Override
-    public Optional<usuario> findByCorreoElec(String username) {
-        return data.findByCorreoElec(username);
+    public Optional<usuario> findByUsername(String username) {
+        return data.findByUsername(username);
     }
 
     @Override
     public authResponse registro(registroRequest request) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'registro'");
     }
 }

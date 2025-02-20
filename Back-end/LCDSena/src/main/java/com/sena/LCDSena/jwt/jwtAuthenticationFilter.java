@@ -20,6 +20,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 
 @Component
+@AllArgsConstructor
 public class jwtAuthenticationFilter extends OncePerRequestFilter{
 
     private final jwtService jwtService;

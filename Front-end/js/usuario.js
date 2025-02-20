@@ -1,11 +1,11 @@
 // // VALIDACIONES
 
 // //VALIDACION CORREO
-// function validarCorreo(correo_usuario){
+// function validarCorreo(username){
 //     var emailRegex  = /^[^\s@]+@[^\s@]+\.(com|es|org|net)$/i;
 
-//     if(emailRegex.test(correo_usuario)){
-//         var domainPart = correo_usuario.split("@")[1];
+//     if(emailRegex.test(username)){
+//         var domainPart = username.split("@")[1];
 //         if(domainPart && domainPart.split(".").length > 1){
 //             return true; 
 //         }
@@ -14,7 +14,7 @@
 // }
 
 // //ENTRADA DE ARROBAS
-// // document.getElementById("correo_usuario").addEventListener("keydown", function(event) {
+// // document.getElementById("username").addEventListener("keydown", function(event) {
 // //     if(event.key === "@") {
 // //         var inputCorreo = event.target.value;
 // //         var arrobaCount = (inputCorreo.match(/@/g) || []).length;
@@ -28,16 +28,16 @@
 // //VALICACION NOMBRE
 // document.getElementById("nombre_usuario").addEventListener("keypress", soloLetras);
 // document.getElementById("documento_usuario").addEventListener("keypress", soloNumeros);
-// document.getElementById("correo_usuario").addEventListener("keypress", letraCorreo);
-// document.getElementById("contrasena").addEventListener("keypress", clave);
+// document.getElementById("username").addEventListener("keypress", letraCorreo);
+// document.getElementById("password").addEventListener("keypress", clave);
 // document.getElementById("confirm_contrasena").addEventListener("keypress", clave);
 
 
 // //EVENTOS ASIGNADOS A LOS ATRIBUTOS
 // const nombreCampo = document.getElementById("nombre_usuario");
 // const documentoCampo = document.getElementById("documento_usuario");
-// const correoValidar = document.getElementById("correo_usuario");
-// const nocopypagepassword = document.getElementById("contrasena");
+// const correoValidar = document.getElementById("username");
+// const nocopypagepassword = document.getElementById("password");
 // const nocopypageCPassword = document.getElementById("confirm_contrasena");
 
 // const letrasPermitidas = [
@@ -94,20 +94,15 @@ var RegistrarUsuario = true;
 function registrarUsuario() {
     var documento_usuario = document.getElementById("documento_usuario");
     var nombre_usuario = document.getElementById("nombre_usuario");
-    var correo_usuario = document.getElementById("correo_usuario");
+    var username = document.getElementById("username");
     var centro = document.getElementById("centro");
     var cargo = document.getElementById("cargo");
-    var contrasena = document.getElementById("contrasena");
+    var password = document.getElementById("password");
     var confirm_contrasena = document.getElementById("confirm_contrasena");
-    var rol = document.getElementById("rol").value = "usuario";
+    var role = document.getElementById("role");
 
-    if (!ValidarnombreCompleto(nombre_usuario) ||
-        !ValidarcorreoElectronico(correo_usuario) ||
-        !Validarcontra(contrasena) ||
-        !ValidarcoContra(confirm_contrasena) || 
-        !Validarcentro(centro) || 
-        !Validarcargo(cargo) || 
-        !Validardocumento(documento_usuario)) {
+    if (!nombre_usuario.value || !username.value || !password.value ||
+        !confirm_contrasena.value || !centro.value || !cargo.value || !documento_usuario.value || !role.value) {
 
         Swal.fire({
             title: "¡Error!",
@@ -116,30 +111,35 @@ function registrarUsuario() {
         });
         return;
     }
+    
+    // if(!validarCorreo(username.value)) {
+    //     return;
+    // }
 
-    if(!validarCorreo(correo_usuario.value)) {
-        return;
-    }
+    // var resultValidation = Validarcontra(password.value);
+    // if (resultValidation.estado === "error") {
+    //     return
+    // }
 
-    var resultValidation = Validarcontra(contrasena.value);
-    if (resultValidation.estado === "error") {
-        return
-    }
-
-    if (contrasena.value !== confirm_contrasena.value) {
-        Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "Las contraseñas no coinciden",
-        });
-        return;
-    }
+    // if (password.value !== confirm_contrasena.value) {
+    //     Swal.fire({
+    //         icon: "error",
+    //         title: "Oops...",
+    //         text: "Las contraseñas no coinciden",
+    //     });
+    //     return;
+    // }
 
     var formData = {
+        "documento_usuario": documento_usuario,
         "nombre_usuario": nombre_usuario.value,
-        "correo_usuario": correo_usuario.value,
-        "contrasena": contrasena.value,
-        "confirm_contrasena": confirm_contrasena.value
+        "username": username.value,
+        "centro": centro.value,
+        "cargo": cargo.value,
+        "password": password.value,
+        "confirm_contrasena": confirm_contrasena.value,
+        "role": role.value,
+        "estado_usuario": estado_usuario.value
     }
 
     var metodo = RegistrarUsuario ? "POST" : "PUT";
@@ -147,10 +147,10 @@ function registrarUsuario() {
     var textoImprimir = RegistrarUsuario ? "Felicidades, has enviado tu solicitud de registro exitosamente" : "Los cambios han sido guardados exitosamente";         
 
     // Enviar datos al servidor
-    if (ValidarCampos()) {
+    if (validarCampos()) {
         $.ajax({
             type: metodo,
-            url: urlUsuario + "/registro",
+            url: urlRegistro + "register/",
             contentType: "application/json",
             data: JSON.stringify(formData),
             success: function (response) {
@@ -164,7 +164,7 @@ function registrarUsuario() {
                     }).then(function () {
                         $('#exampleModal').modal('hide');
                         listarUsuarios();
-                        window.location.href = '/Front-end/html/registro.html';
+                        window.location.href = '/Front-end/html/inicioUsuario.html';
                     });
                 } else {
                     Swal.fire({
@@ -191,35 +191,117 @@ function registrarUsuario() {
     }
 }
 
-function listarUsuarios() {
-    $.ajax({
-        url: urlUsuario + "/listaUsuarios",
-        type: "GET",
-        success: function (result) {
-            var cuerpoTabla = document.getElementById("userTable");
-            cuerpoTabla.innerHTML = "";
+async function loginUsuario() {
+    var username = document.getElementById('username').value;
+    var password = document.getElementById('password').value;
 
-            for (var i = 0; i < result.length; i++) {
-                var trRegistro = document.createElement("tr");
-                trRegistro.innerHTML = `
-                <td>${result[i]["id_usuario"]}</td>
-                <td class="text-center align-middle">${result[i]["documento_usuario"]}</td>
-                <td class="text-center align-middle">${result[i]["nombre_usuario"]}</td>
-                <td class="text-center align-middle">${result[i]["correo_usuario"]}</td>
-                <td class="text-center align-middle">${result[i]["centro"]}</td>
-                <td class="text-center align-middle">${result[i]["cargo"]}</td>
-                <td class="text-center align-middle">${result[i]["Rol"]}</td>
-                <td class="text-center align-middle">${result[i]["estado_usuario"]}</td>
-                <td class="text-center align-middle">
-                    <i class="btn fas fa-edit Editar"  onclick="RegistrarUsuario=false;"   data-id="${result[i]["id_usuario"]}"></i>
-                    <i class="btn fas fa-trash-alt Eliminar" data-id="${result[i]["id_usuario"]}"></i>
-                </td>
-            `;
-                cuerpoTabla.appendChild(trRegistro);
+    if (!username || !password) {
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Por favor, complete todos los campos."
+        });
+        return;
+    }
+
+    try {
+        const response = await fetch(urlLogin + "login/", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username: username,
+                password: password,
+            }),
+        });
+
+        console.log(response); // Verifica la respuesta
+
+        if (response.ok) {
+            const result = await response.json();
+            console.log(result); // Verifica el resultado
+            if (result.token) {
+                localStorage.setItem('userToken', result.token);
+                // Verificar el rol del usuario
+                var role = result.role; // Asumiendo que el rol se envía en la respuesta
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Has iniciado sesión correctamente.",
+                    showConfirmButton: false,
+                    timer: 1500
+                  }).then(() => {
+                    // Redirigir según el rol
+                    if (role === "administrador") {
+                        window.location.href = "/Front-end/html/inicio.html"; // Redirigir a la vista de administrador
+                    } else {
+                        window.location.href = "/Front-end/html/Usuario/inicioUsuario.html"; // Redirigir a la vista de usuario
+                    }
+                  });
+            } else {
+                alert("No se recibió un token válido.");
             }
-        },
-        error: function (error) {
-            alert("ERROR en la petición" + error);
+        } else {
+            const errorMessage = await response.text(); // Obtener el mensaje de error
+            alert("Error al intentar iniciar sesión: " + errorMessage);
         }
-    });
+    } catch (error) {
+        console.error("Error al intentar iniciar sesión:", error);
+        alert("Hubo un error al intentar iniciar sesión. Inténtelo de nuevo.");
+    }
 }
+
+
+function validarCampos() {
+    var nombre_usuario = document.getElementById("nombre_usuario");
+    return validarNombre_usuario(nombre_usuario);
+}
+
+function validarNombre_usuario(CuadroNumero) {
+    var Valor = CuadroNumero.value;
+    var Valido = true;
+
+    if (Valor.length <= 3 || Valor.length > 60) {
+        Valido = false;
+    }
+    if (Valido) {
+        CuadroNumero.className = " input form-control is-valid";
+    } else {
+        CuadroNumero.className = "input form-control is-invalid";
+    }
+    return Valido;
+}
+
+// function listarUsuarios() {
+//     $.ajax({
+//         url: urlUsuario + "/listaUsuarios",
+//         type: "GET",
+//         success: function (result) {
+//             var cuerpoTabla = document.getElementById("userTable");
+//             cuerpoTabla.innerHTML = "";
+
+//             for (var i = 0; i < result.length; i++) {
+//                 var trRegistro = document.createElement("tr");
+//                 trRegistro.innerHTML = `
+//                 <td>${result[i]["id_usuario"]}</td>
+//                 <td class="text-center align-middle">${result[i]["documento_usuario"]}</td>
+//                 <td class="text-center align-middle">${result[i]["nombre_usuario"]}</td>
+//                 <td class="text-center align-middle">${result[i]["username"]}</td>
+//                 <td class="text-center align-middle">${result[i]["centro"]}</td>
+//                 <td class="text-center align-middle">${result[i]["cargo"]}</td>
+//                 <td class="text-center align-middle">${result[i]["role"]}</td>
+//                 <td class="text-center align-middle">${result[i]["estado_usuario"]}</td>
+//                 <td class="text-center align-middle">
+//                     <i class="btn fas fa-edit Editar"  onclick="RegistrarUsuario=false;"   data-id="${result[i]["id_usuario"]}"></i>
+//                     <i class="btn fas fa-trash-alt Eliminar" data-id="${result[i]["id_usuario"]}"></i>
+//                 </td>
+//             `;
+//                 cuerpoTabla.appendChild(trRegistro);
+//             }
+//         },
+//         error: function (error) {
+//             alert("ERROR en la petición" + error);
+//         }
+//     });
+// }

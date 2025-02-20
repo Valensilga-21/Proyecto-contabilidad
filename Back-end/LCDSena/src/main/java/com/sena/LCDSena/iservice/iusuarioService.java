@@ -4,6 +4,8 @@ import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
+import com.sena.LCDSena.model.authResponse;
+import com.sena.LCDSena.model.registroRequest;
 import com.sena.LCDSena.model.usuario;
 
 import net.sf.jasperreports.engine.JRException;
@@ -29,5 +31,9 @@ public interface iusuarioService {
     public Optional <usuario> findByCorreoElec(String correo_usuario);
 
     //jwt
-    public void savePasswordResetToken(usuario usuario, String token);
+    // public void savePasswordResetToken(usuario usuario, String token);
+
+    public authResponse registro(registroRequest request);
+
+    public Optional<usuario>findByNombre_usuario(String usuario);
 }

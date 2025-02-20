@@ -6,24 +6,31 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.sena.LCDSena.interfaces.iusuario;
 import com.sena.LCDSena.iservice.iusuarioService;
 import com.sena.LCDSena.model.authResponse;
 import com.sena.LCDSena.model.loginRequest;
 import com.sena.LCDSena.model.registroRequest;
-import com.sena.LCDSena.model.rol;
+import com.sena.LCDSena.model.role;
 import com.sena.LCDSena.model.usuario;
 
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
 public class authService implements iusuarioService{
+
 
     private final iusuario dataUser;
     private final jwtService jwtService;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+
     @Autowired
     private UserDetailsService userDetailsService; // Inyectamos UserDetailsService
 
@@ -32,7 +39,7 @@ public class authService implements iusuarioService{
     public authResponse registro(registroRequest request) {
         usuario userData = usuario.builder()
                 .nombre_usuario(request.getNombre_usuario())
-                .rol(rol.usuario)
+                .rol(role.usuario)
                 .username(request.getUsername())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .confirm_contrasena(passwordEncoder.encode(request.getConfirm_contrasena()))
@@ -89,29 +96,18 @@ public class authService implements iusuarioService{
     }
 
     @Override
-    public List<usuario> Filtros(String filtros) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'Filtros'");
-    }
-
-    @Override
     public Optional<usuario> findByNombre_usuario(String nombre_usuario) {
         return dataUser.findByNombre_usuario(nombre_usuario);
     }
 
-    @Override
-	public void savePasswordResetToken(usuario usuario, String token) {
-		// TODO Auto-generated method stub
-	}
+    // @Override
+	// public void savePasswordResetToken(usuario usuario, String token) {
+	// 	// TODO Auto-generated method stub
+	// }
 
     @Override
     public Optional<usuario> findByUsername(String username) {
         return dataUser.findByUsername(username);
-    }
-    @Override
-    public boolean delete(String id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
     }
 
 }

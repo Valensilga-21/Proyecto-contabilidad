@@ -55,16 +55,14 @@ public class usuario implements UserDetails{
     private String confirm_contrasena;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "estado_usuario", nullable = false, length = 12)
     private estadoUsuario estado_usuario;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "rol", nullable = false, length = 12)
-    private rol rol;
+    private role role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities(){
-        return List.of(new SimpleGrantedAuthority(this.rol.name()));
+        return List.of(new SimpleGrantedAuthority(this.role.name()));
     }
 
     @Override

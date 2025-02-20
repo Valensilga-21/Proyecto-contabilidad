@@ -10,16 +10,14 @@ import com.sena.LCDSena.service.authService;
 
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.Optional;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
-
-import java.util.Optional;
 
 @CrossOrigin
 @RequiredArgsConstructor
@@ -46,8 +44,38 @@ public class usuarioPublicoController {
     }
 
     @PostMapping("register/")
-    public ResponseEntity<String> register(@RequestBody String request) {
-        return new ResponseEntity<String> ("End point privado", HttpStatus.OK);
+    public ResponseEntity<authResponse> registro(@RequestBody registroRequest request) {
+        var valido = true;
+        authResponse response = new authResponse();
+        if (authService.findByUsername(request.getUsername()).isPresent()) {
+            valido = false;
+            response.setEmailExists(true);
+            response.setMensaje("El correo electronico ya existe");
+            return new ResponseEntity<authResponse>(response, HttpStatus.BAD_REQUEST);
+        }
+
+        if (valido) {
+            response = authService.registro(request);
+            response.setMensaje("Se registró correctamente");
+            //para envíar el correo electronico
+            // emailService.enviarCorreoBienvenida(request.getUsername(), request.getNombre_usuario());
+            return new ResponseEntity<authResponse>(response, HttpStatus.OK);
+        }
+        return new ResponseEntity<authResponse>(response, HttpStatus.OK);
+    }
+
+    @PostMapping("verificarToken/")
+    public ResponseEntity<authResponse> verificarToken(@RequestBody String Token) {
+        Optional<authResponse> authResult = authService.verificarToken(Token);
+        authResponse response = new authResponse();
+
+        if (authResult.isPresent()) {
+            response.setMensaje("Token válido. Usuario registrado.");
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } else {
+            response.setMensaje("Token no válido. Por favor, regístrese.");
+            return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
+        }
     }
     
 }
