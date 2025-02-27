@@ -220,11 +220,12 @@ async function loginUsuario() {
 
         if (response.ok) {
             const result = await response.json();
-            console.log(result); // Verifica el resultado
+            console.log(result); // Verifica si el campo "role" está presente
             if (result.token) {
                 localStorage.setItem('userToken', result.token);
                 // Verificar el rol del usuario
                 var role = result.role; // Asumiendo que el rol se envía en la respuesta
+                console.log(role); // Asegúrate de que el rol se esté leyendo correctamente
                 Swal.fire({
                     position: "top-end",
                     icon: "success",
@@ -243,12 +244,19 @@ async function loginUsuario() {
                 alert("No se recibió un token válido.");
             }
         } else {
-            const errorMessage = await response.text(); // Obtener el mensaje de error
-            alert("Error al intentar iniciar sesión: " + errorMessage);
+            const errorMessage = await response.text();
+            Swal.fire({
+                title: "Error",
+                text: "Hubo un error al intentar iniciar sesión, usuario o contraseña inválidos.",
+                icon: "error"
+            }) + errorMessage;
         }
     } catch (error) {
-        console.error("Error al intentar iniciar sesión:", error);
-        alert("Hubo un error al intentar iniciar sesión. Inténtelo de nuevo.");
+        Swal.fire({
+            title: "Error: " + error,
+            text: "Hubo un error al intentar iniciar sesión. Inténtelo de nuevo.",
+            icon: "error"
+        })
     }
 }
 

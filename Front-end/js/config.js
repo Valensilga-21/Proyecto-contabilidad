@@ -6,8 +6,12 @@ var urlRegistro = urlBase + "publico/usuario/"
 var urlLogin = urlBase + "publico/usuario/"
 var urlReporteUsarios = urlBase + "/pdfReporte/export-pdf";
 
+// Restablecimiento contraseñas
+var urlRestablecerContra = urlBase + "usuario/recuperarContrasena/";
+var urlCambioRestablecerContrasena = urlBase + "usuario/cambioRestablecerContrasena/"
+
 //Legalizacion
-var urlLegalizacionº = urlBase + "/legalizacion";
+var urlLegalizacion = urlBase + "/legalizacion";
 
 //Viaje
 var urlViaje = urlBase + "/viaje";

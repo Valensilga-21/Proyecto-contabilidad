@@ -4,80 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Correo Olvidar contraseña</title>
-    <link rel="stylesheet" href="/Front-end/css/bootstrap.css">
-    <script src="/Front-end/js/bootstrap.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
-<style>
-    body{
-        background-image: url(/Front-end/img/img3589.jpg);
-        background-size:cover;
-        height: 100vh;
-        background-repeat: no-repeat;
-        margin: 10%;
-    }
-    .btn{
-        background-color: #00BB00;
-        color: white;
-        font-weight: 600;
-        max-width: 100%;
-        min-width: 100%;
-        border-radius: 10px;
-    }
-    .btn:hover{
-        background-color: white;
-        color: black;
-        font-weight: 600;
-        border: 2.5px solid #00BB00;
-    }
-
-    .container{
-        background-color: white;
-        border-radius: 15px;
-        box-shadow: 0px 0px 10px #b9b9b9;
-        padding: 4%;
-        max-width: 500px;
-        min-width: 100px;
-    }
-
-    h2{
-        font-weight: 700;
-    }
-
-    .frase{
-        font-weight: 700;
-    }
-
-    p{
-        font-size: 18px;
-        text-align: justify;
-    }
-
-    @media (max-width: 650px) {
-    .container{
-        width: calc(100% / 2 - 15px);
-        margin-top: 15px;
-    }
-    }
-    @media (max-width: 560px) {
-        .container{
-            width: 100% ;
-        }
-    }
-</style>
-<body>
-    <div class="container">
-        <div class="1" style="margin: 0%;">
-            <h2 class="py-2">¡Hola, [nombre_usuario]!</h2>
-            <p>Hemos recibido una solicitud para restablecer tu contraseña. 
-                ¿Fuiste tú quien realizó esta accion? Si es así, haz clic en el botón de abajo para restablecerla. 
-                Si no reconoces esta acción, por favor ignora este mensaje.</p>
-            <button class="btn" class="py-2">Restablecer</button>
-            <p class="py-4">Recuerda mantener tu cuenta segura y nunca compartir tu contraseña.</p>
-            <p class="frase">¡Que tengas un excelente día! 😊</p>
+<body style="font-family: Arial, sans-serif; background-color: #f9fafb; margin: 0; padding: 0;">
+    <section style="background-color: #f9fafb; padding: 20px;">
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; max-width: 600px; margin: auto;">
+            <div style="width: 100%; padding: 30px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
+                <h1 style="margin-bottom: 10px; font-size: 24px; font-weight: bold; color: #1f2937;">
+                    ¡Hola, [nombre_usuario]!
+                </h1>
+                <p style="font-size: 16px; color: #4b5563; margin: 10px 0;">Hemos recibido una solicitud para restablecer tu contraseña. 
+                    ¿Fuiste tú quien realizó esta acción? Si es así, haz clic en el botón de abajo para restablecerla. 
+                    Si no reconoces esta acción, por favor ignora este mensaje. Este enlace es válido por 15 minutos.</p>
+                <br>
+                <a href="/Front-end/html/restablecercontraseña.html" style="display: inline-block; width: 100%; text-align: center; text-decoration: none; color: white; background-color: #39A800; padding: 10px; border-radius: 5px; font-weight: medium; font-weight: 550;">Restablecer</a>
+                <p style="font-size: 16px; color: #4b5563; margin: 10px 0; margin-top: 25px;">Recuerda mantener tu cuenta segura y nunca compartir tu contraseña.</p>
+                <p style="font-size: 16px; font-weight: bold; color: #1f2937; margin: 10px 0;">¡Que tengas un excelente día!</p>
+                <br>
+                <a href="/Front-end/index.html" style="display: flex; align-items: center; margin-bottom: 20px; font-size: 24px; font-weight: 600; color: #1f2937;">
+                    <img src="https://i.ibb.co/4ZY46W6j/LCD-removebg-2.png" alt="logo" style="width: 90px; margin-right: 10px; margin-top: 25px;">
+                </a>
+                <hr>
+            </div>
         </div>
-    </div>
+    </section>  
 </body>
 </html>

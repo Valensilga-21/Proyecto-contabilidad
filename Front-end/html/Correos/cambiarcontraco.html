@@ -4,86 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Correo Cambiar contraseña</title>
-    <link rel="stylesheet" href="/Front-end/css/bootstrap.css">
-    <script src="/Front-end/js/bootstrap.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
 </head>
 <style>
-    body{
-        background-image: url(/Front-end/img/img3589.jpg);
-        background-size:cover;
-        height: 50vh;
-        background-repeat: no-repeat;
-        margin: 7%;
-    }
-    .btn{
-        background-color: #00BB00;
-        color: white;
-        font-weight: 600;
-        max-width: 100%;
-        min-width: 100%;
-        border-radius: 10px;
-    }
-    .btn:hover{
-        background-color: white;
-        color: black;
-        font-weight: 600;
-        border: 2.5px solid #00BB00;
-    }
-
-    .container{
-        background-color: white;
-        border-radius: 15px;
-        box-shadow: 0px 0px 10px #b9b9b9;
-        padding: 4%;
-        max-width: 520px;
-        min-width: 100px;
-    }
-
-    h2{
-        font-weight: 700;
-    }
-
-    .frase{
-        font-weight: 700;
-    }
-
-    p{
-        font-size: 18px;
-        text-align: justify;
-    }
-
-    @media (max-width: 650px) {
-    .container{
-        width: calc(100% / 2 - 15px);
-        margin-top: 15px;
-    }
-    }
-    @media (max-width: 560px) {
-        .container{
-            width: 100% ;
-        }
-    }
-
-    img{
-        width: 30%;
-        height: 30%;
-    }
+    @import "tailwindcss";
 </style>
 <body>
-    <div class="container">
-        <div class="1" style="margin: 0%;">
-            <h2 class="py-2">¡Hola, [nombre_usuario]!</h2>
-            <p>Hemos recibido una solicitud para cambiar tu contraseña actual. 
-                ¿Fuiste tú quien realizó esta accion? Si es así, haz clic en el botón de abajo para cambiarla. 
-                Si no reconoces esta acción, por favor ignora este mensaje.</p>
-            <button class="btn" class="py-2">Cambiar contraseña</button>
-            <p class="py-4">Recuerda mantener tu cuenta segura y nunca compartir tu contraseña.</p>
-            <p class="frase">¡Que tengas un excelente día! 😊</p>
-            <img src="/Front-end/img/LCD-removebg 1.png" alt="">
+    <section class="bg-gray-50 dark:bg-gray-900">
+        <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+            <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+                <img class="w-35 mr-2" src="/Front-end/img/LCD-removebg 2.png" alt="logo">    
+            </a>
+            <div class="w-full p-6 bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md dark:bg-gray-800 dark:border-gray-700 sm:p-8">
+                <h1 class="mb-1 text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-1xl dark:text-white">
+                    ¡Hola, [nombre_usuario]!
+                </h1>
+                <p class="font-normal p-1 text-gray-600 dark:text-gray-500">Hemos recibido una solicitud para cambiar tu contraseña actual. 
+                    ¿Fuiste tú quien realizó esta accion? Si es así, haz clic en el botón de abajo para cambiarla. 
+                    Si no reconoces esta acción, por favor ignora este mensaje.</p>
+                <br>
+                <button type="submit" id="cambiarContra" class="w-full text-white bg-[#39A800] hover:bg-primary-700 focus:ring-4 
+                focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-3 py-2 text-center 
+                dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Cambiar contraseña</button>
+                <br>
+                <p class="font-normal p-1 text-gray-600 dark:text-gray-500">Recuerda mantener tu cuenta segura y nunca compartir tu contraseña.</p>
+                <p class="font-semibold p-1 text-gray-900 dark:text-gray-500">¡Que tengas un excelente día! 😊</p>
+                <br>
+            </div>
+            
         </div>
-    </div>
+    </section>
 </body>
+<script>
+    document.getElementById("cambiarContra").addEventListener("click", () => {
+        window.location.href = "/Front-end/html/cambiarcontra.html"
+    })
+</script>
 </html>
