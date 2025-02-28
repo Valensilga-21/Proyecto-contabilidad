@@ -16,19 +16,6 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         @import "tailwindcss";
-
-        .invalid {
-        color: red;
-        }
-
-        .valid {
-            color: green;
-        }
-
-        .check {
-            color: green; /* Color del check */
-            margin-left: 5px; /* Espacio entre el texto y el check */
-        }
     </style>
 </head>
 <body>
@@ -89,15 +76,15 @@
                                 <div class="relative">
                                     <input type="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required oninput="validatePassword()"/>
                                     <div id="password-requirements" class="text-sm mt-2">
-                                        <p id="length" class="invalid"><span class="check" style="display: none; color: green;">✓</span><span class="cross" style="display: none; color: red;">ｘ</span> Al menos 8 caracteres</p>
-                                        <p id="uppercase" class="invalid"><span class="check" style="display: none; color: green;">✓</span><span class="cross" style="display: none; color: red;">ｘ</span> Al menos una letra mayúscula</p>
-                                        <p id="number" class="invalid"><span class="check" style="display: none; color: green;">✓</span><span class="cross" style="display: none; color: red;">ｘ</span> Al menos un número</p>
-                                        <p id="special" class="invalid"><span class="check" style="display: none; color: green;">✓</span><span class="cross" style="display: none; color: red;">ｘ</span> Al menos un carácter especial</p>
+                                        <p id="validation-message" class="text-red-500">La contraseña debe tener al menos una letra mayúscula, un número, un carácter especial y 8 caracteres.</p>
                                     </div>
                                 </div>
                             </div>
                             <div>
                                 <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirmación contraseña <span style="color: red;">*</span></label>
+                                <div id="confirmpassword-requirements" class="text-sm mt-2">
+                                    <p id="validation-message" class="text-red-500">La contraseña debe tener al menos una letra mayúscula, un número, un carácter especial y 8 caracteres.</p>
+                                </div>
                                 <div class="relative">
                                     <input type="password" id="confirm_contrasena" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required />
                                 </div>        
@@ -131,60 +118,36 @@
 
     <script>
         function validatePassword() {
-        const passwordInput = document.getElementById('password');
-        const password = passwordInput.value;
+        let password = document.getElementById('password').value;
+        let validationMessage = document.getElementById('validation-message');
 
-        // Requisitos de la contraseña
-        const lengthRequirement = password.length >= 8;
-        const uppercaseRequirement = /[A-Z]/.test(password);
-        const numberRequirement = /[0-9]/.test(password);
-        const specialRequirement = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+        // Validaciones
+        let message = '';
 
-        // Elementos de requisitos
-        const lengthElement = document.getElementById('length');
-        const uppercaseElement = document.getElementById('uppercase');
-        const numberElement = document.getElementById('number');
-        const specialElement = document.getElementById('special');
-
-        // Elementos de check y cross
-        const lengthCheck = lengthElement.querySelector('.check');
-        const lengthCross = lengthElement.querySelector('.cross');
-        const uppercaseCheck = uppercaseElement.querySelector('.check');
-        const uppercaseCross = uppercaseElement.querySelector('.cross');
-        const numberCheck = numberElement.querySelector('.check');
-        const numberCross = numberElement.querySelector('.cross');
-        const specialCheck = specialElement.querySelector('.check');
-        const specialCross = specialElement.querySelector('.cross');
-
-        // Actualizar el estado de los requisitos
-        lengthElement.classList.toggle('invalid', !lengthRequirement);
-        lengthElement.classList.toggle('valid', lengthRequirement);
-        lengthCheck.style.display = lengthRequirement ? 'inline' : 'none';
-        lengthCross.style.display = !lengthRequirement ? 'inline' : 'none';
-
-        uppercaseElement.classList.toggle('invalid', !uppercaseRequirement);
-        uppercaseElement.classList.toggle('valid', uppercaseRequirement);
-        uppercaseCheck.style.display = uppercaseRequirement ? 'inline' : 'none';
-        uppercaseCross.style.display = !uppercaseRequirement ? 'inline' : 'none';
-
-        numberElement.classList.toggle('invalid', !numberRequirement);
-        numberElement.classList.toggle('valid', numberRequirement);
-        numberCheck.style.display = numberRequirement ? 'inline' : 'none';
-        numberCross.style.display = !numberRequirement ? 'inline' : 'none';
-
-        specialElement.classList.toggle('invalid', !specialRequirement);
-        specialElement.classList.toggle('valid', specialRequirement);
-        specialCheck.style.display = specialRequirement ? 'inline' : 'none';
-        specialCross.style.display = !specialRequirement ? 'inline' : 'none';
-
-        // Verificar si todos los requisitos son válidos
-        if (lengthRequirement && uppercaseRequirement && numberRequirement && specialRequirement) {
-            // Si todos los requisitos son válidos, ocultar los mensajes
-            document.getElementById('password-requirements').style.display = 'none';
+        if (password.length < 8) {
+            message = 'La contraseña debe tener al menos 8 caracteres.';
+        } else if (!/[A-Z]/.test(password)) {
+            message = 'La contraseña debe tener al menos una letra mayúscula.';
+        } else if (!/\d/.test(password)) {
+            message = 'La contraseña debe contener al menos un número.';
+        } else if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+            message = 'La contraseña debe contener al menos un carácter especial.';
         } else {
-            // Si no, mostrar los mensajes
-            document.getElementById('password-requirements').style.display = 'block';
+            message = 'La contraseña es válida.';
+            validationMessage.classList.remove('text-red-500');
+            validationMessage.classList.add('text-green-500');
         }
+
+        // Si la contraseña cumple con todos los requisitos
+        if (message === 'La contraseña es válida.') {
+            validationMessage.classList.remove('text-red-500');
+            validationMessage.classList.add('text-green-600');
+        } else {
+            validationMessage.classList.remove('text-green-600');
+            validationMessage.classList.add('text-red-500');
+        }
+
+        validationMessage.textContent = message;
     }
     </script>
 

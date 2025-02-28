@@ -9,6 +9,7 @@
 <style>
     @import "tailwindcss";
     
+        @import "tailwindcss";
 </style>
 <body>
     <section class="bg-gray-50 dark:bg-gray-900">
@@ -23,12 +24,15 @@
                 <p class="font-normal p-1 text-gray-500 dark:text-gray-400">Es importante que escojas una contraseña fuerte y única para la seguridad de tu cuenta.</p>
                 <form class="mt-4 space-y-4 lg:mt-5 md:space-y-5" action="#">
                     <div>
-                        <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña actual <span style="color: red;">*</span></label>
+                        <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña actual <span style="color: red;">*</span></label>
                         <input type="password" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required />
                     </div>
                     <div>
-                        <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nueva contraseña <span style="color: red;">*</span></label>
-                        <input type="password" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required />
+                        <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nueva contraseña <span style="color: red;">*</span></label>
+                        <input type="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required oninput="validatePassword()"/>
+                        <div id="password-requirements" class="text-sm mt-2">
+                            <p id="validation-message" class="text-red-500">La contraseña debe tener al menos una letra mayúscula, un número, un carácter especial y 8 caracteres.</p>
+                        </div>
                     </div>
                     <div>
                         <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirmación nueva contraseña <span style="color: red;">*</span></label>
@@ -49,5 +53,40 @@
             </div>
         </div>
     </section>
+
+    <script>
+        function validatePassword() {
+        let password = document.getElementById('password').value;
+        let validationMessage = document.getElementById('validation-message');
+
+        // Validaciones
+        let message = '';
+
+        if (password.length < 8) {
+            message = 'La contraseña debe tener al menos 8 caracteres.';
+        } else if (!/[A-Z]/.test(password)) {
+            message = 'La contraseña debe tener al menos una letra mayúscula.';
+        } else if (!/\d/.test(password)) {
+            message = 'La contraseña debe contener al menos un número.';
+        } else if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+            message = 'La contraseña debe contener al menos un carácter especial.';
+        } else {
+            message = 'La contraseña es válida.';
+            validationMessage.classList.remove('text-red-500');
+            validationMessage.classList.add('text-green-500');
+        }
+
+        // Si la contraseña cumple con todos los requisitos
+        if (message === 'La contraseña es válida.') {
+            validationMessage.classList.remove('text-red-500');
+            validationMessage.classList.add('text-green-600');
+        } else {
+            validationMessage.classList.remove('text-green-600');
+            validationMessage.classList.add('text-red-500');
+        }
+
+        validationMessage.textContent = message;
+    }
+    </script>
 </body>
 </html>
