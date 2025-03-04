@@ -17,3 +17,30 @@ var urlLegalizacion = urlBase + "/legalizacion";
 var urlViaje = urlBase + "/viaje";
 
 var urlPdf = urlBase + "/Pdf"
+
+document.addEventListener("DOMContentLoaded", function () {
+    const buttons = document.querySelectorAll("button[data-accordion-target]");
+
+    buttons.forEach(button => {
+        button.addEventListener("click", function () {
+            const targetId = this.getAttribute("data-accordion-target");
+            const content = document.querySelector(targetId);
+            const icon = this.querySelector("svg");
+
+            // Cerrar todos los demás acordeones antes de abrir uno nuevo
+            document.querySelectorAll("[id^='accordion-collapse-body']").forEach(item => {
+                if (item !== content) {
+                    item.classList.add("hidden");
+                    const btn = document.querySelector(`button[data-accordion-target="#${item.id}"] svg`);
+                    btn?.classList.remove("rotate-180");
+                }
+            });
+
+            // Alternar visibilidad del contenido actual
+            content.classList.toggle("hidden");
+
+            // Rotar el ícono al abrir/cerrar
+            icon.classList.toggle("rotate-180");
+        });
+    });
+});
