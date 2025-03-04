@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.sena.lcdsena.interfaces.IPasswordResetTokenRepository;
 import com.sena.lcdsena.iservice.iusuarioService;
 import com.sena.lcdsena.model.authResponse;
+import com.sena.lcdsena.model.estadoUsuario;
 import com.sena.lcdsena.model.restablecerContrasena;
 import com.sena.lcdsena.model.registroRequest;
 import com.sena.lcdsena.model.usuario;
@@ -95,13 +96,28 @@ public class usuarioService implements iusuarioService {
     }
 
     @Override
-    public int delete(String id) {
+    public int delete(String id_usuario) {
         try {
-            data.deleteById(id);
-            return 1;
+            // Buscar al usuario por su ID
+            Optional<usuario> usuarioOpt = data.findById(id_usuario);
+
+            if (usuarioOpt.isPresent()) {
+                usuario usuario = usuarioOpt.get();
+                
+                // Cambiar el estado del usuario a "deshabilitado"
+                usuario.setEstado_usuario(estadoUsuario.deshabilitado);
+
+                // Guardar el usuario con el nuevo estado
+                data.save(usuario);
+
+                return 1; // Éxito
+            } else {
+                return 0;
+            }
         } catch (Exception e) {
             e.printStackTrace();
-            return 0;
+            return 0; // Error
         }
     }
+
 }

@@ -1,9 +1,10 @@
-package com.sena.lcdsena.controller;
+    package com.sena.lcdsena.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sena.lcdsena.model.authResponse;
+import com.sena.lcdsena.model.estadoUsuario;
 import com.sena.lcdsena.model.loginRequest;
 import com.sena.lcdsena.model.registroRequest;
 import com.sena.lcdsena.service.authService;
@@ -61,10 +62,12 @@ public class usuarioPublicoController {
         }
 
         if (valido) {
+
+            request.setEstado_Usuario(estadoUsuario.pendiente);
             response = authService.registro(request);
-            response.setMensaje("Se registró correctamente");
+            response.setMensaje("Su solicitud de registro ha sido enviada correctamente.");
             //para envíar el correo electronico
-            emailService.enviarCorreoBienvenida(request.getUsername(), request.getNombre_usuario());
+            // emailService.enviarCorreoBienvenida(request.getUsername(), request.getNombre_usuario());
             return new ResponseEntity<authResponse>(response, HttpStatus.OK);
         }
         return new ResponseEntity<authResponse>(response, HttpStatus.OK);

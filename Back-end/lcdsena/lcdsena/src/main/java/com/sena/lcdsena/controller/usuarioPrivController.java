@@ -8,8 +8,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sena.lcdsena.interfaces.iusuario;
+import com.sena.lcdsena.model.authResponse;
+import com.sena.lcdsena.model.estadoUsuario;
 import com.sena.lcdsena.model.respuestaCambioContra;
 import com.sena.lcdsena.model.usuario;
 import com.sena.lcdsena.service.authService;
@@ -27,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -40,6 +45,9 @@ public class usuarioPrivController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private iusuario data;
 
     @Autowired
     private usuarioService usuarioService;
@@ -114,6 +122,41 @@ public class usuarioPrivController {
             // Devolver una respuesta con el mensaje de error y un código de estado HTTP 500
             // (Internal Server Error)
             return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    //APROBAR REGISTRO DE USUARIO
+    @PutMapping("/aprobar/{id_usuario}")
+    public ResponseEntity<String> aprobarUsuario(@PathVariable String id_usuario) {
+        Optional<usuario> usuarioOpt = data.findById(id_usuario);
+
+        if (usuarioOpt.isPresent()) {
+            usuario usuario = usuarioOpt.get();
+            
+            if (usuario.getEstado_usuario() == estadoUsuario.pendiente) {
+                usuario.setEstado_usuario(estadoUsuario.activo);
+                data.save(usuario);
+                
+                return new ResponseEntity<>("Solicitud de registro aprobada.", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("Su solicitud ya ha sido aprobada o rechazada.", HttpStatus.BAD_REQUEST);
+            }
+        }
+
+        return new ResponseEntity<>("Usuario no encontrado.", HttpStatus.NOT_FOUND);
+    }
+
+
+    @GetMapping("/verificar-acceso")
+    public ResponseEntity<String> verificarAcceso(@RequestParam String token) {
+        Optional<authResponse> response = authService.verificarToken(token);
+
+        if (response.isPresent()) {
+            // Token válido y usuario activo
+            return new ResponseEntity<>("Acceso permitido", HttpStatus.OK);
+        } else {
+            // Token inválido o usuario no activo
+            return new ResponseEntity<>("Acceso denegado. El usuario no está activo o el token es inválido.", HttpStatus.UNAUTHORIZED);
         }
     }
 

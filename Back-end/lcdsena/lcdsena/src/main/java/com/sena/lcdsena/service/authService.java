@@ -4,7 +4,11 @@ import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
+import javax.naming.AuthenticationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,10 +19,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import com.sena.lcdsena.interfaces.iusuario;
 import com.sena.lcdsena.iservice.iusuarioService;
 import com.sena.lcdsena.model.authResponse;
+import com.sena.lcdsena.model.estadoUsuario;
 import com.sena.lcdsena.model.loginRequest;
 import com.sena.lcdsena.model.registroRequest;
 import com.sena.lcdsena.model.role;
 import com.sena.lcdsena.model.usuario;
+import com.sena.lcdsena.model.usuarioNoAprobadoException;
+
 import lombok.RequiredArgsConstructor;
 import net.sf.jasperreports.engine.JRException;
 
@@ -62,16 +69,31 @@ public class authService implements iusuarioService{
     public authResponse login(loginRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
+
         usuario usuario = findByUsername(request.getUsername()).orElseThrow();
+
+        if (usuario.getEstado_usuario() != estadoUsuario.activo) {
+            throw new usuarioNoAprobadoException("Usuario no aprobado. Contacte al administrador.");
+        }
+
         String Token = jwtService.getToken(usuario);
         return authResponse.builder().Token(Token).mensaje("Acceso Permitido").emailExists(false).build();
     }
 
     public Optional<authResponse> verificarToken(String Token) {
         try {// Verificacion token
-            UserDetails userdetails = dataUser.findByUsername(jwtService.getUsernameFromToken(Token))
-                    .orElse(null);
+
+            String username = jwtService.getUsernameFromToken(Token);
+
+            UserDetails userdetails = dataUser.findByUsername(username).orElse(null);
             if (userdetails != null && jwtService.isTokenValid(Token, userdetails)) {
+
+                usuario usuario = (usuario) userdetails;
+
+                if (usuario.getEstado_usuario() != estadoUsuario.activo) {
+                    return Optional.empty();
+                }
+
                 return Optional.of(authResponse.builder().Token(Token).mensaje("Token valido. usuario Registrado")
                         .emailExists(false).build());
             }
@@ -80,7 +102,6 @@ public class authService implements iusuarioService{
         }
         return Optional.empty();
     }
-
 
     @Override
     public Optional<usuario> findByUsername(String username) {
