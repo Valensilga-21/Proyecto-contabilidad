@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "LcdsenaApplication",
+            "request": "launch",
+            "mainClass": "com.sena.lcdsena.LcdsenaApplication",
+            "projectName": "lcdsena"
+        },
+        {
+            "type": "java",
             "name": "Spring Boot-LcdSenaApplication<LCDSena>",
             "request": "launch",
             "cwd": "${workspaceFolder}",

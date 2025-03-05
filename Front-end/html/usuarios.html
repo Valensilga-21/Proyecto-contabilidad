@@ -275,7 +275,7 @@
 </div>
 
     <!-- Modal Editar usuario-->
-    <div class="modal fade" id="myModalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content" style="padding: 10%; border-radius: 15px;">
                 <h3 style="font-weight: 600;">Editar Usuario</h3>
@@ -285,8 +285,9 @@
                             <label for="usuario" class="form-label visually-hidden">Usuario</label>
                             <input type="hidden" id="modalEditId">
                             <div class="input-group">
+                                <input type="text" class="hidden" id="userId">
                                 <span class="input-group-text"><box-icon name='user' color="#00BB00"></box-icon></span>
-                                <input type="text" class="form-control" id="nombreCompletoU" placeholder="Nombre Completo">
+                                <input type="text" class="form-control" id="nombreUsuario" placeholder="Nombre Completo">
                             </div>
                             <div class="error-message" id="usuarioError" style="color: red; display: none;"></div>
                         </div>
@@ -294,7 +295,7 @@
                             <label for="" class="form-label visually-hidden">Cargo</label>
                             <div class="input-group">
                                 <span class="input-group-text"><box-icon name='briefcase' color="#00BB00"></box-icon></box-icon></box-icon></span>
-                                <select name="cargoU" id="cargoU" class="form-select" style="background-color: #EFF3F6; border-radius: 0px 0px 10px 0px; border-left:none;">
+                                <select name="cargo" id="cargo" class="form-select" style="background-color: #EFF3F6; border-radius: 0px 0px 10px 0px; border-left:none;">
                                     <option value="" disabled selected>Cargo</option>
                                     <option value="funcionario">Funcionario</option>
                                     <option value="contratista">Contratista</option>
@@ -306,7 +307,7 @@
                             <label for="contraseña" class="form-label visually-hidden">Documento</label>
                             <div class="input-group">
                                 <span class="input-group-text"><box-icon name='id-card' color="#00BB00"></box-icon></span>
-                                <input type="number" class="form-control" id="num_documentoU" placeholder="Documento" >
+                                <input type="number" class="form-control" id="userDocument" placeholder="Documento" >
                             </div>
                             <div class="error-message" id="documentoError" style="color: red; display:none;"></div>
                         </div>
@@ -323,7 +324,7 @@
                             <label for="contraseña" class="form-label visually-hidden">Correo</label>
                             <div class="input-group">
                                 <span class="input-group-text"><box-icon name='envelope' color="#00BB00"></box-icon></span>
-                                <input type="email" class="form-control" id="correo_usuarioU" placeholder="Correo" >
+                                <input type="email" class="form-control" id="username" placeholder="Correo" >
                             </div>
                             <div class="error-message" id="correoError" style="color: red; display: none;"></div>
                         </div>
@@ -340,7 +341,7 @@
                             <label for="centro" class="form-label visually-hidden">Centro</label>
                             <div class="input-group" style="border-radius: 10px 10px 10px 10px; border-left:none;">
                                 <span class="input-group-text"><box-icon name='buildings' color="#39A800"></box-icon></span>
-                                <select name="centro" id="centroU" class="form-select" style="background-color: #EFF3F6; border-radius: 0px 0px 10px 0px; border-left:none;">
+                                <select name="centro" id="centro" class="form-select" style="background-color: #EFF3F6; border-radius: 0px 0px 10px 0px; border-left:none;">
                                     <option value="" disabled selected>Centro</option>
                                     <option value="cies">CIES</option>
                                     <option value="direccion">Dirección</option>
@@ -352,7 +353,7 @@
                             <label for="rol" class="form-label visually-hidden">Rol</label>
                             <div class="input-group" style="border-radius: 10px 10px 10px 10px; border-left:none;">
                                 <span class="input-group-text"><box-icon name='user-circle' color="#00BB00"></box-icon></span>
-                                <select name="centro" id="rolU" class="form-select" style="background-color: #EFF3F6; border-radius: 0px 0px 10px 0px; border-left:none;">
+                                <select name="centro" id="role" class="form-select" style="background-color: #EFF3F6; border-radius: 0px 0px 10px 0px; border-left:none;">
                                     <option value="" disabled selected>Rol</option>
                                     <option value="usuario" selected>Usuario</option>
                                     <option value="admin">Administrador</option>
@@ -371,6 +372,10 @@
         </div>
     </div>
 
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
     <script src="/Front-end/js/config.js"></script>
 </body>
 </html>

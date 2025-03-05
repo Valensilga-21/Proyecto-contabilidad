@@ -10,6 +10,9 @@ var urlReporteUsarios = urlBase + "/pdfReporte/export-pdf";
 var urlRestablecerContra = urlBase + "usuario/recuperarContrasena/";
 var urlCambioRestablecerContrasena = urlBase + "usuario/cambioRestablecerContrasena/"
 
+//Cambiar Contraseña
+var urlCambiarContrasena = urlBase + "usuario/cambiarContrasena/";
+
 //Legalizacion
 var urlLegalizacion = urlBase + "/legalizacion";
 

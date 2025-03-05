@@ -281,35 +281,61 @@ function validarNombre_usuario(CuadroNumero) {
     return Valido;
 }
 
-// function listarUsuarios() {
-//     $.ajax({
-//         url: urlUsuario + "/listaUsuarios",
-//         type: "GET",
-//         success: function (result) {
-//             var cuerpoTabla = document.getElementById("userTable");
-//             cuerpoTabla.innerHTML = "";
 
-//             for (var i = 0; i < result.length; i++) {
-//                 var trRegistro = document.createElement("tr");
-//                 trRegistro.innerHTML = `
-//                 <td>${result[i]["id_usuario"]}</td>
-//                 <td class="text-center align-middle">${result[i]["documento_usuario"]}</td>
-//                 <td class="text-center align-middle">${result[i]["nombre_usuario"]}</td>
-//                 <td class="text-center align-middle">${result[i]["username"]}</td>
-//                 <td class="text-center align-middle">${result[i]["centro"]}</td>
-//                 <td class="text-center align-middle">${result[i]["cargo"]}</td>
-//                 <td class="text-center align-middle">${result[i]["role"]}</td>
-//                 <td class="text-center align-middle">${result[i]["estado_usuario"]}</td>
-//                 <td class="text-center align-middle">
-//                     <i class="btn fas fa-edit Editar"  onclick="RegistrarUsuario=false;"   data-id="${result[i]["id_usuario"]}"></i>
-//                     <i class="btn fas fa-trash-alt Eliminar" data-id="${result[i]["id_usuario"]}"></i>
-//                 </td>
-//             `;
-//                 cuerpoTabla.appendChild(trRegistro);
-//             }
-//         },
-//         error: function (error) {
-//             alert("ERROR en la petición" + error);
-//         }
-//     });
-// }
+//LISTA USUARIOS
+function listarUsuarios() {
+    $.ajax({
+        url: urlUsuario,
+        type: "GET",
+        success: function (result) {
+            var cuerpoTabla = document.getElementById("userTable");
+            cuerpoTabla.innerHTML = "";
+
+            for (var i = 0; i < result.length; i++) {
+                var trRegistro = document.createElement("tr");
+                trRegistro.innerHTML = `
+                <td>${result[i]["id_usuario"]}</td>
+                <td class="text-center align-middle">${result[i]["documento_usuario"]}</td>
+                <td class="text-center align-middle">${result[i]["nombre_usuario"]}</td>
+                <td class="text-center align-middle">${result[i]["username"]}</td>
+                <td class="text-center align-middle">${result[i]["centro"]}</td>
+                <td class="text-center align-middle">${result[i]["cargo"]}</td>
+                <td class="text-center align-middle">${result[i]["role"]}</td>
+                <td class="text-center align-middle">${result[i]["estado_usuario"]}</td>
+                <td class="text-center align-middle">
+                    <i class="btn fas fa-edit Editar" onclick="openEditModal(${result[i]["id_usuario"]})"></i>
+                    <i class="btn fas fa-trash-alt Deshabilitar" onclick="confirmDisable(${result[i]["id_usuario"]})"></i>
+                </td>
+            `;
+                cuerpoTabla.appendChild(trRegistro);
+            }
+        },
+        error: function (error) {
+            alert("ERROR en la petición" + error);
+        }
+    });
+}
+
+//MOSTARA DATOS EDITAR USUARIO MODAL
+function openEditModal(userId) {
+    $.ajax({
+        url: `${urlUsuario}/${userId}`,
+        type: "GET",
+        success: function (user) {
+            // Cargar los datos en el formulario
+            document.getElementById("userId").value = user.id_usuario;
+            document.getElementById("nombreUsuario").value = user.nombre_usuario;
+            document.getElementById("userDocument").value = user.documento_usuario;
+            document.getElementById("username").value = user.username;
+            document.getElementById("centro").value = user.centro;
+            document.getElementById("cargo").value = user.cargo;
+            document.getElementById("role").value = user.role;
+
+            // Mostrar el modal
+            $('#editUser').modal('show');
+        },
+        error: function (error) {
+            alert("ERROR al obtener los datos del usuario: " + error);
+        }
+    });
+}

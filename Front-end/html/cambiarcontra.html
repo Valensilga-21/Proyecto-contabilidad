@@ -25,20 +25,20 @@
                 <form class="mt-4 space-y-4 lg:mt-5 md:space-y-5" action="#">
                     <div>
                         <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña actual <span style="color: red;">*</span></label>
-                        <input type="password" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required />
+                        <input type="password" id="actualContrasena" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required />
                     </div>
                     <div>
                         <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nueva contraseña <span style="color: red;">*</span></label>
-                        <input type="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required oninput="validatePassword()"/>
+                        <input type="password" id="nuevaContrasena" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required oninput="validatePassword()"/>
                         <div id="password-requirements" class="text-sm mt-2">
                             <p id="validation-message" class="text-red-500">La contraseña debe tener al menos una letra mayúscula, un número, un carácter especial y 8 caracteres.</p>
                         </div>
                     </div>
                     <div>
                         <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirmación nueva contraseña <span style="color: red;">*</span></label>
-                        <input type="password" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required />
+                        <input type="password" id="confirmarContrasena" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required />
                     </div>
-                    <button type="submit" class="w-full text-white bg-[#39A800] hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Continuar</button>
+                    <button type="submit" class="submit-button w-full text-white bg-[#39A800] hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Continuar</button>
                     <ul class="flex space-x-1 sm:mt-0 p-1">
                         <li>
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -71,13 +71,13 @@
         } else if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
             message = 'La contraseña debe contener al menos un carácter especial.';
         } else {
-            message = 'La contraseña es válida.';
+            message = '';
             validationMessage.classList.remove('text-red-500');
             validationMessage.classList.add('text-green-500');
         }
 
         // Si la contraseña cumple con todos los requisitos
-        if (message === 'La contraseña es válida.') {
+        if (message === '') {
             validationMessage.classList.remove('text-red-500');
             validationMessage.classList.add('text-green-600');
         } else {
@@ -88,5 +88,7 @@
         validationMessage.textContent = message;
     }
     </script>
+    <script src="/Front-end/js/config.js"></script>
+    <script src="/Front-end/js/cambiarcontra.js"></script>
 </body>
 </html>
