@@ -11,6 +11,7 @@ var urlRestablecerContra = urlBase + "usuario/recuperarContrasena/";
 var urlCambioRestablecerContrasena = urlBase + "usuario/cambioRestablecerContrasena/"
 
 //Cambiar Contraseña
+var  urlNotificacionCambioContra = urlBase + "usuario/notificacionCambioContrasena/";
 var urlCambiarContrasena = urlBase + "usuario/cambiarContrasena/";
 
 //Legalizacion
