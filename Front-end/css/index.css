@@ -468,6 +468,7 @@ nav.close ~ .dashboard .top{
     transition: transform 0.3s ease-in-out;
 }
 .accordion-item {
-    border-bottom: 1px solid green !important;
+    border-bottom: 1px solid #008000 !important;
 }
+
 

@@ -47,3 +47,23 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+document.addEventListener("DOMContentLoaded", function () {
+    const btnScrollTop = document.getElementById("btnScrollTop");
+
+    // Mostrar el botón cuando el usuario baja 300px
+    window.addEventListener("scroll", function () {
+        if (window.scrollY > 300) {
+            btnScrollTop.classList.add("show");
+        } else {
+            btnScrollTop.classList.remove("show");
+        }
+    });
+
+    // Scroll suave al inicio al hacer clic en el botón
+    btnScrollTop.addEventListener("click", function () {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    });
+});
