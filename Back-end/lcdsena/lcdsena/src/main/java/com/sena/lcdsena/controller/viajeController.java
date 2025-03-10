@@ -1,4 +1,4 @@
-package com.sena.lcdsena.controller;
+package com.sena.lcdsena.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

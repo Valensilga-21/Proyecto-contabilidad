@@ -1,10 +1,12 @@
-document.querySelector('#btn-reset-password').addEventListener('click', function (event) {
-    event.preventDefault();
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelector('#btn-reset-password').addEventListener('click', function (event) {
+        event.preventDefault();
 
-    const nuevaContrasena = document.getElementById('nuevaContrasena').value;
-    const confirmarContrasena = document.getElementById('confirmarContrasena').value;
+        const nuevaContrasena = document.getElementById('nuevaContrasena').value;
+        const confirmarContrasena = document.getElementById('confirmarContrasena').value;
 
-    restablecerContrasena(nuevaContrasena, confirmarContrasena);
+        restablecerContrasena(nuevaContrasena, confirmarContrasena);
+    });
 });
 
 async function restablecerContrasena(nuevaContrasena, confirmarContrasena) {
@@ -16,7 +18,10 @@ async function restablecerContrasena(nuevaContrasena, confirmarContrasena) {
         });
         return;
     }
+
     const token = localStorage.getItem('userToken');
+    console.log('Token:', token); // Verifica el token
+
     if (!token) {
         Swal.fire({
             icon: 'error',
@@ -25,6 +30,7 @@ async function restablecerContrasena(nuevaContrasena, confirmarContrasena) {
         });
         return;
     }
+
     const body = { nuevaContrasena, confirmarContrasena };
     try {
         const response = await fetch(urlCambioRestablecerContrasena, {
@@ -35,28 +41,45 @@ async function restablecerContrasena(nuevaContrasena, confirmarContrasena) {
             },
             body: JSON.stringify(body)
         });
-    
-        // Verifica si el tipo de contenido es JSON
+
         const contentType = response.headers.get("content-type");
         let responseData;
+
+        // Verifica el tipo de contenido de la respuesta
         if (contentType && contentType.includes("application/json")) {
             responseData = await response.json();
         } else {
-            responseData = { message: await response.text() }; // Asigna el texto de respuesta si no es JSON
+            responseData = { message: await response.text() };
         }
-    
-        if (!response.ok) {
+
+        console.log('Response Status:', response.status); // Verifica el estado de la respuesta
+        console.log('Response Data:', responseData); // Verifica el contenido de la respuesta
+
+        // Si el estado de la respuesta es exitoso
+        if (response.ok) {
+            console.log('Respuesta Exitosa'); // Depuración para ver si llega aquí
+            if (responseData && responseData.message) {
+                // Muestra mensaje de éxito
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Éxito',
+                    text: responseData.message // Usa el mensaje de la respuesta
+                }).then(() => {
+                    redirectAfterPasswordChange(token);
+                });
+
+                document.getElementById("modifyForm").reset();
+            } else {
+                // Si no hay mensaje de éxito en la respuesta
+                throw new Error('Respuesta inesperada del servidor: mensaje no encontrado');
+            }
+        } else {
+            // Si la respuesta no es exitosa, lanza un error con el mensaje de error de la API
             throw new Error('Error al cambiar la contraseña: ' + (responseData.message || response.statusText));
         }
-    
-        Swal.fire({
-            icon: 'success',
-            title: 'Éxito',
-            text: responseData.message
-        });
-        await redirectAfterPasswordChange(token);
-        document.getElementById("modifyForm").reset();
     } catch (error) {
+        // Muestra el error en un mensaje de alerta
+        console.error('Error en catch:', error); // Depuración para ver qué error se captura
         Swal.fire({
             icon: 'error',
             title: 'Error',
@@ -64,3 +87,9 @@ async function restablecerContrasena(nuevaContrasena, confirmarContrasena) {
         });
     }
 }
+
+function redirectAfterPasswordChange(token) {
+    // Redirige a la página de inicio de sesión
+    window.location.href = '/Front-end/index.html';
+}
+
