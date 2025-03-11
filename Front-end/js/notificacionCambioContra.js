@@ -38,7 +38,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 Swal.fire({
                     icon: 'success',
                     title: '¡Éxito!',
-                    text: data.message || 'Se ha enviado un enlace para cambiar la contraseña'
+                    text: data.message || 'Se ha enviado un enlace para cambiar la contraseña',
+                    timer: 1500
                 }).then(() => {
                     emailInput.value = '';
                 });

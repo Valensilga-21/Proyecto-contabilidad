@@ -1,109 +1,20 @@
-// // VALIDACIONES
-
-// //VALIDACION CORREO
-// function validarCorreo(username){
-//     var emailRegex  = /^[^\s@]+@[^\s@]+\.(com|es|org|net)$/i;
-
-//     if(emailRegex.test(username)){
-//         var domainPart = username.split("@")[1];
-//         if(domainPart && domainPart.split(".").length > 1){
-//             return true; 
-//         }
-//     }
-//     return false;
-// }
-
-// //ENTRADA DE ARROBAS
-// // document.getElementById("username").addEventListener("keydown", function(event) {
-// //     if(event.key === "@") {
-// //         var inputCorreo = event.target.value;
-// //         var arrobaCount = (inputCorreo.match(/@/g) || []).length;
-
-// //         if(arrobaCount >=1){
-// //             event.preventDefault();
-// //         }
-// //     }
-// // })
-
-// //VALICACION NOMBRE
-// document.getElementById("nombre_usuario").addEventListener("keypress", soloLetras);
-// document.getElementById("documento_usuario").addEventListener("keypress", soloNumeros);
-// document.getElementById("username").addEventListener("keypress", letraCorreo);
-// document.getElementById("password").addEventListener("keypress", clave);
-// document.getElementById("confirm_contrasena").addEventListener("keypress", clave);
-
-
-// //EVENTOS ASIGNADOS A LOS ATRIBUTOS
-// const nombreCampo = document.getElementById("nombre_usuario");
-// const documentoCampo = document.getElementById("documento_usuario");
-// const correoValidar = document.getElementById("username");
-// const nocopypagepassword = document.getElementById("password");
-// const nocopypageCPassword = document.getElementById("confirm_contrasena");
-
-// const letrasPermitidas = [
-//     'A', 'Á', 'B', 'C', 'D', 'E', 'É', 'F', 'G', 'H', 'I', 'Í', 'J', 'K', 'L', 'M',
-//     'N', 'Ñ', 'O', 'Ó', 'P', 'Q', 'R', 'S', 'T', 'U', 'Ú', 'Ü', 'V', 'W', 'X', 'Y', 'Z',
-//     'a', 'á', 'b', 'c', 'd', 'e', 'é', 'f', 'g', 'h', 'i', 'í', 'j', 'k', 'l', 'm',
-//     'n', 'ñ', 'o', 'ó', 'p', 'q', 'r', 's', 't', 'u', 'ú', 'ü', 'v', 'w', 'x', 'y', 'z', ' '
-// ]
-
-// const numeroPermitidos = [
-//     '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', ''
-// ]
-
-// const signosPermitidos = [
-//     '.', ',', '@', '_', '-', '', '$', '%', '&'
-// ];
-
-// function soloLetras(event) {
-//     console.log("Llave presionada: " + event.key);
-//     console.log("Codigo tecla" + event.keyCode);
-
-//     if(!(letrasPermitidas.includes(event.key))) {
-//         event.preventDefault();
-//         return;
-//     }
-// }
-// function soloNumeros(event) {
-//     console.log("Llave presionada: " + event.key);
-//     console.log("Codigo tecla" + event.keyCode);
-
-//     if(!(numeroPermitidos.includes(event.key))) {
-//         event.preventDefault();
-//         return;
-//     }
-// }
-
-// function letraCorreo(event) {
-//     const caracter = event.key;
-//     if(letrasPermitidas.includes(caracter) || 
-//     numeroPermitidos.includes(caracter) || 
-//     signosPermitidos.includes(caracter)) {
-
-//         return;
-
-//     }else{
-//         event.preventDefault();
-//     }
-// }
-
-
 //REGISTRO DE USUARIOS
 var RegistrarUsuario = true; 
 
-function registrarUsuario() {
-    var documento_usuario = document.getElementById("documento_usuario");
-    var nombre_usuario = document.getElementById("nombre_usuario");
-    var username = document.getElementById("username");
-    var centro = document.getElementById("centro");
-    var cargo = document.getElementById("cargo");
-    var password = document.getElementById("password");
-    var confirm_contrasena = document.getElementById("confirm_contrasena");
-    var role = document.getElementById("role");
+// Función para registrar un usuario
+async function registrarUsuario() {
+    //LLamar las variables donde se van almacenar lso datos
+    var documento_usuario = document.getElementById("documento_usuario").value;
+    var nombre_usuario = document.getElementById("nombre_usuario").value;
+    var username = document.getElementById("username").value;
+    var centro = document.getElementById("centro").value;
+    var cargo = document.getElementById("cargo").value;
+    var password = document.getElementById("password").value;
+    var confirm_contrasena = document.getElementById("confirm_contrasena").value;
+    var role = document.getElementById("role").value;
 
-    if (!nombre_usuario.value || !username.value || !password.value ||
-        !confirm_contrasena.value || !centro.value || !cargo.value || !documento_usuario.value || !role.value) {
-
+    //VALIDACIONES DE LOS CAMPOS
+    if (!nombre_usuario || !username || !password || !confirm_contrasena || !centro || !cargo || !documento_usuario) {
         Swal.fire({
             title: "¡Error!",
             text: "¡Llene todos los campos correctamente!",
@@ -111,86 +22,63 @@ function registrarUsuario() {
         });
         return;
     }
-    
-    // if(!validarCorreo(username.value)) {
-    //     return;
-    // }
 
-    // var resultValidation = Validarcontra(password.value);
-    // if (resultValidation.estado === "error") {
-    //     return
-    // }
-
-    // if (password.value !== confirm_contrasena.value) {
-    //     Swal.fire({
-    //         icon: "error",
-    //         title: "Oops...",
-    //         text: "Las contraseñas no coinciden",
-    //     });
-    //     return;
-    // }
-
-    var formData = {
-        "documento_usuario": documento_usuario,
-        "nombre_usuario": nombre_usuario.value,
-        "username": username.value,
-        "centro": centro.value,
-        "cargo": cargo.value,
-        "password": password.value,
-        "confirm_contrasena": confirm_contrasena.value,
-        "role": role.value,
-        "estado_usuario": estado_usuario.value
+    //VERIFICACIÓN CONFIRMAR CONTRASEÑA
+    if (password !== confirm_contrasena) {
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Las contraseñas no coinciden",
+        });
+        return;
     }
 
-    var metodo = RegistrarUsuario ? "POST" : "PUT";
-    var urlLocal = RegistrarUsuario ? urlUsuario : urlUsuario + id_usuario;
-    var textoImprimir = RegistrarUsuario ? "Felicidades, has enviado tu solicitud de registro exitosamente" : "Los cambios han sido guardados exitosamente";         
+    //OBTIENE LOS DATOS
+    var formData = {
+        documento_usuario: documento_usuario,
+        nombre_usuario: nombre_usuario,
+        username: username,
+        centro: centro,
+        cargo: cargo,
+        password: password,
+        confirm_contrasena: confirm_contrasena,
+        role: role
+    };
 
-    // Enviar datos al servidor
-    if (validarCampos()) {
-        $.ajax({
-            type: metodo,
-            url: urlRegistro + "register/",
-            contentType: "application/json",
-            data: JSON.stringify(formData),
-            success: function (response) {
-                if (response.token) {
-                    localStorage.setItem('token', response.token);
-
-                    Swal.fire({
-                        title: "Éxito",
-                        text: textoimprimir,
-                        icon: "success"
-                    }).then(function () {
-                        $('#exampleModal').modal('hide');
-                        listarUsuarios();
-                        window.location.href = '/Front-end/html/inicioUsuario.html';
-                    });
-                } else {
-                    Swal.fire({
-                        title: "Error",
-                        text: "No se recibió un token del servidor.",
-                        icon: "error"
-                    });
-                }
+    //ENDPOINT QUE SOLICITA EL REGISTRO
+    try {
+        const response = await fetch(urlRegistro + "register/", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
             },
-            error: function (xhr, status, error) {
-                Swal.fire({
-                    title: "Error",
-                    text: "No lograste registrar los datos",
-                    icon: "error"
-                });
-            }
+            body: JSON.stringify(formData),
         });
-    } else {
+
+        const result = await response.json();
+        if (response.ok) {
+            Swal.fire({
+                title: "Éxito",
+                text: "Has enviado tu solicitud de registro en nuestrop aplicativo.",
+                icon: "success"
+            });
+        } else {
+            Swal.fire({
+                title: "Error",
+                text: "Su solicitud de registro ya ha sido enviada con anterioridad.",
+                icon: "error"
+            });
+        }
+    } catch (error) {
         Swal.fire({
             title: "Error",
-            text: "¡Llene todos los campos correctamente!",
+            text: "Hubo un error al intentar enviar tu solicitud de registro. Inténtelo de nuevo.",
             icon: "error"
         });
     }
 }
 
+//LOGIN
 async function loginUsuario() {
     var username = document.getElementById('username').value;
     var password = document.getElementById('password').value;
@@ -232,14 +120,14 @@ async function loginUsuario() {
                     title: "Has iniciado sesión correctamente.",
                     showConfirmButton: false,
                     timer: 1500
-                  }).then(() => {
+                }).then(() => {
                     // Redirigir según el rol
-                    if (role === "administrador") {
+                    if (role.toLowerCase() === "administrador") {
                         window.location.href = "/Front-end/html/inicio.html"; // Redirigir a la vista de administrador
                     } else {
                         window.location.href = "/Front-end/html/Usuario/inicioUsuario.html"; // Redirigir a la vista de usuario
                     }
-                  });
+                });
             } else {
                 alert("No se recibió un token válido.");
             }
@@ -247,9 +135,9 @@ async function loginUsuario() {
             const errorMessage = await response.text();
             Swal.fire({
                 title: "Error",
-                text: "Hubo un error al intentar iniciar sesión, usuario o contraseña inválidos.",
+                text: "Hubo un error al intentar iniciar sesión, usuario o contraseña inválidos. " + errorMessage,
                 icon: "error"
-            }) + errorMessage;
+            });
         }
     } catch (error) {
         Swal.fire({
@@ -260,82 +148,134 @@ async function loginUsuario() {
     }
 }
 
-
-function validarCampos() {
-    var nombre_usuario = document.getElementById("nombre_usuario");
-    return validarNombre_usuario(nombre_usuario);
-}
-
-function validarNombre_usuario(CuadroNumero) {
-    var Valor = CuadroNumero.value;
-    var Valido = true;
-
-    if (Valor.length <= 3 || Valor.length > 60) {
-        Valido = false;
-    }
-    if (Valido) {
-        CuadroNumero.className = " input form-control is-valid";
-    } else {
-        CuadroNumero.className = "input form-control is-invalid";
-    }
-    return Valido;
-}
-
-
-//LISTA USUARIOS
+// Función para listar usuarios
 function listarUsuarios() {
     $.ajax({
         url: urlUsuario,
         type: "GET",
         success: function (result) {
-            var cuerpoTabla = document.getElementById("userTable");
-            cuerpoTabla.innerHTML = "";
+            var cuerpoTabla = document.getElementById("userTable").getElementsByTagName('tbody')[0];
+            cuerpoTabla.innerHTML = ""; // Limpiar la tabla
 
             for (var i = 0; i < result.length; i++) {
                 var trRegistro = document.createElement("tr");
                 trRegistro.innerHTML = `
-                <td>${result[i]["id_usuario"]}</td>
-                <td class="text-center align-middle">${result[i]["documento_usuario"]}</td>
-                <td class="text-center align-middle">${result[i]["nombre_usuario"]}</td>
-                <td class="text-center align-middle">${result[i]["username"]}</td>
-                <td class="text-center align-middle">${result[i]["centro"]}</td>
-                <td class="text-center align-middle">${result[i]["cargo"]}</td>
-                <td class="text-center align-middle">${result[i]["role"]}</td>
-                <td class="text-center align-middle">${result[i]["estado_usuario"]}</td>
-                <td class="text-center align-middle">
-                    <i class="btn fas fa-edit Editar" onclick="openEditModal(${result[i]["id_usuario"]})"></i>
-                    <i class="btn fas fa-trash-alt Deshabilitar" onclick="confirmDisable(${result[i]["id_usuario"]})"></i>
-                </td>
-            `;
+                    <td>${result[i]["id_usuario"]}</td>
+                    <td>${result[i]["documento_usuario"]}</td>
+                    <td>${result[i]["nombre_usuario"]}</td>
+                    <td>${result[i]["username"]}</td>
+                    <td>${result[i]["centro"]}</td>
+                    <td>${result[i]["cargo"]}</td>
+                    <td>${result[i]["role"]}</td>
+                    <td>${result[i]["estado_usuario"]}</td>
+                    <td class="text-center align-middle">
+                        <i class="btn fas fa-edit Editar" onclick="openEditModal('${result[i]["id_usuario"]}')"></i>
+                        <i class="btn fas fa-trash-alt Deshabilitar" onclick="deshabilitarUsuario('${result[i]["id_usuario"]}')"></i>
+                    </td>
+                `;
                 cuerpoTabla.appendChild(trRegistro);
             }
         },
-        error: function (error) {
-            alert("ERROR en la petición" + error);
+        error: function (errorLista) {
+            Swal.fire({
+                title: "Error",
+                text: "Hubo un error al cargar los datos." + errorLista,
+                icon: "error"
+            });
         }
     });
 }
 
-//MOSTARA DATOS EDITAR USUARIO MODAL
-function openEditModal(userId) {
+function openEditModal(id) {
     $.ajax({
-        url: `${urlUsuario}/${userId}`,
-        type: "GET",
-        success: function (user) {
-            // Cargar los datos en el formulario
-            document.getElementById("userId").value = user.id_usuario;
-            document.getElementById("nombreUsuario").value = user.nombre_usuario;
-            document.getElementById("userDocument").value = user.documento_usuario;
-            document.getElementById("username").value = user.username;
-            document.getElementById("centro").value = user.centro;
-            document.getElementById("cargo").value = user.cargo;
-            document.getElementById("role").value = user.role;
+        url: urlIdUsuario + id, // Cambia la URL por la ruta correcta para obtener el usuario
+        type: 'GET',
+        success: function (data) {
+            // Llenar los campos del formulario con los datos del usuario
+            document.getElementById('userId').value = data.id_usuario;
+            document.getElementById('nombreUsuario').value = data.nombre_usuario;
+            document.getElementById('userDocument').value = data.documento_usuario;
+            document.getElementById('username').value = data.username;
+            document.getElementById('centroU').value = data.centro;
+            document.getElementById('cargoU').value = data.cargo;
+            document.getElementById("roleU").value = data.role;
+            document.getElementById("estado_usuarioU").value = data.estado_usuario;
 
-            // Mostrar el modal
+            // Abrir el modal
             $('#editUser').modal('show');
         },
         error: function (error) {
-            alert("ERROR al obtener los datos del usuario: " + error);
+            console.error('Error al obtener los datos del usuario:', error);
+        }
+    });
+}
+
+// Función para guardar los cambios cuando se edita un usuario
+function guardarCambios() {
+    var id = document.getElementById('userId').value;
+    var nombreUsuario = document.getElementById('nombreUsuario').value;
+    var userDocument = document.getElementById('userDocument').value;
+    var username = document.getElementById('username').value;
+    var centroU = document.getElementById('centroU').value;
+    var cargoU = document.getElementById('cargoU').value;
+    var roleU = document.getElementById("roleU").value;
+    var estado_usuarioU = document.getElementById("estado_usuarioU").value; // 🔹 Obtener el valor correctamente
+
+    var data = {
+        nombre_usuario: nombreUsuario,
+        documento_usuario: userDocument,
+        username: username,
+        centro: centroU,
+        cargo: cargoU,
+        role: roleU,
+        estado_usuario: estado_usuarioU // 🔹 Ya tiene el valor correcto
+    };
+
+    $.ajax({
+        url: urlEditar + id, // Asegúrate de que 'urlEditar' esté definido y sea correcto
+        type: 'PUT',
+        contentType: 'application/json', // 🔹 Indica que se envía JSON
+        data: JSON.stringify(data), // 🔹 Convertir 'data' a JSON
+        success: function (response) {
+            Swal.fire({
+                title: "Éxito",
+                text: "Usuario actualizado con éxito",
+                icon: "success"
+            });
+            $('#editUser').modal('hide');
+            listarUsuarios(); // Recargar la lista de usuarios
+        },
+        error: function (xhr, status, error) {
+            console.error('Error al actualizar el usuario:', xhr.responseText);
+            Swal.fire({
+                title: "Error",
+                text: "Hubo un error al actualizar los datos: " + xhr.responseText,
+                icon: "error"
+            });
+        }
+    });
+}
+
+
+function deshabilitarUsuario(idUsuario) {
+    $.ajax({
+        url: urlDeshabilitar + idUsuario,  // Endpoint en el backend
+        type: 'DELETE',  // Método HTTP
+        success: function(response) {
+            Swal.fire({
+                title: "Éxito",
+                text: response,
+                position: "top-end",
+                icon: "success",
+                timer: 1500, // Mantener la alerta visible por más tiempo
+                showConfirmButton: false
+            }).then(() => {
+                listarUsuarios(); // Recargar después de que el usuario vea la alerta
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error("Error al deshabilitar usuario:", xhr.responseText, status, error);
+            Swal.fire("Error", "No se pudo deshabilitar el usuario.", "error");
         }
     });
 }

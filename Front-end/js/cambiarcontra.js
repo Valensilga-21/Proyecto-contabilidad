@@ -58,6 +58,7 @@ async function cambiarContrasena() {
             icon: 'success',
             title: 'Éxito',
             text: message,
+            timer: 1500
         });
         cerrarSesion();
     } catch (error) {
