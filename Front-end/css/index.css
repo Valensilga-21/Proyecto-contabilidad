@@ -472,3 +472,40 @@ nav.close ~ .dashboard .top{
 }
 
 
+.scroll-top {
+    position: fixed;
+    bottom: 90px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background-color: #00BB00;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 28px;
+    cursor: pointer;
+    display: none;
+    /* Oculto por defecto */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: opacity 0.3s, transform 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    opacity: 0;
+    /* Inicia completamente invisible */
+    visibility: hidden;
+    /* Evita que ocupe espacio */
+  }
+
+  .scroll-top.show {
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+    /* Se muestra */
+  }
+
+  .scroll-top.hide-arrow .arrow {
+    opacity: 0;
+    /* Oculta la flecha cuando está arriba */
+  }
