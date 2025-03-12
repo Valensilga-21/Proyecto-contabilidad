@@ -104,16 +104,12 @@ async function loginUsuario() {
             }),
         });
 
-        console.log(response); // Verifica la respuesta
-
         if (response.ok) {
             const result = await response.json();
-            console.log(result); // Verifica si el campo "role" está presente
             if (result.token) {
                 localStorage.setItem('userToken', result.token);
-                // Verificar el rol del usuario
-                var role = result.role; // Asumiendo que el rol se envía en la respuesta
-                console.log(role); // Asegúrate de que el rol se esté leyendo correctamente
+                localStorage.setItem('userRole', result.role); // Guardar el rol en localStorage
+
                 Swal.fire({
                     position: "top-end",
                     icon: "success",
@@ -122,14 +118,24 @@ async function loginUsuario() {
                     timer: 1500
                 }).then(() => {
                     // Redirigir según el rol
-                    if (role.toLowerCase() === "administrador") {
-                        window.location.href = "/Front-end/html/inicio.html"; // Redirigir a la vista de administrador
-                    } else {
-                        window.location.href = "/Front-end/html/Usuario/inicioUsuario.html"; // Redirigir a la vista de usuario
+                    if (result.role.toLowerCase() === "administrador") {
+                        window.location.href = "/Front-end/html/inicio.html"; // Vista de admin
+                    } else if (result.role.toLowerCase() === "usuario"){
+                        window.location.href = "/Front-end/html/Usuario/inicioUsuario.html"; // Vista de usuario
+                    }else {
+                        Swal.fire({
+                            title: "Error",
+                            text: "Hubo un error al intentar iniciar sesión. Inténtelo de nuevo.",
+                            icon: "error"
+                        });
                     }
                 });
             } else {
-                alert("No se recibió un token válido.");
+                Swal.fire({
+                    title: "Error",
+                    text: "No se recibió un token válido.",
+                    icon: "error"
+                });
             }
         } else {
             const errorMessage = await response.text();
@@ -141,15 +147,21 @@ async function loginUsuario() {
         }
     } catch (error) {
         Swal.fire({
-            title: "Error: " + error,
+            title: "Error",
             text: "Hubo un error al intentar iniciar sesión. Inténtelo de nuevo.",
             icon: "error"
-        })
+        });
     }
 }
 
 // Función para listar usuarios
 function listarUsuarios() {
+    var urlLocal = urlFiltroUsuarios;
+    var filtro = document.getElementById("texto").value;
+    if (filtro !== "") {
+        urlLocal += "busqueda/" + filtro;
+    }
+
     $.ajax({
         url: urlUsuario,
         type: "GET",
@@ -240,13 +252,13 @@ function guardarCambios() {
             Swal.fire({
                 title: "Éxito",
                 text: "Usuario actualizado con éxito",
-                icon: "success"
+                icon: "success",
             });
             $('#editUser').modal('hide');
             listarUsuarios(); // Recargar la lista de usuarios
         },
         error: function (xhr, status, error) {
-            console.error('Error al actualizar el usuario:', xhr.responseText);
+            console.error('Error al actualizar el usuario:', xhr.responseText, status, error);
             Swal.fire({
                 title: "Error",
                 text: "Hubo un error al actualizar los datos: " + xhr.responseText,

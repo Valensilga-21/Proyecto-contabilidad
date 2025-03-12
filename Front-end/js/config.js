@@ -9,6 +9,9 @@ var urlDeshabilitar = urlBase + "usuario/deshabilitar/"
 var urlLogin = urlBase + "publico/usuario/"
 var urlReporteUsarios = urlBase + "/pdfReporte/export-pdf";
 
+//Filtros
+var urlFiltroUsuarios = urlBase + "usuario/"
+
 // Restablecimiento contraseñas
 var urlRestablecerContra = urlBase + "usuario/recuperarContrasena/";
 var urlCambioRestablecerContrasena = urlBase + "usuario/cambioRestablecerContrasena/"
