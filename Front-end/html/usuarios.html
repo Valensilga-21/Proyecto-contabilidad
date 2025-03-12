@@ -39,12 +39,12 @@
     }
 
     .button span {
-        margin-right: 5px;
+        margin-right: 3px;
         margin-top: 3px;
     }
 
     .btns{
-        border-radius: 15px;
+        border-radius: 12px;
     }
 </style>
 <body onload="listarUsuarios();">
@@ -106,22 +106,22 @@
                     </button>
                 </span>
             </div>
-            <div class="col-md-3 col-sm-4 col-6">
+            <div class="col-md-2 col-sm-4 col-6">
                 <div class="button input-group d-grid gap-2">
                     <button class="btns">
-                        <div style="margin-right: 8px;">
+                        <div style="margin-right: 2px;">
                             <box-icon name='to-top' type='solid' rotate='180' size="18px"></box-icon>
                         </div>
                         <b>Descargar PDF</b>
                     </button>
                 </div>
             </div>
-            <div class="col-md-4 col-sm-6 col-12">
+            <div class="col-md-3 col-sm-6 col-12 responsive">
                 <div class="input-group mb-3">
-                    <button class="btn btn-outline-secondary" type="button" id="filtrar"><span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16" style="color: black;">
+                    <button type="button" class="btn btn-outline-secondary" onclick="listarUsuarios();"><span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16" style="color: black;">
                         <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
                       </svg></span></button>
-                    <input type="text" class="form-control" placeholder="Buscar..." aria-label="Example text with button addon" aria-describedby="button-addon1" id="searchInput">
+                    <input type="text" id="texto" class="form-control" placeholder="Buscar..." aria-label="Example text with button addon" aria-describedby="button-addon1">
                 </div>
             </div>
             <div class="col-md-2 col-sm-3 col-6">
@@ -141,6 +141,17 @@
                         <option value="" disabled selected>Roles</option>
                         <option value="completadas">Usuario</option>
                         <option value="pendientes">Administrador</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-3 col-6">
+                <div class="input-group" style="border-radius: 10px 10px 10px 10px; border-left:none;">
+                    <span class="input-group-text"><box-icon name='filter' ></box-icon></span>
+                    <select name="estado" id="estado" class="form-select" style="background-color: #ffffff; border-radius: 0px 0px 10px 0px; border-left:none;">
+                        <option value="" disabled selected>Estado</option>
+                        <option value="activo">Activos</option>
+                        <option value="pendiente">Pendientes</option>
+                        <option value="deshabilitado">Deshabilitado</option>
                     </select>
                 </div>
             </div>

@@ -156,11 +156,9 @@ async function loginUsuario() {
 
 // Función para listar usuarios
 function listarUsuarios() {
-    var urlLocal = urlFiltroUsuarios;
     var filtro = document.getElementById("texto").value;
-    if (filtro !== "") {
-        urlLocal += "busqueda/" + filtro;
-    }
+    var urlUsuario = filtro !== "" ? urlFiltroUsuarios + "busquedaFiltro/" + filtro : urlFiltroUsuarios;
+
 
     $.ajax({
         url: urlUsuario,

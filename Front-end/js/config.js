@@ -1,7 +1,7 @@
 var urlBase = "http://localhost:8080/api/v1/LCDSena/";
 
 //User
-var urlUsuario = urlBase + "usuario/listaUsuarios/"
+var urlUsuario = urlBase + "usuario/"
 var urlIdUsuario= urlBase + "usuario/"
 var urlEditar = urlBase + "usuario/"
 var urlRegistro = urlBase + "publico/usuario/"
