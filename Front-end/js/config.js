@@ -1,6 +1,6 @@
 var urlBase = "http://localhost:8080/api/v1/LCDSena/";
 
-//User
+//Usuaurio
 var urlUsuario = urlBase + "usuario/"
 var urlIdUsuario= urlBase + "usuario/"
 var urlEditar = urlBase + "usuario/"
@@ -8,6 +8,9 @@ var urlRegistro = urlBase + "publico/usuario/"
 var urlDeshabilitar = urlBase + "usuario/deshabilitar/"
 var urlLogin = urlBase + "publico/usuario/"
 var urlReporteUsarios = urlBase + "/pdfReporte/export-pdf";
+
+//Viaje
+var urlRegistroViaje = urlBase + "viaje/"
 
 //Filtros
 var urlFiltroUsuarios = urlBase + "usuario/"

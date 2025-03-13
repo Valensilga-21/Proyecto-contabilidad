@@ -138,10 +138,9 @@ async function loginUsuario() {
                 });
             }
         } else {
-            const errorMessage = await response.text();
             Swal.fire({
                 title: "Error",
-                text: "Hubo un error al intentar iniciar sesión, usuario o contraseña inválidos. " + errorMessage,
+                text: "Hubo un error al intentar iniciar sesión, usuario o contraseña inválidos.",
                 icon: "error"
             });
         }
@@ -158,7 +157,6 @@ async function loginUsuario() {
 function listarUsuarios() {
     var filtro = document.getElementById("texto").value;
     var urlUsuario = filtro !== "" ? urlFiltroUsuarios + "busquedaFiltro/" + filtro : urlFiltroUsuarios;
-
 
     $.ajax({
         url: urlUsuario,
