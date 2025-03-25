@@ -7,10 +7,13 @@ var urlEditar = urlBase + "usuario/"
 var urlRegistro = urlBase + "publico/usuario/"
 var urlDeshabilitar = urlBase + "usuario/deshabilitar/"
 var urlLogin = urlBase + "publico/usuario/"
-var urlReporteUsarios = urlBase + "/pdfReporte/export-pdf";
+var urlReporteUsarios = urlBase + "/pdfReporte/export-pdf"
 
 //Viaje
 var urlRegistroViaje = urlBase + "viaje/"
+var urlIdViaje= urlBase + "viaje/"
+var urlListaViajes = urlBase + "viaje/listaViajes"
+var urlEditarViaje = urlBase + "viaje/"
 
 //Filtros
 var urlFiltroUsuarios = urlBase + "usuario/"

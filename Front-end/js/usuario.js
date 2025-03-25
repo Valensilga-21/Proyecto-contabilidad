@@ -59,7 +59,7 @@ async function registrarUsuario() {
         if (response.ok) {
             Swal.fire({
                 title: "Éxito",
-                text: "Has enviado tu solicitud de registro en nuestrop aplicativo.",
+                text: "Has enviado tu solicitud de registro en nuestro aplicativo.",
                 icon: "success"
             });
         } else {
@@ -79,6 +79,7 @@ async function registrarUsuario() {
 }
 
 //LOGIN
+// LOGIN
 async function loginUsuario() {
     var username = document.getElementById('username').value;
     var password = document.getElementById('password').value;
@@ -106,9 +107,12 @@ async function loginUsuario() {
 
         if (response.ok) {
             const result = await response.json();
-            if (result.token) {
+            console.log("Respuesta del servidor:", result); // Depuración
+
+            if (result.token && result.id_usuario) {  // Validar si `usuario` existe
                 localStorage.setItem('userToken', result.token);
-                localStorage.setItem('userRole', result.role); // Guardar el rol en localStorage
+                localStorage.setItem('userRole', result.role);
+                localStorage.setItem('userId', result.id_usuario); // Ahora sí guardamos el ID correctamente
 
                 Swal.fire({
                     position: "top-end",
@@ -122,10 +126,10 @@ async function loginUsuario() {
                         window.location.href = "/Front-end/html/inicio.html"; // Vista de admin
                     } else if (result.role.toLowerCase() === "usuario"){
                         window.location.href = "/Front-end/html/Usuario/inicioUsuario.html"; // Vista de usuario
-                    }else {
+                    } else {
                         Swal.fire({
                             title: "Error",
-                            text: "Hubo un error al intentar iniciar sesión. Inténtelo de nuevo.",
+                            text: "Rol no reconocido.",
                             icon: "error"
                         });
                     }
@@ -133,18 +137,18 @@ async function loginUsuario() {
             } else {
                 Swal.fire({
                     title: "Error",
-                    text: "No se recibió un token válido.",
+                    text: "No se recibió un token o usuario válido.",
                     icon: "error"
                 });
             }
         } else {
             Swal.fire({
                 title: "Error",
-                text: "Hubo un error al intentar iniciar sesión, usuario o contraseña inválidos.",
+                text: "Usuario o contraseña inválidos.",
                 icon: "error"
             });
         }
-    } catch (error) {
+        }catch (error) {
         Swal.fire({
             title: "Error",
             text: "Hubo un error al intentar iniciar sesión. Inténtelo de nuevo.",
@@ -152,6 +156,7 @@ async function loginUsuario() {
         });
     }
 }
+
 
 // Función para listar usuarios
 function listarUsuarios() {
