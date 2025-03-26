@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
     <link rel="stylesheet" href="/Front-end/css/bootstrap.css">
@@ -17,10 +18,10 @@
 
     <script type="module" src="/Front-end/js admin/pdf2.js"></script>
 
-    <title>Proyecto</title>
+    <title>InicioAdmin</title>
 </head>
 <style>
-    .button:hover{
+    .button:hover {
         background-color: rgb(187, 187, 187);
     }
 
@@ -30,7 +31,6 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 5px;
         padding-left: 20px;
         padding-right: 20px;
     }
@@ -38,8 +38,8 @@
     .button span {
         margin-right: 5px;
     }
-    
 </style>
+
 <body>
     <nav>
         <div class="logo-name">
@@ -53,37 +53,37 @@
         <div class="menu-items">
             <ul class="nav-links">
                 <li><a href="/Front-end/html/inicio.html">
-                    <i class="uil uil-estate"></i>
-                    <span class="link-name"><b>Inicio</b></span>
-                </a></li>
+                        <i class="uil uil-estate"></i>
+                        <span class="link-name"><b>Inicio</b></span>
+                    </a></li>
                 <li><a href="/Front-end/html/usuarios.html">
-                    <i class='bx bx-group' ></i>
-                    <span class="link-name"><b>Usuarios</b></span>
-                </a></li>
+                        <i class='bx bx-group'></i>
+                        <span class="link-name"><b>Usuarios</b></span>
+                    </a></li>
                 <li><a href="/Front-end/html/legalizaciones.html">
-                    <i class="uil uil-chart"></i>
-                    <span class="link-name"><b>Legalizaciones</b></span>
-                </a></li>
+                        <i class="uil uil-chart"></i>
+                        <span class="link-name"><b>Legalizaciones</b></span>
+                    </a></li>
                 <li><a href="/Front-end/html/viajes.html">
-                    <i class='bx bx-car'></i>
-                    <span class="link-name"><b>Viajes</b></span>
-                </a></li>
+                        <i class='bx bx-car'></i>
+                        <span class="link-name"><b>Viajes</b></span>
+                    </a></li>
                 <li><a href="/Front-end/html/perfil.html">
-                    <i class='bx bx-cog' ></i>
-                    <span class="link-name"><b>Perfil</b></span>
-                </a></li>
+                        <i class='bx bx-cog'></i>
+                        <span class="link-name"><b>Perfil</b></span>
+                    </a></li>
                 <li><a href="/Front-end/html/ayuda.html">
-                    <i class='bx bx-help-circle' ></i>
-                    <span class="link-name"><b>Ayuda</b></span>
-                </a></li>
+                        <i class='bx bx-help-circle'></i>
+                        <span class="link-name"><b>Ayuda</b></span>
+                    </a></li>
             </ul>
-            
+
             <ul class="logout-mode cl">
                 <li><a type="button" onclick="signOut();">
-                    <i class="uil uil-signout" color="#00BB00"></i>
-                    <span class="link-name"><b>Cerrar sesion</b></span>
-                </a></li>
-            </li>
+                        <i class="uil uil-signout" color="#00BB00"></i>
+                        <span class="link-name"><b>Cerrar sesion</b></span>
+                    </a></li>
+                </li>
             </ul>
         </div>
     </nav>
@@ -122,37 +122,55 @@
                 </div>
             </div>
 
-            <div class="row" style="padding-top: 4%;">
-                <div class="col-4">
-                        <button class="button" id="generarPDF">
-                            <span style="margin-top: 5%;">
-                                <box-icon name='to-top' type='solid' rotate='180' size="18px"></box-icon>
-                            </span>
-                            <b>Descargar PDF</b>
-                        </button>
-                </div>
-                <div class="col-4">
+            <div class="row pt-4 g-3">
+                <div class="col-12 col-md-4 text-center">
+                    <button class="button w-100 w-md-75" id="generarPDF">
+                      <span class="d-inline-block mt-2">
+                        <box-icon name="to-top" type="solid" rotate="180" size="18px"></box-icon>
+                      </span>
+                      <b>Descargar PDF</b>
+                    </button>
+                  </div>
+                  
+
+
+                <div class="col-12 col-md-4">
                     <div class="input-group mb-3">
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon1"><span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16" style="color: black;">
-                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                          </svg></span></button>
-                        <input type="text" class="form-control" placeholder="Buscar..." aria-label="Example text with button addon" aria-describedby="button-addon1">
-                      </div>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon1">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-search" viewBox="0 0 16 16" style="color: black;">
+                                    <path
+                                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                                </svg>
+                            </span>
+                        </button>
+                        <input type="text" class="form-control" placeholder="Buscar..."
+                            aria-label="Example text with button addon" aria-describedby="button-addon1">
+                    </div>
                 </div>
-                <div class="col-2">
-                    <div class="input-group" style="border-radius: 10px 10px 10px 10px; border-left:none;">
-                        <span class="input-group-text"><box-icon name='filter' ></box-icon></span>
-                        <select name="centro" id="centro" class="form-select" style="background-color: #ffffff; border-radius: 0px 0px 10px 0px; border-left:none;">
+
+                <div class="col-12 col-md-2">
+                    <div class="input-group" style="border-radius: 10px; border-left: none;">
+                        <span class="input-group-text">
+                            <box-icon name="filter"></box-icon>
+                        </span>
+                        <select name="centro" id="centro" class="form-select"
+                            style="background-color: #ffffff; border-radius: 0 0 10px 0; border-left: none;">
                             <option value="" disabled selected>Centro</option>
                             <option value="cies">CIES</option>
                             <option value="direccion">Dirección</option>
                         </select>
                     </div>
                 </div>
-                <div class="col-2">
-                    <div class="input-group" style="border-radius: 10px 10px 10px 10px; border-left:none;">
-                        <span class="input-group-text"><box-icon name='filter' ></box-icon></span>
-                        <select name="centro" id="centro" class="form-select" style="background-color: #ffffff; border-radius: 0px 0px 10px 0px; border-left:none;">
+
+                <div class="col-12 col-md-2">
+                    <div class="input-group" style="border-radius: 10px; border-left: none;">
+                        <span class="input-group-text">
+                            <box-icon name="filter"></box-icon>
+                        </span>
+                        <select name="centro" id="centroTodos" class="form-select"
+                            style="background-color: #ffffff; border-radius: 0 0 10px 0; border-left: none;">
                             <option value="" disabled selected>Todos</option>
                             <option value="completadas">Completadas</option>
                             <option value="pendientes">Pendientes</option>
@@ -162,7 +180,8 @@
                     </div>
                 </div>
             </div>
-            <div  class="activity-data table-responsive" style="padding-top: 1%;">
+
+            <div class="activity-data table-responsive" style="padding-top: 1%;">
                 <table class="table table-bordered">
                     <thead>
                         <tr>
@@ -184,4 +203,5 @@
         </div>
     </section>
 </body>
+
 </html>
