@@ -12,6 +12,7 @@ async function registrarUsuario() {
     var password = document.getElementById("password").value;
     var confirm_contrasena = document.getElementById("confirm_contrasena").value;
     var role = document.getElementById("role").value;
+    var estado_usuario = document.getElementById("estado_usuario").value;
 
     //VALIDACIONES DE LOS CAMPOS
     if (!nombre_usuario || !username || !password || !confirm_contrasena || !centro || !cargo || !documento_usuario) {
@@ -42,7 +43,8 @@ async function registrarUsuario() {
         cargo: cargo,
         password: password,
         confirm_contrasena: confirm_contrasena,
-        role: role
+        role: role,
+        estado_usuario: estado_usuario
     };
 
     //ENDPOINT QUE SOLICITA EL REGISTRO
