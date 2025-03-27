@@ -1,6 +1,6 @@
 function registrarViaje() {
     var token = localStorage.getItem("userToken");
-    var userId = localStorage.getItem("userId"); // Recuperar ID
+    var userId = localStorage.getItem("userId"); // Recuperar ID del usuario
 
     if (!userId) {
         Swal.fire({
@@ -17,11 +17,11 @@ function registrarViaje() {
         fecha_fin: document.getElementById("fecha_fin").value,
         ruta: document.getElementById("ruta").value,
         estado_viaje: document.getElementById("estado_viaje").value,
-        id_usuario: userId // Id del usuario para que se asocie al viaje
+        id_usuario: userId
     };
 
-    if (!formData.num_comision || !formData.fecha_inicio || !formData.fecha_fin || 
-        !formData.ruta) {
+    // Validar que todos los campos estén llenos
+    if (!formData.num_comision || !formData.fecha_inicio || !formData.fecha_fin || !formData.ruta) {
         Swal.fire({
             title: "¡Error!",
             text: "¡Llene todos los campos correctamente!",
@@ -37,11 +37,33 @@ function registrarViaje() {
         contentType: "application/json",
         headers: { "Authorization": "Bearer " + token },
         success: function(result) {
+        console.log("Respuesta del backend:", result); // Verifica la estructura de la respuesta
+
+        if (result.viaje && result.viaje.id_viaje) {
+                let viaje = {
+                id_viaje: result.viaje.id_viaje, // Acceder correctamente al ID
+                    num_comision: formData.num_comision,
+                    fecha_inicio: formData.fecha_inicio,
+                    fecha_fin: formData.fecha_fin,
+                    ruta: formData.ruta,
+                    estado_viaje: formData.estado_viaje,
+                    id_usuario: formData.id_usuario
+                };
+
+                // Almacenar el viaje en localStorage en formato JSON
+                localStorage.setItem("viaje", JSON.stringify(viaje));
+
+                console.log("Viaje almacenado en localStorage:", viaje);
+            } else {
+                console.log("Error: la respuesta del backend no contiene 'id_viaje'.");
+            }
+
             Swal.fire({
                 title: "¡Éxito!",
                 text: "Viaje registrado correctamente.",
                 icon: "success"
             });
+
             $('#viajeRegister').modal('hide');
         },
         error: function(xhr, status, error) {
@@ -54,6 +76,7 @@ function registrarViaje() {
         }
     });
 }
+
 
 // Función para listar viajes
 function listarViajes() {
