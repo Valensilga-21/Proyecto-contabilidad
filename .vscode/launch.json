@@ -5,6 +5,13 @@
             "name": "LcdsenaApplication",
             "request": "launch",
             "mainClass": "com.sena.lcdsena.LcdsenaApplication",
+            "projectName": ""
+        },
+        {
+            "type": "java",
+            "name": "LcdsenaApplication",
+            "request": "launch",
+            "mainClass": "com.sena.lcdsena.LcdsenaApplication",
             "projectName": "lcdsena"
         },
         {
