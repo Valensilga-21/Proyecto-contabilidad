@@ -1,13 +1,21 @@
 package com.sena.lcdsena.controller;
 
 import java.io.IOException;
+import org.springframework.http.HttpHeaders;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
-import java.util.Base64;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.sena.lcdsena.interfaces.iusuarioRepository;
 import com.sena.lcdsena.interfaces.iviajeRepository;
@@ -50,55 +59,80 @@ public class legalizacionController {
 
     @PostMapping("/")
     public ResponseEntity<Object> save(@ModelAttribute legalizacionRequest request, 
-                                       @RequestParam("file") MultipartFile file) {
+                                    @RequestParam("file") MultipartFile file) {
         try {
             if (file.isEmpty()) {
-                return new ResponseEntity<>("El archivo es obligatorio", HttpStatus.BAD_REQUEST);
+                return ResponseEntity.badRequest().body("El archivo es obligatorio");
             }
 
             // Buscar usuario en la BD
-            Optional<usuario> usuarioOpt = usuarioRepository.findById(request.getId_usuario());
-            if (!usuarioOpt.isPresent()) {
-                return new ResponseEntity<>("Usuario no encontrado", HttpStatus.NOT_FOUND);
-            }
+            usuario usuario = usuarioRepository.findById(request.getId_usuario())
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
 
             // Buscar viaje en la BD
-            Optional<viaje> viajeOpt = viajeRepository.findById(request.getId_viaje());
-            if (!viajeOpt.isPresent()) {
-                return new ResponseEntity<>("Viaje no encontrado", HttpStatus.NOT_FOUND);
-            }
+            viaje viaje = viajeRepository.findById(request.getId_viaje())
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Viaje no encontrado"));
 
-            // Convertir el archivo a Base64
-            String pdfBase64 = Base64.getEncoder().encodeToString(file.getBytes());
+            // Definir la ruta donde se guardará el archivo
+            String uploadDir = "uploads/legalizaciones/";
+            String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
+            Path filePath = Paths.get(uploadDir, fileName);
 
-            // Crear la legalización
+            // Crear directorio si no existe
+            Files.createDirectories(filePath.getParent());
+
+            // Guardar archivo en el servidor
+            Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+            // Crear la legalización con la ruta del archivo
             legalizacion nuevaLegalizacion = legalizacion.builder()
-                .usuario(usuarioOpt.get())
-                .viaje(viajeOpt.get())
-                .moti_devolucion(request.getMoti_devolucion())
-                .estado_lega(request.getEstado_lega())
-                .fecha_soli(request.getFecha_soli() != null ? request.getFecha_soli() : LocalDate.now())
-                .pdf(pdfBase64)
-                .build();
+                    .usuario(usuario)
+                    .viaje(viaje)
+                    .moti_devolucion(request.getMoti_devolucion())
+                    .estado_lega(request.getEstado_lega())
+                    .fecha_soli(request.getFecha_soli() != null ? request.getFecha_soli() : LocalDate.now())
+                    .pdf(fileName)
+                    .build();
 
             // Guardar en la BD
             legalizacionService.save(nuevaLegalizacion);
 
-            // Generar el token de legalización basado en el viaje
+            // Generar el token de legalización
             String tokenLegalizacion = legalizacionTokenService.generarTokenLegalizacion(nuevaLegalizacion);
 
-            return new ResponseEntity<>(Map.of(
-                "legalizacion", nuevaLegalizacion,
-                "token", tokenLegalizacion
-            ), HttpStatus.OK);
+            return ResponseEntity.ok(Map.of("legalizacion", nuevaLegalizacion, "token", tokenLegalizacion));
         } catch (IOException e) {
-            return new ResponseEntity<>("Error al procesar el archivo: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error al guardar el archivo: " + e.getMessage());
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(e.getStatusCode()).body(e.getReason());
         } catch (Exception e) {
-            return new ResponseEntity<>("Error al registrar la legalización: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error al registrar la legalización: " + e.getMessage());
         }
     }
 
-    @GetMapping("/listaLegalizaciones")
+    @GetMapping("/legalizacion/{fileName}")
+    public ResponseEntity<Resource> descargarArchivo(@PathVariable String fileName) {
+        try {
+            Path filePath = Paths.get("uploads/legalizaciones", fileName);
+            Resource resource = new UrlResource(filePath.toUri());
+
+            if (!resource.exists() || !resource.isReadable()) {
+                return ResponseEntity.notFound().build();
+            }
+
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + "\"")
+                    .contentType(MediaType.APPLICATION_PDF)
+                    .body(resource);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+
+    @GetMapping("/listaLega")
     public ResponseEntity<Object> findAll() {
         var litaLegalizaciones = legalizacionService.findAll();
         return new ResponseEntity<>(litaLegalizaciones, HttpStatus.OK);

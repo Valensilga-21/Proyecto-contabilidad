@@ -17,6 +17,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
     <link rel="stylesheet" href="https://fkhadra.github.io/datepicker/datepicker.css">
 
     <title>Legalizaciones</title>
@@ -43,9 +45,19 @@
         margin-top: 0px;
     }
 
-    
+    .custom-hover:hover {
+        background-color: #ebebeb !important;
+        border-color: #dbdbdb !important;
+        color: #212529;
+    }
+
+    .custom-hover {
+        background-color: #ffffff !important;
+        border-color: #dbdbdb !important;
+        color: #212529;
+    }
 </style>
-<body>
+<body onload="listarLegalizacion();">
     <nav>
         <div class="logo-name">
             <div class="row">
@@ -129,11 +141,10 @@
                 </button>
             </div>
 
-            <div class="activity-data" style="padding-top: 3%;">
-                <table class="table">
+            <div class="activity-data table-responsive-sm" style="padding-top: 3%;">
+                <table class="table table-hover" id="legaTable">
                     <thead>
                         <tr>
-                            <th>#</th>
                             <th>Nombre</th>
                             <th>Correo</th>
                             <th>Cargo</th>
@@ -142,7 +153,7 @@
                             <th>Acciones</th>
                         </tr>
                     </thead>
-                    <tbody id="tablaInicio">
+                    <tbody>
 
                     </tbody>
                 </table>
@@ -221,14 +232,15 @@
                                 </select>
                             </div>
                             <div class="mb-3 col-12 col-xl-7" style="padding-left: 0;">
-                                <label for="archivos" class="form-label">Archivos</label>
+                                <label for="file" class="form-label">Archivos</label>
                                 <div class="input-group">
-                                    <span class="input-group-text"
-                                        style="justify-content: center; text-align: center;">
-                                        <i class="bi bi-file-earmark-text"></i>
+                                    <span class="input-group-text">
+                                        <box-icon name='file-pdf' type='solid' color='#ff1f1f'></box-icon>
                                     </span>
                                     <input type="file" class="form-control" id="file" accept="application/pdf">
+                                    <button class="btn btn-danger d-none" id="removeFile" onclick="removeSelectedFile()">Quitar</button>
                                 </div>
+                                <p id="fileName" class="mt-2 text-muted"></p>
                                 <label for="" class="form-label">Motivo Devolución</label>
                                 <div class="input-group">
                                     <textarea id="moti_devolucion" cols="65" rows="10" disabled
@@ -243,6 +255,95 @@
         </div>
     </div>
 
+    <!-- Modal Editar -->
+    <div class="modal fade" id="editLegalizacion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header pt-4">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="mb-3 col-12 col-xl-6"></div>
+                            <div class="mb-3 col-12 col-xl-6 text-end">
+                                <button type="submit" id="editarViaje" class="btn"
+                                    style="background-color: #00bb0021; border: 1px solid #00BB00; color: #00BB00; font-weight: 600;">
+                                    <span><i class="bi bi-check-lg"></i></span>Guardar
+                                </button>
+                                <button type="submit" id="cancelar" data-bs-dismiss="modal"
+                                    class="btn btn-secondary"
+                                    style="background-color: #ff000015; border: 1px solid #ff0000; color: #ff0101; font-weight: 600;">
+                                    <span><i class="bi bi-x-lg"></i></span>Cancelar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="padding: 0 8% 5%;">
+                    <h3 style="font-weight: 600;">Editar Legalización</h3>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="mb-3 col-12 col-xl-4">
+                                <input type="text" id="legaId" class="visually-hidden">
+                                <input type="text" id="modalEditId" class="visually-hidden">
+                                <label for="usuario" class="form-label">Nombre Usuario</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="nombre_usuarioE" placeholder="Nombre Completo" disabled>
+                                </div>
+                                <label for="num_comisionE" class="form-label">No. comisión</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="num_comisionE" placeholder="" disabled>
+                                </div>
+                                <label for="fecha_inicioE" class="form-label">Fecha Inicio</label >
+                                <div class="input-group">
+                                    <input type="date" class="form-control" id="fecha_inicioE" disabled>
+                                </div>
+                                <label for="fecha_finE" class="form-label">Fecha Fin</label >
+                                <div class="input-group">
+                                    <input type="date" class="form-control" id="fecha_finE" disabled>
+                                </div>
+                                <label for="rutaE" class="form-label">Ruta</label>
+                                <div class="input-group">
+                                    <textarea id="rutaE" cols="60" rows="4" disabled></textarea>
+                                </div>
+                            </div>
+                            <div class="input-group visually-hidden"
+                                style="border-radius: 10px; border-left: none;">
+                                <span class="input-group-text">
+                                    <box-icon name="filter"></box-icon>
+                                </span>
+                                <select name="centro" id="estadoU" class="form-select"
+                                    style="background-color: #ffffff; border-radius: 0 0 10px 0; border-left: none;" disabled>
+                                    <option value="">Estado</option>
+                                    <option value="completado">Completada</option>
+                                    <option value="pendiente" selected>Pendiente</option>
+                                </select>
+                            </div>
+                            <div class="mb-3 col-12 col-xl-7" style="padding-left: 0;">
+                                <div class="mb-3">
+                                    <label for="file" class="form-label">Archivos</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            <box-icon name='file-pdf' type='solid' color='#ff1f1f'></box-icon>
+                                        </span>
+                                        <button id="fileDownload" class="btn btn-outline-secondary custom-hover flex-grow-1">
+                                            Descargar PDF
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <label for="moti_devolucionE" class="form-label">Motivo Devolución</label>
+                                <div class="input-group">
+                                    <textarea id="moti_devolucionE" cols="65" rows="10" disabled
+                                        placeholder="En caso de que la legalización no sea aprovada, le llegará un mensaje de correo electrónico informativo y justo aquí podrá visualizar los detalles de la devolución para que corrija la legalización."
+                                        style="padding: 2%;"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        
     <script src="/Front-end/js/legalizacion.js"></script>
     <script src="/Front-end/js/config.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

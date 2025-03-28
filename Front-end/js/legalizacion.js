@@ -1,4 +1,3 @@
-// Función para almacenar viajes en localStorage sin sobrescribirlos
 function seleccionarViaje(viaje) {
     let viajesGuardados = localStorage.getItem("viajes");
     let viajes = viajesGuardados ? JSON.parse(viajesGuardados) : [];
@@ -38,7 +37,7 @@ function registrarLegalizacion() {
     }
 
     // Obtener el viaje seleccionado
-    var selectViaje = document.getElementById("select_viaje");
+    var selectViaje = document.getElementById("id_viaje");
     var viajeId = selectViaje.value;
 
     if (!viajeId) {
@@ -93,14 +92,14 @@ function cargarViaje() {
         success: function (result) {
             let selectViaje = document.getElementById("id_viaje");
             selectViaje.innerHTML = "<option value=''>Seleccione una comisión</option>"; 
-
+        
             result.forEach(viaje => {
                 let option = document.createElement("option");
                 option.value = viaje.id_viaje;
-                option.textContent = `Comisión #${viaje.num_comision}`;
+                option.textContent = viaje.num_comision;
                 selectViaje.appendChild(option);
             });
-
+        
             selectViaje.addEventListener("change", function () {
                 if (this.value) {
                     llenarDatosViaje(this.value);
@@ -112,7 +111,6 @@ function cargarViaje() {
         }
     });
 }
-
 
 function llenarDatosViaje(idViaje) {
     let urlDetalles = `http://localhost:8080/api/v1/LCDSena/viaje/${idViaje}`;
@@ -131,75 +129,107 @@ function llenarDatosViaje(idViaje) {
     });
 }
 
+// Función para listar legalizaciones
+function listarLegalizacion() {
+    $.ajax({
+        url: urlListaLega,
+        type: "GET",
+        success: function (result) {
+            var cuerpoTabla = document.getElementById("legaTable").getElementsByTagName('tbody')[0];
+            cuerpoTabla.innerHTML = ""; // Limpiar la tabla antes de llenarla
 
-// // Función para listar viajes
-// function listarViajes() {
-//     $.ajax({
-//         url: urlListaViajes,
-//         type: "GET",
-//         success: function (result) {
-//             var cuerpoTabla = document.getElementById("viajesTable").getElementsByTagName('tbody')[0];
-//             cuerpoTabla.innerHTML = ""; // Limpiar la tabla
-
-//             for (var i = 0; i < result.length; i++) {
-//                 var estado = result[i]["estado_viaje"].toLowerCase();
+            for (var i = 0; i < result.length; i++) {
+                var usuario = result[i]["usuario"] || {}; // Verificar si el usuario existe
                 
-//                 // Definir color del texto según el estado
-//                 var colorEstado = "";
-//                 if (estado === "cancelado") {
-//                     colorEstado = "red";
-//                 } else if (estado === "pendiente") {
-//                     colorEstado = "orange";
-//                 } else if (estado === "completado") {
-//                     colorEstado = "green";
-//                 }
+                // Asignar valores predeterminados si no están disponibles
+                var nombre_usuario = usuario["nombre_usuario"] || "No disponible";
+                var username = usuario["username"] || "No disponible";
+                var cargo = usuario["cargo"] || "No disponible";
+                var centro = usuario["centro"] || "No disponible";
+                var fecha_soli = result[i]["fecha_soli"] || "No disponible";
 
-//                 // Crear fila de la tabla
-//                 var trRegistro = document.createElement("tr");
-//                 trRegistro.innerHTML = `
-//                     <td>${result[i]["num_comision"]}</td>
-//                     <td>${result[i]["fecha_inicio"]}</td>
-//                     <td>${result[i]["fecha_fin"]}</td>
-//                     <td>${result[i]["ruta"]}</td>
-//                     <td style="color: ${colorEstado};">${result[i]["estado_viaje"]}</td>
-//                     <td class="text-center align-middle">
-//                         <i class="btn fas fa-edit Editar text-warning" onclick="openEditModal('${result[i]["id_viaje"]}')"></i>
-//                     </td>
-//                 `;
-//                 cuerpoTabla.appendChild(trRegistro);
-//             }
-//         },
-//         error: function (errorLista) {
-//             Swal.fire({
-//                 title: "Error",
-//                 text: "Hubo un error al cargar los datos." + errorLista,
-//                 icon: "error"
-//             });
-//         }
-//     });
-// }
+                // Crear fila de la tabla
+                var trRegistro = document.createElement("tr");
+                trRegistro.innerHTML = `
+                    <td>${nombre_usuario}</td>
+                    <td>${username}</td>
+                    <td>${cargo}</td>
+                    <td>${centro}</td>
+                    <td>${fecha_soli}</td>
+                    <td class="text-center align-middle">
+                        <i class="btn fas fa-edit Editar text-warning" onclick="openEditModal('${result[i]["id_legalizacion"]}')"></i>
+                    </td>
+                `;
+                cuerpoTabla.appendChild(trRegistro);
+            }
+        },
+        error: function (errorLista) {
+            Swal.fire({
+                title: "Error",
+                text: "Hubo un error al cargar los datos. " + errorLista.responseText,
+                icon: "error"
+            });
+        }
+    });
+}
 
-// function openEditModal(id) {
-//     $.ajax({
-//         url: urlIdViaje + id,
-//         type: 'GET',
-//         success: function (data) {
-//             // Llenar los campos del formulario con los datos del usuario
-//             document.getElementById('viajeId').value = data.id_viaje;
-//             document.getElementById('num_comisionE').value = data.num_comision;
-//             document.getElementById('fecha_inicioE').value = data.fecha_inicio;
-//             document.getElementById('fecha_finE').value = data.fecha_fin;
-//             document.getElementById('rutaE').value = data.ruta;
-//             document.getElementById('estado_viajeE').value = data.estado_viaje;
+function openEditModal(id) {
+    $.ajax({
+        url: urlIdLega + id,
+        type: 'GET',
+        success: function (data) {
+            if (!data) {
+                console.error("No se recibieron datos válidos.");
+                return;
+            }
 
-//             // Abrir el modal
-//             $('#editViaje').modal('show');
-//         },
-//         error: function (error) {
-//             console.error('Error al obtener los datos del viaje:', error);
-//         }
-//     });
-// }
+            // Verificar si `usuario` y `viaje` existen en la respuesta
+            var usuario = data.usuario || {}; 
+            var viaje = data.viaje || {}; 
+
+            // Llenar los campos del formulario con los datos obtenidos
+            document.getElementById('legaId').value = data.id_legalizacion || "";
+            document.getElementById('num_comisionE').value = viaje.num_comision || "";
+            document.getElementById('nombre_usuarioE').value = usuario.nombre_usuario || "No disponible";
+            document.getElementById('fecha_inicioE').value = viaje.fecha_inicio || "";
+            document.getElementById('fecha_finE').value = viaje.fecha_fin || "";
+            document.getElementById('rutaE').value = viaje.ruta || "";
+            document.getElementById('fileE').value = data.file || "";
+
+            // Abrir el modal
+            $('#editLegalizacion').modal('show');
+        },
+        error: function (error) {
+            console.error('Error al obtener los datos de la legalización:', error);
+        }
+    });
+}
+
+//Input subir archivo
+const fileInput = document.getElementById("file");
+const removeButton = document.getElementById("removeFile");
+const fileNameDisplay = document.getElementById("fileName");
+
+fileInput.addEventListener("change", function () {
+    if (this.files.length > 0) {
+        fileNameDisplay.textContent = `Archivo seleccionado: ${this.files[0].name}`;
+        removeButton.classList.remove("d-none"); // Mostrar botón "Quitar"
+    } else {
+        fileNameDisplay.textContent = "";
+        removeButton.classList.add("d-none"); // Ocultar botón "Quitar"
+    }
+});
+
+function removeSelectedFile() {
+    fileInput.value = ""; // Limpiar el input file
+    fileNameDisplay.textContent = "";
+    removeButton.classList.add("d-none"); // Ocultar botón "Quitar"
+}
+
+    document.addEventListener("DOMContentLoaded", function() {
+        listarLegalizacion();
+        cargarFormulario();
+    });
 
 // function guardarCambios() {
 //     var id = document.getElementById('viajeId').value;
