@@ -1,6 +1,8 @@
 package com.sena.lcdsena.controller;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+
 import org.springframework.http.HttpHeaders;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -112,25 +114,36 @@ public class legalizacionController {
         }
     }
 
-    @GetMapping("/legalizacion/{fileName}")
-    public ResponseEntity<Resource> descargarArchivo(@PathVariable String fileName) {
+    @GetMapping("/download/{id}")
+    public ResponseEntity<Resource> downloadFile(@PathVariable String id) {
         try {
-            Path filePath = Paths.get("uploads/legalizaciones", fileName);
-            Resource resource = new UrlResource(filePath.toUri());
+            // Buscar la legalización por ID
+            legalizacion legalizacion = legalizacionService.findById(id)
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Legalización no encontrada"));
 
-            if (!resource.exists() || !resource.isReadable()) {
-                return ResponseEntity.notFound().build();
+            // Obtener la ruta del archivo
+            String filePath = "uploads/legalizaciones/" + legalizacion.getPdf();
+            Path path = Paths.get(filePath);
+
+            // Verificar si el archivo existe
+            if (!Files.exists(path)) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
             }
 
+            // Cargar el archivo como recurso
+            Resource resource = new UrlResource(path.toUri());
+
+            // Devolver el archivo como respuesta
             return ResponseEntity.ok()
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + "\"")
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
                     .contentType(MediaType.APPLICATION_PDF)
                     .body(resource);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        } catch (MalformedURLException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(e.getStatusCode()).body(null);
         }
     }
-
 
     @GetMapping("/listaLega")
     public ResponseEntity<Object> findAll() {

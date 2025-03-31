@@ -129,13 +129,13 @@ function llenarDatosViaje(idViaje) {
     });
 }
 
-// Función para listar legalizaciones
-function listarLegalizacion() {
+// Función para listar legalizaciones Admin
+function listarLegalizacionAdmin() {
     $.ajax({
         url: urlListaLega,
         type: "GET",
         success: function (result) {
-            var cuerpoTabla = document.getElementById("legaTable").getElementsByTagName('tbody')[0];
+            var cuerpoTabla = document.getElementById("legaTableAdmin").getElementsByTagName('tbody')[0];
             cuerpoTabla.innerHTML = ""; // Limpiar la tabla antes de llenarla
 
             for (var i = 0; i < result.length; i++) {
@@ -173,6 +173,52 @@ function listarLegalizacion() {
     });
 }
 
+// Función para listar legalizaciones Usuario
+function listarLegalizacion() {
+    $.ajax({
+        url: urlListaLega,
+        type: "GET",
+        success: function (result) {
+            var cuerpoTabla = document.getElementById("legaTable").getElementsByTagName('tbody')[0];
+            cuerpoTabla.innerHTML = ""; // Limpiar la tabla antes de llenarla
+
+            for (var i = 0; i < result.length; i++) {
+                var viaje = result[i]["viaje"] || {}; // Verificar si el usuario existe
+                
+                // Asignar valores predeterminados si no están disponibles
+                var num_comision = viaje["num_comision"] || "No disponible";
+                var fecha_inicio = viaje["fecha_inicio"] || "No disponible";
+                var fecha_fin = viaje["fecha_fin"] || "No disponible";
+                var ruta = viaje["ruta"] || "No disponible";
+                var moti_devolucion = result[i]["moti_devolucion"] || "Ninguna";
+                var estado_lega = result[i]["estado_lega"] || "No disponible";
+
+                // Crear fila de la tabla
+                var trRegistro = document.createElement("tr");
+                trRegistro.innerHTML = `
+                    <td>${num_comision}</td>
+                    <td>${fecha_inicio}</td>
+                    <td>${fecha_fin}</td>
+                    <td>${ruta}</td>
+                    <td>${moti_devolucion}</td>
+                    <td>${estado_lega}</td>
+                    <td class="text-center align-middle">
+                        <i class="btn fas fa-edit Editar text-warning" onclick="openEditModal('${result[i]["id_legalizacion"]}')"></i>
+                    </td>
+                `;
+                cuerpoTabla.appendChild(trRegistro);
+            }
+        },
+        error: function (errorLista) {
+            Swal.fire({
+                title: "Error",
+                text: "Hubo un error al cargar los datos. " + errorLista.responseText,
+                icon: "error"
+            });
+        }
+    });
+}
+
 function openEditModal(id) {
     $.ajax({
         url: urlIdLega + id,
@@ -183,18 +229,19 @@ function openEditModal(id) {
                 return;
             }
 
-            // Verificar si `usuario` y `viaje` existen en la respuesta
             var usuario = data.usuario || {}; 
             var viaje = data.viaje || {}; 
 
-            // Llenar los campos del formulario con los datos obtenidos
+            // Llenar los campos del formulario
             document.getElementById('legaId').value = data.id_legalizacion || "";
             document.getElementById('num_comisionE').value = viaje.num_comision || "";
             document.getElementById('nombre_usuarioE').value = usuario.nombre_usuario || "No disponible";
             document.getElementById('fecha_inicioE').value = viaje.fecha_inicio || "";
             document.getElementById('fecha_finE').value = viaje.fecha_fin || "";
             document.getElementById('rutaE').value = viaje.ruta || "";
-            document.getElementById('fileE').value = data.file || "";
+
+            // Establecer el ID de la legalización en el botón de descarga
+            document.getElementById('downloadButton').setAttribute('data-id', data.id_legalizacion);
 
             // Abrir el modal
             $('#editLegalizacion').modal('show');
@@ -204,6 +251,21 @@ function openEditModal(id) {
         }
     });
 }
+
+// Función para obtener el ID de la legalización seleccionada
+function getSelectedLegalizacionId() {
+    return document.getElementById('downloadButton').getAttribute('data-id');
+}
+
+// Evento de descarga
+document.getElementById("downloadButton").addEventListener("click", function() {
+    const selectedId = getSelectedLegalizacionId(); // Obtener el ID de la legalización seleccionada
+    if (selectedId) {
+        window.location.href = `http://localhost:8080/api/v1/LCDSena/legalizacion/download/${selectedId}`; // Asegúrate de que la URL sea correcta
+    } else {
+        console.error("ID de legalización no disponible.");
+    }
+});
 
 //Input subir archivo
 const fileInput = document.getElementById("file");

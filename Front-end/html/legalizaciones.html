@@ -21,6 +21,8 @@
 
     <link rel="stylesheet" href="https://fkhadra.github.io/datepicker/datepicker.css">
 
+    <script src="/Front-end/js/cerrarSesion.js"></script>
+
     <title>Legalizaciones</title>
 </head>
 <style>
@@ -57,7 +59,7 @@
         color: #212529;
     }
 </style>
-<body onload="listarLegalizacion();">
+<body onload="listarLegalizacionAdmin();">
     <nav>
         <div class="logo-name">
             <div class="row">
@@ -93,14 +95,12 @@
                     <i class='bx bx-help-circle' ></i>
                     <span class="link-name"><b>Ayuda</b></span>
                 </a></li>
-            </ul>
-            
-            <ul class="logout-mode">
-                <li><a href="#">
-                    <i class="uil uil-signout" color="#00BB00"></i>
-                    <span class="link-name"><b>Cerrar sesion</b></span>
-                </a></li>
-            </li>
+                <li style="padding-top: 45%;">
+                    <a type="button" onclick="cerrarSesion();">
+                        <i class="uil uil-signout" style="color: #00BB00;"></i>
+                        <span class="link-name"><b>Cerrar sesión</b></span>
+                    </a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -142,7 +142,7 @@
             </div>
 
             <div class="activity-data table-responsive-sm" style="padding-top: 3%;">
-                <table class="table table-hover" id="legaTable">
+                <table class="table table-hover" id="legaTableAdmin">
                     <thead>
                         <tr>
                             <th>Nombre</th>
@@ -324,7 +324,7 @@
                                         <span class="input-group-text">
                                             <box-icon name='file-pdf' type='solid' color='#ff1f1f'></box-icon>
                                         </span>
-                                        <button id="fileDownload" class="btn btn-outline-secondary custom-hover flex-grow-1">
+                                        <button id="downloadButton" class="btn btn-outline-secondary custom-hover flex-grow-1">
                                             Descargar PDF
                                         </button>
                                     </div>

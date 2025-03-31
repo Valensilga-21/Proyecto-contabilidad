@@ -23,9 +23,9 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <script type="module" src="https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js"></script>
-    <script type="module" src="https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js"></script>
-    <script type="module" src="https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js"></script>
+    <script src="/Front-end/js/cerrarSesion.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <title>PerfilUsuario</title>
 
@@ -119,39 +119,33 @@
 
         <div class="menu-items">
             <ul class="nav-links">
-                <li><a href="/Front-end/html/inicio.html">
+                <li><a href="/Front-end/html/Usuario/inicioUsuario.html">
                     <i class="uil uil-estate"></i>
                     <span class="link-name"><b>Inicio</b></span>
                 </a></li>
-                <li><a href="/Front-end/html/usuarios.html">
-                    <i class='bx bx-group' ></i>
-                    <span class="link-name"><b>Usuarios</b></span>
-                </a></li>
-                <li><a href="/Front-end/html/legalizaciones.html">
+            <li><a href="/Front-end/html/Usuario/legalizaciones.html">
                     <i class="uil uil-chart"></i>
                     <span class="link-name"><b>Legalizaciones</b></span>
                 </a></li>
-                <li><a href="/Front-end/html/viajes.html">
+            <li><a href="/Front-end/html/Usuario/viajes.html">
                     <i class='bx bx-car'></i>
                     <span class="link-name"><b>Viajes</b></span>
                 </a></li>
-                <li><a href="/Front-end/html/perfil.html">
-                    <i class='bx bx-cog' ></i>
+            <li><a href="/Front-end/html/Usuario/perfil.html">
+                    <i class='bx bx-cog'></i>
                     <span class="link-name"><b>Perfil</b></span>
                 </a></li>
-                <li><a href="/Front-end/html/ayuda.html">
-                    <i class='bx bx-help-circle' ></i>
+            <li><a href="/Front-end/html/Usuario/ayuda.html">
+                    <i class='bx bx-help-circle'></i>
                     <span class="link-name"><b>Ayuda</b></span>
                 </a></li>
-            </ul>
-            
-            <ul class="logout-mode">
-                <li><a href="#" id="logout" type="button">
-                    <i class="uil uil-signout" color="#00BB00"></i>
-                    <span class="link-name"><b>Cerrar sesion</b></span>
-                </a></li>
-            </li>
-            </ul>
+                <li style="padding-top: 65%;">
+                    <a type="button" onclick="cerrarSesion();">
+                        <i class="uil uil-signout" style="color: #00BB00;"></i>
+                        <span class="link-name"><b>Cerrar sesión</b></span>
+                    </a>
+                </li>
+        </ul>
         </div>
     </nav>
 

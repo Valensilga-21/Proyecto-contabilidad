@@ -18,6 +18,12 @@
 
     <script type="module" src="/Front-end/js/contadores.js"></script>
 
+    <script src="/Front-end/js/cerrarSesion.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <title>InicioUsuario</title>
 </head>
 <style>
@@ -72,14 +78,12 @@
                 <li><a href="/Front-end/html/Usuario/ayuda.html">
                         <i class='bx bx-help-circle'></i>
                         <span class="link-name"><b>Ayuda</b></span>
-                    </a></li>
-            </ul>
-
-            <ul class="logout-mode">
-                <li><a href="#">
-                        <i class="uil uil-signout" color="#00BB00"></i>
+                </a></li>
+                <li style="padding-top: 65%;">
+                    <a type="button" onclick="cerrarSesion();">
+                        <i class="uil uil-signout" style="color: #00BB00;"></i>
                         <span class="link-name"><b>Cerrar sesión</b></span>
-                    </a></li>
+                    </a>
                 </li>
             </ul>
         </div>

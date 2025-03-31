@@ -78,7 +78,7 @@ function registrarViaje() {
 }
 
 
-// Función para listar viajes
+// Función para listar viajes Usuario
 function listarViajes() {
     $.ajax({
         url: urlListaViajes,
@@ -119,6 +119,52 @@ function listarViajes() {
             Swal.fire({
                 title: "Error",
                 text: "Hubo un error al cargar los datos." + errorLista,
+                icon: "error"
+            });
+        }
+    });
+}
+
+// Función para listar viajes Admin
+function listarViajesAdmin() {
+    $.ajax({
+        url: urlListaViajes,
+        type: "GET",
+        success: function (result) {
+            var cuerpoTabla = document.getElementById("viajesTableAdmin").getElementsByTagName('tbody')[0];
+            cuerpoTabla.innerHTML = ""; // Limpiar la tabla antes de llenarla
+
+            for (var i = 0; i < result.length; i++) {
+                var usuario = result[i]["usuario"] || {};
+                
+                // Asignar valores predeterminados si no están disponibles
+                var nombre_usuario = usuario["nombre_usuario"] || "No disponible";
+                var cargo = usuario["cargo"] || "No disponible";
+                var centro = usuario["centro"] || "No disponible";
+                var fecha_inicio = result[i]["fecha_inicio"] || "No disponible";
+                var fecha_fin = result[i]["fecha_fin"] || "No disponible";
+                var ruta = result[i]["ruta"] || "No disponible";
+
+                // Crear fila de la tabla
+                var trRegistro = document.createElement("tr");
+                trRegistro.innerHTML = `
+                    <td>${nombre_usuario}</td>
+                    <td>${cargo}</td>
+                    <td>${centro}</td>
+                    <td>${fecha_inicio}</td>
+                    <td>${fecha_fin}</td>
+                    <td>${ruta}</td>
+                    <td class="text-center align-middle">
+                        <i class="btn fas fa-edit Editar text-warning" onclick="openEditModal('${result[i]["id_viaje"]}')"></i>
+                    </td>
+                `;
+                cuerpoTabla.appendChild(trRegistro);
+            }
+        },
+        error: function (errorLista) {
+            Swal.fire({
+                title: "Error",
+                text: "Hubo un error al cargar los datos. " + errorLista.responseText,
                 icon: "error"
             });
         }
@@ -212,6 +258,7 @@ function enviarEdicion(id, num_comision, fecha_inicio, fecha_fin, ruta, estado_v
             });
             $('#editViaje').modal('hide');
             listarViajes();
+            listarViajesAdmin();
         },
         error: function (xhr, status, error) {
             console.error('Error al actualizar el viaje:', xhr.responseText, status, error);

@@ -18,6 +18,13 @@
 
     <script type="module" src="/Front-end/js admin/pdf2.js"></script>
 
+    <script src="/Front-end/js/cerrarSesion.js"></script>
+    <script src="/Front-end/js/config.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <title>InicioAdmin</title>
 </head>
 <style>
@@ -76,13 +83,11 @@
                         <i class='bx bx-help-circle'></i>
                         <span class="link-name"><b>Ayuda</b></span>
                     </a></li>
-            </ul>
-
-            <ul class="logout-mode cl">
-                <li><a type="button" onclick="signOut();">
-                        <i class="uil uil-signout" color="#00BB00"></i>
-                        <span class="link-name"><b>Cerrar sesion</b></span>
-                    </a></li>
+                <li style="padding-top: 45%;">
+                    <a type="button" onclick="cerrarSesion();">
+                        <i class="uil uil-signout" style="color: #00BB00;"></i>
+                        <span class="link-name"><b>Cerrar sesión</b></span>
+                    </a>
                 </li>
             </ul>
         </div>

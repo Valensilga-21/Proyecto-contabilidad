@@ -81,7 +81,6 @@ async function registrarUsuario() {
 }
 
 //LOGIN
-// LOGIN
 async function loginUsuario() {
     var username = document.getElementById('username').value;
     var password = document.getElementById('password').value;
@@ -158,7 +157,6 @@ async function loginUsuario() {
         });
     }
 }
-
 
 // Función para listar usuarios
 function listarUsuarios() {

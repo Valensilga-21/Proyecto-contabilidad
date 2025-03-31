@@ -232,6 +232,16 @@ public class usuarioPrivController {
         return ResponseEntity.status(HttpStatus.OK).body("Contraseña cambiada exitosamente");
     }
 
+    @PostMapping("/cerrar-sesion")
+    public ResponseEntity<String> cerrarSesion() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null) {
+            SecurityContextHolder.clearContext();
+        }
+
+        return ResponseEntity.ok("Sesión cerrada exitosamente. Por favor, elimine el token del lado del cliente.");
+    }
+
     @PostMapping("recuperarContrasena/")
 	public ResponseEntity<Map<String, String>> recuperarContrasena(@RequestBody recuperarContrasenaRequest request) {
 	    Map<String, String> response = new HashMap<>();
