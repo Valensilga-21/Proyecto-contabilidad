@@ -1,7 +1,5 @@
 package com.sena.lcdsena.service;
 
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,9 +16,6 @@ public class legalizacionService implements ilegalizacionService{
 
     @Autowired
     private ilegalizacion data;
-
-    @Autowired
-    private ilegalizacion ilegalizacion;
 
     @Autowired
     private ilegaRepository ilegalizacionRepository;

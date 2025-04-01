@@ -292,3 +292,27 @@ function deshabilitarUsuario(idUsuario) {
         }
     });
 }
+
+
+//Profile
+$(document).ready(function () {
+    $.ajax({
+        url: urlProfile, // Ajusta la URL según tu backend
+        method: "GET",
+        dataType: "json",
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("token") // Si usas JWT
+        },
+        success: function (response) {
+            // Mostrar datos en el HTML
+            $("#nombre_usuario").text(response.nombre_usuario);
+            $("#documento_usuario").text(response.documento_usuario);
+            $("#username").text(response.username);
+            $("#centro").text(response.centro);
+            $("#cargo").text(response.cargo);
+        },
+        error: function (xhr, status, error) {
+            console.error("Error al obtener los datos del usuario:", error);
+        }
+    });
+});

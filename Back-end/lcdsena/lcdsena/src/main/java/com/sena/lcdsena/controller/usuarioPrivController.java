@@ -94,9 +94,13 @@ public class usuarioPrivController {
     @GetMapping("profile/")
     public ResponseEntity<usuario> getProfile() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth == null || !(auth.getPrincipal() instanceof usuario)) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
         usuario usuario = (usuario) auth.getPrincipal();
-        return new ResponseEntity<usuario>(usuario, HttpStatus.OK);
+        return ResponseEntity.ok(usuario);
     }
+
 
     @GetMapping("obtenerNombreusuario/")
     public ResponseEntity<Map<String, String>> obtenerNombreUsuario() {

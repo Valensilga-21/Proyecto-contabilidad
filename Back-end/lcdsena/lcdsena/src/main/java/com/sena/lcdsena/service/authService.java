@@ -27,7 +27,6 @@ import com.sena.lcdsena.model.restablecerContrasena;
 import com.sena.lcdsena.model.role;
 import com.sena.lcdsena.model.usuario;
 import com.sena.lcdsena.model.usuarioNoAprobadoException;
-import com.sena.lcdsena.model.viaje;
 
 import lombok.RequiredArgsConstructor;
 import net.sf.jasperreports.engine.JRException;
