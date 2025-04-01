@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -33,7 +34,7 @@
     <title>Usuarios</title>
 </head>
 <style>
-    .button:hover{
+    .button:hover {
         background-color: rgb(187, 187, 187);
         border-radius: 15px;
     }
@@ -43,13 +44,14 @@
         margin-top: 3px;
     }
 
-    .btns{
+    .btns {
         border-radius: 12px;
     }
 </style>
+
 <body onload="listarUsuarios();">
     <nav>
-        <div class="logo-name" >
+        <div class="logo-name">
             <div class="row">
                 <div id="imglogo" class="container">
                     <img src="/Front-end/img/LCD-removebg 1.png" onclick="logout();" alt="" style="width: 100px;">
@@ -60,94 +62,97 @@
         <div class="menu-items">
             <ul class="nav-links">
                 <li><a href="/Front-end/html/inicio.html">
-                    <i class="uil uil-estate"></i>
-                    <span class="link-name"><b>Inicio</b></span>
-                </a></li>
+                        <i class="uil uil-estate"></i>
+                        <span class="link-name"><b>Inicio</b></span>
+                    </a></li>
                 <li><a href="/Front-end/html/usuarios.html">
-                    <i class='bx bx-group' ></i>
-                    <span class="link-name"><b>Usuarios</b></span>
-                </a></li>
+                        <i class='bx bx-group'></i>
+                        <span class="link-name"><b>Usuarios</b></span>
+                    </a></li>
                 <li><a href="/Front-end/html/legalizaciones.html">
-                    <i class="uil uil-chart"></i>
-                    <span class="link-name"><b>Legalizaciones</b></span>
-                </a></li>
+                        <i class="uil uil-chart"></i>
+                        <span class="link-name"><b>Legalizaciones</b></span>
+                    </a></li>
                 <li><a href="/Front-end/html/viajes.html">
-                    <i class='bx bx-car'></i>
-                    <span class="link-name"><b>Viajes</b></span>
-                </a></li>
+                        <i class='bx bx-car'></i>
+                        <span class="link-name"><b>Viajes</b></span>
+                    </a></li>
                 <li><a href="/Front-end/html/perfil.html">
-                    <i class='bx bx-cog' ></i>
-                    <span class="link-name"><b>Perfil</b></span>
-                </a></li>
+                        <i class='bx bx-cog'></i>
+                        <span class="link-name"><b>Perfil</b></span>
+                    </a></li>
                 <li><a href="/Front-end/html/ayuda.html">
-                    <i class='bx bx-help-circle' ></i>
-                    <span class="link-name"><b>Ayuda</b></span>
-                </a></li>
+                        <i class='bx bx-help-circle'></i>
+                        <span class="link-name"><b>Ayuda</b></span>
+                    </a></li>
             </ul>
-            
+
             <ul class="logout-mode" onclick="logout();">
                 <li><a href="#">
-                    <i class="uil uil-signout" color="#00BB00"></i>
-                    <span class="link-name"><b>Cerrar sesión</b></span>
-                </a></li>
-            </li>
+                        <i class="uil uil-signout" color="#00BB00"></i>
+                        <span class="link-name"><b>Cerrar sesión</b></span>
+                    </a></li>
+                </li>
             </ul>
         </div>
     </nav>
 
     <section class="dashboard">
-        <div class="row justify-content-center" style="padding-top: 4%;">
-            <div class="col-md-1 col-sm-2 col-3">
-                <span>
-                    <button class="btn" style="background-color: #00BB00;" data-bs-toggle="modal" data-bs-target="#myModal">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16" color="#ffff" size="20%">
-                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
-                        </svg>
-                    </button>
-                </span>
+        <div class="row justify-content-center align-items-center g-2" style="padding-top: 4%;">
+            <div class="col-md-1 col-sm-2 col-3 text-center">
+                <button class="btn w-100" style="background-color: #00BB00;" data-bs-toggle="modal"
+                    data-bs-target="#myModal">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-plus" viewBox="0 0 16 16" color="#ffff">
+                        <path
+                            d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+                    </svg>
+                </button>
             </div>
             <div class="col-md-2 col-sm-4 col-6">
-                <div class="button input-group d-grid gap-2">
-                    <button class="btns">
-                        <div style="margin-right: 2px;">
-                            <box-icon name='to-top' type='solid' rotate='180' size="18px"></box-icon>
-                        </div>
+                <div class="d-grid">
+                    <button class="btns w-100 px-2 py-2">
+                        <box-icon name='to-top' type='solid' rotate='180' size="18px"></box-icon>
                         <b>Descargar PDF</b>
                     </button>
                 </div>
             </div>
-            <div class="col-md-3 col-sm-6 col-12 responsive">
-                <div class="input-group mb-3">
-                    <button type="button" class="btn btn-outline-secondary" onclick="listarUsuarios();"><span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16" style="color: black;">
-                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                      </svg></span></button>
-                    <input type="text" id="texto" class="form-control" placeholder="Buscar..." aria-label="Example text with button addon" aria-describedby="button-addon1">
+            <div class="col-md-3 col-sm-6 col-12">
+                <div class="input-group">
+                    <button type="button" class="btn btn-outline-secondary" onclick="listarUsuarios();">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-search" viewBox="0 0 16 16">
+                            <path
+                                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                        </svg>
+                    </button>
+                    <input type="text" id="texto" class="form-control" placeholder="Buscar...">
                 </div>
             </div>
-            <div class="col-md-2 col-sm-3 col-6">
-                <div class="input-group" style="border-radius: 10px 10px 10px 10px; border-left:none;">
-                    <span class="input-group-text"><box-icon name='filter' ></box-icon></span>
-                    <select name="filtrocentro" id="filtrarCentro" class="form-select" style="background-color: #ffffff; border-radius: 0px 0px 10px 0px; border-left:none;">
+            <div class="col-md-2 col-sm-4 col-6">
+                <div class="input-group">
+                    <span class="input-group-text"><box-icon name='filter'></box-icon></span>
+                    <select id="filtrarCentro" class="form-select">
                         <option value="" disabled selected>Centro</option>
                         <option value="cies">CIES</option>
                         <option value="direccion">Dirección</option>
                     </select>
                 </div>
             </div>
-            <div class="col-md-2 col-sm-3 col-6">
-                <div class="input-group" style="border-radius: 10px 10px 10px 10px; border-left:none;">
-                    <span class="input-group-text"><box-icon name='filter' ></box-icon></span>
-                    <select name="estado" id="estado" class="form-select" style="background-color: #ffffff; border-radius: 0px 0px 10px 0px; border-left:none;">
+            <div class="col-md-2 col-sm-4 col-6">
+                <div class="input-group">
+                    <span class="input-group-text"><box-icon name='filter'></box-icon></span>
+                    <select id="estado" class="form-select">
                         <option value="" disabled selected>Roles</option>
-                        <option value="completadas">Usuario</option>
-                        <option value="pendientes">Administrador</option>
+                        <option value="usuario">Usuario</option>
+                        <option value="admin">Administrador</option>
                     </select>
                 </div>
             </div>
-            <div class="col-md-2 col-sm-3 col-6">
-                <div class="input-group" style="border-radius: 10px 10px 10px 10px; border-left:none;">
-                    <span class="input-group-text"><box-icon name='filter' ></box-icon></span>
-                    <select name="estado" id="estado" class="form-select" style="background-color: #ffffff; border-radius: 0px 0px 10px 0px; border-left:none;">
+            <div class="col-md-2 col-sm-4 col-6">
+                <div class="input-group">
+                    <span class="input-group-text"><box-icon name='filter'></box-icon></span>
+                    <select id="estado" class="form-select">
                         <option value="" disabled selected>Estado</option>
                         <option value="activo">Activos</option>
                         <option value="pendiente">Pendientes</option>
@@ -157,234 +162,265 @@
             </div>
         </div>
 
-            <div class="activity-data table-responsive-sm" style="padding-top: 3%;">
-                <table id="userTable" class="table table-hover table-responsive-sm">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Documento</th>
-                            <th>Nombre</th>
-                            <th>Correo</th>
-                            <th>Centro</th>
-                            <th>Cargo</th>
-                            <th>Rol</th>
-                            <th>Estado</th>
-                            <th style="text-align: center; justify-content: center;">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        
-                    </tbody>
-                </table>
-            </div>
+
+        <div class="activity-data table-responsive-sm" style="padding-top: 3%;">
+            <table id="userTable" class="table table-hover table-responsive-sm">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Documento</th>
+                        <th>Nombre</th>
+                        <th>Correo</th>
+                        <th>Centro</th>
+                        <th>Cargo</th>
+                        <th>Rol</th>
+                        <th>Estado</th>
+                        <th style="text-align: center; justify-content: center;">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
         </div>
     </section>
 
     <!-- Modal Registro-->
-<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content" style="padding: 10%; border-radius: 15px;">
-            <h3 style="font-weight: 600;">Registrar Usuario</h3>
-            <div class="modal-body">
-                <div class="row" id="signup">
-                    <div class="mb-3 col col-xl-6 col-12 justify-content-between">
-                        <label for="usuario" class="form-label visually-hidden">Usuario</label>
-                        <div class="input-group">
-                            <span class="input-group-text"><box-icon name='user' color="#000000"></box-icon></span>
-                            <input type="text" class="form-control" id="nombre_usuario" placeholder="Nombre Completo">
+    <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="padding: 10%; border-radius: 15px;">
+                <h3 style="font-weight: 600;">Registrar Usuario</h3>
+                <div class="modal-body">
+                    <div class="row" id="signup">
+                        <div class="mb-3 col col-xl-6 col-12 justify-content-between">
+                            <label for="usuario" class="form-label visually-hidden">Usuario</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><box-icon name='user' color="#000000"></box-icon></span>
+                                <input type="text" class="form-control" id="nombre_usuario"
+                                    placeholder="Nombre Completo">
+                            </div>
+                            <div class="error-message" id="usuarioError" style="color: red; display: none;"></div>
                         </div>
-                        <div class="error-message" id="usuarioError" style="color: red; display: none;"></div>
-                    </div>
-                    <div class="mb-4 col col-xl-6 col-12">
-                        <label for="" class="form-label visually-hidden">Cargo</label>
-                        <div class="input-group">
-                            <span class="input-group-text"><box-icon name='briefcase' color="#000000"></box-icon></box-icon></box-icon></span>
-                            <select name="cargo" id="cargo" class="form-select" style="background-color: #EFF3F6; border-radius: 0px 0px 10px 0px; border-left:none;">
-                                <option value="" disabled selected>Cargo</option>
-                                <option value="funcionario">Funcionario</option>
-                                <option value="contratista">Contratista</option>
-                            </select>
+                        <div class="mb-4 col col-xl-6 col-12">
+                            <label for="" class="form-label visually-hidden">Cargo</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><box-icon name='briefcase'
+                                        color="#000000"></box-icon></box-icon></box-icon></span>
+                                <select name="cargo" id="cargo" class="form-select"
+                                    style="background-color: #EFF3F6; border-radius: 0px 0px 10px 0px; border-left:none;">
+                                    <option value="" disabled selected>Cargo</option>
+                                    <option value="funcionario">Funcionario</option>
+                                    <option value="contratista">Contratista</option>
+                                </select>
+                            </div>
+                            <div class="error-message" id="cargoError" style="color: red; display: none;"></div>
                         </div>
-                        <div class="error-message" id="cargoError" style="color: red; display: none;"></div>
-                    </div>
-                    <div class="mb-4 col col-xl-6 col-12">
-                        <label for="contraseña" class="form-label visually-hidden">Documento</label>
-                        <div class="input-group">
-                            <span class="input-group-text"><box-icon name='id-card' color="#000000"></box-icon></span>
-                            <input type="number" class="form-control" id="num_documento" placeholder="Documento" >
+                        <div class="mb-4 col col-xl-6 col-12">
+                            <label for="contraseña" class="form-label visually-hidden">Documento</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><box-icon name='id-card'
+                                        color="#000000"></box-icon></span>
+                                <input type="number" class="form-control" id="num_documento" placeholder="Documento">
+                            </div>
+                            <div class="error-message" id="documentoError" style="color: red; display:none;"></div>
                         </div>
-                        <div class="error-message" id="documentoError" style="color: red; display:none;"></div>
-                    </div>
-                    <div class="mb-4 col col-xl-6 col-12">
-                        <label for="contraseña" class="form-label visually-hidden">Contraseña</label>
-                        <div class="input-group">
-                            <span class="input-group-text"><box-icon name='lock-alt' color="#000000"></box-icon></span>
-                            <input type="password" class="form-control" id="contrasena" placeholder="Contraseña" onpaste="return false" 
-                            oncopy="return false" oncut="return false">
+                        <div class="mb-4 col col-xl-6 col-12">
+                            <label for="contraseña" class="form-label visually-hidden">Contraseña</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><box-icon name='lock-alt'
+                                        color="#000000"></box-icon></span>
+                                <input type="password" class="form-control" id="contrasena" placeholder="Contraseña"
+                                    onpaste="return false" oncopy="return false" oncut="return false">
+                            </div>
+                            <div class="error-message" id="contraseñaError" style="color: red; display: none;"></div>
                         </div>
-                        <div class="error-message" id="contraseñaError" style="color: red; display: none;"></div>
-                    </div>
-                    <div class="mb-4 col col-xl-6 col-12">
-                        <label for="contraseña" class="form-label visually-hidden">Correo</label>
-                        <div class="input-group">
-                            <span class="input-group-text"><box-icon name='envelope' color="#000000"></box-icon></span>
-                            <input type="email" class="form-control" id="correo_usuario" placeholder="Correo" >
+                        <div class="mb-4 col col-xl-6 col-12">
+                            <label for="contraseña" class="form-label visually-hidden">Correo</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><box-icon name='envelope'
+                                        color="#000000"></box-icon></span>
+                                <input type="email" class="form-control" id="correo_usuario" placeholder="Correo">
+                            </div>
+                            <div class="error-message" id="correoError" style="color: red; display: none;"></div>
                         </div>
-                        <div class="error-message" id="correoError" style="color: red; display: none;"></div>
-                    </div>
-                    <div class="mb-4 col col-xl-6 col-12">
-                        <label for="contraseña" class="form-label visually-hidden">Confirmación contraseña</label>
-                        <div class="input-group">
-                            <span class="input-group-text"><box-icon name='lock-alt' color="#000000"></box-icon></span>
-                            <input type="password" class="form-control" id="confirm_contra" placeholder="Confirmación contraseña" onpaste="return false" 
-                            oncopy="return false" oncut="return false">
+                        <div class="mb-4 col col-xl-6 col-12">
+                            <label for="contraseña" class="form-label visually-hidden">Confirmación contraseña</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><box-icon name='lock-alt'
+                                        color="#000000"></box-icon></span>
+                                <input type="password" class="form-control" id="confirm_contra"
+                                    placeholder="Confirmación contraseña" onpaste="return false" oncopy="return false"
+                                    oncut="return false">
+                            </div>
+                            <div class="error-message" id="confirmContraError" style="color: red; display: none;"></div>
                         </div>
-                        <div class="error-message" id="confirmContraError" style="color: red; display: none;"></div>
-                    </div>
-                    <div class="mb-4 col col-xl-6 col-12">
-                        <label for="centro" class="form-label visually-hidden">Centro</label>
-                        <div class="input-group" style="border-radius: 10px 10px 10px 10px; border-left:none;">
-                            <span class="input-group-text"><box-icon name='buildings' color="#000000"></box-icon></span>
-                            <select name="centro" id="centro" class="form-select" style="background-color: #EFF3F6; border-radius: 0px 0px 10px 0px; border-left:none;">
-                                <option value="" disabled selected>Centro</option>
-                                <option value="cies">CIES</option>
-                                <option value="direccion">Dirección</option>
-                            </select>
+                        <div class="mb-4 col col-xl-6 col-12">
+                            <label for="centro" class="form-label visually-hidden">Centro</label>
+                            <div class="input-group" style="border-radius: 10px 10px 10px 10px; border-left:none;">
+                                <span class="input-group-text"><box-icon name='buildings'
+                                        color="#000000"></box-icon></span>
+                                <select name="centro" id="centro" class="form-select"
+                                    style="background-color: #EFF3F6; border-radius: 0px 0px 10px 0px; border-left:none;">
+                                    <option value="" disabled selected>Centro</option>
+                                    <option value="cies">CIES</option>
+                                    <option value="direccion">Dirección</option>
+                                </select>
+                            </div>
+                            <div class="error-message" id="centroError" style="color: red; display: none;"></div>
                         </div>
-                        <div class="error-message" id="centroError" style="color: red; display: none;"></div>
-                    </div>
-                    <div class="mb-4 col col-xl-6 col-12">
-                        <label for="rol" class="form-label visually-hidden">Rol</label>
-                        <div class="input-group" style="border-radius: 10px 10px 10px 10px; border-left:none;">
-                            <span class="input-group-text"><box-icon name='user-circle' color="#000000"></box-icon></span>
-                            <select name="centro" id="rol" class="form-select" style="background-color: #EFF3F6; border-radius: 0px 0px 10px 0px; border-left:none;">
-                                <option value="">Rol</option>
-                                <option value="usuario" selected>Usuario</option>
-                                <option value="admin">Administrador</option>
-                            </select>
+                        <div class="mb-4 col col-xl-6 col-12">
+                            <label for="rol" class="form-label visually-hidden">Rol</label>
+                            <div class="input-group" style="border-radius: 10px 10px 10px 10px; border-left:none;">
+                                <span class="input-group-text"><box-icon name='user-circle'
+                                        color="#000000"></box-icon></span>
+                                <select name="centro" id="rol" class="form-select"
+                                    style="background-color: #EFF3F6; border-radius: 0px 0px 10px 0px; border-left:none;">
+                                    <option value="">Rol</option>
+                                    <option value="usuario" selected>Usuario</option>
+                                    <option value="admin">Administrador</option>
+                                </select>
+                            </div>
+                            <div class="error-message" id="centroError" style="color: red; display: none;"></div>
                         </div>
-                        <div class="error-message" id="centroError" style="color: red; display: none;"></div>
                     </div>
+                    </form>
                 </div>
-            </form>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" id="limpiar" class="btn btn-secondary">Limpiar</button> 
-                <button type="submit" class="btn" style="background-color: #00BB00; color: white; font-weight: 600;" id="submitSignUp">Registrar</button>
+                <div class="modal-footer">
+                    <button type="submit" id="limpiar" class="btn btn-secondary">Limpiar</button>
+                    <button type="submit" class="btn" style="background-color: #00BB00; color: white; font-weight: 600;"
+                        id="submitSignUp">Registrar</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
- <!-- Modal Editar usuario-->
- <div class="modal fade" id="editUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content" style="padding: 10%; border-radius: 15px;">
-            <h3 style="font-weight: 600;">Editar Usuario</h3>
-            <div class="modal-body">
-                <div class="row" id="signup">
-                    <div class="mb-3 col col-xl-6 col-12 justify-content-between">
-                        <label for="usuario" class="form-label visually-hidden">Usuario</label>
-                        <div class="input-group">
-                            <input type="text" class="visually-hidden" id="userId">
-                            <span class="input-group-text"><box-icon name='user' color="#00BB00"></box-icon></span>
-                            <input type="text" class="form-control" id="nombreUsuario" placeholder="Nombre Completo">
+    <!-- Modal Editar usuario-->
+    <div class="modal fade" id="editUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="padding: 10%; border-radius: 15px;">
+                <h3 style="font-weight: 600;">Editar Usuario</h3>
+                <div class="modal-body">
+                    <div class="row" id="signup">
+                        <div class="mb-3 col col-xl-6 col-12 justify-content-between">
+                            <label for="usuario" class="form-label visually-hidden">Usuario</label>
+                            <div class="input-group">
+                                <input type="text" class="visually-hidden" id="userId">
+                                <span class="input-group-text"><box-icon name='user' color="#00BB00"></box-icon></span>
+                                <input type="text" class="form-control" id="nombreUsuario"
+                                    placeholder="Nombre Completo">
+                            </div>
+                            <div class="error-message" id="usuarioError" style="color: red; display: none;"></div>
                         </div>
-                        <div class="error-message" id="usuarioError" style="color: red; display: none;"></div>
-                    </div>
-                    <div class="mb-4 col col-xl-6 col-12">
-                        <label for="" class="form-label visually-hidden">Cargo</label>
-                        <div class="input-group">
-                            <span class="input-group-text"><box-icon name='briefcase' color="#00BB00"></box-icon></box-icon></box-icon></span>
-                            <select name="cargo" id="cargoU" class="form-select" style="background-color: #EFF3F6; border-radius: 0px 0px 10px 0px; border-left:none;">
-                                <option value="" disabled selected>Cargo</option>
-                                <option value="funcionario">Funcionario</option>
-                                <option value="contratista">Contratista</option>
-                            </select>
+                        <div class="mb-4 col col-xl-6 col-12">
+                            <label for="" class="form-label visually-hidden">Cargo</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><box-icon name='briefcase'
+                                        color="#00BB00"></box-icon></box-icon></box-icon></span>
+                                <select name="cargo" id="cargoU" class="form-select"
+                                    style="background-color: #EFF3F6; border-radius: 0px 0px 10px 0px; border-left:none;">
+                                    <option value="" disabled selected>Cargo</option>
+                                    <option value="funcionario">Funcionario</option>
+                                    <option value="contratista">Contratista</option>
+                                </select>
+                            </div>
+                            <div class="error-message" id="cargoError" style="color: red; display: none;"></div>
                         </div>
-                        <div class="error-message" id="cargoError" style="color: red; display: none;"></div>
-                    </div>
-                    <div class="mb-4 col col-xl-6 col-12">
-                        <label for="contraseña" class="form-label visually-hidden">Documento</label>
-                        <div class="input-group">
-                            <span class="input-group-text"><box-icon name='id-card' color="#00BB00"></box-icon></span>
-                            <input type="number" class="form-control" id="userDocument" placeholder="Documento" >
+                        <div class="mb-4 col col-xl-6 col-12">
+                            <label for="contraseña" class="form-label visually-hidden">Documento</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><box-icon name='id-card'
+                                        color="#00BB00"></box-icon></span>
+                                <input type="number" class="form-control" id="userDocument" placeholder="Documento">
+                            </div>
+                            <div class="error-message" id="documentoError" style="color: red; display:none;"></div>
                         </div>
-                        <div class="error-message" id="documentoError" style="color: red; display:none;"></div>
-                    </div>
-                    <div class="mb-4 col col-xl-6 col-12 visually-hidden">
-                        <label for="contraseña" class="form-label visually-hidden">Contraseña</label>
-                        <div class="input-group">
-                            <span class="input-group-text"><box-icon name='lock-alt' color="#00BB00"></box-icon></span>
-                            <input type="password" class="form-control" id="contrasenaU" placeholder="Contraseña" onpaste="return false" 
-                            oncopy="return false" oncut="return false" disabled selected>
+                        <div class="mb-4 col col-xl-6 col-12 visually-hidden">
+                            <label for="contraseña" class="form-label visually-hidden">Contraseña</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><box-icon name='lock-alt'
+                                        color="#00BB00"></box-icon></span>
+                                <input type="password" class="form-control" id="contrasenaU" placeholder="Contraseña"
+                                    onpaste="return false" oncopy="return false" oncut="return false" disabled selected>
+                            </div>
+                            <div class="error-message" id="contraseñaError" style="color: red; display: none;"></div>
                         </div>
-                        <div class="error-message" id="contraseñaError" style="color: red; display: none;"></div>
-                    </div>
-                    <div class="mb-4 col col-xl-6 col-12">
-                        <label for="contraseña" class="form-label visually-hidden">Correo</label>
-                        <div class="input-group">
-                            <span class="input-group-text"><box-icon name='envelope' color="#00BB00"></box-icon></span>
-                            <input type="email" class="form-control" id="username" placeholder="Correo" >
+                        <div class="mb-4 col col-xl-6 col-12">
+                            <label for="contraseña" class="form-label visually-hidden">Correo</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><box-icon name='envelope'
+                                        color="#00BB00"></box-icon></span>
+                                <input type="email" class="form-control" id="username" placeholder="Correo">
+                            </div>
+                            <div class="error-message" id="correoError" style="color: red; display: none;"></div>
                         </div>
-                        <div class="error-message" id="correoError" style="color: red; display: none;"></div>
-                    </div>
-                    <div class="mb-4 col col-xl-6 col-12 visually-hidden">
-                        <label for="contraseña" class="form-label visually-hidden">Confirmación contraseña</label>
-                        <div class="input-group">
-                            <span class="input-group-text"><box-icon name='lock-alt' color="#00BB00"></box-icon></span>
-                            <input type="password" class="form-control" id="confirm_contraU" placeholder="Confirmación contraseña" onpaste="return false" 
-                            oncopy="return false" oncut="return false" disabled selected>
+                        <div class="mb-4 col col-xl-6 col-12 visually-hidden">
+                            <label for="contraseña" class="form-label visually-hidden">Confirmación contraseña</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><box-icon name='lock-alt'
+                                        color="#00BB00"></box-icon></span>
+                                <input type="password" class="form-control" id="confirm_contraU"
+                                    placeholder="Confirmación contraseña" onpaste="return false" oncopy="return false"
+                                    oncut="return false" disabled selected>
+                            </div>
+                            <div class="error-message" id="confirmContraError" style="color: red; display: none;"></div>
                         </div>
-                        <div class="error-message" id="confirmContraError" style="color: red; display: none;"></div>
-                    </div>
-                    <div class="mb-4 col col-xl-6 col-12">
-                        <label for="" class="form-label visually-hidden">Centro</label>
-                        <div class="input-group" style="border-radius: 10px 10px 10px 10px; border-left:none;">
-                            <span class="input-group-text"><box-icon name='buildings' color="#39A800"></box-icon></span>
-                            <select name="centro" id="centroU" class="form-select" style="background-color: #EFF3F6; border-radius: 0px 0px 10px 0px; border-left:none;">
-                                <option value="" disabled selected>Centro</option>
-                                <option value="cies">CIES</option>
-                                <option value="direccion">Dirección</option>
-                            </select>
+                        <div class="mb-4 col col-xl-6 col-12">
+                            <label for="" class="form-label visually-hidden">Centro</label>
+                            <div class="input-group" style="border-radius: 10px 10px 10px 10px; border-left:none;">
+                                <span class="input-group-text"><box-icon name='buildings'
+                                        color="#39A800"></box-icon></span>
+                                <select name="centro" id="centroU" class="form-select"
+                                    style="background-color: #EFF3F6; border-radius: 0px 0px 10px 0px; border-left:none;">
+                                    <option value="" disabled selected>Centro</option>
+                                    <option value="cies">CIES</option>
+                                    <option value="direccion">Dirección</option>
+                                </select>
+                            </div>
+                            <div class="error-message" id="centroError" style="color: red; display: none;"></div>
                         </div>
-                        <div class="error-message" id="centroError" style="color: red; display: none;"></div>
-                    </div>
-                    <div class="mb-4 col col-xl-6 col-12">
-                        <label for="" class="form-label visually-hidden">Rol</label>
-                        <div class="input-group" style="border-radius: 10px 10px 10px 10px; border-left:none;">
-                            <span class="input-group-text"><box-icon name='user-circle' color="#00BB00"></box-icon></span>
-                            <select name="centro" id="roleU" class="form-select" style="background-color: #EFF3F6; border-radius: 0px 0px 10px 0px; border-left:none;">
-                                <option value="" disabled selected>Rol</option>
-                                <option value="usuario">Usuario</option>
-                                <option value="administrador">Administrador</option>
-                            </select>
+                        <div class="mb-4 col col-xl-6 col-12">
+                            <label for="" class="form-label visually-hidden">Rol</label>
+                            <div class="input-group" style="border-radius: 10px 10px 10px 10px; border-left:none;">
+                                <span class="input-group-text"><box-icon name='user-circle'
+                                        color="#00BB00"></box-icon></span>
+                                <select name="centro" id="roleU" class="form-select"
+                                    style="background-color: #EFF3F6; border-radius: 0px 0px 10px 0px; border-left:none;">
+                                    <option value="" disabled selected>Rol</option>
+                                    <option value="usuario">Usuario</option>
+                                    <option value="administrador">Administrador</option>
+                                </select>
+                            </div>
+                            <div class="error-message" id="centroError" style="color: red; display: none;"></div>
                         </div>
-                        <div class="error-message" id="centroError" style="color: red; display: none;"></div>
-                    </div>
-                    <div class="mb-4 col col-xl-6 col-12">
-                        <label for="" class="form-label visually-hidden">Rol</label>
-                        <div class="input-group" style="border-radius: 10px 10px 10px 10px; border-left:none;">
-                            <span class="input-group-text"><box-icon name='user-circle' color="#00BB00"></box-icon></span>
-                            <select name="centro" id="estado_usuarioU" class="form-select" style="background-color: #EFF3F6; border-radius: 0px 0px 10px 0px; border-left:none;">
-                                <option value="" disabled selected>Estado Usuario</option>
-                                <option value="activo">Activo</option>
-                                <option value="pendiente">Pendiente</option>
-                                <option value="deshabilitado">Deshabilitado</option>
-                            </select>
+                        <div class="mb-4 col col-xl-6 col-12">
+                            <label for="" class="form-label visually-hidden">Rol</label>
+                            <div class="input-group" style="border-radius: 10px 10px 10px 10px; border-left:none;">
+                                <span class="input-group-text"><box-icon name='user-circle'
+                                        color="#00BB00"></box-icon></span>
+                                <select name="centro" id="estado_usuarioU" class="form-select"
+                                    style="background-color: #EFF3F6; border-radius: 0px 0px 10px 0px; border-left:none;">
+                                    <option value="" disabled selected>Estado Usuario</option>
+                                    <option value="activo">Activo</option>
+                                    <option value="pendiente">Pendiente</option>
+                                    <option value="deshabilitado">Deshabilitado</option>
+                                </select>
+                            </div>
+                            <div class="error-message" id="centroError" style="color: red; display: none;"></div>
                         </div>
-                        <div class="error-message" id="centroError" style="color: red; display: none;"></div>
                     </div>
+                    </form>
                 </div>
-            </form>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" id="limpiarEditar" class="btn btn-secondary">Limpiar</button> 
-                <button type="submit" id="editarUsuario" class="btn" style="background-color: #00BB00; color: white; font-weight: 600;" onclick="guardarCambios();">Guardar</button>
+                <div class="modal-footer">
+                    <button type="submit" id="limpiarEditar" class="btn btn-secondary">Limpiar</button>
+                    <button type="submit" id="editarUsuario" class="btn"
+                        style="background-color: #00BB00; color: white; font-weight: 600;"
+                        onclick="guardarCambios();">Guardar</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
     <script src="/Front-end/js/config.js"></script>
 </body>
+
 </html>

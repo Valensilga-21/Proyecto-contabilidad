@@ -9,37 +9,35 @@
 </head>
 <style>
     @import "tailwindcss";
-    
-        @import "tailwindcss";
 </style>
 <body>
-    <section class="bg-gray-50 dark:bg-gray-900">
-        <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+    <section class="bg-gray-50 dark:bg-gray-900 py-8">
+        <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0" >
             <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
                 <img class="w-35 mr-2" src="/Front-end/img/LCD-removebg 2.png" alt="logo">    
             </a>
-            <div class="w-full p-6 bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md dark:bg-gray-800 dark:border-gray-700 sm:p-5">
+            <div class="w-full p-4 bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-sm dark:bg-gray-800 dark:border-gray-700 sm:p-4">
                 <h1 class="mb-1 text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                     Cambiar Contraseña
                 </h1>
                 <p class="font-normal p-1 text-gray-500 dark:text-gray-400">Es importante que escojas una contraseña fuerte y única para la seguridad de tu cuenta.</p>
                 <form class="mt-4 space-y-4 lg:mt-5 md:space-y-5" action="#">
                     <div>
-                        <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña actual <span style="color: red;">*</span></label>
-                        <input type="password" id="actualContrasena" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required />
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña actual <span style="color: red;">*</span></label>
+                        <input type="password" id="actualContrasena" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="•••••••••" required />
                     </div>
                     <div>
-                        <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nueva contraseña <span style="color: red;">*</span></label>
-                        <input type="password" id="nuevaContrasena" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required oninput="validatePassword()"/>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nueva contraseña <span style="color: red;">*</span></label>
+                        <input type="password" id="nuevaContrasena" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="•••••••••" required oninput="validatePassword()"/>
                         <div id="password-requirements" class="text-sm mt-2">
                             <p id="validation-message" class="text-red-500">La contraseña debe tener al menos una letra mayúscula, un número, un carácter especial y 8 caracteres.</p>
                         </div>
                     </div>
                     <div>
-                        <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirmación nueva contraseña <span style="color: red;">*</span></label>
-                        <input type="password" id="confirmarContrasena" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required />
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirmación nueva contraseña <span style="color: red;">*</span></label>
+                        <input type="password" id="confirmarContrasena" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="•••••••••" required />
                     </div>
-                    <button type="submit" class="submit-button w-full text-white bg-[#39A800] hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Continuar</button>
+                    <button type="submit" class="w-full text-white bg-[#39A800] hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Continuar</button>
                     <ul class="flex space-x-1 sm:mt-0 p-1">
                         <li>
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -57,37 +55,31 @@
 
     <script>
         function validatePassword() {
-        let password = document.getElementById('password').value;
-        let validationMessage = document.getElementById('validation-message');
-
-        // Validaciones
-        let message = '';
-
-        if (password.length < 8) {
-            message = 'La contraseña debe tener al menos 8 caracteres.';
-        } else if (!/[A-Z]/.test(password)) {
-            message = 'La contraseña debe tener al menos una letra mayúscula.';
-        } else if (!/\d/.test(password)) {
-            message = 'La contraseña debe contener al menos un número.';
-        } else if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
-            message = 'La contraseña debe contener al menos un carácter especial.';
-        } else {
-            message = '';
-            validationMessage.classList.remove('text-red-500');
-            validationMessage.classList.add('text-green-500');
+            let password = document.getElementById('nuevaContrasena').value;
+            let validationMessage = document.getElementById('validation-message');
+            let message = '';
+            if (password.length < 8) {
+                message = 'La contraseña debe tener al menos 8 caracteres.';
+            } else if (!/[A-Z]/.test(password)) {
+                message = 'La contraseña debe tener al menos una letra mayúscula.';
+            } else if (!/\d/.test(password)) {
+                message = 'La contraseña debe contener al menos un número.';
+            } else if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+                message = 'La contraseña debe contener al menos un carácter especial.';
+            } else {
+                message = '';
+                validationMessage.classList.remove('text-red-500');
+                validationMessage.classList.add('text-green-500');
+            }
+            if (message === '') {
+                validationMessage.classList.remove('text-red-500');
+                validationMessage.classList.add('text-green-600');
+            } else {
+                validationMessage.classList.remove('text-green-600');
+                validationMessage.classList.add('text-red-500');
+            }
+            validationMessage.textContent = message;
         }
-
-        // Si la contraseña cumple con todos los requisitos
-        if (message === '') {
-            validationMessage.classList.remove('text-red-500');
-            validationMessage.classList.add('text-green-600');
-        } else {
-            validationMessage.classList.remove('text-green-600');
-            validationMessage.classList.add('text-red-500');
-        }
-
-        validationMessage.textContent = message;
-    }
     </script>
     <script src="/Front-end/js/config.js"></script>
     <script src="/Front-end/js/cambiarcontra.js"></script>
