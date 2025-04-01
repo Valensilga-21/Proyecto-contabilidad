@@ -15,6 +15,10 @@ var urlIdViaje= urlBase + "viaje/"
 var urlListaViajes = urlBase + "viaje/listaViajes"
 var urlEditarViaje = urlBase + "viaje/"
 
+//Legalizacion
+var urlListaLega = urlBase + "legalizacion/listaLega"
+var urlIdLega = urlBase + "legalizacion/"
+
 //Filtros
 var urlFiltroUsuarios = urlBase + "usuario/"
 
@@ -32,5 +36,9 @@ var urlLegalizacion = urlBase + "/legalizacion";
 //Viaje
 var urlViaje = urlBase + "/viaje";
 
-var urlPdf = urlBase + "/Pdf"
+var urlPdf = urlBase + "/Pdf";
+
+
+//Cerra sesión
+var urlCerrarSesion = urlBase + "usuario/cerrar-sesion";
 

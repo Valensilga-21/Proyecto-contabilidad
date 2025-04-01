@@ -6,7 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <script type="module" src="/Front-end/js/legalizacion.js"></script>
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
     <link rel="stylesheet" href="/Front-end/css/bootstrap.css">
@@ -21,6 +20,9 @@
 
     <!--SweetAlert-->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://fkhadra.github.io/datepicker/datepicker.css">
+
+    <script src="/Front-end/js/cerrarSesion.js"></script>
 
     <title>Legalizaciones</title>
 </head>
@@ -68,9 +70,21 @@
     .input-group .form-control {
         border-radius: 5px;
     }
+
+    .custom-hover:hover {
+        background-color: #ebebeb !important;
+        border-color: #dbdbdb !important;
+        color: #212529;
+    }
+
+    .custom-hover {
+        background-color: #ffffff !important;
+        border-color: #dbdbdb !important;
+        color: #212529;
+    }   
 </style>
 
-<body>
+<body onload="listarLegalizacion();">
     <!-- Opcional: Envuelve el contenido en un container-fluid para mayor control -->
     <div class="container-fluid">
         <nav>
@@ -103,12 +117,12 @@
                             <i class='bx bx-help-circle'></i>
                             <span class="link-name"><b>Ayuda</b></span>
                         </a></li>
-                </ul>
-                <ul class="logout-mode">
-                    <li><a href="#">
-                            <i class="uil uil-signout" color="#00BB00"></i>
-                            <span class="link-name"><b>Cerrar sesión</b></span>
-                        </a></li>
+                        <li style="padding-top: 65%;">
+                            <a type="button" onclick="cerrarSesion();">
+                                <i class="uil uil-signout" style="color: #00BB00;"></i>
+                                <span class="link-name"><b>Cerrar sesión</b></span>
+                            </a>
+                        </li>
                 </ul>
             </div>
         </nav>
@@ -156,25 +170,23 @@
                                 d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
                         </svg>
                     </button>
-
-
-
                 </div>
                 <div class="col-12">
-                    <div class="activity-data table-responsive pt-3">
-                        <table class="table table-hover" id="tablaLegalizaciones">
+                    <div class="activity-data table-responsive-sm pt-3">
+                        <table class="table table-hover" id="legaTable">
                             <thead>
                                 <tr>
-                                    <th>#</th>
                                     <th>No. Comision</th>
                                     <th>Fecha Inicio</th>
                                     <th>Fecha Final</th>
+                                    <th>Ruta</th>
                                     <th>Motivo Devolucion</th>
                                     <th>Estado</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
+
                             </tbody>
                         </table>
                     </div>
@@ -262,79 +274,86 @@
             </div>
         </div>
 
-        <div class="modal fade" id="myModalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content">
-                    <div class="modal-header pt-4">
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="mb-3 col-12 col-xl-6"></div>
-                                <div class="mb-3 col-12 col-xl-6 text-end">
-                                    <button type="submit" id="editarViaje" class="btn"
-                                        style="background-color: #00bb0021; border: 1px solid #00BB00; color: #00BB00; font-weight: 600;">
-                                        <span><i class="bi bi-check-lg"></i></span>Guardar
-                                    </button>
-                                    <button type="submit" id="cancelar" data-bs-dismiss="modal"
-                                        class="btn btn-secondary"
-                                        style="background-color: #ff000015; border: 1px solid #ff0000; color: #ff0101; font-weight: 600;">
-                                        <span><i class="bi bi-x-lg"></i></span>Cancelar
-                                    </button>
-                                </div>
+        <!-- Modal Editar -->
+    <div class="modal fade" id="editLegalizacion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header pt-4">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="mb-3 col-12 col-xl-6"></div>
+                            <div class="mb-3 col-12 col-xl-6 text-end">
+                                <button type="submit" id="editarViaje" class="btn"
+                                    style="background-color: #00bb0021; border: 1px solid #00BB00; color: #00BB00; font-weight: 600;">
+                                    <span><i class="bi bi-check-lg"></i></span>Guardar
+                                </button>
+                                <button type="submit" id="cancelar" data-bs-dismiss="modal"
+                                    class="btn btn-secondary"
+                                    style="background-color: #ff000015; border: 1px solid #ff0000; color: #ff0101; font-weight: 600;">
+                                    <span><i class="bi bi-x-lg"></i></span>Cancelar
+                                </button>
                             </div>
                         </div>
                     </div>
-                    <div style="padding: 0 8% 5%;">
-                        <h3 style="font-weight: 600;">Editar Legalización</h3>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="mb-3 col-12 col-xl-4">
-                                    <input type="text" id="modalEditId" class="visually-hidden">
-                                    <label for="num_comisionU" class="form-label">No. comisión</label>
-                                    <select name="centro" id="num_comisionU" class="form-select"
-                                        style="background-color: #ffffff; border-radius: 5px;">
-                                        <option value="" disabled selected>Selecciona una opción</option>
-                                    </select>
-                                    <label for="fecha_inicioU" class="form-label">Fecha Inicio</label>
-                                    <div class="input-group">
-                                        <input type="date" class="form-control" id="fecha_inicioU">
-                                    </div>
-                                    <label for="fecha_finU" class="form-label">Fecha Fin</label>
-                                    <div class="input-group">
-                                        <input type="date" class="form-control" id="fecha_finU">
-                                    </div>
-                                    <label for="rutaU" class="form-label">Ruta</label>
-                                    <div class="input-group">
-                                        <textarea id="rutaU" cols="60" rows="4"></textarea>
-                                    </div>
+                </div>
+                <div style="padding: 0 8% 5%;">
+                    <h3 style="font-weight: 600;">Editar Legalización</h3>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="mb-3 col-12 col-xl-4">
+                                <input type="text" id="legaId" class="visually-hidden">
+                                <input type="text" id="modalEditId" class="visually-hidden">
+                                <label for="usuario" class="form-label">Nombre Usuario</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="nombre_usuarioE" placeholder="Nombre Completo" disabled>
                                 </div>
-                                <div class="input-group visually-hidden"
-                                    style="border-radius: 10px; border-left: none;">
-                                    <span class="input-group-text">
-                                        <box-icon name="filter"></box-icon>
-                                    </span>
-                                    <select name="centro" id="estadoU" class="form-select"
-                                        style="background-color: #ffffff; border-radius: 0 0 10px 0; border-left: none;">
-                                        <option value="">Estado</option>
-                                        <option value="completado">Completada</option>
-                                        <option value="pendiente" selected>Pendiente</option>
-                                    </select>
+                                <label for="num_comisionE" class="form-label">No. comisión</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="num_comisionE" placeholder="" disabled>
                                 </div>
-                                <div class="mb-3 col-12 col-xl-7" style="padding-left: 0;">
-                                    <label for="archivosU" class="form-label">Archivos</label>
+                                <label for="fecha_inicioE" class="form-label">Fecha Inicio</label >
+                                <div class="input-group">
+                                    <input type="date" class="form-control" id="fecha_inicioE" disabled>
+                                </div>
+                                <label for="fecha_finE" class="form-label">Fecha Fin</label >
+                                <div class="input-group">
+                                    <input type="date" class="form-control" id="fecha_finE" disabled>
+                                </div>
+                                <label for="rutaE" class="form-label">Ruta</label>
+                                <div class="input-group">
+                                    <textarea id="rutaE" cols="60" rows="4" disabled></textarea>
+                                </div>
+                            </div>
+                            <div class="input-group visually-hidden"
+                                style="border-radius: 10px; border-left: none;">
+                                <span class="input-group-text">
+                                    <box-icon name="filter"></box-icon>
+                                </span>
+                                <select name="centro" id="estadoU" class="form-select"
+                                    style="background-color: #ffffff; border-radius: 0 0 10px 0; border-left: none;" disabled>
+                                    <option value="">Estado</option>
+                                    <option value="completado">Completada</option>
+                                    <option value="pendiente" selected>Pendiente</option>
+                                </select>
+                            </div>
+                            <div class="mb-3 col-12 col-xl-7" style="padding-left: 0;">
+                                <div class="mb-3">
+                                    <label for="file" class="form-label">Archivos</label>
                                     <div class="input-group">
-                                        <span class="input-group-text"
-                                            style="justify-content: center; text-align: center;">
-                                            <i class="bi bi-file-earmark-text"></i>
+                                        <span class="input-group-text">
+                                            <box-icon name='file-pdf' type='solid' color='#ff1f1f'></box-icon>
                                         </span>
-                                        <input type="file" class="form-control" id="fileInputU"
-                                            accept="application/pdf">
+                                        <button id="downloadButton" class="btn btn-outline-secondary custom-hover flex-grow-1">
+                                            Descargar PDF
+                                        </button>
                                     </div>
-                                    <label for="motivo_devoU" class="form-label">Motivo Devolución</label>
-                                    <div class="input-group">
-                                        <textarea id="motivo_devoU" cols="65" rows="10" disabled
-                                            placeholder="En caso de que la legalización no sea aprovada, le llegará un mensaje de correo electrónico informativo y justo aquí podrá visualizar los detalles de la devolución para que corrija la legalización."
-                                            style="padding: 2%;"></textarea>
-                                    </div>
+                                </div>
+                                
+                                <label for="moti_devolucionE" class="form-label">Motivo Devolución</label>
+                                <div class="input-group">
+                                    <textarea id="moti_devolucionE" cols="65" rows="10" disabled
+                                        placeholder="En caso de que la legalización no sea aprovada, le llegará un mensaje de correo electrónico informativo y justo aquí podrá visualizar los detalles de la devolución para que corrija la legalización."
+                                        style="padding: 2%;"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -342,7 +361,10 @@
                 </div>
             </div>
         </div>
-    </div><!-- container-fluid -->
+    </div>
+    <script src="/Front-end/js/legalizacion.js"></script>
+    <script src="/Front-end/js/config.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>
 
 </html>

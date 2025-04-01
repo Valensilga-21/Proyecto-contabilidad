@@ -1,6 +1,6 @@
 function registrarViaje() {
     var token = localStorage.getItem("userToken");
-    var userId = localStorage.getItem("userId"); // Recuperar ID
+    var userId = localStorage.getItem("userId"); // Recuperar ID del usuario
 
     if (!userId) {
         Swal.fire({
@@ -17,11 +17,11 @@ function registrarViaje() {
         fecha_fin: document.getElementById("fecha_fin").value,
         ruta: document.getElementById("ruta").value,
         estado_viaje: document.getElementById("estado_viaje").value,
-        id_usuario: userId // Id del usuario para que se asocie al viaje
+        id_usuario: userId
     };
 
-    if (!formData.num_comision || !formData.fecha_inicio || !formData.fecha_fin || 
-        !formData.ruta) {
+    // Validar que todos los campos estén llenos
+    if (!formData.num_comision || !formData.fecha_inicio || !formData.fecha_fin || !formData.ruta) {
         Swal.fire({
             title: "¡Error!",
             text: "¡Llene todos los campos correctamente!",
@@ -37,11 +37,33 @@ function registrarViaje() {
         contentType: "application/json",
         headers: { "Authorization": "Bearer " + token },
         success: function(result) {
+        console.log("Respuesta del backend:", result); // Verifica la estructura de la respuesta
+
+        if (result.viaje && result.viaje.id_viaje) {
+                let viaje = {
+                id_viaje: result.viaje.id_viaje, // Acceder correctamente al ID
+                    num_comision: formData.num_comision,
+                    fecha_inicio: formData.fecha_inicio,
+                    fecha_fin: formData.fecha_fin,
+                    ruta: formData.ruta,
+                    estado_viaje: formData.estado_viaje,
+                    id_usuario: formData.id_usuario
+                };
+
+                // Almacenar el viaje en localStorage en formato JSON
+                localStorage.setItem("viaje", JSON.stringify(viaje));
+
+                console.log("Viaje almacenado en localStorage:", viaje);
+            } else {
+                console.log("Error: la respuesta del backend no contiene 'id_viaje'.");
+            }
+
             Swal.fire({
                 title: "¡Éxito!",
                 text: "Viaje registrado correctamente.",
                 icon: "success"
             });
+
             $('#viajeRegister').modal('hide');
         },
         error: function(xhr, status, error) {
@@ -55,7 +77,8 @@ function registrarViaje() {
     });
 }
 
-// Función para listar viajes
+
+// Función para listar viajes Usuario
 function listarViajes() {
     $.ajax({
         url: urlListaViajes,
@@ -96,6 +119,52 @@ function listarViajes() {
             Swal.fire({
                 title: "Error",
                 text: "Hubo un error al cargar los datos." + errorLista,
+                icon: "error"
+            });
+        }
+    });
+}
+
+// Función para listar viajes Admin
+function listarViajesAdmin() {
+    $.ajax({
+        url: urlListaViajes,
+        type: "GET",
+        success: function (result) {
+            var cuerpoTabla = document.getElementById("viajesTableAdmin").getElementsByTagName('tbody')[0];
+            cuerpoTabla.innerHTML = ""; // Limpiar la tabla antes de llenarla
+
+            for (var i = 0; i < result.length; i++) {
+                var usuario = result[i]["usuario"] || {};
+                
+                // Asignar valores predeterminados si no están disponibles
+                var nombre_usuario = usuario["nombre_usuario"] || "No disponible";
+                var cargo = usuario["cargo"] || "No disponible";
+                var centro = usuario["centro"] || "No disponible";
+                var fecha_inicio = result[i]["fecha_inicio"] || "No disponible";
+                var fecha_fin = result[i]["fecha_fin"] || "No disponible";
+                var ruta = result[i]["ruta"] || "No disponible";
+
+                // Crear fila de la tabla
+                var trRegistro = document.createElement("tr");
+                trRegistro.innerHTML = `
+                    <td>${nombre_usuario}</td>
+                    <td>${cargo}</td>
+                    <td>${centro}</td>
+                    <td>${fecha_inicio}</td>
+                    <td>${fecha_fin}</td>
+                    <td>${ruta}</td>
+                    <td class="text-center align-middle">
+                        <i class="btn fas fa-edit Editar text-warning" onclick="openEditModal('${result[i]["id_viaje"]}')"></i>
+                    </td>
+                `;
+                cuerpoTabla.appendChild(trRegistro);
+            }
+        },
+        error: function (errorLista) {
+            Swal.fire({
+                title: "Error",
+                text: "Hubo un error al cargar los datos. " + errorLista.responseText,
                 icon: "error"
             });
         }
@@ -189,6 +258,7 @@ function enviarEdicion(id, num_comision, fecha_inicio, fecha_fin, ruta, estado_v
             });
             $('#editViaje').modal('hide');
             listarViajes();
+            listarViajesAdmin();
         },
         error: function (xhr, status, error) {
             console.error('Error al actualizar el viaje:', xhr.responseText, status, error);

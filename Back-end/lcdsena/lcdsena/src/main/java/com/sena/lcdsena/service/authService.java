@@ -21,14 +21,13 @@ import com.sena.lcdsena.iservice.iusuarioService;
 import com.sena.lcdsena.model.authResponse;
 import com.sena.lcdsena.model.cambiarContrasena;
 import com.sena.lcdsena.model.estadoUsuario;
-import com.sena.lcdsena.model.legalizacion;
-import com.sena.lcdsena.model.legalizacionRequest;
 import com.sena.lcdsena.model.loginRequest;
 import com.sena.lcdsena.model.registroRequest;
 import com.sena.lcdsena.model.restablecerContrasena;
 import com.sena.lcdsena.model.role;
 import com.sena.lcdsena.model.usuario;
 import com.sena.lcdsena.model.usuarioNoAprobadoException;
+import com.sena.lcdsena.model.viaje;
 
 import lombok.RequiredArgsConstructor;
 import net.sf.jasperreports.engine.JRException;

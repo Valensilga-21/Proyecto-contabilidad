@@ -81,7 +81,6 @@ async function registrarUsuario() {
 }
 
 //LOGIN
-// LOGIN
 async function loginUsuario() {
     var username = document.getElementById('username').value;
     var password = document.getElementById('password').value;
@@ -159,7 +158,6 @@ async function loginUsuario() {
     }
 }
 
-
 // Función para listar usuarios
 function listarUsuarios() {
     var filtro = document.getElementById("texto").value;
@@ -184,8 +182,8 @@ function listarUsuarios() {
                     <td>${result[i]["role"]}</td>
                     <td>${result[i]["estado_usuario"]}</td>
                     <td class="text-center align-middle">
-                        <i class="btn fas fa-edit Editar" onclick="openEditModal('${result[i]["id_usuario"]}')"></i>
-                        <i class="btn fas fa-trash-alt Deshabilitar" onclick="deshabilitarUsuario('${result[i]["id_usuario"]}')"></i>
+                        <i class="btn fas fa-edit Editar text-warning" onclick="openEditModal('${result[i]["id_usuario"]}')"></i>
+                        <i class="btn fas fa-trash-alt Deshabilitar text-danger" onclick="deshabilitarUsuario('${result[i]["id_usuario"]}')"></i>
                     </td>
                 `;
                 cuerpoTabla.appendChild(trRegistro);

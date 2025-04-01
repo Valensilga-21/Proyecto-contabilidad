@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.sena.lcdsena.interfaces.ilegalizacion;
 import com.sena.lcdsena.iservice.ilegalizacionService;
 import com.sena.lcdsena.model.legalizacion;
+import com.sena.lcdsena.interfaces.ilegaRepository;
 
 @Service
 public class legalizacionService implements ilegalizacionService{
@@ -20,6 +21,9 @@ public class legalizacionService implements ilegalizacionService{
 
     @Autowired
     private ilegalizacion ilegalizacion;
+
+    @Autowired
+    private ilegaRepository ilegalizacionRepository;
 
     @Override
     public String save(legalizacion legalizacion){
@@ -65,6 +69,11 @@ public class legalizacionService implements ilegalizacionService{
             e.printStackTrace();
             return 0;
         }
+    }
+
+    @Override
+    public Optional<legalizacion> findById(String id) {
+        return ilegalizacionRepository.findById(id);
     }
 
     //CONTADORES

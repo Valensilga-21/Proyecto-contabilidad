@@ -12,6 +12,7 @@ public interface ilegalizacionService {
     public List<legalizacion> findAll();
     public Optional <legalizacion> findOne(String id_legalizacion);
     public int delete(String id_legalizacion);
+    Optional<legalizacion> findById(String id);
     // public List<legalizacion> filtroLegalizacion (String filtro);
 
     //CONTADORES
