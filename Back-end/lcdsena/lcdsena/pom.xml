@@ -155,8 +155,6 @@
 			<artifactId>jackson-datatype-jsr310</artifactId>
 			<version>2.15.0</version> <!-- Asegúrate de usar la última versión -->
 		</dependency>
-
-
 	</dependencies>
 
 	<build>
@@ -187,5 +185,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>

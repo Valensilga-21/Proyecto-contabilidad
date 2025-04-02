@@ -19,11 +19,13 @@
     <script type="module" src="/Front-end/js admin/pdf2.js"></script>
 
     <script src="/Front-end/js/cerrarSesion.js"></script>
-    <script src="/Front-end/js/config.js"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <title>InicioAdmin</title>
 </head>
@@ -47,7 +49,7 @@
     }
 </style>
 
-<body>
+<body onload="listarInicioAdmin();">
     <nav>
         <div class="logo-name">
             <div class="row">
@@ -187,10 +189,9 @@
             </div>
 
             <div class="activity-data table-responsive" style="padding-top: 1%;">
-                <table class="table table-bordered">
+                <table class="table table-hover" id="inicioAdminTable">
                     <thead>
                         <tr>
-                            <th>#</th>
                             <th>No. Comisión</th>
                             <th>Nombre</th>
                             <th>Fecha Inicio</th>
@@ -200,13 +201,15 @@
                             <th>Estado</th>
                         </tr>
                     </thead>
-                    <tbody id="tablaInicio">
+                    <tbody>
 
                     </tbody>
                 </table>
             </div>
         </div>
     </section>
-</body>
 
+    <script src="/Front-end/js/inicio.js"></script>
+    <script src="/Front-end/js/config.js"></script>
+</body>
 </html>
