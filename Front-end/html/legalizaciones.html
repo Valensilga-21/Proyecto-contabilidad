@@ -106,60 +106,62 @@
     </nav>
 
     <section class="dashboard">
-        <div class="row" style="padding-top: 4%;">
-            <div class="col-6">
-                <div class="input-group mb-3">
-                    <button class="btn btn-outline-secondary" type="button" id="button-addon1"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16" style="color: black;">
-                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                      </svg></button>
+        <div class="row d-lg-flex justify-content-lg-end" style="padding-top: 4%;">
+            <div class="col-12 col-md-6 col-lg-4 mb-3 ">
+                <div class="input-group">
+                    <button class="btn btn-outline-secondary " type="button" id="button-addon1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16" style="color: black;">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                        </svg>
+                    </button>
                     <input type="text" class="form-control" placeholder="Buscar..." aria-label="Example text with button addon" aria-describedby="button-addon1">
                 </div>
             </div>
-            <div class="col-2">
+    
+            <div class="col-12 col-md-3 col-lg-2 mb-3">
                 <input type="date" class="form-control">
-              </div>
-            <div class="col-2">
+            </div>
+    
+            <div class="col-12 col-md-3 col-lg-2 mb-3">
                 <div class="input-group" style="border-radius: 10px 10px 10px 10px; border-left:none;">
-                    <span class="input-group-text"><box-icon name='filter' ></box-icon></span>
+                    <span class="input-group-text"><box-icon name='filter'></box-icon></span>
                     <select name="centro" id="centro" class="form-select" style="background-color: #ffffff; border-radius: 0px 0px 10px 0px; border-left:none;">
                         <option value="" disabled selected>Todos</option>
                         <option value="completadas">Completadas</option>
                         <option value="pendientes">Pendientes</option>
                         <option value="vencidas">Vencidas</option>
-                        <option value="mas90dias">Mas de 90 dias</option>
+                        <option value="mas90dias">Mas de 90 días</option>
                     </select>
                 </div>
             </div>
-            <div class="col-1">
-                <button class="btn w-100 w-md-auto m-0 d-block mx-auto" style="background-color: #00BB00;"
-                    data-bs-toggle="modal" data-bs-target="#myModal">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-plus" viewBox="0 0 16 16">
-                        <path
-                            d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+    
+            <div class="col-12 col-md-2 col-lg-1 mb-3">
+                <button class="btn w-100 w-md-auto m-0 d-block mx-auto" style="background-color: #00BB00;" data-bs-toggle="modal" data-bs-target="#myModal">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
                     </svg>
                 </button>
             </div>
-
-            <div class="activity-data table-responsive-sm" style="padding-top: 3%;">
-                <table class="table table-hover" id="legaTableAdmin">
-                    <thead>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Correo</th>
-                            <th>Cargo</th>
-                            <th>Centro</th>
-                            <th>Fecha Solicitud</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                    </tbody>
-                </table>
-            </div>
+        </div>
+    
+        <div class="activity-data table-responsive-sm" style="padding-top: 3%;">
+            <table class="table table-hover" id="legaTableAdmin">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Correo</th>
+                        <th>Cargo</th>
+                        <th>Centro</th>
+                        <th>Fecha Solicitud</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
         </div>
     </section>
+    
 
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
