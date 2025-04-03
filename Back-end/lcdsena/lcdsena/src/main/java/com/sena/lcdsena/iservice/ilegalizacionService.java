@@ -14,9 +14,7 @@ public interface ilegalizacionService {
     public int delete(String id_legalizacion);
     Optional<legalizacion> findById(String id);
     // public List<legalizacion> filtroLegalizacion (String filtro);
-
-    //CONTADORES
-    // long contarVencidas();
-    // long contarPendientes();
-    // long contarCompletadas();
+    public Long contarLegalizacionesRegistradas();
+    public Long contarLegalizacionesPendientes();
+    public Long contarLegalizacionesVencidas();
 }

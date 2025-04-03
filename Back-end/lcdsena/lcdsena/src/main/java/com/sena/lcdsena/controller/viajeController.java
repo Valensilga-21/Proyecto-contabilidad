@@ -76,8 +76,8 @@ public class viajeController {
 
         viaje nuevoViaje = viaje.builder()
             .num_comision(request.getNum_comision())
-            .fecha_inicio(fechaInicio)
-            .fecha_fin(fechaFin)
+            .fecha_inicio(request.getFecha_inicio() != null ? request.getFecha_inicio() : LocalDate.now())
+            .fecha_fin(request.getFecha_fin() != null ? request.getFecha_fin() : LocalDate.now())
             .ruta(request.getRuta())
             .estado_viaje(estadoInicial) // Estado automático
             .usuario(usuarioOpt.get())

@@ -87,6 +87,8 @@ function listarViajes() {
             var cuerpoTabla = document.getElementById("viajesTable").getElementsByTagName('tbody')[0];
             cuerpoTabla.innerHTML = ""; // Limpiar la tabla
 
+            var viajesUsuario = result.filter(viaje => viaje.usuario?.nombre_usuario === usuarioActual);
+
             for (var i = 0; i < result.length; i++) {
                 var estado = result[i]["estado_viaje"].toLowerCase();
                 

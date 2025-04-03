@@ -369,22 +369,24 @@ public class usuarioPrivController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Object> update(@PathVariable String id, @RequestBody usuario usuarioUpdate) {
-        var usuario = usuarioService.findOne(id).get();
-        if (usuario != null) {
-            usuario.setDocumento_usuario(usuarioUpdate.getDocumento_usuario());
-            usuario.setNombre_usuario(usuarioUpdate.getNombre_usuario());
-            usuario.setUsername(usuarioUpdate.getUsername());
-            usuario.setCentro(usuarioUpdate.getCentro());
-            usuario.setCargo(usuarioUpdate.getCargo());
-            // usuario.setPassword(usuarioUpdate.getPassword());
-            // usuario.setConfirm_contrasena(usuarioUpdate.getConfirm_contrasena());
-            usuario.setEstado_usuario(usuarioUpdate.getEstado_usuario());
-            usuario.setRole(usuarioUpdate.getRole());
+        Optional<usuario> optionalUsuario = usuarioService.findOne(id);
+        
+        if (optionalUsuario.isPresent()) {
+            usuario usuario = optionalUsuario.get();
+            
+            // Verificar si los valores nuevos son nulos antes de actualizar
+            if (usuarioUpdate.getDocumento_usuario() != null) usuario.setDocumento_usuario(usuarioUpdate.getDocumento_usuario());
+            if (usuarioUpdate.getNombre_usuario() != null) usuario.setNombre_usuario(usuarioUpdate.getNombre_usuario());
+            if (usuarioUpdate.getUsername() != null) usuario.setUsername(usuarioUpdate.getUsername());
+            if (usuarioUpdate.getCentro() != null) usuario.setCentro(usuarioUpdate.getCentro());
+            if (usuarioUpdate.getCargo() != null) usuario.setCargo(usuarioUpdate.getCargo());
+            if (usuarioUpdate.getRole() != null) usuario.setRole(usuarioUpdate.getRole());
 
             usuarioService.save(usuario);
-            return new ResponseEntity<>(usuario, HttpStatus.OK);
+            return ResponseEntity.ok(usuario);
         } else {
-            return new ResponseEntity<>("No se pudieron guardar los cambios", HttpStatus.BAD_REQUEST);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no encontrado"); // Código 404
         }
     }
+
 }

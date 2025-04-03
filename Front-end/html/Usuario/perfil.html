@@ -7,8 +7,6 @@
     
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
-    <script type="module" src="/Front-end/js/perfil.js"></script>
-
     <link rel="stylesheet" href="/Front-end/css/bootstrap.css">
     <script src="/Front-end/js/bootstrap.js"></script>
 
@@ -27,18 +25,11 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-    <title>PerfilUsuario</title>
+    <title>Perfil Usuario</title>
 
     <!-- <script type="module" src="/Front-end/js/sesionfirebaseauth.js"></script> -->
 </head>
 <style>
-
-    /* Boton Guardar */
-    .btns:hover{
-        background-color: #00BB00;
-        color: white;
-        
-    }
     .btns {
         border: 2px solid #00BB00;
         background-color: white;
@@ -52,8 +43,12 @@
         padding-top: 5px;
     }
 
+    .btns:hover{
+        background-color: #eefde6;
+    }
+
     /* Boton cambiar contra */
-    .btn {
+    .btnCambio{
         border: 2px solid #00BB00;
         background-color: #00BB00;
         color: white;
@@ -67,30 +62,9 @@
         padding-top: 5px;
     }
 
-    .btn:hover {
-        border: 2px solid #00BB00;
-        background-color: #ffffff;
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 5px;
-        padding-left: 20px;
-        padding-right: 20px;
-        padding-top: 5px;
-    }
-
-    .btncam{
-        border: 2px solid #00BB00;
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 5px;
-        padding-left: 20px;
-        padding-right: 20px;
-        padding-top: 5px;
-        background-color: #00BB00;
+    .btnCambio:hover{
+        background-color: #00af00;
+        border: 2px solid #00af00;
     }
 
     h2{
@@ -101,12 +75,7 @@
         margin-top: 5%;
     }
 
-    a:hover{
-        color: black;
-    }
-
 </style>
-<script type="module" src="/Front-end/js/sesionfirebaseauth.js"></script>
 <body>
     <nav>
         <div class="logo-name">
@@ -150,76 +119,84 @@
     </nav>
 
     <section class="dashboard" style="justify-content: center; align-items: center; display: flex;">
-        <div class="box" style="justify-content: center; align-items: center; display: flex;" id="userinfo">
+        <div class="box" style="justify-content: center; align-items: center; display: flex; flex-direction: column;" id="userinfo">
             <div class="row" style="display: flex;">
-                <!--Columna 1-->
+                <!-- Primera columna -->
                 <div class="mb-3 col col-xl-6 col-12 justify-content-between">
-
                     <h2 class="input-group">Perfil Usuario</h2>
-
-                    <label for="usuario" class="form-label visually-hidden">Usuario</label>
+        
+                    <label for="" class="form-label visually-hidden">Usuario</label>
                     <div class="input-group">
                         <span class="input-group-text"><box-icon name='user' color="#00BB00"></box-icon></span>
                         <input type="text" class="form-control" id="nombre_usuario" placeholder="Nombre Completo" disabled>
                     </div>
-                    <div class="error-message" id="usuarioError" style="color: red; display: none;"></div>
-                    <label for="contraseña" class="form-label visually-hidden">Documento</label>
+        
+                    <label for="" class="form-label visually-hidden">Documento</label>
                     <div class="input-group">
                         <span class="input-group-text"><box-icon name='id-card' color="#00BB00"></box-icon></span>
-                        <input type="number" class="form-control" id="num_documento" placeholder="Documento" disabled>
+                        <input type="number" class="form-control" id="documento_usuario" placeholder="Documento" disabled>
                     </div>
-                    <div class="error-message" id="documentoError" style="color: red; display:none;"></div>
-
-                    <label for="contraseña" class="form-label visually-hidden">Correo</label>
+        
+                    <label for="" class="form-label visually-hidden">Correo</label>
                     <div class="input-group">
                         <span class="input-group-text"><box-icon name='envelope' color="#00BB00"></box-icon></span>
-                        <input type="email" class="form-control" id="email" placeholder="Correo" disabled >
+                        <input type="email" class="form-control" id="username" placeholder="Correo" disabled >
                     </div>
-                    <div class="error-message" id="correoError" style="color: red; display: none;"></div>
                 </div> 
+                <!-- Segunda columna -->
                 <div class="mb-2 col col-xl-6 col-12 justify-content-between">
-                    <label for="centro" class="form-label visually-hidden">Centro</label>
-                    <div class="input-group" style="border-radius: 10px 10px 10px 10px; border-left:none;" >
-                    <span class="input-group-text"><box-icon name='buildings' color="#39A900"></box-icon></span>
-                    <select name="centro" id="centro" class="form-select" style="background-color: #EFF3F6; border-radius: 0px 0px 10px 0px; border-left:none;" disabled>
-                        <option value="" disabled selected>Centro</option>
-                        <option value="cies">CIES</option>
-                        <option value="direccion">Dirección</option>
-                    </select>
+                    <label for="" class="form-label visually-hidden">Centro</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><box-icon name='buildings' color="#39A900"></box-icon></span>
+                        <select id="centro" class="form-select" disabled>
+                            <option value="" disabled selected>Centro</option>
+                            <option value="cies">CIES</option>
+                            <option value="direccion">Dirección</option>
+                        </select>
                     </div>
-                    <div class="error-message" id="centroError" style="color: red; display: none;"></div>
-
+        
                     <label for="cargo" class="form-label visually-hidden">Cargo</label>
-                    <div class="input-group" style="border-radius: 10px 10px 10px 10px; border-left:none;">
-                    <span class="input-group-text"><box-icon name='buildings' color="#39A900"></box-icon></span>
-                    <select name="cargo" id="cargo" class="form-select" style="background-color: #EFF3F6; border-radius: 0px 0px 10px 0px; border-left:none;" disabled>
-                        <option value="" disabled selected>Cargo</option>
-                        <option value="cies">Contratista</option>
-                        <option value="direccion">Funcionario</option>
-                    </select>
+                    <div class="input-group">
+                        <span class="input-group-text"><box-icon name='briefcase' color="#39A900"></box-icon></span>
+                        <select id="cargo" class="form-select" disabled>
+                            <option value="" disabled selected>Cargo</option>
+                            <option value="contratista">Contratista</option>
+                            <option value="funcionario">Funcionario</option>
+                        </select>
                     </div>
-                    <div class="error-message" id="centroError" style="color: red; display: none;"></div>
-
+        
                     <div class="input-group d-grid gap-2">
                         <button class="btns">
                             <div style="margin-right: 8px;">
-                                <i class="bi bi-floppy2-fill"></i>
+                                <i class="bi bi-envelope" style="font-size: 1.1rem;"></i>
                             </div>
-                            <b>Guardar</b>
+                            <a href="mailto:lcdsena2025@gmail.com" style="text-decoration: none; color: black;">
+                                <b>Solicitar</b></a>
                         </button>
                     </div>
-
+        
                     <div class="input-group d-grid gap-2">
-                        <button class="btn">
+                        <button class="btnCambio">
                             <div style="margin-right: 8px;">
                                 <i class="bi bi-key"></i>
                             </div>
                             <a href="/Front-end/html/confirmarcorreo.html" style="text-decoration: none; color: white;"><b>Cambiar contraseña</b></a>
                         </button>
                     </div>
-                </div> 
+                </div>
             </div>
-        </div>
+            <div class="col col-xl-6 col-12">
+                <div class="alert w-100 mt-1 fs-6 fw-normal" role="alert" style="background-color: #baff97;">
+                    Por razones de seguridad, la actualización de datos debe solicitarse a 
+                    nuestro equipo de soporte. Haz clic en "Solicitar" y envíanos un 
+                    correo con los cambios que necesitas.
+                </div>
+            </div>
+        </div>          
     </section>
+    
+    
+    <script src="/Front-end/js/config.js"></script>
+    <script src="/Front-end/js/usuario.js"></script>
 </body>
 </html>

@@ -7,8 +7,6 @@
     
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
-    <script type="module" src="/Front-end/js/perfil.js"></script>
-
     <link rel="stylesheet" href="/Front-end/css/bootstrap.css">
     <script src="/Front-end/js/bootstrap.js"></script>
 
@@ -170,7 +168,7 @@
                     <label for="" class="form-label visually-hidden">Documento</label>
                     <div class="input-group">
                         <span class="input-group-text"><box-icon name='id-card' color="#00BB00"></box-icon></span>
-                        <input type="number" class="form-control" id="num_documento" placeholder="Documento" >
+                        <input type="number" class="form-control" id="documento_usuario" placeholder="Documento" >
                     </div>
                     <div class="error-message" id="documentoError" style="color: red; display:none;"></div>
 
@@ -193,19 +191,19 @@
                     </div>
                     <div class="error-message" id="centroError" style="color: red; display: none;"></div>
 
-                    <label for="" class="form-label visually-hidden">Cargo</label>
-                    <div class="input-group" style="border-radius: 10px 10px 10px 10px; border-left:none;">
-                    <span class="input-group-text"><box-icon name='buildings' color="#39A900"></box-icon></span>
-                    <select name="cargo" id="cargo" class="form-select" style="background-color: #EFF3F6; border-radius: 0px 0px 10px 0px; border-left:none;">
-                        <option value="" disabled selected>Cargo</option>
-                        <option value="cies">Contratista</option>
-                        <option value="direccion">Funcionario</option>
-                    </select>
+                    <label for="cargo" class="form-label visually-hidden">Cargo</label>
+                    <div class="input-group" style="border-radius: 10px; border-left: none;">
+                        <span class="input-group-text"><box-icon name='briefcase' color="#39A900"></box-icon></span>
+                        <select id="cargo" class="form-select" style="background-color: #EFF3F6; border-radius: 0px 0px 10px 0px; border-left:none;">
+                            <option value="" disabled selected>Cargo</option>
+                            <option value="contratista">Contratista</option>
+                            <option value="funcionario">Funcionario</option>
+                        </select>
                     </div>
-                    <div class="error-message" id="centroError" style="color: red; display: none;"></div>
+                    <div class="error-message" id="cargoError" style="color: red; display: none;"></div>
 
                     <div class="input-group d-grid gap-2">
-                        <button class="btns">
+                        <button class="btns" id="btnGuardar">
                             <div style="margin-right: 8px;">
                                 <i class="bi bi-floppy2-fill"></i>
                             </div>

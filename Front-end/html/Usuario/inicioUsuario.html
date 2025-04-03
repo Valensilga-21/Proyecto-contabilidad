@@ -24,6 +24,9 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <title>InicioUsuario</title>
 </head>
 <style>
@@ -47,7 +50,7 @@
     }
 </style>
 
-<body>
+<body onload="listarInicioUser();">
     <nav>
         <div class="logo-name">
             <div class="row">
@@ -108,17 +111,17 @@
                     <div class="box box1">
                         <box-icon name='check-circle' color='#00bb00' size="80px"></box-icon>
                         <span class="text py-2">Completadas</span>
-                        <span class="number">50,120</span>
+                        <span class="number" id="registradas"></span>
                     </div>
                     <div class="box box2">
                         <box-icon name='error-circle' color='#ffae00' size="80px"></box-icon>
                         <span class="text py-2">Pendientes</span>
-                        <span class="number">20,120</span>
+                        <span class="number" id="pendientes"></span>
                     </div>
                     <div class="box box3">
                         <box-icon name='x-circle' color='#ff0000' size="80px"></box-icon>
                         <span class="text py-2">Vencidas</span>
-                        <span class="number">10,120</span>
+                        <span class="number" id="vencidas"></span>
                     </div>
                 </div>
             </div>
@@ -159,12 +162,10 @@
             </div>
             
             <div class="activity-data table-responsive-sm" style="padding-top: 1%;">
-                <table class="table">
+                <table class="table table-hover" id="inicioUserTable">
                     <thead>
                         <tr>
-                            <th>#</th>
                             <th>No. Comision</th>
-                            <th>Nombre</th>
                             <th>Fecha Inicio</th>
                             <th>Fecha Final</th>
                             <th>Ruta</th>
@@ -172,13 +173,15 @@
                             <th>Estado</th>
                         </tr>
                     </thead>
-                    <tbody id="tablaInicio">
+                    <tbody>
 
                     </tbody>
                 </table>
             </div>
         </div>
     </section>
-</body>
 
+    <script src="/Front-end/js/inicio.js"></script>
+    <script src="/Front-end/js/config.js"></script>
+</body>
 </html>

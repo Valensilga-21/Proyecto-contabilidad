@@ -294,25 +294,120 @@ function deshabilitarUsuario(idUsuario) {
 }
 
 
-//Profile
-$(document).ready(function () {
-    $.ajax({
-        url: urlProfile, // Ajusta la URL según tu backend
+//PROFILE
+document.addEventListener("DOMContentLoaded", function () {
+    let token = localStorage.getItem("userToken");
+    
+    // if (!token) {
+    //     Swal.fire("Error", "Sesión expirada. Inicie sesión nuevamente.", "error");
+    //     window.location.href = "/Front-end/index.html"; // Redirige a login
+    //     return;
+    // }
+
+    fetch(urlProfile, {
         method: "GET",
-        dataType: "json",
         headers: {
-            "Authorization": "Bearer " + localStorage.getItem("token") // Si usas JWT
-        },
-        success: function (response) {
-            // Mostrar datos en el HTML
-            $("#nombre_usuario").text(response.nombre_usuario);
-            $("#documento_usuario").text(response.documento_usuario);
-            $("#username").text(response.username);
-            $("#centro").text(response.centro);
-            $("#cargo").text(response.cargo);
-        },
-        error: function (xhr, status, error) {
-            console.error("Error al obtener los datos del usuario:", error);
+            "Authorization": "Bearer " + token,  // Aquí usamos el token corregido
+            "Content-Type": "application/json"
         }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("No se pudo obtener el perfil del usuario");
+        }
+        return response.json();
+    })
+    .then(data => {
+        document.getElementById("documento_usuario").value = data.documento_usuario;
+        document.getElementById("nombre_usuario").value = data.nombre_usuario;
+        document.getElementById("username").value = data.username;
+        document.getElementById("centro").value = data.centro;
+        document.getElementById("cargo").value = data.cargo;
+    })
+    .catch(error => {
+        console.error("Error:", error);
     });
 });
+
+//EDITAR INFO ADMIN
+document.addEventListener("DOMContentLoaded", function () {
+    let token = localStorage.getItem("userToken");
+    let userId = localStorage.getItem("userId"); // Obtener el ID del usuario
+
+    // if (!token || !userId) {
+    //     Swal.fire("Error", "Sesión expirada. Inicie sesión nuevamente.", "error");
+    //     window.location.href = "/Front-end/index.html"; // Redirige a login
+    //     return;
+    // }
+
+    // Cargar datos del usuario
+    fetch(`http://localhost:8080/api/v1/LCDSena/usuario/${userId}`, {
+        method: "GET",
+        headers: {
+            "Authorization": "Bearer " + token,
+            "Content-Type": "application/json"
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("No se pudo obtener el perfil del usuario");
+        }
+        return response.json();
+    })
+    .then(data => {
+        document.getElementById("documento_usuario").value = data.documento_usuario;
+        document.getElementById("nombre_usuario").value = data.nombre_usuario;
+        document.getElementById("username").value = data.username;
+        document.getElementById("centro").value = data.centro;
+        document.getElementById("cargo").value = data.cargo;
+    })
+    .catch(error => {
+        console.error("Error:", error);
+    });
+
+    // Evento para actualizar la información
+    document.getElementById("btnGuardar").addEventListener("click", function () {
+        let documento_usuario = document.getElementById("documento_usuario").value;
+        let nombre_usuario = document.getElementById("nombre_usuario").value;
+        let username = document.getElementById("username").value;
+        let centro = document.getElementById("centro").value;
+        let cargo = document.getElementById("cargo").value;
+
+        let datosActualizados = {
+            documento_usuario: documento_usuario,
+            nombre_usuario: nombre_usuario,
+            username: username,
+            centro: centro,
+            cargo: cargo
+        };
+
+        fetch(`http://localhost:8080/api/v1/LCDSena/usuario/${userId}`, {
+            method: "PUT",
+            headers: {
+                "Authorization": "Bearer " + token,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(datosActualizados)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Error al actualizar el perfil");
+            }
+            return response.json();
+        })
+        .then(data => {
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Datos actualizados.",
+                showConfirmButton: false,
+                timer: 1500
+            })
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            Swal.fire("Error", "No se pudo actualizar el perfil", "error");
+        });
+    });
+});
+

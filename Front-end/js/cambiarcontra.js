@@ -58,9 +58,11 @@ async function cambiarContrasena() {
             icon: 'success',
             title: 'Éxito',
             text: message,
-            timer: 1500
+            timer: 1500,
+        }).then(() => {
+            cerrarSesion(); // Se ejecuta solo cuando la alerta se cierra
         });
-        cerrarSesion();
+        
     } catch (error) {
         Swal.fire({
             icon: 'error',

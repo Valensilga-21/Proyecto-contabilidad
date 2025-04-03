@@ -1,6 +1,6 @@
 package com.sena.lcdsena.model;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -32,10 +32,10 @@ public class viaje {
     private int num_comision;
  
     @Column(name = "fecha_inicio", nullable = false, length = 36)
-    private Date fecha_inicio;
+    private LocalDate fecha_inicio;
  
     @Column(name = "fecha_fin", nullable = false, length = 36)
-    private Date fecha_fin;
+    private LocalDate fecha_fin;
  
     @Column(name = "ruta", nullable = false, length = 100)
     private String ruta;

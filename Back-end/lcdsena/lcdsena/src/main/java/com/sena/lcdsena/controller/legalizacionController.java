@@ -113,6 +113,22 @@ public class legalizacionController {
         }
     }
 
+    //Contadores
+    @GetMapping("/registradas")
+    public ResponseEntity<Long> contarLegalizacionesRegistradas() {
+        return ResponseEntity.ok(legalizacionService.contarLegalizacionesRegistradas());
+    }
+
+    @GetMapping("/pendientes")
+    public ResponseEntity<Long> contarLegalizacionesPendientes() {
+        return ResponseEntity.ok(legalizacionService.contarLegalizacionesPendientes());
+    }
+
+    @GetMapping("/vencidas")
+    public ResponseEntity<Long> contarLegalizacionesVencidas() {
+        return ResponseEntity.ok(legalizacionService.contarLegalizacionesVencidas());
+    }
+
     @GetMapping("/download/{id}")
     public ResponseEntity<Resource> downloadFile(@PathVariable String id) {
         try {
@@ -162,29 +178,13 @@ public class legalizacionController {
     //     return new ResponseEntity<>(listaLegalizaciones, HttpStatus.OK);
     // }
 
-    //CONTADORES
-    // @GetMapping("/vencidas")
-    // public long contarVencidas() {
-    //     return legalizacionService.contarVencidas();
-    // }
-
-    // @GetMapping("/pendientes")
-    // public long contarPendientes() {
-    //     return legalizacionService.contarPendientes();
-    // }
-
-    // @GetMapping("/completadas")
-    // public long contarCompletadas() {
-    //     return legalizacionService.contarCompletadas();
-    // }
-
     @DeleteMapping("/deshabilitar/{id_legalizacion}")
     public ResponseEntity<Object> delete(@PathVariable String id_legalizacion) {
         legalizacionService.delete(id_legalizacion);
         return new ResponseEntity<>("Legalizacion deshabilitada", HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/profile/{id}")
     public ResponseEntity<Object> update(@PathVariable String id, @RequestParam legalizacion legalizacionUpdate) {
         var legalizacion = legalizacionService.findOne(id).get();
         if (legalizacion != null) {
