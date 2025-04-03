@@ -119,20 +119,23 @@ nav .menu-items{
     align-items: center;
     height: 50px;
     text-decoration: none;
+}
+.nav-links li.active {
     position: relative;
 }
-.nav-links li a:hover:before{
-    content: "";
+
+.nav-links li.active::before {
+    content: "•";  /* Punto */
+    color: #00BB00; /* Color del punto */
+    font-size: 18px;
     position: absolute;
-    left: -7px;
-    height: 5px;
-    width: 5px;
-    border-radius: 50%;
-    background-color: var(--primary-color);
+    left: -15px; /* Ajusta la posición del punto */
+    top: 50%;
+    transform: translateY(-50%);
 }
-body.dark li a:hover:before{
-    background-color: var(--text-color);
-}
+
+
+
 .menu-items li a i{
     font-size: 24px;
     min-width: 45px;
@@ -154,7 +157,7 @@ nav.close li a .link-name{
 }
 .nav-links li a:hover i,
 .nav-links li a:hover .link-name{
-    color: #4D4C4C;
+    color: #00BB00;
 }
 body.dark .nav-links li a:hover i,
 body.dark .nav-links li a:hover .link-name{
