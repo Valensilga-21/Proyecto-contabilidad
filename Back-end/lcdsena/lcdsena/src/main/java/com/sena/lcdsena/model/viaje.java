@@ -2,6 +2,8 @@ package com.sena.lcdsena.model;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -30,11 +32,13 @@ public class viaje {
  
     @Column(name = "num_comision", nullable = false, length = 6)
     private int num_comision;
- 
-    @Column(name = "fecha_inicio", nullable = false, length = 36)
+    
+    @Column(name = "fecha_inicio", nullable = false, updatable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate fecha_inicio;
- 
-    @Column(name = "fecha_fin", nullable = false, length = 36)
+
+    @Column(name = "fecha_fin", nullable = false, updatable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate fecha_fin;
  
     @Column(name = "ruta", nullable = false, length = 100)

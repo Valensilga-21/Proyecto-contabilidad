@@ -161,7 +161,7 @@ async function loginUsuario() {
 // Función para listar usuarios
 function listarUsuarios() {
     var filtro = document.getElementById("texto").value;
-    var urlUsuario = filtro !== "" ? urlFiltroUsuarios + "busquedaFiltro/" + filtro : urlFiltroUsuarios;
+    var urlUsuario = filtro !== "" ? urlFiltroUsuarios + "busqueda/" + filtro : urlFiltroUsuarios;
 
     $.ajax({
         url: urlUsuario,
@@ -183,7 +183,7 @@ function listarUsuarios() {
                     <td>${result[i]["estado_usuario"]}</td>
                     <td class="text-center align-middle">
                         <i class="btn fas fa-edit Editar text-warning" onclick="openEditModal('${result[i]["id_usuario"]}')"></i>
-                        <i class="btn fas fa-trash-alt Deshabilitar text-danger" onclick="deshabilitarUsuario('${result[i]["id_usuario"]}')"></i>
+                        <i class="btn fas fa-regular fa-user-slash Deshabilitar text-danger" onclick="deshabilitarUsuario('${result[i]["id_usuario"]}')"></i>
                     </td>
                 `;
                 cuerpoTabla.appendChild(trRegistro);
@@ -323,6 +323,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("username").value = data.username;
         document.getElementById("centro").value = data.centro;
         document.getElementById("cargo").value = data.cargo;
+        document.getElementById("estado_usuario").value = data.estado_usuario;
     })
     .catch(error => {
         console.error("Error:", error);
@@ -360,6 +361,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("username").value = data.username;
         document.getElementById("centro").value = data.centro;
         document.getElementById("cargo").value = data.cargo;
+        document.getElementById("estado_usuario").value =data.estado_usuario;
     })
     .catch(error => {
         console.error("Error:", error);
@@ -372,13 +374,15 @@ document.addEventListener("DOMContentLoaded", function () {
         let username = document.getElementById("username").value;
         let centro = document.getElementById("centro").value;
         let cargo = document.getElementById("cargo").value;
+        let estado_usuario = document.getElementById("estado_usuario").value;
 
         let datosActualizados = {
             documento_usuario: documento_usuario,
             nombre_usuario: nombre_usuario,
             username: username,
             centro: centro,
-            cargo: cargo
+            cargo: cargo,
+            estado_usuario: estado_usuario
         };
 
         fetch(`http://localhost:8080/api/v1/LCDSena/usuario/${userId}`, {
@@ -410,4 +414,3 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
-

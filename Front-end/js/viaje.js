@@ -87,8 +87,6 @@ function listarViajes() {
             var cuerpoTabla = document.getElementById("viajesTable").getElementsByTagName('tbody')[0];
             cuerpoTabla.innerHTML = ""; // Limpiar la tabla
 
-            var viajesUsuario = result.filter(viaje => viaje.usuario?.nombre_usuario === usuarioActual);
-
             for (var i = 0; i < result.length; i++) {
                 var estado = result[i]["estado_viaje"].toLowerCase();
                 
@@ -157,7 +155,7 @@ function listarViajesAdmin() {
                     <td>${fecha_fin}</td>
                     <td>${ruta}</td>
                     <td class="text-center align-middle">
-                        <i class="btn fas fa-edit Editar text-warning" onclick="openEditModal('${result[i]["id_viaje"]}')"></i>
+                        <i class="btn fa-regular fa-file-lines fa-lg Editar" style="color: #39a800;" onclick="openEditModal('${result[i]["id_viaje"]}')"></i>
                     </td>
                 `;
                 cuerpoTabla.appendChild(trRegistro);

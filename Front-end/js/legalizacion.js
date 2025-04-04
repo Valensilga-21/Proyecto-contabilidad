@@ -157,7 +157,7 @@ function listarLegalizacionAdmin() {
                     <td>${centro}</td>
                     <td>${fecha_soli}</td>
                     <td class="text-center align-middle">
-                        <i class="btn fas fa-edit Editar text-warning" onclick="openEditModal('${result[i]["id_legalizacion"]}')"></i>
+                        <i class="btn fa-regular fa-file-lines fa-lg Editar" style="color: #39a800;" onclick="openEditModal('${result[i]["id_legalizacion"]}')"></i>
                     </td>
                 `;
                 cuerpoTabla.appendChild(trRegistro);
@@ -291,81 +291,4 @@ function removeSelectedFile() {
     document.addEventListener("DOMContentLoaded", function() {
         listarLegalizacion();
         cargarFormulario();
-    });
-
-// function guardarCambios() {
-//     var id = document.getElementById('viajeId').value;
-//     var num_comisionE = document.getElementById('num_comisionE').value;
-//     var fecha_inicioE = document.getElementById('fecha_inicioE').value;
-//     var fecha_finE = document.getElementById('fecha_finE').value;
-//     var rutaE = document.getElementById('rutaE').value;
-//     var estado_viajeE = document.getElementById('estado_viajeE').value;
-
-//     // Verificar si el estado ya fue cancelado antes
-//     var estadoAnterior = document.getElementById('estado_viajeE').getAttribute('data-estado-anterior');
-
-//     if (estadoAnterior === "cancelado") {
-//         Swal.fire({
-//             title: "Acción no permitida",
-//             text: "No puedes modificar el estado después de haberlo cambiado a 'Cancelado'.",
-//             icon: "warning",
-//         });
-//         return; // Detener ejecución
-//     }
-
-//     if (estado_viajeE === "cancelado") {
-//         Swal.fire({
-//             title: "Confirmación",
-//             text: "Solo puedes cancelar el viaje una vez. ¿Estás seguro?",
-//             icon: "warning",
-//             showCancelButton: true,
-//             confirmButtonText: "Sí, cancelar",
-//             cancelButtonText: "No",
-//         }).then((result) => {
-//             if (result.isConfirmed) {
-//                 // Marcar el estado como cancelado definitivamente
-//                 document.getElementById('estado_viajeE').setAttribute('data-estado-anterior', "cancelado");
-
-//                 // Continuar con la actualización
-//                 enviarEdicion(id, num_comisionE, fecha_inicioE, fecha_finE, rutaE, estado_viajeE);
-//             }
-//         });
-//     } else {
-//         // Si el estado no es cancelado, proceder normalmente
-//         enviarEdicion(id, num_comisionE, fecha_inicioE, fecha_finE, rutaE, estado_viajeE);
-//     }
-// }
-
-// function enviarEdicion(id, num_comision, fecha_inicio, fecha_fin, ruta, estado_viaje) {
-//     var data = {
-//         num_comision: num_comision,
-//         fecha_inicio: fecha_inicio,
-//         fecha_fin: fecha_fin,
-//         ruta: ruta,
-//         estado_viaje: estado_viaje,
-//     };
-
-//     $.ajax({
-//         url: urlEditarViaje + id,
-//         type: 'PUT',
-//         contentType: 'application/json',
-//         data: JSON.stringify(data),
-//         success: function (response) {
-//             Swal.fire({
-//                 title: "Éxito",
-//                 text: "Viaje actualizado con éxito",
-//                 icon: "success",
-//             });
-//             $('#editViaje').modal('hide');
-//             listarViajes();
-//         },
-//         error: function (xhr, status, error) {
-//             console.error('Error al actualizar el viaje:', xhr.responseText, status, error);
-//             Swal.fire({
-//                 title: "Error",
-//                 text: "Hubo un error al actualizar los datos: " + xhr.responseText,
-//                 icon: "error"
-//             });
-//         }
-//     });
-// }
+});

@@ -22,6 +22,9 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://fkhadra.github.io/datepicker/datepicker.css">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
     <script src="/Front-end/js/cerrarSesion.js"></script>
 
     <title>Legalizaciones</title>
@@ -194,78 +197,91 @@
             </div>
         </section>
 
-        <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content">
-                    <div class="modal-header pt-4">
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="mb-3 col-12 col-xl-6">
-                                </div>
-                                <div class="mb-3 col-12 col-xl-6 text-end">
-                                    <button type="submit" id="registrar" class="btn"
-                                        style="background-color: #00bb0021; border: 1px solid #00BB00; color: #00BB00; font-weight: 600;">
-                                        <span><i class="bi bi-check-lg"></i></span>Guardar
-                                    </button>
-                                    <button type="submit" id="cancelar" data-bs-dismiss="modal"
-                                        class="btn btn-secondary"
-                                        style="background-color: #ff000015; border: 1px solid #ff0000; color: #ff0101; font-weight: 600;">
-                                        <span><i class="bi bi-x-lg"></i></span>Cancelar
-                                    </button>
-                                </div>
+        <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header pt-4">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="mb-3 col-12 col-xl-6">
+                            </div>
+                            <div class="mb-3 col-12 col-xl-6 text-end">
+                                <button type="submit" id="registrar" class="btn"
+                                    style="background-color: #00bb0021; border: 1px solid #00BB00; color: #00BB00; font-weight: 600;" onclick="registrarLegalizacion();">
+                                    <span><i class="bi bi-check-lg"></i></span>Guardar
+                                </button>
+                                <button type="submit" id="cancelar" data-bs-dismiss="modal"
+                                    class="btn btn-secondary"
+                                    style="background-color: #ff000015; border: 1px solid #ff0000; color: #ff0101; font-weight: 600;">
+                                    <span><i class="bi bi-x-lg"></i></span>Cancelar
+                                </button>
                             </div>
                         </div>
                     </div>
-                    <div style="padding: 0 8% 5%;">
-                        <h3 style="font-weight: 600;">Registrar Legalización</h3>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="mb-3 col-12 col-xl-4">
-                                    <label for="usuario" class="form-label">No. comisión</label>
-                                    <select name="centro" id="num_comision" class="form-select"
-                                        style="background-color: #ffffff; border-radius: 5px;">
-                                        <option value="" disabled selected>Selecciona una opción</option>
-                                    </select>
-                                    <label for="fecha_inicio" class="form-label">Fecha Inicio</label>
+                </div>
+                <div style="padding: 0 8% 5%;">
+                    <h3 style="font-weight: 600;">Registrar Legalización</h3>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="mb-3 col-12 col-xl-4">
+                                <label for="" class="form-label">No. comisión</label>
+                                <select id="id_viaje" class="form-select"
+                                    style="background-color: #ffffff; border-radius: 5px;">
+                                    <option value="" disabled selected>Selecciona una opción</option>
+                                    <option value=""></option>
+                                    <option value=""></option>
+                                </select>
+                                <label for="" class="form-label">Fecha Inicio</label>
+                                <div class="input-group">
+                                    <input type="date" class="form-control" id="fecha_inicio">
+                                </div>
+                                <label for="" class="form-label">Fecha Fin</label>
+                                <div class="input-group">
+                                    <input type="date" class="form-control" id="fecha_fin">
+                                </div>
+                                
+                                <div class="visually-hidden">
+                                    <label for="" class="form-label">Fecha solicitud</label>
                                     <div class="input-group">
-                                        <input type="date" class="form-control" id="fecha_inicio">
-                                    </div>
-                                    <label for="fecha_fin" class="form-label">Fecha Fin</label>
-                                    <div class="input-group">
-                                        <input type="date" class="form-control" id="fecha_fin">
-                                    </div>
-                                    <label for="ruta" class="form-label">Ruta</label>
-                                    <div class="input-group">
-                                        <textarea id="ruta" cols="60" rows="4"></textarea>
+                                        <input type="date" class="form-control" id="fecha_soli">
                                     </div>
                                 </div>
-                                <div class="input-group visually-hidden"
-                                    style="border-radius: 10px; border-left: none;">
+                                
+
+                                <label for="" class="form-label">Ruta</label>
+                                <div class="form-floating">
+                                    <textarea id="ruta" class="form-control" placeholder="Leave a comment here"style="height: 125px" style="font-size: 0%" oninput="validateRuta()"></textarea>
+                                </div>
+                            </div>
+                            <div class="input-group visually-hidden"
+                                style="border-radius: 10px; border-left: none;">
+                                <span class="input-group-text">
+                                    <box-icon name="filter"></box-icon>
+                                </span>
+                                <select name="" id="estado_lega" class="form-select"
+                                    style="background-color: #ffffff; border-radius: 0 0 10px 0; border-left: none;">
+                                    <option value="">Estado</option>
+                                    <option value="aceptada">Aceptada</option>
+                                    <option value="pendiente" selected>Pendiente</option>
+                                    <option value="rechazada">Rechazada</option>
+                                </select>
+                            </div>
+                            <div class="mb-3 col-12 col-xl-7" style="padding-left: 0;">
+                                <label for="file" class="form-label">Archivos</label>
+                                <div class="input-group">
                                     <span class="input-group-text">
-                                        <box-icon name="filter"></box-icon>
+                                        <box-icon name='file-pdf' type='solid' color='#ff1f1f'></box-icon>
                                     </span>
-                                    <select name="centro" id="estado" class="form-select"
-                                        style="background-color: #ffffff; border-radius: 0 0 10px 0; border-left: none;">
-                                        <option value="">Estado</option>
-                                        <option value="completado">Completada</option>
-                                        <option value="pendiente" selected>Pendiente</option>
-                                    </select>
+                                    <input type="file" class="form-control" id="file" accept="application/pdf">
+                                    <button class="btn btn-danger d-none" id="removeFile" onclick="removeSelectedFile()">Quitar</button>
                                 </div>
-                                <div class="mb-3 col-12 col-xl-7" style="padding-left: 0;">
-                                    <label for="archivos" class="form-label">Archivos</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text"
-                                            style="justify-content: center; text-align: center;">
-                                            <i class="bi bi-file-earmark-text"></i>
-                                        </span>
-                                        <input type="file" class="form-control" id="fileInput" accept="application/pdf">
-                                    </div>
-                                    <label for="motivo_devo" class="form-label">Motivo Devolución</label>
-                                    <div class="input-group">
-                                        <textarea id="motivo_devo" cols="65" rows="10" disabled
-                                            placeholder="En caso de que la legalización no sea aprovada, le llegará un mensaje de correo electrónico informativo y justo aquí podrá visualizar los detalles de la devolución para que corrija la legalización."
-                                            style="padding: 2%;"></textarea>
-                                    </div>
+                                <p id="fileName" class="mt-2 text-muted"></p>
+                                <label for="" class="form-label">Motivo Devolución</label>
+                                <div class="input-group">
+                                    <textarea id="moti_devolucion" cols="65" rows="10" disabled
+                                        placeholder="En caso de que la legalización no sea aprovada, le llegará un mensaje de correo electrónico informativo y justo aquí podrá visualizar los detalles de la devolución para que corrija la legalización."
+                                        style="padding: 2%;"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -273,8 +289,9 @@
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Modal Editar -->
+    <!-- Modal Editar -->
     <div class="modal fade" id="editLegalizacion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
@@ -303,21 +320,23 @@
                             <div class="mb-3 col-12 col-xl-4">
                                 <input type="text" id="legaId" class="visually-hidden">
                                 <input type="text" id="modalEditId" class="visually-hidden">
-                                <label for="usuario" class="form-label">Nombre Usuario</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" id="nombre_usuarioE" placeholder="Nombre Completo" disabled>
+                                <div class="visually-hidden">
+                                    <label for="usuario" class="form-label">Nombre Usuario</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="nombre_usuarioE" placeholder="Nombre Completo" disabled>
+                                    </div>
                                 </div>
                                 <label for="num_comisionE" class="form-label">No. comisión</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="num_comisionE" placeholder="" disabled>
+                                    <input type="text" class="form-control" id="num_comisionE" placeholder="" >
                                 </div>
                                 <label for="fecha_inicioE" class="form-label">Fecha Inicio</label >
                                 <div class="input-group">
-                                    <input type="date" class="form-control" id="fecha_inicioE" disabled>
+                                    <input type="date" class="form-control" id="fecha_inicioE" >
                                 </div>
                                 <label for="fecha_finE" class="form-label">Fecha Fin</label >
                                 <div class="input-group">
-                                    <input type="date" class="form-control" id="fecha_finE" disabled>
+                                    <input type="date" class="form-control" id="fecha_finE" >
                                 </div>
                                 <label for="rutaE" class="form-label">Ruta</label>
                                 <div class="input-group">

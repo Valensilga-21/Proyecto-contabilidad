@@ -83,7 +83,7 @@ async function restablecerContrasena(nuevaContrasena, confirmarContrasena) {
         Swal.fire({
             icon: 'error',
             title: 'Error',
-            text: error.message
+            text: 'Su cuenta está inactiva, por favor solicite la activación al correo de soporte.'
         });
     }
 }

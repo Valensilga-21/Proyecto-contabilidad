@@ -5,20 +5,15 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.sena.lcdsena.model.estadoUsuario;
 import com.sena.lcdsena.model.usuario;
 
 @Repository
 public interface iusuario extends JpaRepository<usuario, String> {
     
-    @Query("SELECT u FROM usuario u WHERE " +
-       "(LOWER(u.nombre_usuario) LIKE LOWER(CONCAT('%', :filtro, '%')) OR " +
-       "LOWER(u.username) LIKE LOWER(CONCAT('%', :filtro, '%'))) " +
-       "AND (:estado IS NULL OR u.estado_usuario = :estado)")
-    List<usuario> filtroUsuario(@Param("filtro") String filtro, @Param("estado") estadoUsuario estado);
+    @Query("SELECT u FROM usuario u WHERE u.nombre_usuario LIKE %?1% OR u.username LIKE %?1% OR u.id_usuario LIKE %?1%OR u.documento_usuario LIKE %?1%")
+    List<usuario> filtroUsuario(String filtro);
 
     Optional<usuario> findByUsername(String username);
 }

@@ -68,28 +68,11 @@ public class usuarioPrivController {
         return new ResponseEntity<>(usuario, HttpStatus.OK);
     }
 
-    @GetMapping("/busquedaFiltro/{filtro}")
-    public ResponseEntity<Object> findFiltro(@PathVariable String filtro, 
-                                         @RequestParam(required = false) String estado){
-
-        List<usuario> listaUsuarios;
-
-        estadoUsuario estadoEnum = null; // Inicializamos el estado como null
-
-        if (estado != null && !estado.isEmpty()) {
-            try {
-                estadoEnum = estadoUsuario.valueOf(estado.toUpperCase()); // Convertir a ENUM
-            } catch (IllegalArgumentException e) {
-                return ResponseEntity.badRequest().body("Estado no válido");
-            }
-        }
-
-        // Llamamos al método con ambos filtros (puede ser null el estado)
-        listaUsuarios = usuarioService.filtroUsuario(filtro, estadoEnum);
-
-        return ResponseEntity.ok(listaUsuarios);
-    }
-
+    @GetMapping("/busqueda/{filtro}")
+	public ResponseEntity<Object> findFiltro(@PathVariable String filtro){
+	var ListaUsuario=usuarioService.filtroUsuario(filtro); 
+	return new ResponseEntity<>(ListaUsuario,HttpStatus.OK);
+	}
 
     @GetMapping("profile/")
     public ResponseEntity<usuario> getProfile() {
@@ -381,6 +364,7 @@ public class usuarioPrivController {
             if (usuarioUpdate.getCentro() != null) usuario.setCentro(usuarioUpdate.getCentro());
             if (usuarioUpdate.getCargo() != null) usuario.setCargo(usuarioUpdate.getCargo());
             if (usuarioUpdate.getRole() != null) usuario.setRole(usuarioUpdate.getRole());
+            if (usuarioUpdate.getEstado_usuario() != null) usuario.setEstado_usuario(usuarioUpdate.getEstado_usuario());
 
             usuarioService.save(usuario);
             return ResponseEntity.ok(usuario);
