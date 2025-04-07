@@ -76,9 +76,9 @@ public class legalizacionService implements ilegalizacionService{
     }
 
     @Override
-    public Optional<legalizacion> findById(String id) {
-        return ilegalizacionRepository.findById(id);
-    }
+     public Optional<legalizacion> findById(String id) {
+         return ilegalizacionRepository.findById(id);
+     }
 
     public Long contarLegalizacionesRegistradas() {
         return ilegaRepository.count();

@@ -31,6 +31,7 @@ import org.springframework.web.server.ResponseStatusException;
 import com.sena.lcdsena.interfaces.iusuarioRepository;
 import com.sena.lcdsena.interfaces.iviajeRepository;
 import com.sena.lcdsena.iservice.ilegalizacionService;
+import com.sena.lcdsena.model.estadoLegalizacion;
 import com.sena.lcdsena.model.legalizacion;
 import com.sena.lcdsena.model.legalizacionRequest;
 import com.sena.lcdsena.model.usuario;
@@ -42,6 +43,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RequestMapping("/api/v1/LCDSena/legalizacion")
 @RestController
@@ -158,6 +160,34 @@ public class legalizacionController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         } catch (ResponseStatusException e) {
             return ResponseEntity.status(e.getStatusCode()).body(null);
+        }
+    }
+
+    @PutMapping("/{id}/estado")
+    public ResponseEntity<Object> actualizarEstadoLegalizacion(
+            @PathVariable String id,
+            @RequestBody Map<String, String> estadoRequest) {
+        try {
+            var legalizacionOpt = legalizacionService.findOne(id);
+
+            if (legalizacionOpt.isEmpty()) {
+                return new ResponseEntity<>("Legalización no encontrada", HttpStatus.NOT_FOUND);
+            }
+
+            legalizacion legalizacion = legalizacionOpt.get();
+            String nuevoEstado = estadoRequest.get("estado");
+
+            if (nuevoEstado == null || nuevoEstado.isBlank()) {
+                return new ResponseEntity<>("El estado no puede ser nulo o vacío", HttpStatus.BAD_REQUEST);
+            }
+
+            legalizacion.setEstado_lega(estadoLegalizacion.valueOf(nuevoEstado.toUpperCase()));
+            legalizacionService.save(legalizacion);
+
+            return new ResponseEntity<>("Estado actualizado correctamente", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error al actualizar el estado: " + e.getMessage(),
+                    HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

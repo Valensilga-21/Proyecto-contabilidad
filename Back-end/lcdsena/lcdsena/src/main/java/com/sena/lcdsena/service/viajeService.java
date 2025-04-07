@@ -10,9 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.sena.lcdsena.interfaces.iviaje;
 import com.sena.lcdsena.iservice.iviajeService;
-import com.sena.lcdsena.model.estadoUsuario;
 import com.sena.lcdsena.model.estadoViaje;
-import com.sena.lcdsena.model.usuario;
 import com.sena.lcdsena.model.viaje;
 
 @Service
@@ -20,6 +18,9 @@ public class viajeService implements iviajeService{
 
     @Autowired
     private iviaje data;
+
+    @Autowired
+    private iviaje iviaje;
 
     @Override
     public String save (viaje viaje){
@@ -43,6 +44,7 @@ public class viajeService implements iviajeService{
    @Override
     public List<viaje> filtroViaje(String filtro) {
         LocalDate fecha = null;
+        String ruta = null;
 
         try {
             fecha = LocalDate.parse(filtro); // Intenta convertir a fecha
@@ -50,12 +52,7 @@ public class viajeService implements iviajeService{
             // No es una fecha, ignorar
         }
 
-        return data.filtroViaje(filtro, fecha);
-    }
-
-    @Override
-    public List<viaje> filtroEstado(estadoViaje estado_viaje) {
-        return data.filtroEstado(estado_viaje);
+        return data.filtroViaje(filtro, fecha, ruta);
     }
 
     @Override
@@ -67,5 +64,10 @@ public class viajeService implements iviajeService{
             e.printStackTrace();
             return 0;
         }
+    }
+
+    @Override
+    public List<viaje> filtroEstadoV(estadoViaje estado_viaje) {
+        return data.filtroEstadoV(estado_viaje);
     }
 }

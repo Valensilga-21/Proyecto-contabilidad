@@ -1,7 +1,7 @@
 package com.sena.lcdsena.model;
 
 public enum estadoLegalizacion {
-    aceptada,
+    aprobada,
     pendiente,
     rechazada
 }

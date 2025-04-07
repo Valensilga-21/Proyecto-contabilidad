@@ -189,6 +189,32 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("filtroFecha").addEventListener("change", listarLegalizacionAdmin);
 });
 
+function cambiarEstadoLegalizacion(nuevoEstado) {
+    var idLegalizacion = document.getElementById('legaId').value;
+
+    $.ajax({
+        url: urlIdLega + idLegalizacion + "/estado",
+        type: "PUT",
+        contentType: "application/json",
+        data: JSON.stringify({ estado: nuevoEstado }),
+        success: function (response) {
+            $('#editLegalizacion').modal('hide');
+            listarLegalizacionAdmin();
+            Swal.fire({
+                title: "Éxito",
+                text: "La legalización ha sido " + nuevoEstado.toLowerCase() + ".",
+                icon: "success"
+            });
+        },
+        error: function (error) {
+            Swal.fire({
+                title: "Error",
+                text: "No se pudo cambiar el estado: " + error.responseText,
+                icon: "error"
+            });
+        }
+    });
+}
 
 // Función para listar legalizaciones Usuario
 function listarLegalizacion() {

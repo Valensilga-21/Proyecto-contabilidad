@@ -80,6 +80,19 @@ function registrarViaje() {
 
 // Función para listar viajes Usuario
 function listarViajes() {
+    var estado = document.getElementById("estadoFilter").value;
+    var filtroU = document.getElementById("filtroU").value;
+
+    var urlListaViajes = "";
+
+    if (estado !== "") {
+        urlListaViajes = urlFiltrosViaje + "busqueda/estado/" + estado;
+    }else if(filtroU !== ""){
+        urlListaViajes = urlFiltrosViaje + "busquedaFiltro/" + filtroU;
+    }else{
+        urlListaViajes = urlFiltrosViaje;
+    }
+
     $.ajax({
         url: urlListaViajes,
         type: "GET",
@@ -124,6 +137,12 @@ function listarViajes() {
         }
     });
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("estadoFilter").addEventListener("change", listarViajes);
+    document.getElementById("filtroU").addEventListener("input", listarViajes);
+});
+
 
 // Función para listar viajes Admin
 function listarViajesAdmin() {

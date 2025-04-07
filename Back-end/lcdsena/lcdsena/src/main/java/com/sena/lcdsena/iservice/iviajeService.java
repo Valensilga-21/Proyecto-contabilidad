@@ -16,5 +16,5 @@ public interface iviajeService {
     public Optional<viaje> findOne(String id_viaje);
     public int delete(String id_viaje);
     public List<viaje> filtroViaje (String filtro);
-    public List<viaje> filtroEstado(estadoViaje estado_viaje);
+    public List<viaje> filtroEstadoV(estadoViaje estado_viaje);
 }
