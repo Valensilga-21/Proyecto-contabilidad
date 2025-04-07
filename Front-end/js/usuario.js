@@ -161,7 +161,23 @@ async function loginUsuario() {
 // Función para listar usuarios
 function listarUsuarios() {
     var filtro = document.getElementById("texto").value;
-    var urlUsuario = filtro !== "" ? urlFiltroUsuarios + "busqueda/" + filtro : urlFiltroUsuarios;
+    var centro = document.getElementById("centroFilter").value;
+    var role = document.getElementById("roleFilter").value;
+    var estado = document.getElementById("estadoFilter").value;
+
+    var urlUsuario = "";
+
+    if (filtro !== "") {
+        urlUsuario = urlFiltroUsuarios + "busqueda/" + filtro;
+    } else if (centro !== "") {
+        urlUsuario = urlFiltroUsuarios + "busqueda/centro/" + centro;
+    } else if (role !== "") {
+        urlUsuario = urlFiltroUsuarios + "busqueda/role/" + role;
+    } else if (estado !== "") {
+        urlUsuario = urlFiltroUsuarios + "busqueda/estado/" + estado;
+    } else {
+        urlUsuario = urlFiltroUsuarios;
+    }
 
     $.ajax({
         url: urlUsuario,
@@ -198,6 +214,15 @@ function listarUsuarios() {
         }
     });
 }
+
+$(document).ready(function () {
+    document.getElementById("centroFilter").addEventListener("change", listarUsuarios);
+    document.getElementById("roleFilter").addEventListener("change", listarUsuarios);
+    document.getElementById("estadoFilter").addEventListener("change", listarUsuarios);
+    document.getElementById("texto").addEventListener("input", listarUsuarios);
+
+    listarUsuarios(); // para cargar usuarios al iniciar
+});
 
 function openEditModal(id) {
     $.ajax({
@@ -366,7 +391,16 @@ document.addEventListener("DOMContentLoaded", function () {
     .catch(error => {
         console.error("Error:", error);
     });
-
+    
+    document.addEventListener("DOMContentLoaded", function () {
+        const btnGuardar = document.getElementById("btnGuardar");
+        if (btnGuardar) {
+            btnGuardar.addEventListener("click", function () {
+                // tu lógica
+            });
+        }
+    });
+    
     // Evento para actualizar la información
     document.getElementById("btnGuardar").addEventListener("click", function () {
         let documento_usuario = document.getElementById("documento_usuario").value;
@@ -414,3 +448,43 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+
+function descargarPDF(event) {
+
+    const token = localStorage.getItem('userToken');
+
+    Swal.fire({
+        title: "Generando reporte...",
+        text: "Espere mientras se descarga el archivo.",
+        allowOutsideClick: false,
+        didOpen: () => Swal.showLoading()
+    });
+
+    fetch('http://localhost:8080/api/v1/LCDSena/pdfReporte/export-pdf', {
+        method: 'GET',
+        headers: {
+            "Authorization": "Bearer " + token,
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Error al generar el PDF");
+        }
+        return response.blob();
+    })
+    .then(blob => {
+        Swal.close();
+
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+    })
+    .catch(error => {
+        console.error('Error al descargar el PDF:', error);
+        Swal.fire("Error", "No se pudo descargar el PDF. Verifica tu conexión o sesión.", "error");
+    });
+}
+

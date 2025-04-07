@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sena.lcdsena.interfaces.iusuarioRepository;
 import com.sena.lcdsena.iservice.iviajeService;
+import com.sena.lcdsena.model.estadoUsuario;
 import com.sena.lcdsena.model.estadoViaje;
 import com.sena.lcdsena.model.usuario;
 import com.sena.lcdsena.model.viaje;
@@ -94,7 +95,7 @@ public class viajeController {
     }
 
 
-    @GetMapping("/listaViajes")
+    @GetMapping("/")
     public ResponseEntity<Object> findAll() {
         var listaViajes = viajeService.findAll();
         return new ResponseEntity<>(listaViajes, HttpStatus.OK);
@@ -110,6 +111,12 @@ public class viajeController {
     public ResponseEntity<Object> findFiltro(@PathVariable String filtro) {
         var listaViajes = viajeService.filtroViaje(filtro);
         return new ResponseEntity<>(listaViajes, HttpStatus.OK);
+    }
+
+    @GetMapping("/busqueda/estado/{estado_viaje}")
+    public ResponseEntity<Object> findByEstado(@PathVariable estadoViaje estado_viaje) {
+        var listaViaje = viajeService.filtroEstado(estado_viaje);
+        return new ResponseEntity<>(listaViaje, HttpStatus.OK);
     }
 
     @DeleteMapping("/eliminar/{id_viaje}")

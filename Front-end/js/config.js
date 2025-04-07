@@ -7,24 +7,26 @@ var urlEditar = urlBase + "usuario/"
 var urlRegistro = urlBase + "publico/usuario/"
 var urlDeshabilitar = urlBase + "usuario/deshabilitar/"
 var urlLogin = urlBase + "publico/usuario/"
-var urlReporteUsarios = urlBase + "/pdfReporte/export-pdf"
+var urlReporteUsuarios = urlBase + "pdfReporte/export-pdf"
 var urlProfile = urlBase + "usuario/profile/"
 var urlEditProfile = urlBase + "usuario/profile/"
 
 //Viaje
 var urlRegistroViaje = urlBase + "viaje/"
 var urlIdViaje= urlBase + "viaje/"
-var urlListaViajes = urlBase + "viaje/listaViajes"
+var urlListaViajes = urlBase + "viaje/"
 var urlEditarViaje = urlBase + "viaje/"
 var urlViaje = urlBase + "/viaje"
 var urlPdf = urlBase + "/Pdf"
 
 //Legalizacion
-var urlListaLega = urlBase + "legalizacion/listaLega"
+var urlListaLega = urlBase + "legalizacion/"
 var urlIdLega = urlBase + "legalizacion/"
+var urlFiltroLega = urlBase + "legalizacion/"
 
 //Filtros
 var urlFiltroUsuarios = urlBase + "usuario/"
+var urlFiltrosViaje = urlBase + "viaje/"
 
 // Restablecimiento contraseñas
 var urlRestablecerContra = urlBase + "usuario/recuperarContrasena/"

@@ -14,8 +14,10 @@ import com.sena.lcdsena.interfaces.IPasswordResetTokenRepository;
 import com.sena.lcdsena.iservice.iusuarioService;
 import com.sena.lcdsena.model.authResponse;
 import com.sena.lcdsena.model.cambiarContrasena;
+import com.sena.lcdsena.model.centro;
 import com.sena.lcdsena.model.estadoUsuario;
 import com.sena.lcdsena.model.restablecerContrasena;
+import com.sena.lcdsena.model.role;
 import com.sena.lcdsena.model.registroRequest;
 import com.sena.lcdsena.model.usuario;
 
@@ -83,6 +85,21 @@ public class usuarioService implements iusuarioService {
 		List<usuario> ListaUsuario=data.filtroUsuario(filtro);
 		return ListaUsuario;
 	}
+
+    @Override
+    public List<usuario> filtroCentro(centro centro) {
+        return data.filtroCentro(centro);
+    }
+
+    @Override
+    public List<usuario> filtroRole(role role) {
+        return data.filtroRole(role);
+    }
+
+    @Override
+    public List<usuario> filtroEstado(estadoUsuario estado_usuario) {
+        return data.filtroEstado(estado_usuario);
+    }
 
     @Override
     public Optional<usuario> findOne(String id) {

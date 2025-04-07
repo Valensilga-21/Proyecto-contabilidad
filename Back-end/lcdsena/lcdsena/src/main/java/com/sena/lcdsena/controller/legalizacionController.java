@@ -15,6 +15,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -160,7 +161,7 @@ public class legalizacionController {
         }
     }
 
-    @GetMapping("/listaLega")
+    @GetMapping("/")
     public ResponseEntity<Object> findAll() {
         var litaLegalizaciones = legalizacionService.findAll();
         return new ResponseEntity<>(litaLegalizaciones, HttpStatus.OK);
@@ -172,11 +173,12 @@ public class legalizacionController {
         return new ResponseEntity<>(legalizacion, HttpStatus.OK);
     }
 
-    // @GetMapping("/busquedaFiltro")
-    // public ResponseEntity<Object> findFiltro(@PathVariable String filtro) {
-    //     var listaLegalizaciones = legalizacionService.filtroLegalizacion(filtro);
-    //     return new ResponseEntity<>(listaLegalizaciones, HttpStatus.OK);
-    // }
+    @GetMapping("/busqueda/fecha/{fecha_soli}")
+    public ResponseEntity<Object> findByFecha(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fecha_soli) {
+        var lista = legalizacionService.filtroFecha(fecha_soli);
+        return new ResponseEntity<>(lista, HttpStatus.OK);
+    }
+
 
     @DeleteMapping("/deshabilitar/{id_legalizacion}")
     public ResponseEntity<Object> delete(@PathVariable String id_legalizacion) {

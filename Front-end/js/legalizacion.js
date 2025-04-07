@@ -85,7 +85,7 @@ function cargarFormulario() {
 }
 
 function cargarViaje() {
-    let urlViaje = "http://localhost:8080/api/v1/LCDSena/viaje/listaViajes";
+    let urlViaje = "http://localhost:8080/api/v1/LCDSena/viaje/";
     $.ajax({
         url: urlViaje,
         type: "GET",
@@ -131,6 +131,17 @@ function llenarDatosViaje(idViaje) {
 
 // Función para listar legalizaciones Admin
 function listarLegalizacionAdmin() {
+
+    var fecha_soli = document.getElementById("filtroFecha").value;
+
+    var urlListaLega = "";
+
+    if(fecha_soli !== "") {
+        urlListaLega = urlFiltroLega + "busqueda/fecha/" + fecha_soli;
+    }else{
+        urlListaLega = urlFiltroLega;
+    }
+    
     $.ajax({
         url: urlListaLega,
         type: "GET",
@@ -140,10 +151,11 @@ function listarLegalizacionAdmin() {
 
             for (var i = 0; i < result.length; i++) {
                 var usuario = result[i]["usuario"] || {}; // Verificar si el usuario existe
+                var viajeA = result[i]["viaje"] || {};
                 
                 // Asignar valores predeterminados si no están disponibles
+                var num_comision = viajeA["num_comision"] || "No disponible";
                 var nombre_usuario = usuario["nombre_usuario"] || "No disponible";
-                var username = usuario["username"] || "No disponible";
                 var cargo = usuario["cargo"] || "No disponible";
                 var centro = usuario["centro"] || "No disponible";
                 var fecha_soli = result[i]["fecha_soli"] || "No disponible";
@@ -151,8 +163,8 @@ function listarLegalizacionAdmin() {
                 // Crear fila de la tabla
                 var trRegistro = document.createElement("tr");
                 trRegistro.innerHTML = `
+                    <td>${num_comision}</td>
                     <td>${nombre_usuario}</td>
-                    <td>${username}</td>
                     <td>${cargo}</td>
                     <td>${centro}</td>
                     <td>${fecha_soli}</td>
@@ -172,6 +184,11 @@ function listarLegalizacionAdmin() {
         }
     });
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("filtroFecha").addEventListener("change", listarLegalizacionAdmin);
+});
+
 
 // Función para listar legalizaciones Usuario
 function listarLegalizacion() {

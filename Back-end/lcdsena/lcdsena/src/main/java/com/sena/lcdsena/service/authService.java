@@ -19,6 +19,7 @@ import com.sena.lcdsena.interfaces.iusuario;
 import com.sena.lcdsena.iservice.iusuarioService;
 import com.sena.lcdsena.model.authResponse;
 import com.sena.lcdsena.model.cambiarContrasena;
+import com.sena.lcdsena.model.centro;
 import com.sena.lcdsena.model.estadoUsuario;
 import com.sena.lcdsena.model.loginRequest;
 import com.sena.lcdsena.model.registroRequest;
@@ -73,7 +74,6 @@ public class authService implements iusuarioService{
                 .Token(jwtService.getToken(userData))
                 .build();
     }
-
 
     // Metodo inicio de sesion
     public authResponse login(loginRequest request) {
@@ -177,6 +177,21 @@ public class authService implements iusuarioService{
 		List<usuario> ListaUsuario=data.filtroUsuario(filtro);
 		return ListaUsuario;
 	}
+
+    @Override
+    public List<usuario> filtroCentro(centro centro) {
+        return data.filtroCentro(centro);
+    }
+
+    @Override
+    public List<usuario> filtroRole(role role) {
+        return data.filtroRole(role);
+    }
+
+    @Override
+    public List<usuario> filtroEstado(estadoUsuario estado_usuario) {
+        return data.filtroEstado(estado_usuario);
+    }
 
     @Override
     public int delete(String id) {

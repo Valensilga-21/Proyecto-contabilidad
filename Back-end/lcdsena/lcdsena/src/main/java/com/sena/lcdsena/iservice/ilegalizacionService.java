@@ -1,5 +1,6 @@
 package com.sena.lcdsena.iservice;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,7 +14,7 @@ public interface ilegalizacionService {
     public Optional <legalizacion> findOne(String id_legalizacion);
     public int delete(String id_legalizacion);
     Optional<legalizacion> findById(String id);
-    // public List<legalizacion> filtroLegalizacion (String filtro);
+    List<legalizacion> filtroFecha(LocalDate fecha_soli);
     public Long contarLegalizacionesRegistradas();
     public Long contarLegalizacionesPendientes();
     public Long contarLegalizacionesVencidas();

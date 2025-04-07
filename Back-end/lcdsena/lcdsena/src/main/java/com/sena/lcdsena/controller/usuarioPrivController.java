@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sena.lcdsena.interfaces.iusuario;
 import com.sena.lcdsena.model.authResponse;
+import com.sena.lcdsena.model.centro;
 import com.sena.lcdsena.model.estadoUsuario;
 import com.sena.lcdsena.model.respuestaCambioContra;
+import com.sena.lcdsena.model.role;
 import com.sena.lcdsena.model.usuario;
 import com.sena.lcdsena.service.authService;
 import com.sena.lcdsena.service.emailService;
@@ -30,7 +32,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Base64;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
@@ -74,6 +75,24 @@ public class usuarioPrivController {
 	return new ResponseEntity<>(ListaUsuario,HttpStatus.OK);
 	}
 
+    @GetMapping("/busqueda/centro/{centro}")
+    public ResponseEntity<Object> findByCentro(@PathVariable centro centro) {
+        var listaUsuario = usuarioService.filtroCentro(centro);
+        return new ResponseEntity<>(listaUsuario, HttpStatus.OK);
+    }
+
+    @GetMapping("/busqueda/role/{role}")
+    public ResponseEntity<Object> findByRol(@PathVariable role role) {
+        var listaUsuario = usuarioService.filtroRole(role);
+        return new ResponseEntity<>(listaUsuario, HttpStatus.OK);
+    }
+
+    @GetMapping("/busqueda/estado/{estado_usuario}")
+    public ResponseEntity<Object> findByEstado(@PathVariable estadoUsuario estado_usuario) {
+        var listaUsuario = usuarioService.filtroEstado(estado_usuario);
+        return new ResponseEntity<>(listaUsuario, HttpStatus.OK);
+    }
+
     @GetMapping("profile/")
     public ResponseEntity<usuario> getProfile() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -83,7 +102,6 @@ public class usuarioPrivController {
         usuario usuario = (usuario) auth.getPrincipal();
         return ResponseEntity.ok(usuario);
     }
-
 
     @GetMapping("obtenerNombreusuario/")
     public ResponseEntity<Map<String, String>> obtenerNombreUsuario() {

@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 
 import com.sena.lcdsena.interfaces.iviaje;
 import com.sena.lcdsena.iservice.iviajeService;
+import com.sena.lcdsena.model.estadoUsuario;
+import com.sena.lcdsena.model.estadoViaje;
+import com.sena.lcdsena.model.usuario;
 import com.sena.lcdsena.model.viaje;
 
 @Service
@@ -50,6 +53,10 @@ public class viajeService implements iviajeService{
         return data.filtroViaje(filtro, fecha);
     }
 
+    @Override
+    public List<viaje> filtroEstado(estadoViaje estado_viaje) {
+        return data.filtroEstado(estado_viaje);
+    }
 
     @Override
     public int delete(String id) {

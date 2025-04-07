@@ -59,11 +59,10 @@ public class legalizacionService implements ilegalizacionService{
         return legalizacion;
     }
 
-    // @Override
-    // public List<legalizacion> filtroLegalizacion(String filtro){
-    //     List<legalizacion> listaLegalizaciones=data.filtroLegalizacion(filtro);
-    //     return listaLegalizaciones;
-    // }
+    @Override
+    public List<legalizacion> filtroFecha(LocalDate fecha_soli) {
+        return data.filtroFecha(fecha_soli);
+    }
 
     @Override
     public int delete(String id){

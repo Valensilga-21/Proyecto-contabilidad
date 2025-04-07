@@ -19,5 +19,4 @@ public class LcdsenaApplication {
 	// 	var key = Base64.getEncoder().encodeToString(secret_key.getEncoded());
 	// 	return key;
 	// }
-
 }

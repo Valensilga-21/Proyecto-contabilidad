@@ -127,8 +127,12 @@ function listarViajes() {
 
 // Función para listar viajes Admin
 function listarViajesAdmin() {
+
+    var filtro = document.getElementById("texto").value;
+    var urlViaje = filtro !== "" ? urlFiltrosViaje + "busquedaFiltro/" + filtro : urlFiltrosViaje;
+
     $.ajax({
-        url: urlListaViajes,
+        url: urlViaje,
         type: "GET",
         success: function (result) {
             var cuerpoTabla = document.getElementById("viajesTableAdmin").getElementsByTagName('tbody')[0];
@@ -138,6 +142,7 @@ function listarViajesAdmin() {
                 var usuario = result[i]["usuario"] || {};
                 
                 // Asignar valores predeterminados si no están disponibles
+                var num_comision = result[i]["num_comision"] || "No disponible";
                 var nombre_usuario = usuario["nombre_usuario"] || "No disponible";
                 var cargo = usuario["cargo"] || "No disponible";
                 var centro = usuario["centro"] || "No disponible";
@@ -148,6 +153,7 @@ function listarViajesAdmin() {
                 // Crear fila de la tabla
                 var trRegistro = document.createElement("tr");
                 trRegistro.innerHTML = `
+                    <td>${num_comision}</td>
                     <td>${nombre_usuario}</td>
                     <td>${cargo}</td>
                     <td>${centro}</td>
@@ -170,6 +176,12 @@ function listarViajesAdmin() {
         }
     });
 }
+
+$(document).ready(function () {
+    document.getElementById("texto").addEventListener("input", listarViajesAdmin);
+
+    listarViajesAdmin();
+});
 
 function openEditModal(id) {
     $.ajax({
