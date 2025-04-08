@@ -69,14 +69,17 @@ function registrarLegalizacion() {
         contentType: false,
         headers: { "Authorization": "Bearer " + token },
         success: function(result) {
-            Swal.fire("¡Éxito!", "Legalización registrada correctamente.", "success");
-            $('#legaRegister').modal('hide');
-            console.log("Legalización guardada para el viaje:", viajeId);
-        },
-        error: function(xhr, status, error) {
-            Swal.fire("¡Error!", "No se pudo registrar la legalización.", "error");
-            console.log("Error en la petición:", xhr.responseText);
-        }
+            Swal.fire({
+                title: "¡Éxito!",
+                text: "Legalización registrada correctamente.",
+                icon: "success",
+                timer: 1500,
+                showConfirmButton: false
+            }).then(() => {
+                $('#legaRegister').modal('hide');
+                listarLegalizaciones();
+            });
+        }        
     });
 }
 

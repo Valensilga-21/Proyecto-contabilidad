@@ -62,9 +62,10 @@ function registrarViaje() {
                 title: "¡Éxito!",
                 text: "Viaje registrado correctamente.",
                 icon: "success"
+            }).then(() => {
+                $('#viajeRegister').modal('hide');
+                listarViajesAdmin(); // Si querés refrescar la tabla luego de registrar
             });
-
-            $('#viajeRegister').modal('hide');
         },
         error: function(xhr, status, error) {
             console.log("Error en la petición:", xhr.responseText);
@@ -286,10 +287,10 @@ function enviarEdicion(id, num_comision, fecha_inicio, fecha_fin, ruta, estado_v
                 title: "Éxito",
                 text: "Viaje actualizado con éxito",
                 icon: "success",
+            }).then(() => {
+                $('#editViaje').modal('hide'); // Cierra el modal después de éxito
+                listarViajesAdmin(); // Actualiza la tabla correctamente
             });
-            $('#editViaje').modal('hide');
-            listarViajes();
-            listarViajesAdmin();
         },
         error: function (xhr, status, error) {
             console.error('Error al actualizar el viaje:', xhr.responseText, status, error);
@@ -300,6 +301,7 @@ function enviarEdicion(id, num_comision, fecha_inicio, fecha_fin, ruta, estado_v
             });
         }
     });
+    listarViajesAdmin();
 }
 
 //Validacion número de comisión
