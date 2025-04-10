@@ -89,7 +89,6 @@ async function restablecerContrasena(nuevaContrasena, confirmarContrasena) {
 }
 
 function redirectAfterPasswordChange(token) {
-    // Redirige a la página de inicio de sesión
     window.location.href = '/Front-end/index.html';
 }
 

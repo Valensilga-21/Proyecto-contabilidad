@@ -159,9 +159,11 @@ public class usuarioPrivController {
             if (usuario.getEstado_usuario() == estadoUsuario.pendiente) {
                 usuario.setEstado_usuario(estadoUsuario.activo);
                 data.save(usuario);
+
+                emailService.enviarCorreoBienvenida(usuario.getUsername(), usuario.getNombre_usuario());
                 
                 return new ResponseEntity<>("Solicitud de registro aprobada.", HttpStatus.OK);
-                // emailService.enviarCorreoBienvenida(request.getUsername(), request.getNombre_usuario());
+                
             } else {
                 return new ResponseEntity<>("Su solicitud ya ha sido aprobada o rechazada.", HttpStatus.BAD_REQUEST);
             }
@@ -233,7 +235,7 @@ public class usuarioPrivController {
         usuarioService.save(user);
 
         // Enviar notificación por correo
-        //emailService.enviarNotificacionCambioContra(user.getUsername());
+        emailService.notificacionExitosaCambioContra(user.getUsername(), user.getNombre_usuario());
         return ResponseEntity.status(HttpStatus.OK).body("Contraseña cambiada exitosamente");
     }
 
@@ -353,7 +355,7 @@ public class usuarioPrivController {
 	    usuarioService.save(usuario);
 
 	    // Enviar correo de confirmación
-	    // emailService.enviarNotificacionCambioContra(usuario.getUsername());
+	    emailService.notificacionExitosaOlvidarContra(usuario.getUsername(), usuario.getNombre_usuario());
 
 	    // Configurar la respuesta de éxito
 	    respuesta.setStatus(HttpStatus.OK.toString());

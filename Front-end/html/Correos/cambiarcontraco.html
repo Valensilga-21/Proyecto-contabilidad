@@ -5,27 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Correo Cambiar contraseña</title>
 </head>
-<body style="background-color: #f9fafb; color: #111827; font-family: Arial, sans-serif;">
-    <section style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 32px; height: 100vh;">
-        <div style="width: 100%; max-width: 400px; padding: 24px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
-            <h1 style="margin-bottom: 8px; font-size: 20px; font-weight: bold; color: #111827;">¡Hola, [nombre_usuario]!</h1>
-            <p style="font-size: 14px; color: #6b7280; padding: 4px;">Hemos recibido una solicitud para cambiar tu contraseña actual. 
-                ¿Fuiste tú quien realizó esta acción? Si es así, haz clic en el botón de abajo para cambiarla. 
-                Si no reconoces esta acción, por favor ignora este mensaje.</p>
-            <br>
-            <button id="cambiarContra" style="width: 100%; background-color: #39A800; color: white; font-weight: 500; font-size: 14px; padding: 8px 12px; border: none; border-radius: 8px; cursor: pointer;">Cambiar contraseña</button>
-            <br><br>
-            <p style="font-size: 14px; color: #6b7280; padding: 4px;">Recuerda mantener tu cuenta segura y nunca compartir tu contraseña.</p>
-            <p style="font-weight: 600; font-size: 14px; color: #111827; padding: 4px;">¡Que tengas un excelente día! 😊</p>
-            <img src="https://oficinavirtualderadicacion.sena.edu.co/oficinavirtual/Resources/logoSenaNaranja.png" alt="logo" style="width: 47px; margin-right: 10px; margin-top: 25px;">
-            <img src="https://i.ibb.co/4ZY46W6j/LCD-removebg-2.png" alt="logo" style="width: 90px; margin-right: 10px; margin-top: 25px;">
-            <hr>
+<body style="font-family: Arial, sans-serif; background-color: #f9fafb; margin: 0; padding: 0;">
+    <section style="background-color: #f9fafb; padding: 20px;">
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; max-width: 420px; margin: auto;">
+            <div style="width: 100%; padding: 30px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
+                <h1 style="margin-bottom: 10px; font-size: 24px; font-weight: bold; color: #1f2937;">
+                    ¡Hola, [nombre_usuario]!
+                </h1>
+                <p style="font-size: 16px; color: #4b5563; margin: 10px 0;">Hemos recibido una solicitud para cambiar tu contraseña actual. 
+                    ¿Fuiste tú quien realizó esta acción? Si es así, haz clic en el botón de abajo para cambiarla. 
+                    Si no reconoces esta acción, por favor ignora este mensaje.</p>
+                <br>
+                <a href="/Front-end/html/cambiarcontra.html" style="display: inline-block; width: 95%; text-align: center; text-decoration: none; color: white; background-color: #39A800; padding: 10px; border-radius: 5px; font-weight: medium; font-weight: 550;">Cambiar contraseña</a>
+                <p style="font-size: 16px; color: #4b5563; margin: 10px 0; margin-top: 25px;">Recuerda mantener tu cuenta segura y nunca compartir tu contraseña.</p>
+                <p style="font-size: 16px; font-weight: bold; color: #1f2937; margin: 10px 0;">¡Que tengas un excelente día!</p>
+                <br>
+                <a href="/Front-end/index.html" style="display: flex; align-items: center; margin-bottom: 20px; font-size: 24px; font-weight: 600; color: #1f2937;">
+                    <img src="https://oficinavirtualderadicacion.sena.edu.co/oficinavirtual/Resources/logoSenaNaranja.png" alt="logo" style="width: 47px; margin-right: 10px; margin-top: 25px;">
+                    <img src="https://i.postimg.cc/bvJQ2q18/LCD-removebg-2.png" alt="logo" style="width: 90px; margin-right: 10px; margin-top: 25px;">
+                </a>
+                <hr>
+            </div>
         </div>
     </section>
-    <script>
-        document.getElementById("cambiarContra").addEventListener("click", () => {
-            window.location.href = "/Front-end/html/cambiarcontra.html";
-        });
-    </script>
 </body>
 </html>

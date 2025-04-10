@@ -8,13 +8,11 @@ import com.sena.lcdsena.model.estadoUsuario;
 import com.sena.lcdsena.model.loginRequest;
 import com.sena.lcdsena.model.registroRequest;
 import com.sena.lcdsena.service.authService;
-import com.sena.lcdsena.service.emailService;
 
 import lombok.RequiredArgsConstructor;
 
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
@@ -29,9 +27,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class usuarioPublicoController {
 
     private final authService authService;
-
-    @Autowired
-    private emailService emailService;
 
     @PostMapping("login/")
     public ResponseEntity<authResponse> login(@RequestBody loginRequest request) {
@@ -67,7 +62,6 @@ public class usuarioPublicoController {
             response = authService.registro(request);
             response.setMensaje("Su solicitud de registro ha sido enviada correctamente.");
             //para envíar el correo electronico
-            emailService.enviarCorreoBienvenida(request.getUsername(), request.getNombre_usuario());
             return new ResponseEntity<authResponse>(response, HttpStatus.OK);
         }
         return new ResponseEntity<authResponse>(response, HttpStatus.OK);

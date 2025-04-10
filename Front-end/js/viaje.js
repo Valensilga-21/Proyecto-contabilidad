@@ -289,6 +289,7 @@ function enviarEdicion(id, num_comision, fecha_inicio, fecha_fin, ruta, estado_v
                 icon: "success",
             }).then(() => {
                 $('#editViaje').modal('hide'); // Cierra el modal después de éxito
+                listarViajes();
                 listarViajesAdmin(); // Actualiza la tabla correctamente
             });
         },
@@ -301,6 +302,7 @@ function enviarEdicion(id, num_comision, fecha_inicio, fecha_fin, ruta, estado_v
             });
         }
     });
+    listarViajes();
     listarViajesAdmin();
 }
 
