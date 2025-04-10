@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
     <link rel="stylesheet" href="/Front-end/css/bootstrap.css">
@@ -17,10 +18,19 @@
 
     <script type="module" src="/Front-end/js/contadores.js"></script>
 
-    <title>Proyecto</title>
+    <script src="/Front-end/js/cerrarSesion.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <title>InicioUsuario</title>
 </head>
 <style>
-    .button:hover{
+    .button:hover {
         background-color: rgb(187, 187, 187);
     }
 
@@ -39,46 +49,45 @@
         margin-right: 5px;
     }
 </style>
-<body>
+
+<body onload="listarInicioUser();">
     <nav>
         <div class="logo-name">
             <div class="row">
                 <div id="imglogo" class="container">
-                    <img src="/Front-end/img/LCD-removebg 1.png" alt="" style="width: 180px;">
+                    <img src="/Front-end/img/LCD-removebg 1.png" alt="" style="width: 200px;">
                 </div>
             </div>
         </div>
 
         <div class="menu-items">
             <ul class="nav-links">
-                <li><a href="/Front-end/html/Usuario/inicioUsuario.html">
-                    <i class="uil uil-estate"></i>
-                    <span class="link-name"><b>Inicio</b></span>
-                </a></li>
+                <li class="active"><a href="/Front-end/html/Usuario/inicioUsuario.html">
+                        <i class="uil uil-estate"></i>
+                        <span class="link-name"><b>Inicio</b></span>
+                    </a></li>
                 <li><a href="/Front-end/html/Usuario/legalizaciones.html">
-                    <i class="uil uil-chart"></i>
-                    <span class="link-name"><b>Legalizaciones</b></span>
-                </a></li>
+                        <i class="uil uil-chart"></i>
+                        <span class="link-name"><b>Legalizaciones</b></span>
+                    </a></li>
                 <li><a href="/Front-end/html/Usuario/viajes.html">
-                    <i class='bx bx-car'></i>
-                    <span class="link-name"><b>Viajes</b></span>
-                </a></li>
+                        <i class='bx bx-car'></i>
+                        <span class="link-name"><b>Viajes</b></span>
+                    </a></li>
                 <li><a href="/Front-end/html/Usuario/perfil.html">
-                    <i class='bx bx-cog' ></i>
-                    <span class="link-name"><b>Perfil</b></span>
-                </a></li>
+                        <i class='bx bx-cog'></i>
+                        <span class="link-name"><b>Perfil</b></span>
+                    </a></li>
                 <li><a href="/Front-end/html/Usuario/ayuda.html">
-                    <i class='bx bx-help-circle' ></i>
-                    <span class="link-name"><b>Ayuda</b></span>
+                        <i class='bx bx-help-circle'></i>
+                        <span class="link-name"><b>Ayuda</b></span>
                 </a></li>
-            </ul>
-            
-            <ul class="logout-mode">
-                <li><a href="#">
-                    <i class="uil uil-signout" color="#00BB00"></i>
-                    <span class="link-name"><b>Cerrar sesión</b></span>
-                </a></li>
-            </li>
+                <li style="padding-top: 65%;">
+                    <a type="button" onclick="cerrarSesion();">
+                        <i class="uil uil-signout" style="color: #00BB00;"></i>
+                        <span class="link-name"><b>Cerrar sesión</b></span>
+                    </a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -102,56 +111,61 @@
                     <div class="box box1">
                         <box-icon name='check-circle' color='#00bb00' size="80px"></box-icon>
                         <span class="text py-2">Completadas</span>
-                        <span class="number">50,120</span>
+                        <span class="number" id="registradas"></span>
                     </div>
                     <div class="box box2">
                         <box-icon name='error-circle' color='#ffae00' size="80px"></box-icon>
                         <span class="text py-2">Pendientes</span>
-                        <span class="number">20,120</span>
+                        <span class="number" id="pendientes"></span>
                     </div>
                     <div class="box box3">
                         <box-icon name='x-circle' color='#ff0000' size="80px"></box-icon>
                         <span class="text py-2">Vencidas</span>
-                        <span class="number">10,120</span>
+                        <span class="number" id="vencidas"></span>
                     </div>
                 </div>
             </div>
 
-            <div class="row" style="padding-top: 4%;">
-                <div class="col-4">
-                        
-                </div>
-                <div class="col-2">
-                        
-                </div>
-                <div class="col-4">
+            <div class="row pt-4 g-3">
+                <div class="col-12 col-md-4"></div>
+            
+                <div class="col-12 col-md-2"></div>
+            
+                <div class="col-12 col-md-4">
                     <div class="input-group mb-3">
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon1"><span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16" style="color: black;">
-                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                          </svg></span></button>
-                        <input type="text" class="form-control" placeholder="Buscar..." aria-label="Example text with button addon" aria-describedby="button-addon1">
-                      </div>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon1">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-search" viewBox="0 0 16 16" style="color: black;">
+                                    <path
+                                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                                </svg>
+                            </span>
+                        </button>
+                        <input type="text" class="form-control" placeholder="Buscar..." aria-label="Buscar"
+                            aria-describedby="button-addon1">
+                    </div>
                 </div>
-                <div class="col-2">
-                    <div class="input-group" style="border-radius: 10px 10px 10px 10px; border-left:none;">
-                        <span class="input-group-text"><box-icon name='filter' ></box-icon></span>
-                        <select name="centro" id="centro" class="form-select" style="background-color: #ffffff; border-radius: 0px 0px 10px 0px; border-left:none;">
+            
+                <div class="col-12 col-md-2">
+                    <div class="input-group">
+                        <span class="input-group-text"><box-icon name='filter'></box-icon></span>
+                        <select name="centro" id="centro" class="form-select">
                             <option value="" disabled selected>Estado</option>
                             <option value="completadas">Completadas</option>
                             <option value="pendientes">Pendientes</option>
                             <option value="vencidas">Vencidas</option>
-                            <option value="mas90dias">Mas de 90 dias</option>
+                            <option value="mas90dias">Más de 90 días</option>
                         </select>
                     </div>
                 </div>
             </div>
-            <div class="activity-data" style="padding-top: 1%;">
-                <table class="table">
+            
+            <div class="activity-data table-responsive-sm" style="padding-top: 1%;">
+                <table class="table table-hover" id="inicioUserTable">
                     <thead>
                         <tr>
-                            <th>#</th>
                             <th>No. Comision</th>
-                            <th>Nombre</th>
                             <th>Fecha Inicio</th>
                             <th>Fecha Final</th>
                             <th>Ruta</th>
@@ -159,12 +173,15 @@
                             <th>Estado</th>
                         </tr>
                     </thead>
-                    <tbody id="tablaInicio">
+                    <tbody>
 
                     </tbody>
                 </table>
             </div>
         </div>
     </section>
+
+    <script src="/Front-end/js/inicio.js"></script>
+    <script src="/Front-end/js/config.js"></script>
 </body>
 </html>

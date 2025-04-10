@@ -21,7 +21,13 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-    <title>Viajes</title>
+    <script src="/Front-end/js/cerrarSesion.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <title>Ayuda</title>
 </head>
 <style>
     .button:hover{
@@ -56,14 +62,14 @@
         <div class="logo-name">
             <div class="row">
                 <div id="imglogo" class="container">
-                    <img src="/Front-end/img/LCD-removebg 1.png" alt="" style="width: 180px;">
+                    <img src="/Front-end/img/LCD-removebg 1.png" alt="" style="width: 200px;">
                 </div>
             </div>
         </div>
 
         <div class="menu-items">
             <ul class="nav-links">
-                <li><a href="/Front-end/html/Usuario/inicio.html">
+                <li><a href="/Front-end/html/Usuario/inicioUsuario.html">
                     <i class="uil uil-estate"></i>
                     <span class="link-name"><b>Inicio</b></span>
                 </a></li>
@@ -79,18 +85,16 @@
                     <i class='bx bx-cog' ></i>
                     <span class="link-name"><b>Perfil</b></span>
                 </a></li>
-                <li><a href="/Front-end/html/Usuario/ayuda.html">
+                <li class="active"><a href="/Front-end/html/Usuario/ayuda.html">
                     <i class='bx bx-help-circle' ></i>
                     <span class="link-name"><b>Ayuda</b></span>
                 </a></li>
-            </ul>
-            
-            <ul class="logout-mode">
-                <li><a href="#">
-                    <i class="uil uil-signout" color="#00BB00"></i>
-                    <span class="link-name"><b>Cerrar sesión</b></span>
-                </a></li>
-            </li>
+                <li style="padding-top: 65%;">
+                    <a type="button" onclick="cerrarSesion();">
+                        <i class="uil uil-signout" style="color: #00BB00;"></i>
+                        <span class="link-name"><b>Cerrar sesión</b></span>
+                    </a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -106,12 +110,14 @@
                         para aprovechar al máximo nuestra plataforma.</p>
                 <p>Si tienes alguna pregunta o necesitas asistencia adicional, no dudes en ponerte en contacto
                         con nuestro soporte técnico.</p>
-                <a href="/Front-end/manuales/MANUAL DE USUARIO.pdf" class="button" download="Manual de Usuario LCDSena.pdf">
-                    <span style="margin-top: 2%;">
-                        <i class="bi bi-download"></i>
-                    </span>
-                    <b>Descargar Manual de Usuario</b>
-                </a>
+                        <a href="/Front-end/manuales/MANUAL DE USUARIO.pdf"
+                        class="button btn d-flex align-items-center justify-content-center mx-auto w-100 w-md-50 w-lg-35"
+                        download="Manual de Usuario LCDSena.pdf">
+                        <span class="me-2">
+                            <i class="bi bi-download"></i>
+                        </span>
+                        <b>Descargar Manual de Usuario</b>
+                    </a>
             </div>
         </div>
         

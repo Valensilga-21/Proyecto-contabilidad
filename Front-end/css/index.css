@@ -119,20 +119,23 @@ nav .menu-items{
     align-items: center;
     height: 50px;
     text-decoration: none;
+}
+.nav-links li.active {
     position: relative;
 }
-.nav-links li a:hover:before{
-    content: "";
+
+.nav-links li.active::before {
+    content: "•";  /* Punto */
+    color: #00BB00; /* Color del punto */
+    font-size: 18px;
     position: absolute;
-    left: -7px;
-    height: 5px;
-    width: 5px;
-    border-radius: 50%;
-    background-color: var(--primary-color);
+    left: -15px; /* Ajusta la posición del punto */
+    top: 50%;
+    transform: translateY(-50%);
 }
-body.dark li a:hover:before{
-    background-color: var(--text-color);
-}
+
+
+
 .menu-items li a i{
     font-size: 24px;
     min-width: 45px;
@@ -154,7 +157,7 @@ nav.close li a .link-name{
 }
 .nav-links li a:hover i,
 .nav-links li a:hover .link-name{
-    color: #4D4C4C;
+    color: #00BB00;
 }
 body.dark .nav-links li a:hover i,
 body.dark .nav-links li a:hover .link-name{
@@ -457,3 +460,56 @@ nav.close ~ .dashboard .top{
         width: 100%;
     }
 }
+.accordion-button::after {
+    transition: transform 0.2s ease-in-out;
+}
+.accordion-button[aria-expanded="true"]::after {
+    transform: rotate(180deg);
+}
+.rotate-180 {
+    transform: rotate(180deg);
+    transition: transform 0.3s ease-in-out;
+}
+.accordion-item {
+    border-bottom: 1px solid #008000 !important;
+}
+
+
+.scroll-top {
+    position: fixed;
+    bottom: 90px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background-color: #00BB00;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 28px;
+    cursor: pointer;
+    display: none;
+    /* Oculto por defecto */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: opacity 0.3s, transform 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    opacity: 0;
+    /* Inicia completamente invisible */
+    visibility: hidden;
+    /* Evita que ocupe espacio */
+  }
+
+  .scroll-top.show {
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+    /* Se muestra */
+  }
+
+  .scroll-top.hide-arrow .arrow {
+    opacity: 0;
+    /* Oculta la flecha cuando está arriba */
+  }
+
