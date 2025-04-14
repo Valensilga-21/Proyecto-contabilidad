@@ -118,10 +118,10 @@ public class authService implements iusuarioService{
         return dataUser.findByUsername(username);
     }
 
-    @Override
+    @Override 
     public String save(usuario usuario) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'save'");
+        data.save(usuario);
+        return usuario.getId_usuario();
     }
 
     @Override
@@ -160,15 +160,15 @@ public class authService implements iusuarioService{
 
     @Override
     public List<usuario> findAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
+        List<usuario> listaUsuario = (List<usuario>) data.findAll();
+        return listaUsuario;
     }
 
 
     @Override
     public Optional<usuario> findOne(String id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findOne'");
+        Optional<usuario> usuario = data.findById(id);
+        return usuario; 
     }
 
 

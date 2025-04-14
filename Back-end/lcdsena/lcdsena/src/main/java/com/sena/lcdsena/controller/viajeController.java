@@ -11,11 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sena.lcdsena.interfaces.iusuario;
 import com.sena.lcdsena.interfaces.iusuarioRepository;
 import com.sena.lcdsena.interfaces.iviaje;
 import com.sena.lcdsena.iservice.iviajeService;
-import com.sena.lcdsena.model.estadoUsuario;
 import com.sena.lcdsena.model.estadoViaje;
 import com.sena.lcdsena.model.usuario;
 import com.sena.lcdsena.model.viaje;
@@ -99,6 +97,17 @@ public class viajeController {
         ), HttpStatus.OK);
     }
 
+    @GetMapping("/recordatorio-legalizacion")
+    public ResponseEntity<String> testRecordatorio() {
+        viajeService.enviarRecordatoriosPendientes();
+        return ResponseEntity.ok("Recordatorios enviados (si había viajes que calificaban).");
+    }
+
+    @PostMapping("/recordatorios/previos")
+    public ResponseEntity<String> enviarRecordatoriosPrevios() {
+        viajeService.enviarRecordatoriosPrevios();
+        return ResponseEntity.ok("Recordatorios previos enviados.");
+    }
 
     @GetMapping("/")
     public ResponseEntity<Object> findAll() {

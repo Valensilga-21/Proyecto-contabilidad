@@ -43,7 +43,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @RequestMapping("/api/v1/LCDSena/legalizacion")
 @RestController
@@ -164,9 +163,7 @@ public class legalizacionController {
     }
 
     @PutMapping("/{id}/estado")
-    public ResponseEntity<Object> actualizarEstadoLegalizacion(
-            @PathVariable String id,
-            @RequestBody Map<String, String> estadoRequest) {
+    public ResponseEntity<Object> aprobarLegalizacion(@PathVariable String id) {
         try {
             var legalizacionOpt = legalizacionService.findOne(id);
 
@@ -175,16 +172,16 @@ public class legalizacionController {
             }
 
             legalizacion legalizacion = legalizacionOpt.get();
-            String nuevoEstado = estadoRequest.get("estado");
 
-            if (nuevoEstado == null || nuevoEstado.isBlank()) {
-                return new ResponseEntity<>("El estado no puede ser nulo o vacío", HttpStatus.BAD_REQUEST);
+            // Solo cambia el estado si está en pendiente
+            if (legalizacion.getEstado_lega() == estadoLegalizacion.Pendiente) {
+                legalizacion.setEstado_lega(estadoLegalizacion.Aprobada);
+                legalizacionService.save(legalizacion);
+                return new ResponseEntity<>("Legalización aprobada correctamente", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("La legalización no está en estado PENDIENTE", HttpStatus.BAD_REQUEST);
             }
 
-            legalizacion.setEstado_lega(estadoLegalizacion.valueOf(nuevoEstado.toUpperCase()));
-            legalizacionService.save(legalizacion);
-
-            return new ResponseEntity<>("Estado actualizado correctamente", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("Error al actualizar el estado: " + e.getMessage(),
                     HttpStatus.INTERNAL_SERVER_ERROR);

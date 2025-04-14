@@ -69,24 +69,28 @@ public class usuarioPrivController {
         return new ResponseEntity<>(usuario, HttpStatus.OK);
     }
 
+    //Filtro de usuarios por id, documento, nombre y correo
     @GetMapping("/busqueda/{filtro}")
 	public ResponseEntity<Object> findFiltro(@PathVariable String filtro){
 	var ListaUsuario=usuarioService.filtroUsuario(filtro); 
 	return new ResponseEntity<>(ListaUsuario,HttpStatus.OK);
 	}
 
+    //Filtro centro al que pertenece el usuario
     @GetMapping("/busqueda/centro/{centro}")
     public ResponseEntity<Object> findByCentro(@PathVariable centro centro) {
         var listaUsuario = usuarioService.filtroCentro(centro);
         return new ResponseEntity<>(listaUsuario, HttpStatus.OK);
     }
 
+    //Filtro role del usuario
     @GetMapping("/busqueda/role/{role}")
     public ResponseEntity<Object> findByRol(@PathVariable role role) {
         var listaUsuario = usuarioService.filtroRole(role);
         return new ResponseEntity<>(listaUsuario, HttpStatus.OK);
     }
 
+    //Filtro estado usuario
     @GetMapping("/busqueda/estado/{estado_usuario}")
     public ResponseEntity<Object> findByEstado(@PathVariable estadoUsuario estado_usuario) {
         var listaUsuario = usuarioService.filtroEstado(estado_usuario);
@@ -239,6 +243,7 @@ public class usuarioPrivController {
         return ResponseEntity.status(HttpStatus.OK).body("Contraseña cambiada exitosamente");
     }
 
+    //Método para el cierre de sesión
     @PostMapping("/cerrar-sesion")
     public ResponseEntity<String> cerrarSesion() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -246,13 +251,14 @@ public class usuarioPrivController {
             SecurityContextHolder.clearContext();
         }
 
-        return ResponseEntity.ok("Sesión cerrada exitosamente. Por favor, elimine el token del lado del cliente.");
+        return ResponseEntity.ok("Sesión cerrada exitosamente.");
     }
 
     @PostMapping("recuperarContrasena/")
 	public ResponseEntity<Map<String, String>> recuperarContrasena(@RequestBody recuperarContrasenaRequest request) {
 	    Map<String, String> response = new HashMap<>();
 
+        //Validación correo electrónico en la bd
 	    if (request.getUsername() == null || request.getUsername().isEmpty()) {
 	        response.put("message", "El correo es un campo obligatorio");
 	        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
@@ -260,6 +266,7 @@ public class usuarioPrivController {
 
 	    java.util.Optional<usuario> optionalUsuario = usuarioService.findByUsername(request.getUsername());
 
+        //Condición oara verificar si el usuario existe en la bd
 	    if (!optionalUsuario.isPresent()) {
 	        response.put("message", "El usuario no existe");
 	        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
@@ -269,11 +276,12 @@ public class usuarioPrivController {
 	    String token = UUID.randomUUID().toString();
 	    usuarioService.savePasswordResetToken(usuario, token);
 
+        //Redirección al formulario de restablecimiento de contraseña
 	    String enlace = "http://127.0.0.1:5501/Front-end/html/restablecercontraseña.html?u=" + 
 	    	    Base64.getEncoder().encodeToString(usuario.getUsername().getBytes()) + 
 	    	    "&t=" + token;
 
-
+        //Envío de notificación al correo
 	    emailService.enviarNotificacionRestablecerContra(usuario.getUsername(), enlace, usuario.getNombre_usuario());
 
 	    response.put("message", "Se ha enviado un enlace para recuperar la contraseña");

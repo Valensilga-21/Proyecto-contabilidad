@@ -162,6 +162,7 @@ function listarLegalizacionAdmin() {
                 var cargo = usuario["cargo"] || "No disponible";
                 var centro = usuario["centro"] || "No disponible";
                 var fecha_soli = result[i]["fecha_soli"] || "No disponible";
+                var estado_lega = result[i]["estado_lega"] || "No disponible";
 
                 // Crear fila de la tabla
                 var trRegistro = document.createElement("tr");
@@ -171,6 +172,7 @@ function listarLegalizacionAdmin() {
                     <td>${cargo}</td>
                     <td>${centro}</td>
                     <td>${fecha_soli}</td>
+                    <td>${estado_lega}</td>
                     <td class="text-center align-middle">
                         <i class="btn fa-regular fa-file-lines fa-lg Editar" style="color: #39a800;" onclick="openEditModal('${result[i]["id_legalizacion"]}')"></i>
                     </td>

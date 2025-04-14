@@ -14,6 +14,7 @@ public class emailService {
     @Autowired
     private JavaMailSender javaMailSender;
 
+    //Correo solicitud de registro aprobada
     public String enviarCorreoBienvenida(String destinatario, String nombre_usuario) {
         try {
             String asunto = "SOLICITUD DE REGISTRO APROBADA";
@@ -60,6 +61,7 @@ public class emailService {
         }
     }
 
+    //Correo restablecimiento de contaseña
     public String enviarNotificacionRestablecerContra(String destinatario, String enlace, String nombre_usuario) {
         try {
             String asunto = "RESTABLECIMIENTO DE CONTRASEÑA";
@@ -108,6 +110,7 @@ public class emailService {
         }
     }
 
+    //Correo cambio de contraseña
     public String enviarNotificacionCambiarContra(String destinatario, String enlaceCambio, String nombre_usuario) {
         try {
             String asunto = "CAMBIO DE CONTRASEÑA";
@@ -156,6 +159,7 @@ public class emailService {
         }
     }
 
+    //Notificación cambio exitoso de contraseña
     public String notificacionExitosaCambioContra(String destinatario, String nombre_usuario) {
         try {
             String asunto = "¡CAMBIO DE CONTRASEÑA EXITOSO!";
@@ -201,6 +205,7 @@ public class emailService {
         }
     }
 
+    //Notificación restablecimiento exitoso de contraseña
     public String notificacionExitosaOlvidarContra(String destinatario, String nombre_usuario) {
         try {
             String asunto = "¡RESTABLECIMIENTO DE CONTRASEÑA EXITOSO!";
@@ -222,6 +227,100 @@ public class emailService {
                 "                    Si fuiste tú quien solicitó este cambio, ya puedes iniciar sesión con tu nueva contraseña.<br><br>" +
                 "                    Si no reconoces esta actividad, por favor contacta de inmediato a nuestro equipo de soporte para proteger tu cuenta.</p>" +
                 "                <p style=\"font-size: 16px; color: #4b5563; margin: 10px 0; margin-top: 25px;\">Gracias por confiar en nosotros.</p>" +
+                "                <p style=\"font-size: 16px; font-weight: bold; color: #1f2937; margin: 10px 0;\">¡Que tengas un gran día!</p>" +
+                "                <a href=\"/Front-end/index.html\" style=\"display: flex; align-items: center; margin-bottom: 20px; font-size: 24px; font-weight: 600; color: #1f2937;\">" +
+                "                    <img src=\"https://oficinavirtualderadicacion.sena.edu.co/oficinavirtual/Resources/logoSenaNaranja.png\" alt=\"logo\" style=\"width: 47px; margin-right: 10px; margin-top: 25px;\">" +
+                "                    <img src=\"https://i.postimg.cc/bvJQ2q18/LCD-removebg-2.png\" alt=\"logo\" style=\"width: 90px; margin-right: 10px; margin-top: 25px;\">" +
+                "                </a>" +
+                "                <hr>" +
+                "            </div>" +
+                "        </div>" +
+                "    </section>" +
+                "</body>" +
+                "</html>";
+
+            var retorno = enviarCorreo(destinatario, asunto, cuerpo);
+            if (retorno) {
+                return "Se envió correctamente";
+            } else {
+                return "No se pudo enviar";
+            }
+
+        } catch (Exception e) {
+            return "Error al enviar: " + e.getMessage();
+        }
+    }
+
+    //Notificación plazo máximo 5 días para legalizacion un viaje
+    public String enviarCorreoPlazo5Dias(String destinatario, String nombre_usuario) {
+        try {
+            String asunto = "¡ALERTA: PLAZO LEGALIZACIÓN!";
+            String cuerpo = "<!DOCTYPE html>" +
+                "<html lang=\"es\">" +
+                "<head>" +
+                "    <meta charset=\"UTF-8\">" +
+                "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">" +
+                "    <title>Plazo de legalización</title>" +
+                "</head>" +
+                "<body style=\"font-family: Arial, sans-serif; background-color: #f9fafb; margin: 0; padding: 0;\">" +
+                "    <section style=\"background-color: #f9fafb; padding: 20px;\">" +
+                "        <div style=\"display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; max-width: 550px; margin: auto;\">" +
+                "            <div style=\"width: 100%; padding: 30px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);\">" +
+                "                <h1 style=\"margin-bottom: 10px; font-size: 24px; font-weight: bold; color: #1f2937;\">" +
+                "                    ¡Hola, " + nombre_usuario + "!" +
+                "                </h1>" +
+                "                <p style=\"font-size: 16px; color: #4b5563; margin: 10px 0;\">" +
+                "                    Esperamos que tengas un excelente día. Queremos recordarte que, a partir de hoy, cuentas con un <strong>plazo máximo de 5 días hábiles</strong> para realizar la legalización correspondiente." +
+                "                    <br><br>Te invitamos a priorizar este procedimiento para evitar posibles reportes a control interno." +
+                "                </p>" +
+                "                <p style=\"font-size: 16px; color: #4b5563; margin: 10px 0; margin-top: 25px;\">Gracias por tu colaboración.</p>" +
+                "                <p style=\"font-size: 16px; font-weight: bold; color: #1f2937; margin: 10px 0;\">¡Que tengas un gran día!</p>" +
+                "                <a href=\"/Front-end/index.html\" style=\"display: flex; align-items: center; margin-bottom: 20px; font-size: 24px; font-weight: 600; color: #1f2937;\">" +
+                "                    <img src=\"https://oficinavirtualderadicacion.sena.edu.co/oficinavirtual/Resources/logoSenaNaranja.png\" alt=\"logo\" style=\"width: 47px; margin-right: 10px; margin-top: 25px;\">" +
+                "                    <img src=\"https://i.postimg.cc/bvJQ2q18/LCD-removebg-2.png\" alt=\"logo\" style=\"width: 90px; margin-right: 10px; margin-top: 25px;\">" +
+                "                </a>" +
+                "                <hr>" +
+                "            </div>" +
+                "        </div>" +
+                "    </section>" +
+                "</body>" +
+                "</html>";
+
+            var retorno = enviarCorreo(destinatario, asunto, cuerpo);
+            if (retorno) {
+                return "Se envió correctamente";
+            } else {
+                return "No se pudo enviar";
+            }
+
+        } catch (Exception e) {
+            return "Error al enviar: " + e.getMessage();
+        }
+    }
+
+    //Notificación 1 día hábil para legalizar un viaje
+    public String enviarCorreoUltimoDia(String destinatario, String nombre_usuario) {
+        try {
+            String asunto = "¡RECORDATORIO FINAL: FALTA DÍA PARA LEGALIZAR!";
+            String cuerpo = "<!DOCTYPE html>" +
+                "<html lang=\"es\">" +
+                "<head>" +
+                "    <meta charset=\"UTF-8\">" +
+                "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">" +
+                "    <title>Último día para legalización</title>" +
+                "</head>" +
+                "<body style=\"font-family: Arial, sans-serif; background-color: #f9fafb; margin: 0; padding: 0;\">" +
+                "    <section style=\"background-color: #f9fafb; padding: 20px;\">" +
+                "        <div style=\"display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; max-width: 550px; margin: auto;\">" +
+                "            <div style=\"width: 100%; padding: 30px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);\">" +
+                "                <h1 style=\"margin-bottom: 10px; font-size: 24px; font-weight: bold; color: #1f2937;\">" +
+                "                    ¡Hola, " + nombre_usuario + "!" +
+                "                </h1>" +
+                "                <p style=\"font-size: 16px; color: #4b5563; margin: 10px 0;\">" +
+                "                    ¿Olvidaste realizar tu legalización? ¡No te preocupes! Queremos recordarte que <strong>hoy es el último día hábil</strong> para realizar la legalización correspondiente." +
+                "                    <br><br>Te invitamos a priorizar este procedimiento para evitar posibles reportes a control interno." +
+                "                </p>" +
+                "                <p style=\"font-size: 16px; color: #4b5563; margin: 10px 0; margin-top: 25px;\">Gracias por tu colaboración.</p>" +
                 "                <p style=\"font-size: 16px; font-weight: bold; color: #1f2937; margin: 10px 0;\">¡Que tengas un gran día!</p>" +
                 "                <a href=\"/Front-end/index.html\" style=\"display: flex; align-items: center; margin-bottom: 20px; font-size: 24px; font-weight: 600; color: #1f2937;\">" +
                 "                    <img src=\"https://oficinavirtualderadicacion.sena.edu.co/oficinavirtual/Resources/logoSenaNaranja.png\" alt=\"logo\" style=\"width: 47px; margin-right: 10px; margin-top: 25px;\">" +

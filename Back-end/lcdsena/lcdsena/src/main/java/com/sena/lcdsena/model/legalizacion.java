@@ -45,7 +45,9 @@ public class legalizacion {
     }
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "estado_lega", length = 20)
     private estadoLegalizacion estado_lega;
+
 
     @Column(name = "pdf", nullable = true, columnDefinition = "MEDIUMBLOB")
     private String pdf;

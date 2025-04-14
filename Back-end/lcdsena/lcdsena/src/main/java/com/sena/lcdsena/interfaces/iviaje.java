@@ -20,4 +20,10 @@ public interface iviaje extends CrudRepository<viaje, String>{
     @Query("SELECT v FROM viaje v WHERE v.estado_viaje = :estado_viaje")
     List<viaje> filtroEstadoV(@Param("estado_viaje") estadoViaje estado_viaje);
 
+    @Query("SELECT v FROM viaje v WHERE v.fecha_fin = :fecha_fin AND v.notificadoLegalizacion = false")
+    List<viaje> findByFechaFinAndNotificadoLegalizacionFalse(LocalDate fecha_fin);
+
+    List<viaje> findAllByNotificadoLegalizacionFalse();
+
+
 }

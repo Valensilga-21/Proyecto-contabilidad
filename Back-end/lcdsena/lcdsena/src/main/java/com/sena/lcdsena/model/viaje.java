@@ -47,7 +47,10 @@ public class viaje {
     @Enumerated(EnumType.STRING)
     private estadoViaje estado_viaje;
 
+    private boolean notificadoLegalizacion = false;
+
     @ManyToOne
     @JoinColumn(name = "id_usuario", nullable = false)
     private usuario usuario;
+
 }

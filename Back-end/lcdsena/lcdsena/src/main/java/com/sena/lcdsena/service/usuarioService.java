@@ -34,9 +34,6 @@ public class usuarioService implements iusuarioService {
     private iusuario data;
 
     @Autowired
-    private iusuario iusuario;
-
-    @Autowired
     private iusuarioRepository iusuarioRepository;
 
     @Autowired
@@ -75,7 +72,7 @@ public class usuarioService implements iusuarioService {
     }
 
     @Override
-    public List<usuario> findAll() {  ///MOSTRAR TODA LA LISTA
+    public List<usuario> findAll() {
         List<usuario> listaUsuario = (List<usuario>) data.findAll();
         return listaUsuario;
     }
@@ -113,6 +110,7 @@ public class usuarioService implements iusuarioService {
 
 	}
     
+    //FALTA IMPLEMENTAR METODO
     @Override
     public authResponse registro(registroRequest request) {
         // TODO Auto-generated method stub
@@ -154,5 +152,5 @@ public class usuarioService implements iusuarioService {
             return 0; // Error
         }
     }
-
+    
 }
