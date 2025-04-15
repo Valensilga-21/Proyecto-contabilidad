@@ -10,12 +10,8 @@
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
-<<<<<<< HEAD
     <script src="/Front-end/js/usuario.js"></script>
-=======
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
->>>>>>> 11589d6fd8da041f4001327007df39fbbd908454
     <style>
         @import "tailwindcss";
     </style>
@@ -53,16 +49,11 @@
                         </div>
                         <div class="grid gap-4 mb-4 sm:grid-cols-2">
                             <div>
-<<<<<<< HEAD
-                                <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Número de documento <span style="color: red;">*</span></label>
-                                <input type="number" id="numero_documento" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="12345678" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required />
-=======
                                 <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Número de documento <span style="color: red;">*</span></label>
                                 <input type="number" id="documento_usuario" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="12345678" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required oninput="validateDocument()"/>
                                 <div id="fullname-requirements" class="text-sm mt-2">
                                     <p id="validation-document" class="text-red-500">Este es un campo obligatorio.</p>
                                 </div>
->>>>>>> 11589d6fd8da041f4001327007df39fbbd908454
                             </div>
                             <div>
                                 <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Correo <span style="color: red;">*</span></label>
@@ -92,56 +83,30 @@
                             <div>
                                 <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña <span style="color: red;">*</span></label>
                                 <div class="relative">
-<<<<<<< HEAD
-                                    <input type="password" id="contrasena" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required />
-                                    <!-- <button type="button" id="togglePassword" class="absolute inset-y-0 right-0 flex items-center pr-3">
-                                        <i id="eyeIcon" class="bi bi-eye"></i>
-                                    </button> -->
-=======
                                     <input type="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required oninput="validatePassword()"/>
                                     <div id="password-requirements" class="text-sm mt-2">
                                         <p id="validation-message" class="text-red-500">La contraseña debe tener al menos una letra mayúscula, un número, un carácter especial y 8 caracteres.</p>
                                     </div>
->>>>>>> 11589d6fd8da041f4001327007df39fbbd908454
                                 </div>
                             </div>
                             <div>
                                 <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirmación contraseña <span style="color: red;">*</span></label>
                                 <div class="relative">
-<<<<<<< HEAD
-                                    <input type="password" id="confirm_contrasena" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required />
-                                    <!-- <button type="button" id="togglePassword" class="absolute inset-y-0 right-0 flex items-center pr-3">
-                                        <i id="eyeIcon" class="bi bi-eye"></i>
-                                    </button> -->
-=======
                                     <input type="password" id="confirm_contrasena" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required oninput="validateConfirmPassword()"/>
                                     <div id="confirmpassword-requirements" class="text-sm mt-2">
                                         <p id="validation-confirmmessage" class="text-red-500">Las contraseña no coinciden.</p>
                                     </div>
->>>>>>> 11589d6fd8da041f4001327007df39fbbd908454
                                 </div>        
                             </div>
                         </div>
                         <div>
                         <div class="hidden">
-<<<<<<< HEAD
-                            <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">rol <span style="color: red;">*</span></label>
-                            <select id="rol" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                <option selected="">Seleccione un cargo</option>
-                                <option value="user" selected>Usuario</option>
-                                <option value="admin">Admin</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="w-full px-6 py-2 text-base font-medium text-center text-white bg-[#39A800] rounded-lg hover:bg-[#39a800] focus:ring-4 focus:ring-green-300 sm:w-auto dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800" onclick="registrarUsuario();">Solicitar</button>
-                        <div class="text-sm font-medium text-gray-900 dark:text-white">
-=======
                             <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">rol <span style="color: red;">*</span></label>
                             <select id="role" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                                 <option selected="">Seleccione un cargo</option>
                                 <option value="usuario" selected>Usuario</option>
                                 <option value="administrador">Admin</option>
                             </select>
->>>>>>> 11589d6fd8da041f4001327007df39fbbd908454
                         </div>
                         <div class="hidden">
                             <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Estado <span style="color: red;">*</span></label>
@@ -159,9 +124,6 @@
             </div>
         </div>
     </section>
-<<<<<<< HEAD
-=======
-
     <script>
         function validatePassword() {
         let password = document.getElementById('password').value;
@@ -351,6 +313,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
->>>>>>> 11589d6fd8da041f4001327007df39fbbd908454
 </body>
 </html>

@@ -80,6 +80,85 @@ async function registrarUsuario() {
     }
 }
 
+// Función para el registro de un usuario por parte del administrador
+async function registrarUser() {
+    var documento_usuarioA = document.getElementById("documento_usuarioA").value;
+    var nombre_usuarioA = document.getElementById("nombre_usuarioA").value;
+    var usernameA = document.getElementById("usernameA").value;
+    var centroA = document.getElementById("centroA").value;
+    var cargoA = document.getElementById("cargoA").value;
+    var passwordA = document.getElementById("passwordA").value;
+    var confirm_contrasenaA = document.getElementById("confirm_contrasenaA").value;
+    var roleA = document.getElementById("roleA").value;
+    var estado_usuarioA = document.getElementById("estado_usuarioA").value;
+
+    //VALIDACIONES DE LOS CAMPOS
+    if (!nombre_usuarioA || !usernameA || !passwordA || !confirm_contrasenaA || !centroA || !cargoA || !documento_usuarioA) {
+        Swal.fire({
+            title: "¡Error!",
+            text: "¡Llene todos los campos correctamente!",
+            icon: "error"
+        });
+        return;
+    }
+
+    //VERIFICACIÓN CONFIRMAR CONTRASEÑA
+    if (passwordA !== confirm_contrasenaA) {
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Las contraseñas no coinciden",
+        });
+        return;
+    }
+
+    //OBTIENE LOS DATOS
+    var formData = {
+        documento_usuario: documento_usuarioA,
+        nombre_usuario: nombre_usuarioA,
+        username: usernameA,
+        centro: centroA,
+        cargo: cargoA,
+        password: passwordA,
+        confirm_contrasena: confirm_contrasenaA,
+        role: roleA,
+        estado_usuario: estado_usuarioA
+    };
+
+    //ENDPOINT QUE SOLICITA EL REGISTRO
+    try {
+        const response = await fetch(urlRegistroAdmin + "/registerAdmin", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+            Swal.fire({
+                title: "Éxito",
+                text: "Has enviado tu solicitud de registro en nuestro aplicativo.",
+                icon: "success"
+            });
+        } else {
+            Swal.fire({
+                title: "Error",
+                text: "Su solicitud de registro ya ha sido enviada con anterioridad.",
+                icon: "error"
+            });
+        }
+    } catch (error) {
+        Swal.fire({
+            title: "Error",
+            text: "Hubo un error al intentar enviar tu solicitud de registro. Inténtelo de nuevo.",
+            icon: "error"
+        });
+    }
+    listarUsuarios();
+}
+
 //LOGIN
 async function loginUsuario() {
     var username = document.getElementById('username').value;
@@ -187,6 +266,14 @@ function listarUsuarios() {
             cuerpoTabla.innerHTML = ""; // Limpiar la tabla
 
             for (var i = 0; i < result.length; i++) {
+                var estado = result[i]["estado_usuario"].toLowerCase();
+                
+                // Definir color del texto según el estado
+                var colorEstado = "";
+                if (estado === "deshabilitado") {
+                    colorEstado = "red";
+                }
+
                 var trRegistro = document.createElement("tr");
                 trRegistro.innerHTML = `
                     <td>${result[i]["id_usuario"]}</td>
@@ -196,7 +283,7 @@ function listarUsuarios() {
                     <td>${result[i]["centro"]}</td>
                     <td>${result[i]["cargo"]}</td>
                     <td>${result[i]["role"]}</td>
-                    <td>${result[i]["estado_usuario"]}</td>
+                    <td style="color: ${colorEstado};">${result[i]["estado_usuario"]}</td>
                     <td class="text-center align-middle">
                         <i class="btn fas fa-edit Editar text-warning" onclick="openEditModal('${result[i]["id_usuario"]}')"></i>
                         <i class="btn fas fa-regular fa-user-slash Deshabilitar text-danger" onclick="deshabilitarUsuario('${result[i]["id_usuario"]}')"></i>
@@ -449,21 +536,13 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-function descargarPDF(event) {
-
-    const token = localStorage.getItem('userToken');
-
-    Swal.fire({
-        title: "Generando reporte...",
-        text: "Espere mientras se descarga el archivo.",
-        allowOutsideClick: false,
-        didOpen: () => Swal.showLoading()
-    });
-
-    fetch('http://localhost:8080/api/v1/LCDSena/pdfReporte/export-pdf', {
-        method: 'GET',
+document.getElementById("btnDescargar").addEventListener("click", function(event) {
+    event.preventDefault(); // Evita la recarga de la página
+    // Llamada a la función para descargar el PDF
+    fetch("http://localhost:8080/api/v1/LCDSena/pdfReporte/export-pdf", {
+        method: "GET",
         headers: {
-            "Authorization": "Bearer " + token,
+            "Content-Type": "application/pdf",
         }
     })
     .then(response => {
@@ -473,18 +552,50 @@ function descargarPDF(event) {
         return response.blob();
     })
     .then(blob => {
-        Swal.close();
-
         const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
+        const a = document.createElement("a");
         a.href = url;
+        a.download = "reporte.pdf";
         document.body.appendChild(a);
         a.click();
         a.remove();
+        window.URL.revokeObjectURL(url);
     })
     .catch(error => {
-        console.error('Error al descargar el PDF:', error);
-        Swal.fire("Error", "No se pudo descargar el PDF. Verifica tu conexión o sesión.", "error");
+        console.error("Error al descargar el PDF:", error);
     });
-}
+});
+
+
+// document.getElementById("btnDescargar").addEventListener("click", function (event) {
+//     event.preventDefault(); // Prevenir el comportamiento por defecto del botón (en caso de que esté en un formulario)
+
+//     fetch("http://localhost:8080/api/v1/LCDSena/pdfReporte/export-pdf", {
+//         method: "GET",
+//         headers: {
+//             "Content-Type": "application/pdf"
+//         }
+//     })
+//     .then(response => {
+//         if (!response.ok) {
+//             throw new Error("Error al generar el PDF");
+//         }
+//         return response.blob();
+//     })
+//     .then(blob => {
+//         // Crear una URL temporal para el archivo PDF
+//         const url = window.URL.createObjectURL(blob);
+//         const a = document.createElement("a");
+//         a.href = url;
+//         a.download = "reporte.pdf"; // Nombre con el que se descargará el archivo
+//         document.body.appendChild(a);
+//         a.click();
+//         a.remove();
+//         window.URL.revokeObjectURL(url);
+//     })
+//     .catch(error => {
+//         console.error("Error al descargar el PDF:", error);
+//     });
+// });
+
 

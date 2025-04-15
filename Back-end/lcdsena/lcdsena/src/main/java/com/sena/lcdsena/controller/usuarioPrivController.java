@@ -15,6 +15,7 @@ import com.sena.lcdsena.interfaces.iusuario;
 import com.sena.lcdsena.model.authResponse;
 import com.sena.lcdsena.model.centro;
 import com.sena.lcdsena.model.estadoUsuario;
+import com.sena.lcdsena.model.registroRequest;
 import com.sena.lcdsena.model.respuestaCambioContra;
 import com.sena.lcdsena.model.role;
 import com.sena.lcdsena.model.usuario;
@@ -56,6 +57,28 @@ public class usuarioPrivController {
 
     @Autowired
     private emailService emailService;
+
+    @PostMapping("/registerAdmin")
+    public ResponseEntity<authResponse> registro(@RequestBody registroRequest request) {
+        var valido = true;
+        authResponse response = new authResponse();
+
+        if (authService.findByUsername(request.getUsername()).isPresent()) {
+            valido = false;
+            response.setEmailExists(true);
+            response.setMensaje("El correo electronico ya existe");
+            return new ResponseEntity<authResponse>(response, HttpStatus.BAD_REQUEST);
+        }
+
+        if (valido) {
+            request.setEstado_usuario(estadoUsuario.activo);
+            response = authService.registro(request);
+            response.setMensaje("Su solicitud de registro ha sido enviada correctamente.");
+  
+            return new ResponseEntity<authResponse>(response, HttpStatus.OK);
+        }
+        return new ResponseEntity<authResponse>(response, HttpStatus.OK);
+    }
 
     @GetMapping("/")
     public ResponseEntity<Object> findAll() {

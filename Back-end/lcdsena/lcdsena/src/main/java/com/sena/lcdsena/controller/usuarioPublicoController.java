@@ -61,7 +61,7 @@ public class usuarioPublicoController {
             request.setEstado_usuario(estadoUsuario.pendiente);
             response = authService.registro(request);
             response.setMensaje("Su solicitud de registro ha sido enviada correctamente.");
-            //para envíar el correo electronico
+  
             return new ResponseEntity<authResponse>(response, HttpStatus.OK);
         }
         return new ResponseEntity<authResponse>(response, HttpStatus.OK);

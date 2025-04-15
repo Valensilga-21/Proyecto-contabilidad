@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -30,13 +31,18 @@ public class usuarioReporteController {
     @Autowired
     usuarioService usuarioService;
 
-    // pdf
     @GetMapping("/export-pdf")
     public ResponseEntity<byte[]> exportPdf() throws JRException, FileNotFoundException {
+        byte[] pdfBytes = iusuarioService.exportPdf();
+
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_PDF);
-        headers.setContentDispositionFormData("reporteUsuarios", "LISTADO USUARIOS REGISTRADOS.pdf");
-        return ResponseEntity.ok().headers(headers).body(iusuarioService.exportPdf());
+        headers.setContentDisposition(ContentDisposition
+            .attachment()
+            .filename("LISTADO_USUARIOS_REGISTRADOS.pdf")
+            .build());
+
+        return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
     }
 
     @GetMapping("/export-xls")
