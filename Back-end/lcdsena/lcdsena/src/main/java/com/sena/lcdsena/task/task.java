@@ -13,13 +13,13 @@ public class task {
     private viajeService viajeService;
 
     @Scheduled(cron = "0 0 6 * * *")
-    public void ejecutarRecordatorios() {
+    public void ejecutarRecordatorio() {
         viajeService.enviarRecordatoriosPendientes();
     }
 
-    @Scheduled(cron = "0 0 6 * * *")
-    public void enviarRecordatoriosPrevios() {
-        viajeService.enviarRecordatoriosPendientes();
+    @Scheduled(cron = "0 38 4 * * *")
+    public void ejeRecordaAnticip() {
+        viajeService.enviarRecordatoriosPrevios();
     }
 
 }

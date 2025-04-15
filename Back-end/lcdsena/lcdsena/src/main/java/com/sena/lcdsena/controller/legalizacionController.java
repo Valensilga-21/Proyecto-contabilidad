@@ -36,6 +36,7 @@ import com.sena.lcdsena.model.legalizacion;
 import com.sena.lcdsena.model.legalizacionRequest;
 import com.sena.lcdsena.model.usuario;
 import com.sena.lcdsena.model.viaje;
+import com.sena.lcdsena.service.emailService;
 import com.sena.lcdsena.service.legalizacionTokenService;
 
 import lombok.RequiredArgsConstructor;
@@ -43,6 +44,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RequestMapping("/api/v1/LCDSena/legalizacion")
 @RestController
@@ -57,6 +59,9 @@ public class legalizacionController {
 
     @Autowired
     private iviajeRepository viajeRepository;
+
+    @Autowired
+    private emailService emailService;
 
     private final legalizacionTokenService legalizacionTokenService;
 
@@ -184,6 +189,51 @@ public class legalizacionController {
 
         } catch (Exception e) {
             return new ResponseEntity<>("Error al actualizar el estado: " + e.getMessage(),
+                    HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping("/{id}/estado/rechazar")
+    public ResponseEntity<Object> rechazarLegalizacion(
+            @PathVariable String id,
+            @RequestBody Map<String, String> body) {
+        try {
+            var legalizacionOpt = legalizacionService.findOne(id);
+
+            if (legalizacionOpt.isEmpty()) {
+                return new ResponseEntity<>("Legalización no encontrada", HttpStatus.NOT_FOUND);
+            }
+
+            legalizacion legalizacion = legalizacionOpt.get();
+
+            if (legalizacion.getEstado_lega() != estadoLegalizacion.Pendiente) {
+                return new ResponseEntity<>("La legalización no está en estado PENDIENTE", HttpStatus.BAD_REQUEST);
+            }
+
+            // Obtener el motivo del cuerpo de la petición
+            String motivo = body.get("motivo");
+            if (motivo == null || motivo.trim().isEmpty()) {
+                return new ResponseEntity<>("Debe proporcionar un motivo de devolución", HttpStatus.BAD_REQUEST);
+            }
+
+            // Cambiar estado y guardar motivo
+            legalizacion.setEstado_lega(estadoLegalizacion.Rechazada);
+            legalizacion.setMoti_devolucion(motivo); // Asegúrate de tener este campo en tu modelo
+            legalizacionService.save(legalizacion);
+
+            // Enviar correo electrónico al usuario
+            String destinatario = legalizacion.getUsuario().getUsername(); // Ajusta según tu modelo
+            String nombre_usuario = legalizacion.getUsuario().getNombre_usuario();
+            int num_comision = legalizacion.getViaje().getNum_comision();
+            String moti_devolucion = legalizacion.getMoti_devolucion();
+            LocalDate fecha_soli = legalizacion.getFecha_soli();
+
+            emailService.correoDevolucion(destinatario, nombre_usuario, num_comision, moti_devolucion, fecha_soli);
+
+            return new ResponseEntity<>("Legalización rechazada y notificada por correo", HttpStatus.OK);
+
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error al procesar la solicitud: " + e.getMessage(),
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

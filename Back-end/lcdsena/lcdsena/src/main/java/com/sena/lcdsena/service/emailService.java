@@ -1,5 +1,7 @@
 package com.sena.lcdsena.service;
 
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -332,6 +334,56 @@ public class emailService {
                 "    </section>" +
                 "</body>" +
                 "</html>";
+
+            var retorno = enviarCorreo(destinatario, asunto, cuerpo);
+            if (retorno) {
+                return "Se envió correctamente";
+            } else {
+                return "No se pudo enviar";
+            }
+
+        } catch (Exception e) {
+            return "Error al enviar: " + e.getMessage();
+        }
+    }
+
+    //Envío de correo legalización rechazada
+    public String correoDevolucion(String destinatario, String nombre_usuario, int num_comision, String moti_devolucion, LocalDate fecha_soli) {
+        try {
+            String asunto = "LEGALIZACIÓN RECHAZADA – COMISIÓN N.º " + num_comision;
+            String cuerpo = "<!DOCTYPE html>" +
+            "<html lang=\"es\">" +
+            "<head>" +
+            "    <meta charset=\"UTF-8\">" +
+            "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">" +
+            "    <title>Legalización Rechazada</title>" +
+            "</head>" +
+            "<body style=\"font-family: Arial, sans-serif; background-color: #f9fafb; margin: 0; padding: 0;\">" +
+            "    <section style=\"background-color: #f9fafb; padding: 20px;\">" +
+            "        <div style=\"display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; max-width: 550px; margin: auto;\">" +
+            "            <div style=\"width: 100%; padding: 30px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);\">" +
+            "                <h1 style=\"margin-bottom: 10px; font-size: 24px; font-weight: bold; color: #1f2937;\">" +
+            "                    ¡Hola, " + nombre_usuario + "!" +
+            "                </h1>" +
+            "                <p style=\"font-size: 16px; color: #4b5563; margin: 10px 0;\">" +
+            "                    Queremos informarte que la legalización correspondiente al número de comisión <strong>" + num_comision + "</strong>, realizada el día <strong>" + fecha_soli + "</strong>, ha sido <strong>rechazada</strong> tras una revisión detallada." +
+            "                </p>" +
+            "                <p style=\"font-size: 16px; font-weight: bold; color: #1f2937; margin: 15px 0;\">Motivo de la devolución:</p>" +
+            "                <blockquote style=\"border-left: 4px solid #ccc; padding-left: 10px; margin: 20px 0; font-style: italic; color: #4b5563;\">" +
+                                moti_devolucion +
+            "                </blockquote>" +
+            "                <p style=\"font-size: 16px; color: #1f2937; margin: 10px 0;\">Por favor, revisa la información proporcionada y realiza las correcciones necesarias para volver a enviar tu legalización si aplica.</p>" +
+            "                <p style=\"font-size: 16px; font-weight: bold; color: #1f2937; margin: 12px 0;\">¡Gracias por tu atención!</p>" +
+            "                <a href=\"/Front-end/index.html\" style=\"display: flex; align-items: center; margin-bottom: 20px; font-size: 24px; font-weight: 600; color: #1f2937;\">" +
+            "                    <img src=\"https://oficinavirtualderadicacion.sena.edu.co/oficinavirtual/Resources/logoSenaNaranja.png\" alt=\"logo\" style=\"width: 47px; margin-right: 10px; margin-top: 25px;\">" +
+            "                    <img src=\"https://i.postimg.cc/bvJQ2q18/LCD-removebg-2.png\" alt=\"logo\" style=\"width: 90px; margin-right: 10px; margin-top: 25px;\">" +
+            "                </a>" +
+            "                <hr>" +
+            "            </div>" +
+            "        </div>" +
+            "    </section>" +
+            "</body>" +
+            "</html>";
 
             var retorno = enviarCorreo(destinatario, asunto, cuerpo);
             if (retorno) {

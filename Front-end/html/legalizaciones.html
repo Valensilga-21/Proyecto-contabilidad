@@ -232,9 +232,9 @@
                                 <select name="" id="estado_lega" class="form-select"
                                     style="background-color: #ffffff; border-radius: 0 0 10px 0; border-left: none;">
                                     <option value="">Estado</option>
-                                    <option value="aceptada">Aceptada</option>
-                                    <option value="pendiente" selected>Pendiente</option>
-                                    <option value="rechazada">Rechazada</option>
+                                    <option value="Aceptada">Aceptada</option>
+                                    <option value="Pendiente" selected>Pendiente</option>
+                                    <option value="Rechazada">Rechazada</option>
                                 </select>
                             </div>
                             <div class="mb-3 col-12 col-xl-7" style="padding-left: 0;">
@@ -249,7 +249,7 @@
                                 <p id="fileName" class="mt-2 text-muted"></p>
                                 <label for="" class="form-label">Motivo Devolución</label>
                                 <div class="input-group">
-                                    <textarea id="moti_devolucion" cols="65" rows="10" disabled
+                                    <textarea id="motivo" cols="65" rows="10" disabled
                                         placeholder="En caso de que la legalización no sea aprovada, le llegará un mensaje de correo electrónico informativo y justo aquí podrá visualizar los detalles de la devolución para que corrija la legalización."
                                         style="padding: 2%;"></textarea>
                                 </div>
@@ -271,12 +271,12 @@
                             <div class="mb-3 col-12 col-xl-6"></div>
                             <div class="mb-3 col-12 col-xl-6 text-end">
                                 <button type="submit" id="editarViaje" class="btn"
-                                    style="background-color: #00bb0021; border: 1px solid #00BB00; color: #00BB00; font-weight: 600;" onclick="cambiarEstadoLegalizacion('aprobada');">
+                                    style="background-color: #00bb0021; border: 1px solid #00BB00; color: #00BB00; font-weight: 600;" onclick="cambiaEstadoAprobada('Aprobada');">
                                     <span><i class="bi bi-check-lg"></i></span>Aprobar
                                 </button>
                                 <button type="submit" id="cancelar" data-bs-dismiss="modal"
                                     class="btn btn-secondary"
-                                    style="background-color: #ff000015; border: 1px solid #ff0000; color: #ff0101; font-weight: 600;" onclick="cambiarEstadoLegalizacion('rechazada');">
+                                    style="background-color: #ff000015; border: 1px solid #ff0000; color: #ff0101; font-weight: 600;" onclick="cambiaEstadoRechazada('Rechazada');">
                                     <span><i class="bi bi-x-lg"></i></span>Rechazar
                                 </button>
                             </div>
@@ -338,8 +338,8 @@
                                 
                                 <label for="moti_devolucionE" class="form-label">Motivo Devolución</label>
                                 <div class="input-group">
-                                    <textarea id="moti_devolucionE" cols="65" rows="10" disabled
-                                        placeholder="En caso de que la legalización no sea aprovada, le llegará un mensaje de correo electrónico informativo y justo aquí podrá visualizar los detalles de la devolución para que corrija la legalización."
+                                    <textarea id="moti_devolucionE" cols="65" rows="10"
+                                        placeholder="..."
                                         style="padding: 2%;"></textarea>
                                 </div>
                             </div>
