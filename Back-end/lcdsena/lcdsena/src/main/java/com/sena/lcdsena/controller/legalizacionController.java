@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -19,6 +20,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -211,7 +215,7 @@ public class legalizacionController {
             }
 
             // Obtener el motivo del cuerpo de la petición
-            String motivo = body.get("motivo");
+            String motivo = body.get("moti_devolucion");
             if (motivo == null || motivo.trim().isEmpty()) {
                 return new ResponseEntity<>("Debe proporcionar un motivo de devolución", HttpStatus.BAD_REQUEST);
             }
@@ -244,6 +248,23 @@ public class legalizacionController {
         return new ResponseEntity<>(litaLegalizaciones, HttpStatus.OK);
     }
 
+    @GetMapping("/usuario")
+    public ResponseEntity<?> findByUsuario() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null || !(authentication.getPrincipal() instanceof usuario)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuario no autenticado.");
+        }
+
+        usuario usuarioAutenticado = (usuario) authentication.getPrincipal();
+
+        String id_usuario = usuarioAutenticado.getId_usuario();
+
+        List<legalizacion> legalizaciones = legalizacionService.findByUsuario(id_usuario);
+
+        return ResponseEntity.ok(legalizaciones);
+    }
+
     @GetMapping("/{id_legalizacion}")
     public ResponseEntity<Object> findOne(@PathVariable String id_legalizacion) {
         var legalizacion = legalizacionService.findOne(id_legalizacion);
@@ -269,6 +290,7 @@ public class legalizacionController {
         if (legalizacion != null) {
             legalizacion.setMoti_devolucion(legalizacionUpdate.getMoti_devolucion());
             legalizacion.setEstado_lega(legalizacionUpdate.getEstado_lega());
+            legalizacion.setPdf(legalizacionUpdate.getPdf());
 
             legalizacionService.save(legalizacion);
             return new ResponseEntity<>(legalizacion, HttpStatus.OK);

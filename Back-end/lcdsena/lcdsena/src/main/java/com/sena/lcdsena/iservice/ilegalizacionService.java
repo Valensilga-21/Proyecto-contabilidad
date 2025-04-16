@@ -18,4 +18,8 @@ public interface ilegalizacionService {
     public Long contarLegalizacionesRegistradas();
     public Long contarLegalizacionesPendientes();
     public Long contarLegalizacionesVencidas();
+
+    List<legalizacion> findByUsuario(String id_usuario);
+
+
 }

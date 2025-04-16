@@ -2,12 +2,15 @@ package com.sena.lcdsena.controller;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,6 +18,7 @@ import com.sena.lcdsena.interfaces.iusuarioRepository;
 import com.sena.lcdsena.interfaces.iviaje;
 import com.sena.lcdsena.iservice.iviajeService;
 import com.sena.lcdsena.model.estadoViaje;
+import com.sena.lcdsena.model.legalizacion;
 import com.sena.lcdsena.model.usuario;
 import com.sena.lcdsena.model.viaje;
 import com.sena.lcdsena.model.viajeRequest;
@@ -113,6 +117,23 @@ public class viajeController {
     public ResponseEntity<Object> findAll() {
         var listaViajes = viajeService.findAll();
         return new ResponseEntity<>(listaViajes, HttpStatus.OK);
+    }
+
+    @GetMapping("/usuario")
+    public ResponseEntity<?> findByUsuario() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null || !(authentication.getPrincipal() instanceof usuario)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuario no autenticado.");
+        }
+
+        usuario usuarioAutenticado = (usuario) authentication.getPrincipal();
+
+        String id_usuario = usuarioAutenticado.getId_usuario();
+
+        List<viaje> viajes = viajeService.findByUsuario(id_usuario);
+
+        return ResponseEntity.ok(viajes);
     }
 
     @GetMapping("/{id_viaje}")

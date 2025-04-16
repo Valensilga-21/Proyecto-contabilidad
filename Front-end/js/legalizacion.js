@@ -88,10 +88,13 @@ function cargarFormulario() {
 }
 
 function cargarViaje() {
-    let urlViaje = "http://localhost:8080/api/v1/LCDSena/viaje/";
+    let urlListaViaje = "http://localhost:8080/api/v1/LCDSena/viaje/usuario";
     $.ajax({
-        url: urlViaje,
+        url: urlListaViaje,
         type: "GET",
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("userToken")
+        },
         success: function (result) {
             let selectViaje = document.getElementById("id_viaje");
             selectViaje.innerHTML = "<option value=''>Seleccione una comisión</option>"; 
@@ -132,138 +135,14 @@ function llenarDatosViaje(idViaje) {
     });
 }
 
-// Función para listar legalizaciones Admin
-function listarLegalizacionAdmin() {
-
-    var fecha_soli = document.getElementById("filtroFecha").value;
-
-    var urlListaLega = "";
-
-    if(fecha_soli !== "") {
-        urlListaLega = urlFiltroLega + "busqueda/fecha/" + fecha_soli;
-    }else{
-        urlListaLega = urlFiltroLega;
-    }
-    
-    $.ajax({
-        url: urlListaLega,
-        type: "GET",
-        success: function (result) {
-            var cuerpoTabla = document.getElementById("legaTableAdmin").getElementsByTagName('tbody')[0];
-            cuerpoTabla.innerHTML = ""; // Limpiar la tabla antes de llenarla
-
-            for (var i = 0; i < result.length; i++) {
-                var usuario = result[i]["usuario"] || {}; // Verificar si el usuario existe
-                var viajeA = result[i]["viaje"] || {};
-                
-                // Asignar valores predeterminados si no están disponibles
-                var num_comision = viajeA["num_comision"] || "No disponible";
-                var nombre_usuario = usuario["nombre_usuario"] || "No disponible";
-                var cargo = usuario["cargo"] || "No disponible";
-                var centro = usuario["centro"] || "No disponible";
-                var fecha_soli = result[i]["fecha_soli"] || "No disponible";
-                var estado_lega = result[i]["estado_lega"] || "No disponible";
-
-                // Crear fila de la tabla
-                var trRegistro = document.createElement("tr");
-                trRegistro.innerHTML = `
-                    <td>${num_comision}</td>
-                    <td>${nombre_usuario}</td>
-                    <td>${cargo}</td>
-                    <td>${centro}</td>
-                    <td>${fecha_soli}</td>
-                    <td>${estado_lega}</td>
-                    <td class="text-center align-middle">
-                        <i class="btn fa-regular fa-file-lines fa-lg Editar" style="color: #39a800;" onclick="openEditModal('${result[i]["id_legalizacion"]}')"></i>
-                    </td>
-                `;
-                cuerpoTabla.appendChild(trRegistro);
-            }
-        },
-        error: function (errorLista) {
-            Swal.fire({
-                title: "Error",
-                text: "Hubo un error al cargar los datos. " + errorLista.responseText,
-                icon: "error"
-            });
-        }
-    });
-}
-
-document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("filtroFecha").addEventListener("change", listarLegalizacionAdmin);
-});
-
-//Método para aprobar la legalizacion
-function cambiaEstadoAprobada(nuevoEstado) {
-    var idLegalizacion = document.getElementById('legaId').value;
-
-    $.ajax({
-        url: urlIdLega + idLegalizacion + "/estado",
-        type: "PUT",
-        contentType: "application/json",
-        data: JSON.stringify({ estado: nuevoEstado }),
-        success: function (response) {
-            $('#editLegalizacion').modal('hide');
-            listarLegalizacionAdmin();
-            Swal.fire({
-                title: "Éxito",
-                text: "La legalización ha sido " + nuevoEstado.toLowerCase() + ".",
-                icon: "success"
-            });
-        },
-        error: function (error) {
-            Swal.fire({
-                title: "Error",
-                text: "No se pudo cambiar el estado: " + error.responseText,
-                icon: "error"
-            });
-        }
-    });
-}
-
-function cambiaEstadoRechazada() {
-    var idLegalizacion = document.getElementById('legaId').value;
-    var motivo = document.getElementById('motivo').value; // Asegúrate que este input exista
-
-    if (!motivo || motivo.trim() === "") {
-        Swal.fire({
-            title: "Campo requerido",
-            text: "Por favor ingresa el motivo de la devolución.",
-            icon: "warning"
-        });
-        return;
-    }
-
-    $.ajax({
-        url: urlIdLega + idLegalizacion + "/estado/rechazar",
-        type: "PUT",
-        contentType: "application/json",
-        data: JSON.stringify({ motivo: motivo }),
-        success: function (response) {
-            $('#editLegalizacion').modal('hide');
-            listarLegalizacionAdmin();
-            Swal.fire({
-                title: "Éxito",
-                text: "La legalización ha sido rechazada.",
-                icon: "success"
-            });
-        },
-        error: function (error) {
-            Swal.fire({
-                title: "Error",
-                text: "No se pudo cambiar el estado: " + error.responseText,
-                icon: "error"
-            });
-        }
-    });
-}
-
 // Función para listar legalizaciones Usuario
 function listarLegalizacion() {
     $.ajax({
         url: urlListaLega,
         type: "GET",
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("userToken") // asegúrate de guardar el token al iniciar sesión
+        },
         success: function (result) {
             var cuerpoTabla = document.getElementById("legaTable").getElementsByTagName('tbody')[0];
             cuerpoTabla.innerHTML = ""; // Limpiar la tabla antes de llenarla
@@ -325,6 +204,7 @@ function openEditModal(id) {
             document.getElementById('fecha_inicioE').value = viaje.fecha_inicio || "";
             document.getElementById('fecha_finE').value = viaje.fecha_fin || "";
             document.getElementById('rutaE').value = viaje.ruta || "";
+            document.getElementById('moti_devolucionE').value = data.moti_devolucion || "";
 
             // Establecer el ID de la legalización en el botón de descarga
             document.getElementById('downloadButton').setAttribute('data-id', data.id_legalizacion);

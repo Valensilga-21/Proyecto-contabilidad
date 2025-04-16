@@ -78,25 +78,27 @@ function registrarViaje() {
     });
 }
 
-
 // Función para listar viajes Usuario
 function listarViajes() {
     var estado = document.getElementById("estadoFilter").value;
     var filtroU = document.getElementById("filtroU").value;
 
-    var urlListaViajes = "";
+    var urlListaViaje = "";
 
     if (estado !== "") {
-        urlListaViajes = urlFiltrosViaje + "busqueda/estado/" + estado;
+        urlListaViaje = urlListaViajes + "busqueda/estado/" + estado;
     }else if(filtroU !== ""){
-        urlListaViajes = urlFiltrosViaje + "busquedaFiltro/" + filtroU;
+        urlListaViaje = urlListaViajes + "busquedaFiltro/" + filtroU;
     }else{
-        urlListaViajes = urlFiltrosViaje;
+        urlListaViaje = urlFiltrosViaje;
     }
 
     $.ajax({
-        url: urlListaViajes,
+        url: urlListaViaje,
         type: "GET",
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("userToken")
+        },
         success: function (result) {
             var cuerpoTabla = document.getElementById("viajesTable").getElementsByTagName('tbody')[0];
             cuerpoTabla.innerHTML = ""; // Limpiar la tabla
@@ -142,65 +144,6 @@ function listarViajes() {
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("estadoFilter").addEventListener("change", listarViajes);
     document.getElementById("filtroU").addEventListener("input", listarViajes);
-});
-
-
-// Función para listar viajes Admin
-function listarViajesAdmin() {
-
-    var filtro = document.getElementById("texto").value;
-    var urlViaje = filtro !== "" ? urlFiltrosViaje + "busquedaFiltro/" + filtro : urlFiltrosViaje;
-
-    $.ajax({
-        url: urlViaje,
-        type: "GET",
-        success: function (result) {
-            var cuerpoTabla = document.getElementById("viajesTableAdmin").getElementsByTagName('tbody')[0];
-            cuerpoTabla.innerHTML = ""; // Limpiar la tabla antes de llenarla
-
-            for (var i = 0; i < result.length; i++) {
-                var usuario = result[i]["usuario"] || {};
-                
-                // Asignar valores predeterminados si no están disponibles
-                var num_comision = result[i]["num_comision"] || "No disponible";
-                var nombre_usuario = usuario["nombre_usuario"] || "No disponible";
-                var cargo = usuario["cargo"] || "No disponible";
-                var centro = usuario["centro"] || "No disponible";
-                var fecha_inicio = result[i]["fecha_inicio"] || "No disponible";
-                var fecha_fin = result[i]["fecha_fin"] || "No disponible";
-                var ruta = result[i]["ruta"] || "No disponible";
-
-                // Crear fila de la tabla
-                var trRegistro = document.createElement("tr");
-                trRegistro.innerHTML = `
-                    <td>${num_comision}</td>
-                    <td>${nombre_usuario}</td>
-                    <td>${cargo}</td>
-                    <td>${centro}</td>
-                    <td>${fecha_inicio}</td>
-                    <td>${fecha_fin}</td>
-                    <td>${ruta}</td>
-                    <td class="text-center align-middle">
-                        <i class="btn fa-regular fa-file-lines fa-lg Editar" style="color: #39a800;" onclick="openEditModal('${result[i]["id_viaje"]}')"></i>
-                    </td>
-                `;
-                cuerpoTabla.appendChild(trRegistro);
-            }
-        },
-        error: function (errorLista) {
-            Swal.fire({
-                title: "Error",
-                text: "Hubo un error al cargar los datos. " + errorLista.responseText,
-                icon: "error"
-            });
-        }
-    });
-}
-
-$(document).ready(function () {
-    document.getElementById("texto").addEventListener("input", listarViajesAdmin);
-
-    listarViajesAdmin();
 });
 
 function openEditModal(id) {
@@ -290,7 +233,6 @@ function enviarEdicion(id, num_comision, fecha_inicio, fecha_fin, ruta, estado_v
             }).then(() => {
                 $('#editViaje').modal('hide'); // Cierra el modal después de éxito
                 listarViajes();
-                listarViajesAdmin(); // Actualiza la tabla correctamente
             });
         },
         error: function (xhr, status, error) {
@@ -303,7 +245,6 @@ function enviarEdicion(id, num_comision, fecha_inicio, fecha_fin, ruta, estado_v
         }
     });
     listarViajes();
-    listarViajesAdmin();
 }
 
 //Validacion número de comisión

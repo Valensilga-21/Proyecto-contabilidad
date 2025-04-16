@@ -21,13 +21,13 @@ var urlViaje = urlBase + "/viaje"
 var urlPdf = urlBase + "/Pdf"
 
 //Legalizacion
-var urlListaLega = urlBase + "legalizacion/"
+var urlListaLega = urlBase + "legalizacion/usuario"
 var urlIdLega = urlBase + "legalizacion/"
 var urlFiltroLega = urlBase + "legalizacion/"
 
 //Filtros
 var urlFiltroUsuarios = urlBase + "usuario/"
-var urlFiltrosViaje = urlBase + "viaje/"
+var urlFiltrosViaje = urlBase + "viaje/usuario"
 
 // Restablecimiento contraseñas
 var urlRestablecerContra = urlBase + "usuario/recuperarContrasena/"

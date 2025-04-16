@@ -27,8 +27,16 @@ public class legalizacionService implements ilegalizacionService{
     @Autowired
     private ilegaRepository ilegalizacionRepository;
 
+    @Autowired
+    private ilegalizacion ilegalizacion;
+
     private final iviajeRepository iviajeRepository;
     private final ilegaRepository ilegaRepository;
+
+    @Override
+    public List<legalizacion> findByUsuario(String id_usuario) {
+        return ilegalizacion.findByUsuario_IdUsuario(id_usuario);
+    }
 
     @Override
     public String save(legalizacion legalizacion){

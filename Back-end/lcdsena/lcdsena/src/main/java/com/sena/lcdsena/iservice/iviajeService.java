@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.sena.lcdsena.model.estadoViaje;
+import com.sena.lcdsena.model.legalizacion;
 import com.sena.lcdsena.model.viaje;
 
 
@@ -25,5 +26,7 @@ public interface iviajeService {
 
     //1 días hábil
     void enviarRecordatoriosPrevios();
+
+    List<viaje> findByUsuario(String id_usuario);
 
 }

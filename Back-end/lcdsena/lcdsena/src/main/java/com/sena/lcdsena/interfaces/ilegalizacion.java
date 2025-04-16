@@ -16,4 +16,7 @@ public interface ilegalizacion extends CrudRepository<legalizacion, String> {
     @Query("SELECT l FROM legalizacion l WHERE l.fecha_soli = :fecha_soli")
     List<legalizacion> filtroFecha(@Param("fecha_soli") LocalDate fecha_soli);
 
+    @Query("SELECT l FROM legalizacion l WHERE l.usuario.id_usuario = :id_usuario")
+    List<legalizacion> findByUsuario_IdUsuario(@Param("id_usuario") String id_usuario);
+
 }

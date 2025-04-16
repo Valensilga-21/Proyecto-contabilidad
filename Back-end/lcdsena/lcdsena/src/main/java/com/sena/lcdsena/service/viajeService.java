@@ -31,6 +31,11 @@ public class viajeService implements iviajeService{
         return viaje.getId_viaje();
    }
 
+    @Override
+    public List<viaje> findByUsuario(String id_usuario) {
+        return iviaje.findByUsuario_IdUsuario(id_usuario);
+    }
+
    @Override
    public List<viaje> findAll() {
     List<viaje> listaViajes =
