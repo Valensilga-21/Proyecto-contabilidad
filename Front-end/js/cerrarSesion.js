@@ -39,19 +39,19 @@ function cerrarSesion() {
     });
 }
 
-function verificarSesion() {
-    const token = localStorage.getItem('token');
-    if (!token) {
-        window.location.href = '/Front-end/index.html'; // Redirigir a la página de inicio de sesión
-    }
-}
+// function verificarSesion() {
+//     const token = localStorage.getItem('token');
+//     if (!token) {
+//         window.location.href = '/Front-end/index.html'; // Redirigir a la página de inicio de sesión
+//     }
+// }
 
-// Llama a la función de verificación al cargar la página
-document.addEventListener("DOMContentLoaded", verificarSesion);
+// // Llama a la función de verificación al cargar la página
+// document.addEventListener("DOMContentLoaded", verificarSesion);
 
-window.addEventListener('popstate', function(event) {
-    const token = localStorage.getItem('token');
-    if (!token) {
-        window.location.href = '/Front-end/index.html'; // Redirigir a la página de inicio de sesión
-    }
-});
+// window.addEventListener('popstate', function(event) {
+//     const token = localStorage.getItem('token');
+//     if (!token) {
+//         window.location.href = '/Front-end/index.html'; // Redirigir a la página de inicio de sesión
+//     }
+// });

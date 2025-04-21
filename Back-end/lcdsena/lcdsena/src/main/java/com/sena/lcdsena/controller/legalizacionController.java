@@ -11,6 +11,7 @@ import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,6 +43,7 @@ import com.sena.lcdsena.model.viaje;
 import com.sena.lcdsena.service.emailService;
 import com.sena.lcdsena.service.legalizacionTokenService;
 
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -53,6 +54,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequestMapping("/api/v1/LCDSena/legalizacion")
 @RestController
 @RequiredArgsConstructor
+@Data
 public class legalizacionController {
 
     @Autowired
@@ -171,6 +173,7 @@ public class legalizacionController {
         }
     }
 
+    //Aprobar legalizacion
     @PutMapping("/{id}/estado")
     public ResponseEntity<Object> aprobarLegalizacion(@PathVariable String id) {
         try {
@@ -186,6 +189,15 @@ public class legalizacionController {
             if (legalizacion.getEstado_lega() == estadoLegalizacion.Pendiente) {
                 legalizacion.setEstado_lega(estadoLegalizacion.Aprobada);
                 legalizacionService.save(legalizacion);
+
+                // Enviar correo electrónico al usuario
+                String destinatario = legalizacion.getUsuario().getUsername(); // Ajusta según tu modelo
+                String nombre_usuario = legalizacion.getUsuario().getNombre_usuario();
+                int num_comision = legalizacion.getViaje().getNum_comision();
+                String moti_devolucion = legalizacion.getMoti_devolucion();
+                LocalDate fecha_soli = legalizacion.getFecha_soli();
+
+                emailService.correoAprobacion(destinatario, nombre_usuario, num_comision, moti_devolucion, fecha_soli);
                 return new ResponseEntity<>("Legalización aprobada correctamente", HttpStatus.OK);
             } else {
                 return new ResponseEntity<>("La legalización no está en estado PENDIENTE", HttpStatus.BAD_REQUEST);
@@ -265,16 +277,42 @@ public class legalizacionController {
         return ResponseEntity.ok(legalizaciones);
     }
 
+
     @GetMapping("/{id_legalizacion}")
     public ResponseEntity<Object> findOne(@PathVariable String id_legalizacion) {
         var legalizacion = legalizacionService.findOne(id_legalizacion);
         return new ResponseEntity<>(legalizacion, HttpStatus.OK);
     }
 
+    @GetMapping("/busquedaFiltro/{num_comision}")
+    public ResponseEntity<Object> findFiltro(@PathVariable Integer num_comision) {
+        var listaLegalizacion = legalizacionService.filtroComision(num_comision);
+        return new ResponseEntity<>(listaLegalizacion, HttpStatus.OK);
+    }
+
     @GetMapping("/busqueda/fecha/{fecha_soli}")
     public ResponseEntity<Object> findByFecha(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fecha_soli) {
         var lista = legalizacionService.filtroFecha(fecha_soli);
         return new ResponseEntity<>(lista, HttpStatus.OK);
+    }
+
+    //Filtros estados legalizacion para el admin
+    @GetMapping("/busqueda/estadosU/{estado_lega}")
+    public ResponseEntity<Object> findByEstadoLega(@PathVariable estadoLegalizacion estado_lega) {
+        var listaLega = legalizacionService.filtroEstadosLega(estado_lega);
+        return new ResponseEntity<>(listaLega, HttpStatus.OK);
+    }
+
+    //Filtro estados legalizacion para los usuarios
+    @GetMapping("/busqueda/estado/{estado_lega}")
+    public ResponseEntity<Object> findByEstadoL(@PathVariable estadoLegalizacion estado_lega, Authentication authentication) {
+
+        String username = authentication.getName();
+
+        // Filtrar las legalizaciones por estado y usuario
+        var listaLega = legalizacionService.filtroEstadoL(estado_lega, username);
+
+        return new ResponseEntity<>(listaLega, HttpStatus.OK);
     }
 
 
@@ -285,18 +323,52 @@ public class legalizacionController {
     }
 
     @PutMapping("/profile/{id}")
-    public ResponseEntity<Object> update(@PathVariable String id, @RequestParam legalizacion legalizacionUpdate) {
-        var legalizacion = legalizacionService.findOne(id).get();
-        if (legalizacion != null) {
-            legalizacion.setMoti_devolucion(legalizacionUpdate.getMoti_devolucion());
-            legalizacion.setEstado_lega(legalizacionUpdate.getEstado_lega());
-            legalizacion.setPdf(legalizacionUpdate.getPdf());
+    public ResponseEntity<Object> updateLegalizacion(
+            @PathVariable String id,
+            @RequestParam(required = false) String moti_devolucion,
+            @RequestParam(required = false) String estado_lega,
+            @RequestParam(required = false) MultipartFile archivo, // El nuevo PDF
+            @RequestParam(required = false, defaultValue = "false") boolean archivoEliminado
+    ) {
+        Optional<legalizacion> optionalLega = legalizacionService.findOne(id);
+
+        if (optionalLega.isPresent()) {
+            legalizacion legalizacion = optionalLega.get();
+
+            // Actualizar campos simples
+            if (moti_devolucion != null) legalizacion.setMoti_devolucion(moti_devolucion);
+            if (estado_lega != null) {
+                try {
+                    estadoLegalizacion estadoEnum = estadoLegalizacion.valueOf(estado_lega.toUpperCase());
+                    legalizacion.setEstado_lega(estadoEnum);
+                } catch (IllegalArgumentException e) {
+                    return new ResponseEntity<>("Estado de legalización inválido: " + estado_lega, HttpStatus.BAD_REQUEST);
+                }
+            }
+            
+
+            // Si eliminaron el archivo
+            if (archivoEliminado) {
+                legalizacion.setPdf(null); // O eliminar del disco si lo guardas físicamente
+            }
+
+            // Si subieron un nuevo archivo
+            if (archivo != null && !archivo.isEmpty()) {
+                // Aquí puedes guardarlo en el servidor y asignar la ruta al objeto
+                String nombreArchivo = archivo.getOriginalFilename();
+                Path pathDestino = Paths.get("uploads/" + nombreArchivo);
+                try {
+                    Files.write(pathDestino, archivo.getBytes());
+                    legalizacion.setPdf(pathDestino.toString()); // o guarda solo el nombre
+                } catch (IOException e) {
+                    return new ResponseEntity<>("Error al guardar el archivo PDF", HttpStatus.INTERNAL_SERVER_ERROR);
+                }
+            }
 
             legalizacionService.save(legalizacion);
             return new ResponseEntity<>(legalizacion, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("No se guardaron los cambios, por favor intentelo de nuevo.",
-                    HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("No se encontró la legalización con ese ID", HttpStatus.NOT_FOUND);
         }
     }
 

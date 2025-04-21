@@ -73,7 +73,10 @@ public class usuarioPrivController {
         if (valido) {
             request.setEstado_usuario(estadoUsuario.activo);
             response = authService.registro(request);
-            response.setMensaje("Su solicitud de registro ha sido enviada correctamente.");
+
+            emailService.enviarCorreoBienvenida(request.getUsername(), request.getNombre_usuario());
+
+            response.setMensaje("El usuario se ha registrado correctamente.");
   
             return new ResponseEntity<authResponse>(response, HttpStatus.OK);
         }

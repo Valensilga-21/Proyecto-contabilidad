@@ -1,11 +1,9 @@
 package com.sena.lcdsena.iservice;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 import com.sena.lcdsena.model.estadoViaje;
-import com.sena.lcdsena.model.legalizacion;
 import com.sena.lcdsena.model.viaje;
 
 

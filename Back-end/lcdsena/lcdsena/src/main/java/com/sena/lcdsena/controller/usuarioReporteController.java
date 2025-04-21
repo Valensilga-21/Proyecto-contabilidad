@@ -19,7 +19,7 @@ import com.sena.lcdsena.service.usuarioService;
 import org.springframework.http.ContentDisposition;
 import net.sf.jasperreports.engine.JRException;
 
-@RequestMapping("/api/v1/LCDSena/pdfReporte")
+@RequestMapping("/api/v1/LCDSena/usuario/pdfReporte")
 @CrossOrigin
 @RestController
 public class usuarioReporteController {

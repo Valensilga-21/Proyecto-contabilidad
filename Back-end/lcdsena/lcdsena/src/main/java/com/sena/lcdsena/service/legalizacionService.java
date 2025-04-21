@@ -10,7 +10,10 @@ import org.springframework.stereotype.Service;
 
 import com.sena.lcdsena.interfaces.ilegalizacion;
 import com.sena.lcdsena.iservice.ilegalizacionService;
+import com.sena.lcdsena.model.estadoLegalizacion;
+import com.sena.lcdsena.model.estadoViaje;
 import com.sena.lcdsena.model.legalizacion;
+import com.sena.lcdsena.model.viaje;
 
 import lombok.RequiredArgsConstructor;
 
@@ -70,6 +73,21 @@ public class legalizacionService implements ilegalizacionService{
     @Override
     public List<legalizacion> filtroFecha(LocalDate fecha_soli) {
         return data.filtroFecha(fecha_soli);
+    }
+
+    @Override
+    public List<legalizacion> filtroEstadosLega(estadoLegalizacion estado_lega) {
+        return data.filtroEstadosLega(estado_lega);
+    }
+
+    @Override
+    public List<legalizacion> filtroEstadoL(estadoLegalizacion estado_lega, String username) {
+        return data.filtroEstadoL(estado_lega, username);
+    }
+
+    @Override
+    public List<legalizacion> filtroComision(Integer num_comision) {
+        return data.filtroComision(num_comision);
     }
 
     @Override

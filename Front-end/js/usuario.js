@@ -1,15 +1,15 @@
 // Función para registrar un usuario
 async function registrarUsuario() {
     //LLamar las variables donde se van almacenar lso datos
-    var documento_usuario = document.getElementById("documento_usuario").value;
-    var nombre_usuario = document.getElementById("nombre_usuario").value;
-    var username = document.getElementById("username").value;
-    var centro = document.getElementById("centro").value;
-    var cargo = document.getElementById("cargo").value;
-    var password = document.getElementById("password").value;
-    var confirm_contrasena = document.getElementById("confirm_contrasena").value;
-    var role = document.getElementById("role").value;
-    var estado_usuario = document.getElementById("estado_usuario").value;
+    var documento_usuario = document.getElementById("documento_usuarioR").value;
+    var nombre_usuario = document.getElementById("nombre_usuarioR").value;
+    var username = document.getElementById("usernameR").value;
+    var centro = document.getElementById("centroR").value;
+    var cargo = document.getElementById("cargoR").value;
+    var password = document.getElementById("passwordR").value;
+    var confirm_contrasena = document.getElementById("confirm_contrasenaR").value;
+    var role = document.getElementById("roleR").value;
+    var estado_usuario = document.getElementById("estado_usuarioR").value;
 
     //Validación de campos
     if (!nombre_usuario || !username || !password || !confirm_contrasena || !centro || !cargo || !documento_usuario) {

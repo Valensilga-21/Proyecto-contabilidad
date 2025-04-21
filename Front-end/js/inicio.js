@@ -4,8 +4,20 @@ function listarInicioAdmin() {
         url: urlListaViajes,
         type: "GET",
         success: function (result) {
+            console.log("Respuesta recibida:", result);
             var cuerpoTabla = document.getElementById("inicioAdminTable").getElementsByTagName('tbody')[0];
-            cuerpoTabla.innerHTML = ""; // Limpiar la tabla antes de llenarla
+            var mensaje = document.getElementById("mensajeSinResultados");
+
+            cuerpoTabla.innerHTML = ""; // Limpiar la tabla
+        
+            if (result.length === 0) {
+                // Mostrar mensaje fuera de la tabla
+                mensaje.style.display = "block";
+                return;
+            }
+        
+            // Ocultar el mensaje si hay resultados
+            mensaje.style.display = "none";
 
             for (var i = 0; i < result.length; i++) {
                 var legalizacion = result[i]["legalizacion"] || {};
@@ -53,8 +65,20 @@ function listarInicioUser() {
             "Authorization": "Bearer " + localStorage.getItem("userToken")
         },
         success: function (result) {
+            console.log("Respuesta recibida:", result);
             var cuerpoTabla = document.getElementById("inicioUserTable").getElementsByTagName('tbody')[0];
-            cuerpoTabla.innerHTML = ""; // Limpiar la tabla antes de llenarla
+            var mensaje = document.getElementById("mensajeSinResultados");
+
+            cuerpoTabla.innerHTML = ""; // Limpiar la tabla
+        
+            if (result.length === 0) {
+                // Mostrar mensaje fuera de la tabla
+                mensaje.style.display = "block";
+                return;
+            }
+        
+            // Ocultar el mensaje si hay resultados
+            mensaje.style.display = "none";
 
             for (var i = 0; i < result.length; i++) {
                 var legalizacionU = result[i]["legalizacion"] || {};
@@ -89,7 +113,6 @@ function listarInicioUser() {
         }
     });
 }
-
 
 //Contadores Admin
 async function obtenerContadores() {

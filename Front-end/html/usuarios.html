@@ -47,7 +47,7 @@
 <style>
     .button:hover {
         background-color: rgb(187, 187, 187);
-        border-radius: 15px;
+        border-radius: 10px;
     }
 
     .button span {
@@ -133,14 +133,20 @@
                     <b>Descargar PDF</b>
                 </button>
             </div>
+            <!-- Loader oculto por defecto -->
+            <div id="loaderPDF" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(255,255,255,0.8); z-index:9999; text-align:center;">
+                <div style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);">
+                    <div class="spinner-border text-secondary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                      </div>
+                    <p>Generando y descargando el reporte, por favor espera...</p>
+                </div>
+            </div>
+
             <div class="col-md-3 col-sm-6 col-12">
                 <div class="input-group">
-                    <button type="button" class="btn btn-outline-secondary" onclick="listarUsuarios();">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-search" viewBox="0 0 16 16">
-                            <path
-                                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-                        </svg>
+                    <button class="btn btn-outline-dark" type="button" onclick="listarUsuarios();">
+                        <i class="bi bi-search"></i>
                     </button>
                     <input type="text" id="texto" class="form-control" placeholder="Buscar...">
                 </div>
@@ -204,6 +210,9 @@
 
                 </tbody>
             </table>
+            <div id="mensajeSinResultados" class="text-center mt-3" style="display: none; color: gray;">
+                No se encontraron resultados.
+            </div>
         </div>
     </section>
 
@@ -323,7 +332,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" id="limpiar" class="btn btn-secondary">Limpiar</button>
+                    <button type="submit" id="limpiar" class="btn btn-secondary" onclick="limpiar();">Limpiar</button>
                     <button type="submit" class="btn" style="background-color: #00BB00; color: white; font-weight: 600;" onclick="registrarUser();">Registrar</button>
                 </div>
             </div>
@@ -447,7 +456,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" id="limpiarEditar" class="btn btn-secondary">Limpiar</button>
+                    <button type="button" id="limpiarEditar" class="btn btn-secondary">Limpiar</button>
                     <button type="submit" id="editarUsuario" class="btn"
                         style="background-color: #00BB00; color: white; font-weight: 600;"
                         onclick="guardarCambios();">Guardar</button>
@@ -456,6 +465,6 @@
         </div>
     </div>
     <script src="/Front-end/js/config.js"></script>
-    <script src="/Front-end/js/admin.js"></script>
+    <script src="/Front-end/js/admin/usuarios.js"></script>
 </body>
 </html>

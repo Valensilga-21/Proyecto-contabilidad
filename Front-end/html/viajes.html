@@ -118,6 +118,9 @@
 
                     </tbody>
                 </table>
+                <div id="mensajeSinResultados" class="text-center mt-3" style="display: none; color: gray;">
+                    No se encontraron resultados.
+                </div>
             </div>
         </div>
     </section>
@@ -227,7 +230,7 @@
                                 
                             </div>
                             <div class="mb-3 col col-xl-6 col-12 justify-content-between" style="text-align: right;">
-                                <button type="submit" class="btn" style="background-color: #00bb0021; border: 1px solid #00BB00; color: #00BB00; font-weight: 600;" onclick="guardarCambios();">
+                                <button type="submit" class="btn" style="background-color: #00bb0021; border: 1px solid #00BB00; color: #00BB00; font-weight: 600;" onclick="guardarCambiosV();">
                                     <span><i class="bi bi-check-lg"></i></span>Guardar</button>
                                 <button type="submit" id="cancelarr" class="btn" data-bs-dismiss="modal" style="background-color: #ff000015; border: 1px solid #ff0000; color: #ff0101; font-weight: 600;">
                                     <span><i class="bi bi-x-lg"></i></span>Cancelar</button>
@@ -309,7 +312,7 @@
             </div>
         </div>
     </div>
-    <script src="/Front-end/js/admin.js"></script>
+    <script src="/Front-end/js/admin/viaje.js"></script>
     <script src="/Front-end/js/config.js"></script>
 </body>
 </html>

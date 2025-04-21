@@ -18,7 +18,6 @@ import com.sena.lcdsena.interfaces.iusuarioRepository;
 import com.sena.lcdsena.interfaces.iviaje;
 import com.sena.lcdsena.iservice.iviajeService;
 import com.sena.lcdsena.model.estadoViaje;
-import com.sena.lcdsena.model.legalizacion;
 import com.sena.lcdsena.model.usuario;
 import com.sena.lcdsena.model.viaje;
 import com.sena.lcdsena.model.viajeRequest;

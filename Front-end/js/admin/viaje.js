@@ -1,3 +1,7 @@
+//------------------------------------------------------------------------------
+//SECCION VIAJES
+//------------------------------------------------------------------------------
+
 function registrarViaje() {
     var token = localStorage.getItem("userToken");
     var userId = localStorage.getItem("userId"); // Recuperar ID del usuario
@@ -78,31 +82,19 @@ function registrarViaje() {
     });
 }
 
-// Función para listar viajes Usuario
-function listarViajes() {
-    var estado = document.getElementById("estadoFilter").value;
-    var filtroU = document.getElementById("filtroU").value;
+// Función para listar viajes Admin
+function listarViajesAdmin() {
 
-    var urlListaViaje = "";
-
-    if (estado !== "") {
-        urlListaViaje = urlListaViajes + "busqueda/estado/" + estado;
-    }else if(filtroU !== ""){
-        urlListaViaje = urlListaViajes + "busquedaFiltro/" + filtroU;
-    }else{
-        urlListaViaje = urlFiltrosViaje;
-    }
+    var filtro = document.getElementById("texto").value;
+    var urlViaje = filtro !== "" ? urlListaViajes + "busquedaFiltro/" + filtro : urlListaViajes;
 
     $.ajax({
-        url: urlListaViaje,
+        url: urlViaje,
         type: "GET",
-        headers: {
-            "Authorization": "Bearer " + localStorage.getItem("userToken")
-        },
         success: function (result) {
-            var cuerpoTabla = document.getElementById("viajesTable").getElementsByTagName('tbody')[0];
+            var cuerpoTabla = document.getElementById("viajesTableAdmin").getElementsByTagName('tbody')[0];
             var mensaje = document.getElementById("mensajeSinResultados");
-        
+
             cuerpoTabla.innerHTML = ""; // Limpiar la tabla
         
             if (result.length === 0) {
@@ -113,31 +105,30 @@ function listarViajes() {
         
             // Ocultar el mensaje si hay resultados
             mensaje.style.display = "none";
-        
 
             for (var i = 0; i < result.length; i++) {
-                var estado = result[i]["estado_viaje"].toLowerCase();
+                var usuario = result[i]["usuario"] || {};
                 
-                // Definir color del texto según el estado
-                var colorEstado = "";
-                if (estado === "cancelado") {
-                    colorEstado = "red";
-                } else if (estado === "pendiente") {
-                    colorEstado = "orange";
-                } else if (estado === "completado") {
-                    colorEstado = "green";
-                }
+                var num_comision = result[i]["num_comision"] || "No disponible";
+                var nombre_usuario = usuario["nombre_usuario"] || "No disponible";
+                var cargo = usuario["cargo"] || "No disponible";
+                var centro = usuario["centro"] || "No disponible";
+                var fecha_inicio = result[i]["fecha_inicio"] || "No disponible";
+                var fecha_fin = result[i]["fecha_fin"] || "No disponible";
+                var ruta = result[i]["ruta"] || "No disponible";
 
                 // Crear fila de la tabla
                 var trRegistro = document.createElement("tr");
                 trRegistro.innerHTML = `
-                    <td>${result[i]["num_comision"]}</td>
-                    <td>${result[i]["fecha_inicio"]}</td>
-                    <td>${result[i]["fecha_fin"]}</td>
-                    <td>${result[i]["ruta"]}</td>
-                    <td style="color: ${colorEstado};">${result[i]["estado_viaje"]}</td>
+                    <td>${num_comision}</td>
+                    <td>${nombre_usuario}</td>
+                    <td>${cargo}</td>
+                    <td>${centro}</td>
+                    <td>${fecha_inicio}</td>
+                    <td>${fecha_fin}</td>
+                    <td>${ruta}</td>
                     <td class="text-center align-middle">
-                        <i class="btn fas fa-edit Editar text-warning" onclick="openEditModal('${result[i]["id_viaje"]}')"></i>
+                        <i class="btn fa-regular fa-file-lines fa-lg Editar" style="color: #39a800;" onclick="openEditModalV('${result[i]["id_viaje"]}')"></i>
                     </td>
                 `;
                 cuerpoTabla.appendChild(trRegistro);
@@ -146,19 +137,20 @@ function listarViajes() {
         error: function (errorLista) {
             Swal.fire({
                 title: "Error",
-                text: "Hubo un error al cargar los datos." + errorLista,
+                text: "Hubo un error al cargar los datos. " + errorLista.responseText,
                 icon: "error"
             });
         }
     });
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("estadoFilter").addEventListener("change", listarViajes);
-    document.getElementById("filtroU").addEventListener("input", listarViajes);
+$(document).ready(function () {
+    document.getElementById("texto").addEventListener("input", listarViajesAdmin);
+
+    listarViajesAdmin();
 });
 
-function openEditModal(id) {
+function openEditModalV(id) {
     $.ajax({
         url: urlIdViaje + id,
         type: 'GET',
@@ -180,7 +172,7 @@ function openEditModal(id) {
     });
 }
 
-function guardarCambios() {
+function guardarCambiosV() {
     var id = document.getElementById('viajeId').value;
     var num_comisionE = document.getElementById('num_comisionE').value;
     var fecha_inicioE = document.getElementById('fecha_inicioE').value;
@@ -244,7 +236,7 @@ function enviarEdicion(id, num_comision, fecha_inicio, fecha_fin, ruta, estado_v
                 icon: "success",
             }).then(() => {
                 $('#editViaje').modal('hide'); // Cierra el modal después de éxito
-                listarViajes();
+                listarViajesAdmin(); // Actualiza la tabla correctamente
             });
         },
         error: function (xhr, status, error) {
@@ -256,7 +248,7 @@ function enviarEdicion(id, num_comision, fecha_inicio, fecha_fin, ruta, estado_v
             });
         }
     });
-    listarViajes();
+    listarViajesAdmin();
 }
 
 //Validacion número de comisión

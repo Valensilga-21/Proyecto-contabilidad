@@ -1,3 +1,7 @@
+//------------------------------------------------------------------------------
+//SECCION LEGALIZACION
+//------------------------------------------------------------------------------
+
 function seleccionarViaje(viaje) {
     let viajesGuardados = localStorage.getItem("viajes");
     let viajes = viajesGuardados ? JSON.parse(viajesGuardados) : [];
@@ -88,7 +92,7 @@ function cargarFormulario() {
 }
 
 function cargarViaje() {
-    let urlListaViaje = "http://localhost:8080/api/v1/LCDSena/viaje/usuario";
+    let urlListaViaje = "http://localhost:8080/api/v1/LCDSena/viaje/";
     $.ajax({
         url: urlListaViaje,
         type: "GET",
@@ -135,27 +139,30 @@ function llenarDatosViaje(idViaje) {
     });
 }
 
-// Función para listar legalizaciones Usuario
-function listarLegalizacion() {
-    // var filtro = document.getElementById("texto").value;
-    var estado = document.getElementById("estadoFilter").value;
+// Función para listar legalizaciones Admin
+function listarLegalizacionAdmin() {
 
-    var urlListaFiltros = "";
+    var filtro = document.getElementById("texto").value;
+    var fecha_soli = document.getElementById("filtroFecha").value;
+    var estadoL = document.getElementById("estadoFiltro").value;
 
-    if (estado !== "") {
-        urlListaFiltros = urlFiltroLega + "busqueda/estado/" + estado;
-    } else {
-        urlListaFiltros = urlListaLega;
+    var urlListaLega = "";
+
+    if(fecha_soli !== "") {
+        urlListaLega = urlFiltroLega + "busqueda/fecha/" + fecha_soli;
+    } else if (estadoL !== "") {
+        urlListaLega = urlFiltroLega + "busqueda/estadosU/" + estadoL;
+    } else if (filtro !== "") {
+        urlListaLega = urlFiltroLega + "busquedaFiltro/" + filtro;
+    }else {
+        urlListaLega = urlFiltroLega;
     }
-
+    
     $.ajax({
-        url: urlListaFiltros,
+        url: urlListaLega,
         type: "GET",
-        headers: {
-            "Authorization": "Bearer " + localStorage.getItem("userToken") // asegúrate de guardar el token al iniciar sesión
-        },
         success: function (result) {
-            var cuerpoTabla = document.getElementById("legaTable").getElementsByTagName('tbody')[0];
+            var cuerpoTabla = document.getElementById("legaTableAdmin").getElementsByTagName('tbody')[0];
             var mensaje = document.getElementById("mensajeSinResultados");
 
             cuerpoTabla.innerHTML = ""; // Limpiar la tabla
@@ -170,27 +177,28 @@ function listarLegalizacion() {
             mensaje.style.display = "none";
 
             for (var i = 0; i < result.length; i++) {
-                var viaje = result[i]["viaje"] || {}; // Verificar si el usuario existe
+                var usuario = result[i]["usuario"] || {}; // Verificar si el usuario existe
+                var viajeA = result[i]["viaje"] || {};
                 
                 // Asignar valores predeterminados si no están disponibles
-                var num_comision = viaje["num_comision"] || "No disponible";
-                var fecha_inicio = viaje["fecha_inicio"] || "No disponible";
-                var fecha_fin = viaje["fecha_fin"] || "No disponible";
-                var ruta = viaje["ruta"] || "No disponible";
-                var moti_devolucion = result[i]["moti_devolucion"] || "Ninguna";
+                var num_comision = viajeA["num_comision"] || "No disponible";
+                var nombre_usuario = usuario["nombre_usuario"] || "No disponible";
+                var cargo = usuario["cargo"] || "No disponible";
+                var centro = usuario["centro"] || "No disponible";
+                var fecha_soli = result[i]["fecha_soli"] || "No disponible";
                 var estado_lega = result[i]["estado_lega"] || "No disponible";
 
                 // Crear fila de la tabla
                 var trRegistro = document.createElement("tr");
                 trRegistro.innerHTML = `
                     <td>${num_comision}</td>
-                    <td>${fecha_inicio}</td>
-                    <td>${fecha_fin}</td>
-                    <td>${ruta}</td>
-                    <td>${moti_devolucion}</td>
+                    <td>${nombre_usuario}</td>
+                    <td>${cargo}</td>
+                    <td>${centro}</td>
+                    <td>${fecha_soli}</td>
                     <td>${estado_lega}</td>
                     <td class="text-center align-middle">
-                        <i class="btn fas fa-edit Editar text-warning" onclick="openEditModal('${result[i]["id_legalizacion"]}')"></i>
+                        <i class="btn fa-regular fa-file-lines fa-lg Editar" style="color: #39a800;" onclick="openEditModalL('${result[i]["id_legalizacion"]}')"></i>
                     </td>
                 `;
                 cuerpoTabla.appendChild(trRegistro);
@@ -199,7 +207,7 @@ function listarLegalizacion() {
         error: function (errorLista) {
             Swal.fire({
                 title: "Error",
-                text: "Hubo un error al cargar los datos. " + errorLista.responseText,
+                text: "Hubo un error al cargar los datos.",
                 icon: "error"
             });
         }
@@ -207,10 +215,83 @@ function listarLegalizacion() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("estadoFilter").addEventListener("change", listarLegalizacion);
+    document.getElementById("filtroFecha").addEventListener("change", listarLegalizacionAdmin);
+    document.getElementById("estadoFiltro").addEventListener("change", listarLegalizacionAdmin);
+    document.getElementById("texto").addEventListener("input", listarLegalizacionAdmin);
 });
 
-function openEditModal(id) {
+function limpiar() {
+    document.getElementById("filtroFecha").value = "";
+    listarLegalizacionAdmin();
+}
+
+//Método para aprobar la legalizacion
+function cambiaEstadoAprobada(nuevoEstado) {
+    var idLegalizacion = document.getElementById('legaId').value;
+
+    $.ajax({
+        url: urlIdLega + idLegalizacion + "/estado",
+        type: "PUT",
+        contentType: "application/json",
+        data: JSON.stringify({ estado: nuevoEstado }),
+        success: function (response) {
+            $('#editLegalizacion').modal('hide');
+            listarLegalizacionAdmin();
+            Swal.fire({
+                title: "Éxito",
+                text: "La legalización ha sido " + nuevoEstado.toLowerCase() + ".",
+                icon: "success"
+            });
+        },
+        error: function (error) {
+            Swal.fire({
+                title: "Error",
+                text: "No se pudo cambiar el estado: " + error.responseText,
+                icon: "error"
+            });
+        }
+    });
+}
+
+function cambiaEstadoRechazada() {
+    var idLegalizacion = document.getElementById('legaId').value;
+    var motivo = document.getElementById('moti_devolucionE').value;
+
+    if (!motivo || motivo.trim() === "") {
+        Swal.fire({
+            title: "Campo requerido",
+            text: "Por favor ingresa el motivo de la devolución.",
+            icon: "warning"
+        });
+        return;
+    }
+
+    $.ajax({
+        url: urlIdLega + idLegalizacion + "/estado/rechazar",
+        type: "PUT",
+        contentType: "application/json",
+        data: JSON.stringify({ moti_devolucion: motivo }), // <-- corregido aquí
+        success: function (response) {
+            Swal.fire({
+                title: "Éxito",
+                text: "La legalización ha sido rechazada.",
+                icon: "success"
+            }).then(() => {
+                $('#editLegalizacion').modal('hide');
+                listarLegalizacionAdmin();
+            })
+        },
+        error: function (error) {
+            Swal.fire({
+                title: "Error",
+                text: "No se pudo cambiar el estado: " + error.responseText,
+                icon: "error"
+            });
+        }
+    });
+}
+
+function openEditModalL(id) {
     $.ajax({
         url: urlIdLega + id,
         type: 'GET',
@@ -259,7 +340,6 @@ document.getElementById("downloadButton").addEventListener("click", function() {
     }
 });
 
-
 //Input subir archivo
 const fileInput = document.getElementById("file");
 const removeButton = document.getElementById("removeFile");
@@ -282,5 +362,6 @@ function removeSelectedFile() {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
+    listarLegalizacionAdmin();
     cargarFormulario();
 });

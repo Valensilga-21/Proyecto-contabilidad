@@ -8,7 +8,7 @@ var urlRegistro = urlBase + "publico/usuario/"
 var urlRegistroAdmin = urlBase + "usuario"
 var urlDeshabilitar = urlBase + "usuario/deshabilitar/"
 var urlLogin = urlBase + "publico/usuario/"
-var urlReporteUsuarios = urlBase + "pdfReporte"
+var urlReporteUsuarios = urlBase + "usuario/pdfReporte"
 var urlProfile = urlBase + "usuario/profile/"
 var urlEditProfile = urlBase + "usuario/profile/"
 
