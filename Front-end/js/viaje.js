@@ -64,7 +64,7 @@ function registrarViaje() {
                 icon: "success"
             }).then(() => {
                 $('#viajeRegister').modal('hide');
-                listarViajesAdmin(); // Si querés refrescar la tabla luego de registrar
+                listarViajes(); // Si querés refrescar la tabla luego de registrar
             });
         },
         error: function(xhr, status, error) {

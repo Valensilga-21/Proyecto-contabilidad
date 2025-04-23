@@ -56,9 +56,9 @@ public class viaje {
     @JoinColumn(name = "id_usuario", nullable = false)
     private usuario usuario;
 
-    @OneToOne(mappedBy = "viaje", fetch = FetchType.EAGER)
-    @JsonInclude(JsonInclude.Include.NON_NULL) // Para evitar mostrar `null`
-    private legalizacion legalizacion;
+    // @OneToOne(mappedBy = "viaje", fetch = FetchType.EAGER)
+    // @JsonInclude(JsonInclude.Include.NON_NULL) // Para evitar mostrar `null`
+    // private legalizacion legalizacion;
 
 
 }
