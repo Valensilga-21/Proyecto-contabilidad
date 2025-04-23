@@ -88,7 +88,7 @@ function listarViajes() {
     if (estado !== "") {
         urlListaViaje = urlListaViajes + "busqueda/estado/" + estado;
     }else if(filtroU !== ""){
-        urlListaViaje = urlListaViajes + "busquedaFiltro/" + filtroU;
+        urlListaViaje = urlListaViajes + "busquedaFiltroU/" + filtroU;
     }else{
         urlListaViaje = urlFiltrosViaje;
     }

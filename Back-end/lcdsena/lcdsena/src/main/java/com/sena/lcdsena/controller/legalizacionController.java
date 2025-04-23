@@ -297,7 +297,7 @@ public class legalizacionController {
     }
 
     //Filtros estados legalizacion para el admin
-    @GetMapping("/busqueda/estadosU/{estado_lega}")
+    @GetMapping("/busqueda/estadosA/{estado_lega}")
     public ResponseEntity<Object> findByEstadoLega(@PathVariable estadoLegalizacion estado_lega) {
         var listaLega = legalizacionService.filtroEstadosLega(estado_lega);
         return new ResponseEntity<>(listaLega, HttpStatus.OK);

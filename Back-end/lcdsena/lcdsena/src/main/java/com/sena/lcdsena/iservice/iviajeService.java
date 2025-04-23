@@ -13,8 +13,9 @@ public interface iviajeService {
     public List<viaje> findAll();
     public Optional<viaje> findOne(String id_viaje);
     public int delete(String id_viaje);
-    public List<viaje> filtroViaje (String filtro);
-    public List<viaje> filtroEstadoV(estadoViaje estado_viaje);
+    public List<viaje> filtroViaje(String filtro);
+    public List<viaje> filtroViajeU(String filtro, String username);
+    public List<viaje> filtroEstadoV(estadoViaje estado_viaje, String username);
 
     //Notificaciones
 
