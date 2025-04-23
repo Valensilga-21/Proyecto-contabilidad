@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sena.lcdsena.interfaces.iusuarioRepository;
 import com.sena.lcdsena.interfaces.iviaje;
 import com.sena.lcdsena.iservice.iviajeService;
+import com.sena.lcdsena.model.estadoLegalizacion;
 import com.sena.lcdsena.model.estadoViaje;
 import com.sena.lcdsena.model.usuario;
 import com.sena.lcdsena.model.viaje;
@@ -141,16 +142,31 @@ public class viajeController {
         return new ResponseEntity<>(viaje, HttpStatus.OK);
     }
 
+    //Filtro estado admin
     @GetMapping("/busquedaFiltro/{filtro}")
     public ResponseEntity<Object> findFiltro(@PathVariable String filtro) {
         var listaViajes = viajeService.filtroViaje(filtro);
         return new ResponseEntity<>(listaViajes, HttpStatus.OK);
     }
 
+    //Filtro estado usuario
+    @GetMapping("/busquedaFiltroU/{filtro}")
+    public ResponseEntity<Object> findFiltroU(@PathVariable String filtro, Authentication authentication) {
+
+        String username = authentication.getName();
+
+        var listaViaje = viajeService.filtroViajeU(filtro, username);
+        return new ResponseEntity<>(listaViaje, HttpStatus.OK);
+    }
+
+    //Filtro estado viaje 
     @GetMapping("/busqueda/estado/{estado_viaje}")
-    public ResponseEntity<Object> findByEstadoV(@PathVariable estadoViaje estado_viaje) {
-        var listaViajes = viajeService.filtroEstadoV(estado_viaje);
-        return new ResponseEntity<>(listaViajes, HttpStatus.OK);
+    public ResponseEntity<Object> findByEstadoV(@PathVariable estadoViaje estado_viaje, Authentication authentication) {
+        
+        String username = authentication.getName();
+
+        var listaVia = viajeService.filtroEstadoV(estado_viaje, username);
+        return new ResponseEntity<>(listaVia, HttpStatus.OK);
     }
 
     @DeleteMapping("/eliminar/{id_viaje}")

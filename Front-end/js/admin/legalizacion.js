@@ -182,7 +182,7 @@ function listarLegalizacionAdmin() {
     if (fecha_soli !== "") {
         urlListaLega = urlFiltroLega + "busqueda/fecha/" + fecha_soli;
     } else if (estadoL !== "") {
-        urlListaLega = urlFiltroLega + "busqueda/estadosU/" + estadoL;
+        urlListaLega = urlFiltroLega + "busqueda/estadosA/" + estadoL;
     } else if (filtro !== "") {
         urlListaLega = urlFiltroLega + "busquedaFiltro/" + filtro;
     } else {

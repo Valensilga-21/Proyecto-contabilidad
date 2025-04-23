@@ -64,6 +64,20 @@ public class viajeService implements iviajeService{
     }
 
     @Override
+    public List<viaje> filtroViajeU(String filtro, String username) {
+        LocalDate fecha = null;
+        String ruta = null;
+
+        try {
+            fecha = LocalDate.parse(filtro); // Intenta convertir a fecha
+        } catch (DateTimeParseException e) {
+            // No es una fecha, ignorar
+        }
+
+        return data.filtroViaje(filtro, fecha, ruta);
+    }
+
+    @Override
     public int delete(String id) {
         try{
             data.deleteById(id);
@@ -75,8 +89,8 @@ public class viajeService implements iviajeService{
     }
 
     @Override
-    public List<viaje> filtroEstadoV(estadoViaje estado_viaje) {
-        return data.filtroEstadoV(estado_viaje);
+    public List<viaje> filtroEstadoV(estadoViaje estado_viaje, String username) {
+        return data.filtroEstadoV(estado_viaje, username);
     }
 
 
