@@ -65,7 +65,7 @@ function registrarViaje() {
             Swal.fire({
                 title: "¡Éxito!",
                 text: "Viaje registrado correctamente.",
-                icon: "success"
+                icon: "success",
             }).then(() => {
                 $('#viajeRegister').modal('hide');
                 listarViajesAdmin(); // Si querés refrescar la tabla luego de registrar

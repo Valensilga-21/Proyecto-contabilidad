@@ -19,7 +19,7 @@ function cargarOpcionesDeViaje() {
     let viajes = viajesGuardados ? JSON.parse(viajesGuardados) : [];
 
     let selectViaje = document.getElementById("id_viaje"); // Asegúrate de que el ID sea el correcto
-    selectViaje.innerHTML = "<option value=''>Seleccione una comisión</option>"; 
+    selectViaje.innerHTML = "<option value=''>Seleccione una comisión</option>";
 
     viajes.forEach(viaje => {
         let option = document.createElement("option");
@@ -72,18 +72,49 @@ function registrarLegalizacion() {
         processData: false,
         contentType: false,
         headers: { "Authorization": "Bearer " + token },
-        success: function(result) {
-            Swal.fire({
+        success: function (result) {
+        console.log("Respuesta del backend:", result); // Verifica la estructura de la respuesta
+
+        if (result.legalizacion && result.legalizacion.id_legalizacion) {
+                let legalizacion = {
+                id_legalizacion: result.legalizacion.id_legalizacion, // Acceder correctamente al ID
+                    moti_devolucion: formData.moti_devolucion,
+                    fecha_soli: formData.fecha_soli,
+                    estado_lega: formData.estado_lega,
+                    pdf: formData.pdf,
+                    id_viaje: formData.id_viaje,
+                    id_usuario: formData.id_usuario
+                };
+
+                 // Almacenar el viaje en localStorage en formato JSON
+                 localStorage.setItem("legalizacion", JSON.stringify(legalizacion));
+
+                 console.log("legalizacion almacenado en localStorage:", legalizacion);
+             } else {
+                 console.log("Error: la respuesta del backend no contiene 'id_legalizacion'.");
+             }
+ 
+
+             Swal.fire({
                 title: "¡Éxito!",
-                text: "Legalización registrada correctamente.",
+                text: "Legalizacion registrado correctamente.",
                 icon: "success",
-                timer: 1500,
-                showConfirmButton: false
+                timer: 3000, // La alerta se cerrará automáticamente después de 3 segundos (3000 milisegundos)
+                showConfirmButton: false // Oculta el botón "OK" si no es necesario
             }).then(() => {
                 $('#legaRegister').modal('hide');
-                listarLegalizaciones();
+                listarLegalizacionAdmin(); // Esto se ejecutará después del timer
             });
-        }        
+        },
+        
+        error: function (xhr, status, error) {
+            console.log("Error en la petición:", xhr.responseText);
+            Swal.fire({
+                title: "¡Error!",
+                text: "No se pudo registrar la legalización. Verifica tu sesión e intenta nuevamente.",
+                icon: "error"
+            });
+        }
     });
 }
 
@@ -101,22 +132,22 @@ function cargarViaje() {
         },
         success: function (result) {
             let selectViaje = document.getElementById("id_viaje");
-            selectViaje.innerHTML = "<option value=''>Seleccione una comisión</option>"; 
-        
+            selectViaje.innerHTML = "<option value=''>Seleccione una comisión</option>";
+
             result.forEach(viaje => {
                 let option = document.createElement("option");
                 option.value = viaje.id_viaje;
                 option.textContent = viaje.num_comision;
                 selectViaje.appendChild(option);
             });
-        
+
             selectViaje.addEventListener("change", function () {
                 if (this.value) {
                     llenarDatosViaje(this.value);
                 }
             });
         },
-        error: function(xhr) {
+        error: function (xhr) {
             console.log("Error al cargar los viajes:", xhr.responseText);
         }
     });
@@ -124,7 +155,7 @@ function cargarViaje() {
 
 function llenarDatosViaje(idViaje) {
     let urlDetalles = `http://localhost:8080/api/v1/LCDSena/viaje/${idViaje}`;
-    
+
     $.ajax({
         url: urlDetalles,
         type: "GET",
@@ -133,7 +164,7 @@ function llenarDatosViaje(idViaje) {
             document.getElementById("fecha_fin").value = data.fecha_fin;
             document.getElementById("ruta").value = data.ruta;
         },
-        error: function(xhr) {
+        error: function (xhr) {
             console.log("Error al obtener los detalles del viaje:", xhr.responseText);
         }
     });
@@ -148,16 +179,16 @@ function listarLegalizacionAdmin() {
 
     var urlListaLega = "";
 
-    if(fecha_soli !== "") {
+    if (fecha_soli !== "") {
         urlListaLega = urlFiltroLega + "busqueda/fecha/" + fecha_soli;
     } else if (estadoL !== "") {
         urlListaLega = urlFiltroLega + "busqueda/estadosU/" + estadoL;
     } else if (filtro !== "") {
         urlListaLega = urlFiltroLega + "busquedaFiltro/" + filtro;
-    }else {
+    } else {
         urlListaLega = urlFiltroLega;
     }
-    
+
     $.ajax({
         url: urlListaLega,
         type: "GET",
@@ -166,20 +197,20 @@ function listarLegalizacionAdmin() {
             var mensaje = document.getElementById("mensajeSinResultados");
 
             cuerpoTabla.innerHTML = ""; // Limpiar la tabla
-        
+
             if (result.length === 0) {
                 // Mostrar mensaje fuera de la tabla
                 mensaje.style.display = "block";
                 return;
             }
-        
+
             // Ocultar el mensaje si hay resultados
             mensaje.style.display = "none";
 
             for (var i = 0; i < result.length; i++) {
                 var usuario = result[i]["usuario"] || {}; // Verificar si el usuario existe
                 var viajeA = result[i]["viaje"] || {};
-                
+
                 // Asignar valores predeterminados si no están disponibles
                 var num_comision = viajeA["num_comision"] || "No disponible";
                 var nombre_usuario = usuario["nombre_usuario"] || "No disponible";
@@ -301,8 +332,8 @@ function openEditModalL(id) {
                 return;
             }
 
-            var usuario = data.usuario || {}; 
-            var viaje = data.viaje || {}; 
+            var usuario = data.usuario || {};
+            var viaje = data.viaje || {};
 
             // Llenar los campos del formulario
             document.getElementById('legaId').value = data.id_legalizacion || "";
@@ -331,7 +362,7 @@ function getSelectedLegalizacionId() {
 }
 
 // Evento de descarga
-document.getElementById("downloadButton").addEventListener("click", function() {
+document.getElementById("downloadButton").addEventListener("click", function () {
     const selectedId = getSelectedLegalizacionId(); // Obtener el ID de la legalización seleccionada
     if (selectedId) {
         window.location.href = `http://localhost:8080/api/v1/LCDSena/legalizacion/download/${selectedId}`; // Asegúrate de que la URL sea correcta
@@ -361,7 +392,7 @@ function removeSelectedFile() {
     removeButton.classList.add("d-none"); // Ocultar botón "Quitar"
 }
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     listarLegalizacionAdmin();
     cargarFormulario();
 });
