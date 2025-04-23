@@ -293,7 +293,7 @@
                         <div class="row justify-content-center">
                             <div class="mb-3 col-12 col-xl-6"></div>
                             <div class="mb-3 col-12 col-xl-6 text-end">
-                                <button type="submit" id="editarViaje" class="btn"
+                                <button type="submit" id="editarLegalizacion" class="btn"
                                     style="background-color: #00bb0021; border: 1px solid #00BB00; color: #00BB00; font-weight: 600;">
                                     <span><i class="bi bi-check-lg"></i></span>Guardar
                                 </button>
@@ -353,16 +353,25 @@
                                     <label for="file" class="form-label">Archivos</label>
                                     <div class="input-group">
                                         <span class="input-group-text">
-                                          <box-icon name='file-pdf' type='solid' color='#ff1f1f'></box-icon>
+                                            <box-icon name='file-pdf' type='solid' color='#ff1f1f'></box-icon>
                                         </span>
+                                        <button id="downloadButton" type="button" class="btn btn-outline-secondary flex-grow-1">
+                                            Descargar PDF
+                                        </button>
+                                    </div>
+                                    
+                                    <!-- Subida y control del archivo -->
+                                    <div class="input-group mt-2">
                                         <input type="file" class="form-control" id="file" accept="application/pdf">
-                                        <button class="btn btn-danger d-none" id="removeFile" onclick="removeSelectedFileUpdate()">Quitar</button>
-                                      </div>
-                                      <!-- Muestra del archivo subido -->
-                                      <div id="uploadedFileInfo" class="mt-2 d-none">
+                                        <input type="hidden" id="archivoEliminado" name="archivoEliminado" value="false">
+                                        <button class="btn btn-danger d-none" id="removeFile" type="button" onclick="removeSelectedFileUpdate()">Quitar</button>
+                                    </div>
+                                    
+                                    <div id="uploadedFileInfo" class="mt-2 d-none">
                                         <p class="mb-1">Archivo subido: <a href="#" target="_blank" id="uploadedFileLink">Ver PDF</a></p>
-                                      </div>
-                                      
+                                    </div>
+                                    
+                                    <span id="fileName" class="text-muted mt-1"></span>
                                 </div>
                                 
                                 <label for="moti_devolucionE" class="form-label">Motivo Devolución</label>

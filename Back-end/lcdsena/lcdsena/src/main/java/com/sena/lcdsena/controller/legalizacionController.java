@@ -326,50 +326,56 @@ public class legalizacionController {
     public ResponseEntity<Object> updateLegalizacion(
             @PathVariable String id,
             @RequestParam(required = false) String moti_devolucion,
-            @RequestParam(required = false) String estado_lega,
-            @RequestParam(required = false) MultipartFile archivo, // El nuevo PDF
+            @RequestParam(required = false) MultipartFile archivo,
             @RequestParam(required = false, defaultValue = "false") boolean archivoEliminado
     ) {
         Optional<legalizacion> optionalLega = legalizacionService.findOne(id);
 
-        if (optionalLega.isPresent()) {
-            legalizacion legalizacion = optionalLega.get();
-
-            // Actualizar campos simples
-            if (moti_devolucion != null) legalizacion.setMoti_devolucion(moti_devolucion);
-            if (estado_lega != null) {
-                try {
-                    estadoLegalizacion estadoEnum = estadoLegalizacion.valueOf(estado_lega.toUpperCase());
-                    legalizacion.setEstado_lega(estadoEnum);
-                } catch (IllegalArgumentException e) {
-                    return new ResponseEntity<>("Estado de legalización inválido: " + estado_lega, HttpStatus.BAD_REQUEST);
-                }
-            }
-            
-
-            // Si eliminaron el archivo
-            if (archivoEliminado) {
-                legalizacion.setPdf(null); // O eliminar del disco si lo guardas físicamente
-            }
-
-            // Si subieron un nuevo archivo
-            if (archivo != null && !archivo.isEmpty()) {
-                // Aquí puedes guardarlo en el servidor y asignar la ruta al objeto
-                String nombreArchivo = archivo.getOriginalFilename();
-                Path pathDestino = Paths.get("uploads/" + nombreArchivo);
-                try {
-                    Files.write(pathDestino, archivo.getBytes());
-                    legalizacion.setPdf(pathDestino.toString()); // o guarda solo el nombre
-                } catch (IOException e) {
-                    return new ResponseEntity<>("Error al guardar el archivo PDF", HttpStatus.INTERNAL_SERVER_ERROR);
-                }
-            }
-
-            legalizacionService.save(legalizacion);
-            return new ResponseEntity<>(legalizacion, HttpStatus.OK);
-        } else {
+        if (optionalLega.isEmpty()) {
             return new ResponseEntity<>("No se encontró la legalización con ese ID", HttpStatus.NOT_FOUND);
         }
+
+        legalizacion legalizacion = optionalLega.get();
+
+        if (legalizacion.getEstado_lega() == estadoLegalizacion.Aprobada) {
+            return new ResponseEntity<>("No se puede modificar una legalización aprobada.", HttpStatus.BAD_REQUEST);
+        }
+
+        boolean archivoModificado = false;
+
+        // Eliminar archivo actual si se indicó
+        if (archivoEliminado) {
+            legalizacion.setPdf(null);
+            archivoModificado = true;
+        }
+
+        // Subir nuevo archivo si aplica
+        if (archivo != null && !archivo.isEmpty()) {
+            try {
+                String nombreArchivo = UUID.randomUUID().toString() + "_" + Paths.get(archivo.getOriginalFilename()).getFileName();
+                Path pathDestino = Paths.get("uploads/legalizaciones", nombreArchivo);
+                Files.createDirectories(pathDestino.getParent());
+                Files.copy(archivo.getInputStream(), pathDestino, StandardCopyOption.REPLACE_EXISTING);
+                legalizacion.setPdf(pathDestino.toString());
+                archivoModificado = true;
+            } catch (IOException e) {
+                return new ResponseEntity<>("Error al guardar el archivo PDF", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+
+        // Si el archivo fue modificado, forzar estado a Pendiente y fecha actual
+        if (archivoModificado) {
+            legalizacion.setEstado_lega(estadoLegalizacion.Pendiente);
+            legalizacion.setFecha_soli(LocalDate.now());
+        }
+
+        // Actualizar motivo si se proporcionó
+        if (moti_devolucion != null) {
+            legalizacion.setMoti_devolucion(moti_devolucion);
+        }
+
+        legalizacionService.save(legalizacion);
+        return new ResponseEntity<>(legalizacion, HttpStatus.OK);
     }
 
 }
