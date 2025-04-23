@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Legalizaciones</title>
-    <link rel="icon" href="/Front-end/img/favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="icon" href="/Front-end/img/favicon.ico" type="image/png" sizes="32x32">
 
     <link rel="stylesheet" href="/Front-end/css/bootstrap.css">
     <script src="/Front-end/js/bootstrap.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <link rel="stylesheet" href="/Front-end/css/index.css">
 
@@ -84,88 +86,95 @@
         background-color: #ffffff !important;
         border-color: #dbdbdb !important;
         color: #212529;
-    }   
+    }
 </style>
 
 <body onload="listarLegalizacion();">
     <!-- Opcional: Envuelve el contenido en un container-fluid para mayor control -->
-    <div class="container-fluid">
-        <nav>
-            <div class="logo-name">
-                <div class="row">
-                    <div id="imglogo" class="container">
-                        <img src="/Front-end/img/LCD-removebg 1.png" class="img-fluid" alt="" style="width: 200px;">
-                    </div>
+
+    <nav>
+        <div class="logo-name">
+            <div class="row">
+                <div id="imglogo" class="container">
+                    <img src="/Front-end/img/LCD-removebg 1.png" class="img-fluid" alt="" style="width: 200px;">
                 </div>
             </div>
-            <div class="menu-items">
-                <ul class="nav-links">
-                    <li><a href="/Front-end/html/Usuario/inicioUsuario.html">
-                            <i class="uil uil-estate"></i>
-                            <span class="link-name"><b>Inicio</b></span>
-                        </a></li>
-                    <li class="active"><a href="/Front-end/html/Usuario/legalizaciones.html">
-                            <i class="uil uil-chart"></i>
-                            <span class="link-name"><b>Legalizaciones</b></span>
-                        </a></li>
-                    <li><a href="/Front-end/html/Usuario/viajes.html">
-                            <i class='bx bx-car'></i>
-                            <span class="link-name"><b>Viajes</b></span>
-                        </a></li>
-                    <li><a href="/Front-end/html/Usuario/perfil.html">
-                            <i class='bx bx-cog'></i>
-                            <span class="link-name"><b>Perfil</b></span>
-                        </a></li>
-                    <li><a href="/Front-end/html/Usuario/ayuda.html">
-                            <i class='bx bx-help-circle'></i>
-                            <span class="link-name"><b>Ayuda</b></span>
-                        </a></li>
-                        <li style="padding-top: 65%;">
-                            <a type="button" onclick="cerrarSesion();">
-                                <i class="uil uil-signout" style="color: #00BB00;"></i>
-                                <span class="link-name"><b>Cerrar sesión</b></span>
-                            </a>
-                        </li>
-                </ul>
-            </div>
-        </nav>
+        </div>
+        <div class="menu-items">
+            <ul class="nav-links">
+                <li><a href="/Front-end/html/Usuario/inicioUsuario.html">
+                        <i class="uil uil-estate"></i>
+                        <span class="link-name"><b>Inicio</b></span>
+                    </a></li>
+                <li class="active"><a href="/Front-end/html/Usuario/legalizaciones.html">
+                        <i class="uil uil-chart"></i>
+                        <span class="link-name"><b>Legalizaciones</b></span>
+                    </a></li>
+                <li><a href="/Front-end/html/Usuario/viajes.html">
+                        <i class='bx bx-car'></i>
+                        <span class="link-name"><b>Viajes</b></span>
+                    </a></li>
+                <li><a href="/Front-end/html/Usuario/perfil.html">
+                        <i class='bx bx-cog'></i>
+                        <span class="link-name"><b>Perfil</b></span>
+                    </a></li>
+                <li><a href="/Front-end/html/Usuario/ayuda.html">
+                        <i class='bx bx-help-circle'></i>
+                        <span class="link-name"><b>Ayuda</b></span>
+                    </a></li>
+                <li style="padding-top: 65%;">
+                    <a type="button" onclick="cerrarSesion();">
+                        <i class="uil uil-signout" style="color: #00BB00;"></i>
+                        <span class="link-name"><b>Cerrar sesión</b></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
-        <section class="dashboard">
-            <div class="row" style="padding-top: 4%;">
-                <div class="col-12 col-md-8 mb-2">
-                    <div class="input-group mb-3">
-                        <button class="btn btn-outline-dark" type="button" id="filtrar">
-                            <i class="bi bi-search"></i>
-                        </button>
-                        <input id="searchInput" type="text" class="form-control" placeholder="Buscar..."
-                            aria-label="Buscar" aria-describedby="button-addon1">
+    <section class="dashboard">
+        <div class="row" style="padding-top: 2%;">
+            <div class="row justify-content-md-end g-2">
+                <div class="container">
+                    <div class="row justify-content-start justify-content-md-end g-2">
+
+                        <div class="col-12 col-md-4">
+                            <div class="input-group">
+                                <button class="btn btn-outline-dark" type="button" id="filtrar">
+                                    <i class="bi bi-search"></i>
+                                </button>
+                                <input id="searchInput" type="text" class="form-control" placeholder="Buscar..."
+                                    aria-label="Buscar" aria-describedby="button-addon1">
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-3">
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <box-icon name="filter"></box-icon>
+                                </span>
+                                <select id="estadoFilter" class="form-select">
+                                    <option value="">Estado</option>
+                                    <option value="Aprobada">Aprobadas</option>
+                                    <option value="Pendiente">Pendientes</option>
+                                    <option value="Rechazada">Rechazadas</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-1 text-center text-md-end">
+                            <button class="btn w-100 w-md-auto d-block mx-auto mx-md-0"
+                                style="background-color: #00BB00;" data-bs-toggle="modal" data-bs-target="#myModal">
+                                <i class="bi bi-plus-lg text-white"></i>
+                            </button>
+                        </div>
+
                     </div>
                 </div>
 
-                <div class="col-12 col-md-3 mb-2">
-                    <div class="input-group" style="border-radius: 10px; border-left: none;">
-                        <span class="input-group-text">
-                            <box-icon name="filter"></box-icon>
-                        </span>
-                        <select id="estadoFilter" class="form-select"
-                            style="background-color: #ffffff; border-radius: 0 0 10px 0; border-left: none;">
-                            <option value="">Estado</option>
-                            <option value="Aprobada">Aprobadas</option>
-                            <option value="Pendiente">Pendientes</option>
-                            <option value="Rechazada">Rechazadas</option>
-                            <!-- <option value="mas90dias">Mas de 90 dias</option> -->
-                        </select>
-                    </div>
-                </div>
 
-                <div class="col-12 col-md-1 text-center mb-3">
-                    <button class="btn w-100 w-md-auto d-block mx-auto" style="background-color: #00BB00;"
-                        data-bs-toggle="modal" data-bs-target="#myModal">
-                        <i class="bi bi-plus-lg text-white"></i>
-                    </button>
-                </div>
                 <div class="col-12">
-                    <div class="activity-data table-responsive-sm pt-3">
+                    <div class="activity-data table-responsive-sm pt-3 mt-4">
                         <table class="table table-hover" id="legaTable">
                             <thead>
                                 <tr>
@@ -188,9 +197,9 @@
                     </div>
                 </div>
             </div>
-        </section>
+    </section>
 
-        <!-- Modal -->
+    <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
@@ -201,11 +210,11 @@
                             </div>
                             <div class="mb-3 col-12 col-xl-6 text-end">
                                 <button type="submit" id="registrar" class="btn"
-                                    style="background-color: #00bb0021; border: 1px solid #00BB00; color: #00BB00; font-weight: 600;" onclick="registrarLegalizacion();">
+                                    style="background-color: #00bb0021; border: 1px solid #00BB00; color: #00BB00; font-weight: 600;"
+                                    onclick="registrarLegalizacion();">
                                     <span><i class="bi bi-check-lg"></i></span>Guardar
                                 </button>
-                                <button type="submit" id="cancelar" data-bs-dismiss="modal"
-                                    class="btn btn-secondary"
+                                <button type="submit" id="cancelar" data-bs-dismiss="modal" class="btn btn-secondary"
                                     style="background-color: #ff000015; border: 1px solid #ff0000; color: #ff0101; font-weight: 600;">
                                     <span><i class="bi bi-x-lg"></i></span>Cancelar
                                 </button>
@@ -233,22 +242,22 @@
                                 <div class="input-group">
                                     <input type="date" class="form-control" id="fecha_fin">
                                 </div>
-                                
+
                                 <div class="visually-hidden">
                                     <label for="" class="form-label">Fecha solicitud</label>
                                     <div class="input-group">
                                         <input type="date" class="form-control" id="fecha_soli">
                                     </div>
                                 </div>
-                                
+
 
                                 <label for="" class="form-label">Ruta</label>
                                 <div class="form-floating">
-                                    <textarea id="ruta" class="form-control" placeholder="Leave a comment here"style="height: 125px" style="font-size: 0%" oninput="validateRuta()"></textarea>
+                                    <textarea id="ruta" class="form-control" placeholder="Leave a comment here"
+                                        style="height: 125px" style="font-size: 0%" oninput="validateRuta()"></textarea>
                                 </div>
                             </div>
-                            <div class="input-group visually-hidden"
-                                style="border-radius: 10px; border-left: none;">
+                            <div class="input-group visually-hidden" style="border-radius: 10px; border-left: none;">
                                 <span class="input-group-text">
                                     <box-icon name="filter"></box-icon>
                                 </span>
@@ -267,7 +276,8 @@
                                         <box-icon name='file-pdf' type='solid' color='#ff1f1f'></box-icon>
                                     </span>
                                     <input type="file" class="form-control" id="file" accept="application/pdf">
-                                    <button class="btn btn-danger d-none" id="removeFile" onclick="removeSelectedFile()">Quitar</button>
+                                    <button class="btn btn-danger d-none" id="removeFile"
+                                        onclick="removeSelectedFile()">Quitar</button>
                                 </div>
                                 <p id="fileName" class="mt-2 text-muted"></p>
                                 <label for="" class="form-label">Motivo Devolución</label>
@@ -297,8 +307,7 @@
                                     style="background-color: #00bb0021; border: 1px solid #00BB00; color: #00BB00; font-weight: 600;">
                                     <span><i class="bi bi-check-lg"></i></span>Guardar
                                 </button>
-                                <button type="submit" id="cancelar" data-bs-dismiss="modal"
-                                    class="btn btn-secondary"
+                                <button type="submit" id="cancelar" data-bs-dismiss="modal" class="btn btn-secondary"
                                     style="background-color: #ff000015; border: 1px solid #ff0000; color: #ff0101; font-weight: 600;">
                                     <span><i class="bi bi-x-lg"></i></span>Cancelar
                                 </button>
@@ -316,33 +325,34 @@
                                 <div class="visually-hidden">
                                     <label for="usuario" class="form-label">Nombre Usuario</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" id="nombre_usuarioE" placeholder="Nombre Completo" disabled>
+                                        <input type="text" class="form-control" id="nombre_usuarioE"
+                                            placeholder="Nombre Completo" disabled>
                                     </div>
                                 </div>
                                 <label for="num_comisionE" class="form-label">No. comisión</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="num_comisionE" placeholder="" >
+                                    <input type="text" class="form-control" id="num_comisionE" placeholder="">
                                 </div>
-                                <label for="fecha_inicioE" class="form-label">Fecha Inicio</label >
+                                <label for="fecha_inicioE" class="form-label">Fecha Inicio</label>
                                 <div class="input-group">
-                                    <input type="date" class="form-control" id="fecha_inicioE" >
+                                    <input type="date" class="form-control" id="fecha_inicioE">
                                 </div>
-                                <label for="fecha_finE" class="form-label">Fecha Fin</label >
+                                <label for="fecha_finE" class="form-label">Fecha Fin</label>
                                 <div class="input-group">
-                                    <input type="date" class="form-control" id="fecha_finE" >
+                                    <input type="date" class="form-control" id="fecha_finE">
                                 </div>
                                 <label for="rutaE" class="form-label">Ruta</label>
                                 <div class="input-group">
                                     <textarea id="rutaE" cols="60" rows="4" disabled></textarea>
                                 </div>
                             </div>
-                            <div class="input-group visually-hidden"
-                                style="border-radius: 10px; border-left: none;">
+                            <div class="input-group visually-hidden" style="border-radius: 10px; border-left: none;">
                                 <span class="input-group-text">
                                     <box-icon name="filter"></box-icon>
                                 </span>
                                 <select name="centro" id="estadoU" class="form-select"
-                                    style="background-color: #ffffff; border-radius: 0 0 10px 0; border-left: none;" disabled>
+                                    style="background-color: #ffffff; border-radius: 0 0 10px 0; border-left: none;"
+                                    disabled>
                                     <option value="">Estado</option>
                                     <option value="completado">Completada</option>
                                     <option value="pendiente" selected>Pendiente</option>
@@ -363,6 +373,7 @@
                                     <!-- Subida y control del archivo -->
                                     <div class="input-group mt-2">
                                         <input type="file" class="form-control" id="file" accept="application/pdf">
+<<<<<<< HEAD
                                         <input type="hidden" id="archivoEliminado" name="archivoEliminado" value="false">
                                         <button class="btn btn-danger d-none" id="removeFile" type="button" onclick="removeSelectedFileUpdate()">Quitar</button>
                                     </div>
@@ -372,8 +383,19 @@
                                     </div>
                                     
                                     <span id="fileName" class="text-muted mt-1"></span>
+=======
+                                        <button class="btn btn-danger d-none" id="removeFile"
+                                            onclick="removeSelectedFileUpdate()">Quitar</button>
+                                    </div>
+                                    <!-- Muestra del archivo subido -->
+                                    <div id="uploadedFileInfo" class="mt-2 d-none">
+                                        <p class="mb-1">Archivo subido: <a href="#" target="_blank"
+                                                id="uploadedFileLink">Ver PDF</a></p>
+                                    </div>
+
+>>>>>>> 06ff8046dee5b1daa74205bceb6c1afc92404231
                                 </div>
-                                
+
                                 <label for="moti_devolucionE" class="form-label">Motivo Devolución</label>
                                 <div class="input-group">
                                     <textarea id="moti_devolucionE" cols="65" rows="10" disabled
@@ -389,6 +411,7 @@
     </div>
     <script src="/Front-end/js/legalizacion.js"></script>
     <script src="/Front-end/js/config.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </body>
+
 </html>

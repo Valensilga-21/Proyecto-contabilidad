@@ -64,22 +64,28 @@ function registrarLegalizacion() {
     $.ajax({
         url: "http://localhost:8080/api/v1/LCDSena/legalizacion/?" + new Date().getTime(),
         type: "POST",
-        data: formData,
+        data: JSON.stringify(formData),
         processData: false,
-        contentType: false,
+        contentType: "application/json",
         headers: { "Authorization": "Bearer " + token },
-        success: function(result) {
+        success: function (result) {
             Swal.fire({
                 title: "¡Éxito!",
                 text: "Legalización registrada correctamente.",
                 icon: "success",
-                timer: 1500,
-                showConfirmButton: false
             }).then(() => {
                 $('#legaRegister').modal('hide');
-                listarLegalizaciones();
+                listarLegalizacion(); // Si querés refrescar la tabla luego de registrar
             });
-        }        
+        },
+        error: function (xhr, status, error) {
+            console.log("Error en la petición:", xhr.responseText);
+            Swal.fire({
+                title: "¡Error!",
+                text: "No se pudo registrar la legalización. Verifica tu sesión e intenta nuevamente.",
+                icon: "error"
+            });
+        }      
     });
 }
 

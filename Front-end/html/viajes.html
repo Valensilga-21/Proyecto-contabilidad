@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Viajes</title>
     <link rel="icon" href="/Front-end/img/favicon.ico" type="image/png" sizes="32x32">
-    
+
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
     <!-- Agregar jQuery antes de Bootstrap JS -->
@@ -32,7 +33,8 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-</head> 
+</head>
+
 <body onload="listarViajesAdmin();">
     <nav>
         <div class="logo-name">
@@ -46,29 +48,29 @@
         <div class="menu-items">
             <ul class="nav-links">
                 <li><a href="/Front-end/html/inicio.html">
-                    <i class="uil uil-estate"></i>
-                    <span class="link-name"><b>Inicio</b></span>
-                </a></li>
+                        <i class="uil uil-estate"></i>
+                        <span class="link-name"><b>Inicio</b></span>
+                    </a></li>
                 <li><a href="/Front-end/html/usuarios.html">
-                    <i class='bx bx-group' ></i>
-                    <span class="link-name"><b>Usuarios</b></span>
-                </a></li>
+                        <i class='bx bx-group'></i>
+                        <span class="link-name"><b>Usuarios</b></span>
+                    </a></li>
                 <li><a href="/Front-end/html/legalizaciones.html">
-                    <i class="uil uil-chart"></i>
-                    <span class="link-name"><b>Legalizaciones</b></span>
-                </a></li>
+                        <i class="uil uil-chart"></i>
+                        <span class="link-name"><b>Legalizaciones</b></span>
+                    </a></li>
                 <li class="active"><a href="/Front-end/html/viajes.html">
-                    <i class='bx bx-car'></i>
-                    <span class="link-name"><b>Viajes</b></span>
-                </a></li>
+                        <i class='bx bx-car'></i>
+                        <span class="link-name"><b>Viajes</b></span>
+                    </a></li>
                 <li><a href="/Front-end/html/perfil.html">
-                    <i class='bx bx-cog' ></i>
-                    <span class="link-name"><b>Perfil</b></span>
-                </a></li>
+                        <i class='bx bx-cog'></i>
+                        <span class="link-name"><b>Perfil</b></span>
+                    </a></li>
                 <li><a href="/Front-end/html/ayuda.html">
-                    <i class='bx bx-help-circle' ></i>
-                    <span class="link-name"><b>Ayuda</b></span>
-                </a></li>
+                        <i class='bx bx-help-circle'></i>
+                        <span class="link-name"><b>Ayuda</b></span>
+                    </a></li>
                 <li style="padding-top: 45%;">
                     <a type="button" onclick="cerrarSesion();">
                         <i class="uil uil-signout" style="color: #00BB00;"></i>
@@ -77,13 +79,13 @@
                 </li>
             </ul>
         </div>
-        
+
     </nav>
 
     <section class="dashboard">
         <div class="container-fluid">
-            <div class="row g-2 align-items-center" style="padding-top: 4%;">
-                <div class="col-lg-11 col-md-6 col-sm-12">
+            <!-- <div class="row g-2 align-items-center" style="padding-top: 4%;">
+                <div class="col-lg-4 col-md-6 col-sm-12">
                     <div class="input-group">
                         <button class="btn btn-outline-dark" type="button" id="button-addon1" onclick="listarViajesAdmin();">
                             <i class="bi bi-search"></i>
@@ -98,33 +100,55 @@
                         <i class="bi bi-plus-lg text-white"></i>
                     </button>
                 </div>
-            </div>
-    
-            <div class="activity-data table-responsive" style="padding-top: 3%;">
-                <table class="table table-hover" id="viajesTableAdmin">
-                    <thead>
-                        <tr>
-                            <th>No. Comisión</th>
-                            <th>Nombre</th>
-                            <th>Cargo</th>
-                            <th>Centro</th>
-                            <th>Fecha Inicio</th>
-                            <th>Fecha Final</th>
-                            <th>Ruta</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+            </div> -->
 
-                    </tbody>
-                </table>
-                <div id="mensajeSinResultados" class="text-center mt-3" style="display: none; color: gray;">
-                    No se encontraron resultados.
+            <div class="row g-2" style="padding-top: 4%;">
+                <div class="col-11 d-flex justify-content-end">
+                    <div class="input-group" style="max-width: 500px;">
+                        <button class="btn btn-outline-dark" type="button" id="button-addon1"
+                            onclick="listarViajesAdmin();">
+                            <i class="bi bi-search"></i>
+                        </button>
+                        <input type="text" class="form-control" placeholder="Buscar número de comisión..."
+                            aria-label="Buscar" aria-describedby="button-addon1" id="texto">
+                    </div>
+                </div>
+                <div class="col-lg-1 col-md-6 col-sm-12 text-end">
+                    <button class="btn w-100" style="background-color: #00BB00;" data-bs-toggle="modal"
+                        data-bs-target="#viajeRegister">
+                        <i class="bi bi-plus-lg text-white"></i>
+                    </button>
                 </div>
             </div>
         </div>
+        </div>
+
+
+        <div class="activity-data table-responsive" style="padding-top: 3%;">
+            <table class="table table-hover" id="viajesTableAdmin">
+                <thead>
+                    <tr>
+                        <th>No. Comisión</th>
+                        <th>Nombre</th>
+                        <th>Cargo</th>
+                        <th>Centro</th>
+                        <th>Fecha Inicio</th>
+                        <th>Fecha Final</th>
+                        <th>Ruta</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+            <div id="mensajeSinResultados" class="text-center mt-3" style="display: none; color: gray;">
+                No se encontraron resultados.
+            </div>
+        </div>
+        </div>
     </section>
-    
+
 
     <!-- Modal Registro Viaje-->
     <div class="modal fade" id="viajeRegister" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -134,86 +158,98 @@
                     <div class="container">
                         <div class="row" style="justify-content: center;">
                             <div class="mb-3 col col-xl-6 col-12 justify-content-between">
-                                
+
                             </div>
                             <div class="mb-3 col col-xl-6 col-12 justify-content-between" style="text-align: right;">
-                                <button type="submit" class="btn" style="background-color: #00bb0021; border: 1px solid #00BB00; color: #00BB00; font-weight: 600;" id="registrar" onclick="registrarViaje();">
+                                <button type="submit" class="btn"
+                                    style="background-color: #00bb0021; border: 1px solid #00BB00; color: #00BB00; font-weight: 600;"
+                                    id="registrar" onclick="registrarViaje();">
                                     <span><i class="bi bi-check-lg"></i></span>Guardar</button>
-                                <button type="submit" id="cancelarr" class="btn" data-bs-dismiss="modal" style="background-color: #ff000015; border: 1px solid #ff0000; color: #ff0101; font-weight: 600;">
+                                <button type="submit" id="cancelarr" class="btn" data-bs-dismiss="modal"
+                                    style="background-color: #ff000015; border: 1px solid #ff0000; color: #ff0101; font-weight: 600;">
                                     <span><i class="bi bi-x-lg"></i></span>Cancelar</button>
                             </div>
                         </div>
-                    </div>  
-                </div>  
+                    </div>
+                </div>
                 <div class="modal-body">
                     <div class="div" style="padding: 0% 8% 5%;">
                         <h3 style="font-weight: 600;">Registrar Viaje</h3>
-                    <div class="row py-4" id="signup">
-                        <!-- No. Comisión, fecha_inicio y fecha_fin -->
-                        <div class="mb-3 col col-xl-6 col-12 justify-content-between visually-hidden">
-                            <label for="" class="form-label">Nombre Completo</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="nombre_usuario" placeholder="">
-                            </div>
-                            <div class="error-message" id="usuarioError" style="color: red; display: none;"></div>
-                        </div>
-                        <!-- Espacio -->
-                        <div class="mb-3 mb-3 col col-xl-6 col-12">
-                            <div class="comision" style="padding-top: 7%;">
-                                <input type="text" class="visually-hidden" id="viajeId">
-                                <label for="" class="">No. Comisión</label>
+                        <div class="row py-4" id="signup">
+                            <!-- No. Comisión, fecha_inicio y fecha_fin -->
+                            <div class="mb-3 col col-xl-6 col-12 justify-content-between visually-hidden">
+                                <label for="" class="form-label">Nombre Completo</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="num_comision" placeholder="" oninput="validateNumComision()">
+                                    <input type="text" class="form-control" id="nombre_usuario" placeholder="">
                                 </div>
-                                <!-- Validacion -->
-                                <div id="fullname-requirements" class="text-sm fs-6 mt-1">
-                                    <p id="validation-comision" class="text-danger">Este es un campo obligatorio.</p>
-                                </div>
+                                <div class="error-message" id="usuarioError" style="color: red; display: none;"></div>
+                            </div>
+                            <!-- Espacio -->
+                            <div class="mb-3 mb-3 col col-xl-6 col-12">
+                                <div class="comision" style="padding-top: 7%;">
+                                    <input type="text" class="visually-hidden" id="viajeId">
+                                    <label for="" class="">No. Comisión</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="num_comision" placeholder=""
+                                            oninput="validateNumComision()">
+                                    </div>
+                                    <!-- Validacion -->
+                                    <div id="fullname-requirements" class="text-sm fs-6 mt-1">
+                                        <p id="validation-comision" class="text-danger">Este es un campo obligatorio.
+                                        </p>
+                                    </div>
                                 </div>
                                 <label for="" class="form-label" style="padding-top: 3%;">Fecha Inicio</label>
                                 <div class="input-group">
-                                    <input type="date" class="form-control" id="fecha_inicio" placeholder="" oninput="validateFecha()">
+                                    <input type="date" class="form-control" id="fecha_inicio" placeholder=""
+                                        oninput="validateFecha()">
                                 </div>
                                 <!-- Validacion -->
                                 <div id="fullname-requirements" class="text-sm fs-6 mt-1">
-                                    <p id="validation-fecha_inicio" class="text-danger">Seleccione la fecha de inicio de su viaje.</p>
+                                    <p id="validation-fecha_inicio" class="text-danger">Seleccione la fecha de inicio de
+                                        su viaje.</p>
                                 </div>
                                 <div class="error-message" id="usuarioError" style="color: red; display: none;"></div>
                                 <label for="" class="form-label" style="padding-top: 3%;">Fecha Fin</label>
                                 <div class="input-group">
-                                    <input type="date" class="form-control" id="fecha_fin" placeholder="" oninput="validateFechaFin()">
+                                    <input type="date" class="form-control" id="fecha_fin" placeholder=""
+                                        oninput="validateFechaFin()">
                                 </div>
                                 <!-- Validacion -->
                                 <div id="fullname-requirements" class="text-sm fs-6 mt-1">
-                                    <p id="validation-fecha_fin" class="text-danger">Seleccione la fecha de fin de su viaje.</p>
+                                    <p id="validation-fecha_fin" class="text-danger">Seleccione la fecha de fin de su
+                                        viaje.</p>
                                 </div>
-                        </div>
-                        
-                        <!-- Ruta -->
-                        <div class="mb-3 col col-xl-6 col-12 justify-content-between">
-                            <label for="" class="form-label">Ruta</label>
-                            <div class="form-floating">
-                                <textarea id="ruta" class="form-control" placeholder="Leave a comment here"style="height: 210px" style="font-size: 0%" oninput="validateRuta()"></textarea>
                             </div>
-                            <!-- Validacion -->
-                            <div id="fullname-requirements" class="text-sm fs-6 mt-1">
-                                <p id="validation-ruta" class="text-danger">Ingrese la ruta de su viaje.</p>
-                            </div>
-                        </div>
 
-                        <!-- Estado -->
-                        <div class="input-group visually-hidden" style="border-radius: 10px 10px 10px 10px; border-left:none;">
-                            <span class="input-group-text"><box-icon name='filter' ></box-icon></span>
-                            <select name="" id="estado_viaje" class="form-select" style="background-color: #ffffff; border-radius: 0px 0px 10px 0px; border-left:none;">
-                                <option value="">Todos</option>
-                                <option value="completado">Completado</option>
-                                <option value="pendiente" selected>Pendiente</option>
-                                <option value="cancelar">Cancelar</option>
-                            </select>
+                            <!-- Ruta -->
+                            <div class="mb-3 col col-xl-6 col-12 justify-content-between">
+                                <label for="" class="form-label">Ruta</label>
+                                <div class="form-floating">
+                                    <textarea id="ruta" class="form-control" placeholder="Leave a comment here"
+                                        style="height: 210px" style="font-size: 0%" oninput="validateRuta()"></textarea>
+                                </div>
+                                <!-- Validacion -->
+                                <div id="fullname-requirements" class="text-sm fs-6 mt-1">
+                                    <p id="validation-ruta" class="text-danger">Ingrese la ruta de su viaje.</p>
+                                </div>
+                            </div>
+
+                            <!-- Estado -->
+                            <div class="input-group visually-hidden"
+                                style="border-radius: 10px 10px 10px 10px; border-left:none;">
+                                <span class="input-group-text"><box-icon name='filter'></box-icon></span>
+                                <select name="" id="estado_viaje" class="form-select"
+                                    style="background-color: #ffffff; border-radius: 0px 0px 10px 0px; border-left:none;">
+                                    <option value="">Todos</option>
+                                    <option value="completado">Completado</option>
+                                    <option value="pendiente" selected>Pendiente</option>
+                                    <option value="cancelar">Cancelar</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
-                    </div>
-                </form>
+                    </form>
                 </div>
             </div>
         </div>
@@ -227,39 +263,42 @@
                     <div class="container">
                         <div class="row" style="justify-content: center;">
                             <div class="mb-3 col col-xl-6 col-12 justify-content-between">
-                                
+
                             </div>
                             <div class="mb-3 col col-xl-6 col-12 justify-content-between" style="text-align: right;">
-                                <button type="submit" class="btn" style="background-color: #00bb0021; border: 1px solid #00BB00; color: #00BB00; font-weight: 600;" onclick="guardarCambiosV();">
+                                <button type="submit" class="btn"
+                                    style="background-color: #00bb0021; border: 1px solid #00BB00; color: #00BB00; font-weight: 600;"
+                                    onclick="guardarCambiosV();">
                                     <span><i class="bi bi-check-lg"></i></span>Guardar</button>
-                                <button type="submit" id="cancelarr" class="btn" data-bs-dismiss="modal" style="background-color: #ff000015; border: 1px solid #ff0000; color: #ff0101; font-weight: 600;">
+                                <button type="submit" id="cancelarr" class="btn" data-bs-dismiss="modal"
+                                    style="background-color: #ff000015; border: 1px solid #ff0000; color: #ff0101; font-weight: 600;">
                                     <span><i class="bi bi-x-lg"></i></span>Cancelar</button>
                             </div>
                         </div>
-                    </div>  
-                </div>  
+                    </div>
+                </div>
                 <div class="modal-body">
                     <div class="div" style="padding: 0% 8% 5%;">
                         <h3 style="font-weight: 600;">Editar Viaje</h3>
-                    <div class="row py-4" id="signup">
-                        <!-- No. Comisión, fecha_inicio y fecha_fin -->
-                        <div class="mb-3 col col-xl-6 col-12 justify-content-between visually-hidden">
-                            <label for="" class="form-label">Nombre Completo</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="nombre_usuario" placeholder="">
-                            </div>
-                            <div class="error-message" id="usuarioError" style="color: red; display: none;"></div>
-                        </div>
-                        <!-- Espacio -->
-                        <div class="mb-3 mb-3 col col-xl-6 col-12">
-                            <div class="comision" style="padding-top: 7%;">
-                                <label for="" class="">No. Comisión</label>
-                                <input type="text" class="visually-hidden" id="viajeId">
+                        <div class="row py-4" id="signup">
+                            <!-- No. Comisión, fecha_inicio y fecha_fin -->
+                            <div class="mb-3 col col-xl-6 col-12 justify-content-between visually-hidden">
+                                <label for="" class="form-label">Nombre Completo</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="num_comisionE" placeholder="">
+                                    <input type="text" class="form-control" id="nombre_usuario" placeholder="">
                                 </div>
-                                <!-- Validacion -->
-                                <!-- <div id="fullname-requirements" class="text-sm fs-6 mt-1">
+                                <div class="error-message" id="usuarioError" style="color: red; display: none;"></div>
+                            </div>
+                            <!-- Espacio -->
+                            <div class="mb-3 mb-3 col col-xl-6 col-12">
+                                <div class="comision" style="padding-top: 7%;">
+                                    <label for="" class="">No. Comisión</label>
+                                    <input type="text" class="visually-hidden" id="viajeId">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="num_comisionE" placeholder="">
+                                    </div>
+                                    <!-- Validacion -->
+                                    <!-- <div id="fullname-requirements" class="text-sm fs-6 mt-1">
                                     <p id="validation-comision" class="text-danger">Este es un campo obligatorio.</p>
                                 </div> -->
                                 </div>
@@ -282,9 +321,11 @@
                                 </div> -->
                                 <div class="mb-3 col col-xl-12 col-12 justify-content-between">
                                     <label for="" class="form-label" style="padding-top: 3%;">Estado</label>
-                                    <div class="input-group" style="border-radius: 10px 10px 10px 10px; border-left:none;">
-                                        <span class="input-group-text"><box-icon name='filter' ></box-icon></span>
-                                        <select name="" id="estado_viajeE" class="form-select" style="background-color: #ffffff; border-radius: 0px 0px 10px 0px; border-left:none;">
+                                    <div class="input-group"
+                                        style="border-radius: 10px 10px 10px 10px; border-left:none;">
+                                        <span class="input-group-text"><box-icon name='filter'></box-icon></span>
+                                        <select name="" id="estado_viajeE" class="form-select"
+                                            style="background-color: #ffffff; border-radius: 0px 0px 10px 0px; border-left:none;">
                                             <option value="">Todos</option>
                                             <option value="completado">Completado</option>
                                             <option value="pendiente">Pendiente</option>
@@ -292,22 +333,23 @@
                                         </select>
                                     </div>
                                 </div>
-                        </div>
-                        
-                        <!-- Ruta -->
-                        <div class="mb-3 col col-xl-6 col-12 justify-content-between">
-                            <label for="" class="form-label">Ruta</label>
-                            <div class="form-floating">
-                                <textarea id="rutaE" class="form-control" placeholder="Leave a comment here"style="height: 290px" style="font-size: 0%"></textarea>
                             </div>
-                            <!-- Validacion -->
-                            <!-- <div id="fullname-requirements" class="text-sm fs-6 mt-1">
+
+                            <!-- Ruta -->
+                            <div class="mb-3 col col-xl-6 col-12 justify-content-between">
+                                <label for="" class="form-label">Ruta</label>
+                                <div class="form-floating">
+                                    <textarea id="rutaE" class="form-control" placeholder="Leave a comment here"
+                                        style="height: 290px" style="font-size: 0%"></textarea>
+                                </div>
+                                <!-- Validacion -->
+                                <!-- <div id="fullname-requirements" class="text-sm fs-6 mt-1">
                                 <p id="validation-ruta" class="text-danger">Ingrese la ruta de su viaje.</p>
                             </div> -->
-                        </div> 
+                            </div>
+                        </div>
                     </div>
-                    </div>
-                </form>
+                    </form>
                 </div>
             </div>
         </div>
@@ -315,4 +357,5 @@
     <script src="/Front-end/js/admin/viaje.js"></script>
     <script src="/Front-end/js/config.js"></script>
 </body>
+
 </html>
