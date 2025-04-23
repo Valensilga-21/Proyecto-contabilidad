@@ -353,12 +353,16 @@
                                     <label for="file" class="form-label">Archivos</label>
                                     <div class="input-group">
                                         <span class="input-group-text">
-                                            <box-icon name='file-pdf' type='solid' color='#ff1f1f'></box-icon>
+                                          <box-icon name='file-pdf' type='solid' color='#ff1f1f'></box-icon>
                                         </span>
-                                        <button id="downloadButton" class="btn btn-outline-secondary custom-hover flex-grow-1">
-                                            Descargar PDF
-                                        </button>
-                                    </div>
+                                        <input type="file" class="form-control" id="file" accept="application/pdf">
+                                        <button class="btn btn-danger d-none" id="removeFile" onclick="removeSelectedFileUpdate()">Quitar</button>
+                                      </div>
+                                      <!-- Muestra del archivo subido -->
+                                      <div id="uploadedFileInfo" class="mt-2 d-none">
+                                        <p class="mb-1">Archivo subido: <a href="#" target="_blank" id="uploadedFileLink">Ver PDF</a></p>
+                                      </div>
+                                      
                                 </div>
                                 
                                 <label for="moti_devolucionE" class="form-label">Motivo Devolución</label>

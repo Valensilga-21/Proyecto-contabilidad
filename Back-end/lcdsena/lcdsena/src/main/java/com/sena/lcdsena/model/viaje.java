@@ -60,4 +60,5 @@ public class viaje {
     @JsonInclude(JsonInclude.Include.NON_NULL) // Para evitar mostrar `null`
     private legalizacion legalizacion;
 
+
 }

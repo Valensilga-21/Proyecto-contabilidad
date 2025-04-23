@@ -11,9 +11,7 @@ import org.springframework.stereotype.Service;
 import com.sena.lcdsena.interfaces.ilegalizacion;
 import com.sena.lcdsena.iservice.ilegalizacionService;
 import com.sena.lcdsena.model.estadoLegalizacion;
-import com.sena.lcdsena.model.estadoViaje;
 import com.sena.lcdsena.model.legalizacion;
-import com.sena.lcdsena.model.viaje;
 
 import lombok.RequiredArgsConstructor;
 

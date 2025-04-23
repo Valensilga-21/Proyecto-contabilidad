@@ -232,8 +232,17 @@ function openEditModal(id) {
             document.getElementById('rutaE').value = viaje.ruta || "";
             document.getElementById('moti_devolucionE').value = data.moti_devolucion || "";
 
-            // Establecer el ID de la legalización en el botón de descarga
-            document.getElementById('downloadButton').setAttribute('data-id', data.id_legalizacion);
+            // Mostrar nombre del archivo si existe
+            if (data.nombre_archivo && data.url_archivo_pdf) {
+                var uploadedFileLink = document.getElementById("uploadedFileLink");
+                uploadedFileLink.href = data.url_archivo_pdf; // Enlace al archivo
+                uploadedFileLink.textContent = data.nombre_archivo; // Nombre del archivo
+                document.getElementById("uploadedFileInfo").classList.remove("d-none");
+                document.getElementById("removeFile").classList.remove("d-none");
+            } else {
+                document.getElementById("uploadedFileInfo").classList.add("d-none");
+                document.getElementById("removeFile").classList.add("d-none");
+            }
 
             // Abrir el modal
             $('#editLegalizacion').modal('show');
@@ -243,21 +252,6 @@ function openEditModal(id) {
         }
     });
 }
-
-// Función para obtener el ID de la legalización seleccionada
-function getSelectedLegalizacionId() {
-    return document.getElementById('downloadButton').getAttribute('data-id');
-}
-
-// Evento de descarga
-document.getElementById("downloadButton").addEventListener("click", function() {
-    const selectedId = getSelectedLegalizacionId(); // Obtener el ID de la legalización seleccionada
-    if (selectedId) {
-        window.location.href = `http://localhost:8080/api/v1/LCDSena/legalizacion/download/${selectedId}`; // Asegúrate de que la URL sea correcta
-    } else {
-        console.error("ID de legalización no disponible.");
-    }
-});
 
 
 //Input subir archivo
@@ -280,6 +274,14 @@ function removeSelectedFile() {
     fileNameDisplay.textContent = "";
     removeButton.classList.add("d-none"); // Ocultar botón "Quitar"
 }
+
+function removeSelectedFileUpdate() {
+    const fileInput = document.getElementById("file");
+    fileInput.value = ""; // Limpiar el input file
+    document.getElementById("uploadedFileInfo").classList.add("d-none");
+    document.getElementById("removeFile").classList.add("d-none");
+}
+
 
 document.addEventListener("DOMContentLoaded", function() {
     cargarFormulario();

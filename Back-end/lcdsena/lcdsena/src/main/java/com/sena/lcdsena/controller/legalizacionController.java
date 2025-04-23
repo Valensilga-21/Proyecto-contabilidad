@@ -150,7 +150,7 @@ public class legalizacionController {
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Legalización no encontrada"));
 
             // Obtener la ruta del archivo
-            String filePath = "uploads/legalizaciones/" + legalizacion.getPdf();
+            String filePath = legalizacion.getPdf();
             Path path = Paths.get(filePath);
 
             // Verificar si el archivo existe
