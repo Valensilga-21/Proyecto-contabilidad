@@ -42,7 +42,7 @@ public class emailService {
             "                <p style=\"font-size: 16px; font-weight: bold; color: #1f2937; margin: 10px 0;\">¡Que tengas un excelente día! 😊</p>\n" +
             "                <a href=\"/Front-end/index.html\" style=\"display: flex; align-items: center; margin-bottom: 20px; font-size: 24px; font-weight: 600; color: #1f2937;\">\n" +
             "                    <img src=\"https://oficinavirtualderadicacion.sena.edu.co/oficinavirtual/Resources/logoSenaNaranja.png\" alt=\"logo\" style=\"width: 47px; margin-right: 10px; margin-top: 25px;\">\n" +
-            "                    <img src=\"https://i.postimg.cc/bvW5q2ss/LCD-removebg-2.png\" alt=\"logo\" style=\"width: 90px; margin-right: 10px; margin-top: 25px;\">\n" +
+            "                    <img src=\"https://i.postimg.cc/VkV7jZnC/LCD-removebg-2.png\" alt=\"logo\" style=\"width: 90px; margin-right: 10px; margin-top: 25px;\">\n" +
             "                </a>\n" +
             "                <hr>\n" +
             "            </div>\n" +
@@ -91,7 +91,7 @@ public class emailService {
             + "                <p style=\"font-size: 16px; font-weight: bold; color: #1f2937; margin: 10px 0;\">¡Que tengas un excelente día!</p>\r\n"
             + "                <a href=\"/Front-end/index.html\" style=\"display: flex; align-items: center; margin-bottom: 20px; font-size: 24px; font-weight: 600; color: #1f2937;\">\n" +
             "                    <img src=\"https://oficinavirtualderadicacion.sena.edu.co/oficinavirtual/Resources/logoSenaNaranja.png\" alt=\"logo\" style=\"width: 47px; margin-right: 10px; margin-top: 25px;\">\n" +
-            "                    <img src=\"https://i.postimg.cc/bvW5q2ss/LCD-removebg-2.png\" alt=\"logo\" style=\"width: 90px; margin-right: 10px; margin-top: 25px;\">\n" +
+            "                    <img src=\"https://i.postimg.cc/VkV7jZnC/LCD-removebg-2.png\" alt=\"logo\" style=\"width: 90px; margin-right: 10px; margin-top: 25px;\">\n" +
             "                   </a>\n"
             + "                <hr>\r\n"
             + "            </div>\r\n"
@@ -140,7 +140,7 @@ public class emailService {
             "                <br>\n" +
             "                <a href=\"/Front-end/index.html\" style=\"display: flex; align-items: center; margin-bottom: 20px; font-size: 24px; font-weight: 600; color: #1f2937;\">\n" +
             "                    <img src=\"https://oficinavirtualderadicacion.sena.edu.co/oficinavirtual/Resources/logoSenaNaranja.png\" alt=\"logo\" style=\"width: 47px; margin-right: 10px; margin-top: 25px;\">\n" +
-            "                    <img src=\"https://i.postimg.cc/bvW5q2ss/LCD-removebg-2.png\" alt=\"logo\" style=\"width: 90px; margin-right: 10px; margin-top: 25px;\">\n" +
+            "                    <img src=\"https://i.postimg.cc/VkV7jZnC/LCD-removebg-2.png\" alt=\"logo\" style=\"width: 90px; margin-right: 10px; margin-top: 25px;\">\n" +
             "                </a>\n" +
             "                <hr>\n" +
             "            </div>\n" +
@@ -186,7 +186,7 @@ public class emailService {
             "                <p style=\"font-size: 16px; font-weight: bold; color: #1f2937; margin: 10px 0;\">¡Que tengas un gran día!</p>\n" +
             "                <a href=\"/Front-end/index.html\" style=\"display: flex; align-items: center; margin-bottom: 20px; font-size: 24px; font-weight: 600; color: #1f2937;\">\n" +
             "                    <img src=\"https://oficinavirtualderadicacion.sena.edu.co/oficinavirtual/Resources/logoSenaNaranja.png\" alt=\"logo\" style=\"width: 47px; margin-right: 10px; margin-top: 25px;\">\n" +
-            "                    <img src=\"https://i.postimg.cc/bvW5q2ss/LCD-removebg-2.png\" alt=\"logo\" style=\"width: 90px; margin-right: 10px; margin-top: 25px;\">\n" +
+            "                    <img src=\"https://i.postimg.cc/VkV7jZnC/LCD-removebg-2.png\" alt=\"logo\" style=\"width: 90px; margin-right: 10px; margin-top: 25px;\">\n" +
             "                </a>\n" +
             "                <hr>\n" +
             "            </div>\n" +
@@ -232,7 +232,7 @@ public class emailService {
                 "                <p style=\"font-size: 16px; font-weight: bold; color: #1f2937; margin: 10px 0;\">¡Que tengas un gran día!</p>" +
                 "                <a href=\"/Front-end/index.html\" style=\"display: flex; align-items: center; margin-bottom: 20px; font-size: 24px; font-weight: 600; color: #1f2937;\">" +
                 "                    <img src=\"https://oficinavirtualderadicacion.sena.edu.co/oficinavirtual/Resources/logoSenaNaranja.png\" alt=\"logo\" style=\"width: 47px; margin-right: 10px; margin-top: 25px;\">" +
-                "                    <img src=\"https://i.postimg.cc/bvW5q2ss/LCD-removebg-2.png\" alt=\"logo\" style=\"width: 90px; margin-right: 10px; margin-top: 25px;\">" +
+                "                    <img src=\"https://i.postimg.cc/VkV7jZnC/LCD-removebg-2.png\" alt=\"logo\" style=\"width: 90px; margin-right: 10px; margin-top: 25px;\">" +
                 "                </a>" +
                 "                <hr>" +
                 "            </div>" +
@@ -279,7 +279,7 @@ public class emailService {
                 "                <p style=\"font-size: 16px; font-weight: bold; color: #1f2937; margin: 10px 0;\">¡Que tengas un gran día!</p>" +
                 "                <a href=\"/Front-end/index.html\" style=\"display: flex; align-items: center; margin-bottom: 20px; font-size: 24px; font-weight: 600; color: #1f2937;\">" +
                 "                    <img src=\"https://oficinavirtualderadicacion.sena.edu.co/oficinavirtual/Resources/logoSenaNaranja.png\" alt=\"logo\" style=\"width: 47px; margin-right: 10px; margin-top: 25px;\">" +
-                "                    <img src=\"https://i.postimg.cc/bvW5q2ss/LCD-removebg-2.png\" alt=\"logo\" style=\"width: 90px; margin-right: 10px; margin-top: 25px;\">" +
+                "                    <img src=\"https://i.postimg.cc/VkV7jZnC/LCD-removebg-2.png\" alt=\"logo\" style=\"width: 90px; margin-right: 10px; margin-top: 25px;\">" +
                 "                </a>" +
                 "                <hr>" +
                 "            </div>" +
@@ -326,7 +326,7 @@ public class emailService {
                 "                <p style=\"font-size: 16px; font-weight: bold; color: #1f2937; margin: 10px 0;\">¡Que tengas un gran día!</p>" +
                 "                <a href=\"/Front-end/index.html\" style=\"display: flex; align-items: center; margin-bottom: 20px; font-size: 24px; font-weight: 600; color: #1f2937;\">" +
                 "                    <img src=\"https://oficinavirtualderadicacion.sena.edu.co/oficinavirtual/Resources/logoSenaNaranja.png\" alt=\"logo\" style=\"width: 47px; margin-right: 10px; margin-top: 25px;\">" +
-                "                    <img src=\"https://i.postimg.cc/bvW5q2ss/LCD-removebg-2.png\" alt=\"logo\" style=\"width: 90px; margin-right: 10px; margin-top: 25px;\">" +
+                "                    <img src=\"https://i.postimg.cc/VkV7jZnC/LCD-removebg-2.png\" alt=\"logo\" style=\"width: 90px; margin-right: 10px; margin-top: 25px;\">" +
                 "                </a>" +
                 "                <hr>" +
                 "            </div>" +
@@ -376,7 +376,7 @@ public class emailService {
             "                <p style=\"font-size: 16px; font-weight: bold; color: #1f2937; margin: 12px 0;\">¡Gracias por tu atención!</p>" +
             "                <a href=\"/Front-end/index.html\" style=\"display: flex; align-items: center; margin-bottom: 20px; font-size: 24px; font-weight: 600; color: #1f2937;\">" +
             "                    <img src=\"https://oficinavirtualderadicacion.sena.edu.co/oficinavirtual/Resources/logoSenaNaranja.png\" alt=\"logo\" style=\"width: 47px; margin-right: 10px; margin-top: 25px;\">" +
-            "                    <img src=\"https://i.postimg.cc/bvW5q2ss/LCD-removebg-2.png\" alt=\"logo\" style=\"width: 90px; margin-right: 10px; margin-top: 25px;\">" +
+            "                    <img src=\"https://i.postimg.cc/VkV7jZnC/LCD-removebg-2.png\" alt=\"logo\" style=\"width: 90px; margin-right: 10px; margin-top: 25px;\">" +
             "                </a>" +
             "                <hr>" +
             "            </div>" +
@@ -422,7 +422,7 @@ public class emailService {
             "                <p style=\"font-size: 16px; font-weight: bold; color: #1f2937; margin: 12px 0;\">¡Gracias por tu atención!</p>" +
             "                <a href=\"/Front-end/index.html\" style=\"display: flex; align-items: center; margin-bottom: 20px; font-size: 24px; font-weight: 600; color: #1f2937;\">" +
             "                    <img src=\"https://oficinavirtualderadicacion.sena.edu.co/oficinavirtual/Resources/logoSenaNaranja.png\" alt=\"logo\" style=\"width: 47px; margin-right: 10px; margin-top: 25px;\">" +
-            "                    <img src=\"https://i.postimg.cc/bvW5q2ss/LCD-removebg-2.png\" alt=\"logo\" style=\"width: 90px; margin-right: 10px; margin-top: 25px;\">" +
+            "                    <img src=\"https://i.postimg.cc/VkV7jZnC/LCD-removebg-2.png\" alt=\"logo\" style=\"width: 90px; margin-right: 10px; margin-top: 25px;\">" +
             "                </a>" +
             "                <hr>" +
             "            </div>" +

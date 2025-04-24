@@ -1,11 +1,14 @@
 package com.sena.lcdsena.iservice;
 
+import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 import com.sena.lcdsena.model.estadoLegalizacion;
 import com.sena.lcdsena.model.legalizacion;
+
+import net.sf.jasperreports.engine.JRException;
 
 public interface ilegalizacionService {
 
@@ -24,6 +27,9 @@ public interface ilegalizacionService {
     public Long contarLegalizacionesRegistradas();
     public Long contarLegalizacionesPendientes();
     public Long contarLegalizacionesVencidas();
+
+     // PDF
+    byte[] exportPdf() throws JRException, FileNotFoundException;
 
     List<legalizacion> findByUsuario(String id_usuario);
 

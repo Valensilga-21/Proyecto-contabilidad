@@ -1,5 +1,6 @@
 package com.sena.lcdsena.service;
 
+import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -12,8 +13,10 @@ import com.sena.lcdsena.interfaces.ilegalizacion;
 import com.sena.lcdsena.iservice.ilegalizacionService;
 import com.sena.lcdsena.model.estadoLegalizacion;
 import com.sena.lcdsena.model.legalizacion;
+import com.sena.lcdsena.util.legalizacionReporte;
 
 import lombok.RequiredArgsConstructor;
+import net.sf.jasperreports.engine.JRException;
 
 import com.sena.lcdsena.interfaces.ilegaRepository;
 import com.sena.lcdsena.interfaces.iviajeRepository;
@@ -27,6 +30,9 @@ public class legalizacionService implements ilegalizacionService{
 
     @Autowired
     private ilegaRepository ilegalizacionRepository;
+
+    @Autowired
+    private legalizacionReporte legalizacionReporte;
 
     @Autowired
     private ilegalizacion ilegalizacion;
@@ -127,5 +133,11 @@ public class legalizacionService implements ilegalizacionService{
                 viaje.getFecha_fin().isBefore(today.minusDays(5))
             )
             .count();
+    }
+
+    // PDF
+    @Override
+    public byte[] exportPdf() throws JRException, FileNotFoundException {
+        return legalizacionReporte.exportToPdf(ilegaRepository.findAll());
     }
 }

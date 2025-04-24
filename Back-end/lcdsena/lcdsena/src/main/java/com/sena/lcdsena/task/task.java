@@ -17,7 +17,7 @@ public class task {
         viajeService.enviarRecordatoriosPendientes();
     }
 
-    @Scheduled(cron = "0 38 4 * * *")
+    @Scheduled(cron = "0 0 6 * * *")
     public void ejeRecordaAnticip() {
         viajeService.enviarRecordatoriosPrevios();
     }

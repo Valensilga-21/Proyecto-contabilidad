@@ -26,6 +26,7 @@ import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
 
 @Service
 public class usuarioReporte {
+    
     public byte[] exportToPdf(List<usuario> list) throws JRException, FileNotFoundException {
         JasperPrint jasperPrint = getReport(list);
         return JasperExportManager.exportReportToPdf(jasperPrint);
