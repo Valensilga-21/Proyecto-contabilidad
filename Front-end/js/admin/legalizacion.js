@@ -30,7 +30,6 @@ function cargarOpcionesDeViaje() {
 }
 
 
-// Función para registrar la legalización
 function registrarLegalizacion() {
     var token = localStorage.getItem("userToken");
     var userId = localStorage.getItem("userId");
@@ -40,7 +39,6 @@ function registrarLegalizacion() {
         return;
     }
 
-    // Obtener el viaje seleccionado
     var selectViaje = document.getElementById("id_viaje");
     var viajeId = selectViaje.value;
 
@@ -57,63 +55,69 @@ function registrarLegalizacion() {
         return;
     }
 
-    var formData = new FormData();
-    formData.append("moti_devolucion", document.getElementById("moti_devolucion").value.trim());
-    formData.append("fecha_soli", document.getElementById("fecha_soli").value);
-    formData.append("estado_lega", document.getElementById("estado_lega").value);
-    formData.append("file", file);
-    formData.append("id_usuario", userId);
-    formData.append("id_viaje", viajeId);
-
+    // Validar si ya existe una legalización registrada para ese usuario y ese viaje
     $.ajax({
-        url: "http://localhost:8080/api/v1/LCDSena/legalizacion/?" + new Date().getTime(),
-        type: "POST",
-        data: formData,
-        processData: false,
-        contentType: false,
+        url: `http://localhost:8080/api/v1/LCDSena/legalizacion/validar/${userId}/${viajeId}`,
+        type: "GET",
         headers: { "Authorization": "Bearer " + token },
-        success: function (result) {
-        console.log("Respuesta del backend:", result); // Verifica la estructura de la respuesta
+        success: function (response) {
+            if (response.exists) {
+                Swal.fire("¡Atención!", "Ya has registrado una legalización para este viaje.", "warning");
+            } else {
+                // Confirmación antes de registrar
+                Swal.fire({
+                    title: "¿Está seguro de registrar esta legalización?",
+                    html: "Verifique que toda la información sea correcta antes de continuar. <br><strong>Una vez registrada, deberá ser aprobada o rechazada por el administrador.</strong>",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: "Sí, registrar",
+                    cancelButtonText: "Cancelar"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var formData = new FormData();
+                        formData.append("moti_devolucion", document.getElementById("moti_devolucion").value.trim());
+                        formData.append("fecha_soli", document.getElementById("fecha_soli").value);
+                        formData.append("estado_lega", document.getElementById("estado_lega").value);
+                        formData.append("file", file);
+                        formData.append("id_usuario", userId);
+                        formData.append("id_viaje", viajeId);
 
-        if (result.legalizacion && result.legalizacion.id_legalizacion) {
-                let legalizacion = {
-                id_legalizacion: result.legalizacion.id_legalizacion, // Acceder correctamente al ID
-                    moti_devolucion: formData.moti_devolucion,
-                    fecha_soli: formData.fecha_soli,
-                    estado_lega: formData.estado_lega,
-                    pdf: formData.pdf,
-                    id_viaje: formData.id_viaje,
-                    id_usuario: formData.id_usuario
-                };
-
-                 // Almacenar el viaje en localStorage en formato JSON
-                 localStorage.setItem("legalizacion", JSON.stringify(legalizacion));
-
-                 console.log("legalizacion almacenado en localStorage:", legalizacion);
-             } else {
-                 console.log("Error: la respuesta del backend no contiene 'id_legalizacion'.");
-             }
- 
-
-             Swal.fire({
-                title: "¡Éxito!",
-                text: "Legalizacion registrado correctamente.",
-                icon: "success",
-                timer: 3000, // La alerta se cerrará automáticamente después de 3 segundos (3000 milisegundos)
-                showConfirmButton: false // Oculta el botón "OK" si no es necesario
-            }).then(() => {
-                $('#legaRegister').modal('hide');
-                listarLegalizacionAdmin(); // Esto se ejecutará después del timer
-            });
+                        $.ajax({
+                            url: "http://localhost:8080/api/v1/LCDSena/legalizacion/?" + new Date().getTime(),
+                            type: "POST",
+                            data: formData,
+                            processData: false,
+                            contentType: false,
+                            headers: { "Authorization": "Bearer " + token },
+                            success: function (result) {
+                                Swal.fire({
+                                    position: "top-end",
+                                    icon: "success",
+                                    title: "Legalización registrada correctamente.",
+                                    showConfirmButton: false,
+                                    timer: 2000,
+                                    didClose: () => {
+                                        $('#legaRegister').modal('hide');
+                                        listarLegalizacionAdmin();
+                                    }
+                                });
+                            },
+                            error: function (xhr, status, error) {
+                                console.log("Error en la petición:", xhr.responseText);
+                                Swal.fire({
+                                    title: "¡Error!",
+                                    text: "No se pudo registrar la legalización. Verifica tu sesión e intenta nuevamente.",
+                                    icon: "error"
+                                });
+                            }
+                        });
+                    }
+                });
+            }
         },
-        
         error: function (xhr, status, error) {
-            console.log("Error en la petición:", xhr.responseText);
-            Swal.fire({
-                title: "¡Error!",
-                text: "No se pudo registrar la legalización. Verifica tu sesión e intenta nuevamente.",
-                icon: "error"
-            });
+            console.error("Error al validar legalización:", xhr.responseText);
+            Swal.fire("¡Error!", "Ocurrió un error al validar la legalización.", "error");
         }
     });
 }

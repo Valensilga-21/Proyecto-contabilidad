@@ -34,49 +34,62 @@ function registrarViaje() {
         return;
     }
 
-    $.ajax({
-        url: "http://localhost:8080/api/v1/LCDSena/viaje/",
-        type: "POST",
-        data: JSON.stringify(formData),
-        contentType: "application/json",
-        headers: { "Authorization": "Bearer " + token },
-        success: function(result) {
-        console.log("Respuesta del backend:", result); // Verifica la estructura de la respuesta
+    // Mostrar alerta de confirmación antes de enviar
+    Swal.fire({
+        title: "¿Desea guardar este viaje?",
+        html: "Verifique que toda la información sea correcta. <br><strong>Una vez confirmado, las fechas del viaje no se podrán modificar.</strong>",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Sí, guardar",
+        cancelButtonText: "Cancelar"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Si el usuario confirma, enviar el viaje
+            $.ajax({
+                url: "http://localhost:8080/api/v1/LCDSena/viaje/",
+                type: "POST",
+                data: JSON.stringify(formData),
+                contentType: "application/json",
+                headers: { "Authorization": "Bearer " + token },
+                success: function(result) {
+                    console.log("Respuesta del backend:", result);
 
-        if (result.viaje && result.viaje.id_viaje) {
-                let viaje = {
-                id_viaje: result.viaje.id_viaje, // Acceder correctamente al ID
-                    num_comision: formData.num_comision,
-                    fecha_inicio: formData.fecha_inicio,
-                    fecha_fin: formData.fecha_fin,
-                    ruta: formData.ruta,
-                    estado_viaje: formData.estado_viaje,
-                    id_usuario: formData.id_usuario
-                };
+                    if (result.viaje && result.viaje.id_viaje) {
+                        let viaje = {
+                            id_viaje: result.viaje.id_viaje,
+                            num_comision: formData.num_comision,
+                            fecha_inicio: formData.fecha_inicio,
+                            fecha_fin: formData.fecha_fin,
+                            ruta: formData.ruta,
+                            estado_viaje: formData.estado_viaje,
+                            id_usuario: formData.id_usuario
+                        };
 
-                // Almacenar el viaje en localStorage en formato JSON
-                localStorage.setItem("viaje", JSON.stringify(viaje));
+                        localStorage.setItem("viaje", JSON.stringify(viaje));
+                        console.log("Viaje almacenado en localStorage:", viaje);
+                    } else {
+                        console.log("Error: la respuesta del backend no contiene 'id_viaje'.");
+                    }
 
-                console.log("Viaje almacenado en localStorage:", viaje);
-            } else {
-                console.log("Error: la respuesta del backend no contiene 'id_viaje'.");
-            }
-
-            Swal.fire({
-                title: "¡Éxito!",
-                text: "Viaje registrado correctamente.",
-                icon: "success",
-            }).then(() => {
-                $('#viajeRegister').modal('hide');
-                listarViajesAdmin(); // Si querés refrescar la tabla luego de registrar
-            });
-        },
-        error: function(xhr, status, error) {
-            console.log("Error en la petición:", xhr.responseText);
-            Swal.fire({
-                title: "¡Error!",
-                text: "No se pudo registrar el viaje. Verifica tu sesión e intenta nuevamente.",
-                icon: "error"
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "Viaje registrado correctamente.",
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then(() => {
+                        $('#viajeRegister').modal('hide');
+                        listarViajesAdmin();
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.log("Error en la petición:", xhr.responseText);
+                    Swal.fire({
+                        title: "¡Error!",
+                        text: "No se pudo registrar el viaje. Verifica tu sesión e intenta nuevamente.",
+                        icon: "error"
+                    });
+                }
             });
         }
     });

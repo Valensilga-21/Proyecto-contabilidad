@@ -95,6 +95,11 @@ public class legalizacionService implements ilegalizacionService{
     }
 
     @Override
+    public List<legalizacion> filtroComisionU(Integer num_comision, String username) {
+        return data.filtroComisionU(num_comision, username);
+    }
+
+    @Override
     public int delete(String id){
         try{
             data.deleteById(id);
@@ -140,4 +145,10 @@ public class legalizacionService implements ilegalizacionService{
     public byte[] exportPdf() throws JRException, FileNotFoundException {
         return legalizacionReporte.exportToPdf(ilegaRepository.findAll());
     }
+
+    @Override
+    public boolean existeLegalizacion(String id_usuario, String id_viaje) {
+        return ilegalizacion.existePorUsuarioYViaje(id_usuario, id_viaje);
+    }
+    
 }

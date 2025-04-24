@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -278,6 +279,16 @@ public class legalizacionController {
         return ResponseEntity.ok(legalizaciones);
     }
 
+    @GetMapping("/validar/{idUsuario}/{idViaje}")
+    public ResponseEntity<Map<String, Boolean>> validarLegalizacionExistente(
+            @PathVariable String id_usuario,
+            @PathVariable String id_viaje) {
+        
+        boolean existe = legalizacionService.existeLegalizacion(id_usuario, id_viaje);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("exists", existe);
+        return ResponseEntity.ok(response);
+    }
 
     @GetMapping("/{id_legalizacion}")
     public ResponseEntity<Object> findOne(@PathVariable String id_legalizacion) {
@@ -288,6 +299,15 @@ public class legalizacionController {
     @GetMapping("/busquedaFiltro/{num_comision}")
     public ResponseEntity<Object> findFiltro(@PathVariable Integer num_comision) {
         var listaLegalizacion = legalizacionService.filtroComision(num_comision);
+        return new ResponseEntity<>(listaLegalizacion, HttpStatus.OK);
+    }
+
+    @GetMapping("/busquedaFiltroU/{num_comision}")
+    public ResponseEntity<Object> findFiltroU(@PathVariable Integer num_comision, Authentication authentication) {
+
+        String username = authentication.getName();
+
+        var listaLegalizacion = legalizacionService.filtroComisionU(num_comision, username);
         return new ResponseEntity<>(listaLegalizacion, HttpStatus.OK);
     }
 

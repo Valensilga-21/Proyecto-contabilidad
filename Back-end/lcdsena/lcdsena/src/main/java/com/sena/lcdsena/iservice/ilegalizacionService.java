@@ -22,6 +22,10 @@ public interface ilegalizacionService {
     public List<legalizacion> filtroEstadosLega(estadoLegalizacion estado_lega);
     public List<legalizacion> filtroEstadoL(estadoLegalizacion estado_lega, String username);
     public List<legalizacion> filtroComision(Integer filtroComision);
+    public List<legalizacion> filtroComisionU(Integer filtroComision, String username);
+
+    boolean existeLegalizacion(String id_usuario, String id_viaje);
+    
 
     //Contadores
     public Long contarLegalizacionesRegistradas();

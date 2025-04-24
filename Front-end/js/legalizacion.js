@@ -53,39 +53,54 @@ function registrarLegalizacion() {
         return;
     }
 
-    var formData = new FormData();
-    formData.append("moti_devolucion", document.getElementById("moti_devolucion").value.trim());
-    formData.append("fecha_soli", document.getElementById("fecha_soli").value);
-    formData.append("estado_lega", document.getElementById("estado_lega").value);
-    formData.append("file", file);
-    formData.append("id_usuario", userId);
-    formData.append("id_viaje", viajeId);
+    // Confirmación antes de registrar
+    Swal.fire({
+        title: "¿Está seguro de registrar esta legalización?",
+        html: "Verifique que toda la información sea correcta antes de continuar. <br><strong>Una vez registrada, deberá ser aprobada o rechazada por el administrador.</strong>",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Sí, registrar",
+        cancelButtonText: "Cancelar"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            var formData = new FormData();
+            formData.append("moti_devolucion", document.getElementById("moti_devolucion").value.trim());
+            formData.append("fecha_soli", document.getElementById("fecha_soli").value);
+            formData.append("estado_lega", document.getElementById("estado_lega").value);
+            formData.append("file", file);
+            formData.append("id_usuario", userId);
+            formData.append("id_viaje", viajeId);
 
-    $.ajax({
-        url: "http://localhost:8080/api/v1/LCDSena/legalizacion/?" + new Date().getTime(),
-        type: "POST",
-        data: formData,
-        processData: false,
-        contentType: false,
-        headers: { "Authorization": "Bearer " + token },
-        success: function (result) {
-            Swal.fire({
-                title: "¡Éxito!",
-                text: "Legalización registrada correctamente.",
-                icon: "success",
-            }).then(() => {
-                $('#legaRegister').modal('hide');
-                listarLegalizacion(); // Si querés refrescar la tabla luego de registrar
+            $.ajax({
+                url: "http://localhost:8080/api/v1/LCDSena/legalizacion/?" + new Date().getTime(),
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                headers: { "Authorization": "Bearer " + token },
+                success: function (result) {
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "Legalización registrada correctamente.",
+                        showConfirmButton: false,
+                        timer: 2000,
+                        didClose: () => {
+                            $('#legaRegister').modal('hide');
+                            listarLegalizacionAdmin();
+                        }
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.log("Error en la petición:", xhr.responseText);
+                    Swal.fire({
+                        title: "¡Error!",
+                        text: "No se pudo registrar la legalización. Verifica tu sesión e intenta nuevamente.",
+                        icon: "error"
+                    });
+                }
             });
-        },
-        error: function (xhr, status, error) {
-            console.log("Error en la petición:", xhr.responseText);
-            Swal.fire({
-                title: "¡Error!",
-                text: "No se pudo registrar la legalización. Verifica tu sesión e intenta nuevamente.",
-                icon: "error"
-            });
-        }      
+        }
     });
 }
 
@@ -143,16 +158,19 @@ function llenarDatosViaje(idViaje) {
 
 // Función para listar legalizaciones Usuario
 function listarLegalizacion() {
-    // var filtro = document.getElementById("texto").value;
+    var filtroComi = document.getElementById("comision").value;
     var estado = document.getElementById("estadoFilter").value;
 
     var urlListaFiltros = "";
 
     if (estado !== "") {
         urlListaFiltros = urlFiltroLega + "busqueda/estado/" + estado;
-    } else {
+    } else if(filtroComi !== "") {
+        urlListaFiltros =urlFiltroLega + "busquedaFiltroU/" + filtroComi;
+    }else {
         urlListaFiltros = urlListaLega;
     }
+    
 
     $.ajax({
         url: urlListaFiltros,
@@ -214,6 +232,7 @@ function listarLegalizacion() {
 
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("estadoFilter").addEventListener("change", listarLegalizacion);
+    document.getElementById("comision").addEventListener("input", listarLegalizacion);
 });
 
 function openEditModal(id) {

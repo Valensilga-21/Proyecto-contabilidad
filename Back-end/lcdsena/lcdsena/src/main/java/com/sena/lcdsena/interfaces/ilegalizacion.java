@@ -29,8 +29,13 @@ public interface ilegalizacion extends CrudRepository<legalizacion, String> {
     @Query("SELECT l FROM legalizacion l WHERE l.viaje.num_comision = :num_comision")
     List<legalizacion> filtroComision(@Param("num_comision") Integer num_comision);
 
+    @Query("SELECT l FROM legalizacion l WHERE l.viaje.num_comision = :num_comision AND l.usuario.username = :username")
+    List<legalizacion> filtroComisionU(@Param("num_comision") Integer num_comision, @Param("username") String username);
+
     // @Query("SELECT l FROM Legalizacion l WHERE CAST(l.viaje.num_comision AS string) LIKE %:filtro%")
     // List<legalizacion> filtroComisionLike(@Param("filtro") String filtro);
 
+    @Query("SELECT COUNT(l) > 0 FROM legalizacion l WHERE l.usuario.id_usuario = :id_usuario AND l.viaje.id_viaje = :id_viaje")
+    boolean existePorUsuarioYViaje(@Param("id_usuario") String id_usuario, @Param("id_viaje") String id_viaje);
 
 }

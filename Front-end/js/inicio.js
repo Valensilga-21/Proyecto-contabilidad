@@ -41,7 +41,6 @@ function listarInicioAdmin() {
                     <td>${fecha_fin}</td>
                     <td>${ruta}</td>
                     <td>${moti_devolucion}</td>
-                    <td>${estado_lega}</td>
                 `;
                 cuerpoTabla.appendChild(trRegistro);
             }
@@ -99,7 +98,6 @@ function listarInicioUser() {
                     <td>${fecha_finU}</td>
                     <td>${rutaU}</td>
                     <td>${moti_devolucionU}</td>
-                    <td>${estado_legaU}</td>
                 `;
                 cuerpoTabla.appendChild(trRegistro);
             }
