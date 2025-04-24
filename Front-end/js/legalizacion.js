@@ -247,6 +247,48 @@ function openEditModal(id) {
     });
 }
 
+$("#saveChangesButton").click(function () {
+    const id = $("#legaId").val(); // o como obtienes el ID
+    const archivo = $("#archivoE")[0].files[0];
+    const archivoEliminado = true; // o false según lógica
+
+    const formData = new FormData();
+
+    if (archivo) {
+        formData.append("archivo", archivo);
+    }
+    formData.append("archivoEliminado", archivoEliminado);
+
+    // Si decides permitir moti_devolucion aunque esté vacío
+    const motivo = $("#moti_devolucionE").val();
+    formData.append("moti_devolucion", motivo);
+
+    $.ajax({
+        url: `http://localhost:8080/api/v1/LCDSena/legalizacion/profile/${id}`,
+        type: "PUT",
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (response) {
+            Swal.fire({
+                icon: "success",
+                title: "¡Éxito!",
+                text: "Legalización actualizada correctamente"
+            });
+            // Aquí deberías recargar los datos de la tabla
+            listarLegalizacion();
+            $("#editLegalizacion").modal("hide");
+        },
+        error: function (xhr) {
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "No se pudo actualizar la legalización"
+            });
+            console.error(xhr.responseText);
+        }
+    });
+});
 
 function getSelectedLegalizacionId() {
     return document.getElementById('downloadButton').getAttribute('data-id');
@@ -261,35 +303,6 @@ document.getElementById("downloadButton").addEventListener("click", function () 
     }
 });
 
-function actualizarLegalizacion() {
-    const id = $("#legaId").val(); // Recupera el ID del campo oculto
-    const motivo = $("#moti_devolucionE").val(); // Asegúrate de usar el valor correcto del campo
-    const archivo = $("#file")[0].files[0];
-    const archivoEliminado = $("#archivoEliminado").val() === "true";
-
-    const formData = new FormData();
-    formData.append("moti_devolucion", motivo);
-    formData.append("archivoEliminado", archivoEliminado);
-    if (archivo) {
-        formData.append("archivo", archivo);
-    }
-
-    $.ajax({
-        url: `http://localhost:8080/api/v1/LCDSena/legalizacion/profile/${id}`,
-        type: "PUT",
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: function (response) {
-            console.log("Actualización exitosa", response);
-            $('#editLegalizacion').modal('hide'); // Cierra el modal
-            listarLegalizacion(); // Recarga la lista de legalizaciones
-        },
-        error: function (xhr, status, error) {
-            console.error("Error al actualizar:", xhr.responseText);
-        }
-    });
-}
 
 $("#removeFile").click(function () {
     $("#archivoEliminado").val("true");
