@@ -150,7 +150,7 @@ public class legalizacionController {
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Legalización no encontrada"));
 
             // Obtener la ruta del archivo
-            String filePath = legalizacion.getPdf();
+            String filePath = "uploads/legalizaciones/" + legalizacion.getPdf();
             Path path = Paths.get(filePath);
 
             // Verificar si el archivo existe
@@ -337,7 +337,8 @@ public class legalizacionController {
 
         legalizacion legalizacion = optionalLega.get();
 
-        if (legalizacion.getEstado_lega() == estadoLegalizacion.Aprobada) {
+        // Validación segura del estado usando equals()
+        if (estadoLegalizacion.Aprobada.equals(legalizacion.getEstado_lega())) {
             return new ResponseEntity<>("No se puede modificar una legalización aprobada.", HttpStatus.BAD_REQUEST);
         }
 
@@ -358,20 +359,22 @@ public class legalizacionController {
                 Files.copy(archivo.getInputStream(), pathDestino, StandardCopyOption.REPLACE_EXISTING);
                 legalizacion.setPdf(pathDestino.toString());
                 archivoModificado = true;
+                System.out.println("Archivo nuevo guardado: " + pathDestino);
             } catch (IOException e) {
                 return new ResponseEntity<>("Error al guardar el archivo PDF", HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
 
-        // Si el archivo fue modificado, forzar estado a Pendiente y fecha actual
+        // Forzar estado a Pendiente si el archivo fue modificado
         if (archivoModificado) {
             legalizacion.setEstado_lega(estadoLegalizacion.Pendiente);
             legalizacion.setFecha_soli(LocalDate.now());
+            System.out.println("Estado cambiado a Pendiente");
         }
 
-        // Actualizar motivo si se proporcionó
-        if (moti_devolucion != null) {
-            legalizacion.setMoti_devolucion(moti_devolucion);
+        // Actualizar motivo si se proporciona
+        if (moti_devolucion != null && !moti_devolucion.trim().isEmpty()) {
+            legalizacion.setMoti_devolucion(moti_devolucion.trim());
         }
 
         legalizacionService.save(legalizacion);
